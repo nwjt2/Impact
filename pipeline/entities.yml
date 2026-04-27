@@ -841,6 +841,285 @@ target_lps:
     public_newsroom_url: https://www.opensocietyfoundations.org/who-we-are/programs/soros-economic-development-fund
     first_pass_cadence_days: 30
 
+  - name: Builders Vision
+    aliases: ["Builders Vision", "Builders Initiative", "Lukas Walton family office"]
+    sector_tags: [climate, agri, energy]
+    geo_tags: [global, us]
+    lp_type: family_office
+    typical_ticket_usd_m: "5-50"
+    public_newsroom_url: https://www.buildersvision.com/news
+    first_pass_cadence_days: 14
+
+  - name: Pivotal Ventures
+    aliases: ["Pivotal Ventures", "Melinda French Gates"]
+    sector_tags: [gender, edu, health]
+    geo_tags: [us, global]
+    lp_type: family_office
+    typical_ticket_usd_m: "3-25"
+    public_newsroom_url: https://www.pivotalventures.org/newsroom
+    first_pass_cadence_days: 21
+
+  - name: Schmidt Family Foundation / 11th Hour Project
+    aliases: ["Schmidt Family Foundation", "11th Hour Project", "TSFF", "Wendy Schmidt"]
+    sector_tags: [climate, energy, agri]
+    geo_tags: [global, us]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://tsffoundation.org/our-work/
+    first_pass_cadence_days: 30
+
+  - name: Schmidt Futures
+    aliases: ["Schmidt Futures", "Eric Schmidt"]
+    sector_tags: [edu, climate, health]
+    geo_tags: [global]
+    lp_type: family_office
+    typical_ticket_usd_m: "3-25"
+    public_newsroom_url: https://www.schmidtfutures.com/news/
+    first_pass_cadence_days: 21
+
+  - name: Ballmer Group
+    aliases: ["Ballmer Group", "Steve and Connie Ballmer"]
+    sector_tags: [edu, smb, gender]
+    geo_tags: [us]
+    lp_type: family_office
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://www.ballmergroup.org/news/
+    first_pass_cadence_days: 30
+
+  - name: Sorenson Impact Foundation
+    aliases: ["Sorenson Impact Foundation", "Sorenson Impact", "James Lee Sorenson"]
+    sector_tags: [fi, smb, gender, edu]
+    geo_tags: [global, us]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://sorensonimpact.com/news/
+    first_pass_cadence_days: 21
+
+  - name: KL Felicitas Foundation
+    aliases: ["KL Felicitas Foundation", "KLF", "Kleissner Foundation", "Charly and Lisa Kleissner"]
+    sector_tags: [generalist, gender, climate, smb]
+    geo_tags: [global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://klfelicitasfoundation.org/
+    first_pass_cadence_days: 60
+
+  - name: The Russell Family Foundation
+    aliases: ["Russell Family Foundation", "TRFF"]
+    sector_tags: [climate, wash]
+    geo_tags: [us, global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://www.trff.org/news/
+    first_pass_cadence_days: 45
+
+  - name: Heron Foundation
+    aliases: ["Heron Foundation", "F.B. Heron Foundation"]
+    sector_tags: [fi, smb, housing]
+    geo_tags: [us, global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.heron.org/news
+    first_pass_cadence_days: 30
+
+  - name: McConnell Foundation
+    aliases: ["McConnell Foundation", "J.W. McConnell Family Foundation"]
+    sector_tags: [climate, smb, generalist]
+    geo_tags: [us, global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://mcconnellfoundation.ca/news/
+    first_pass_cadence_days: 30
+
+  - name: Cordes Foundation
+    aliases: ["Cordes Foundation", "Ron Cordes", "Ron and Marty Cordes"]
+    sector_tags: [gender, smb, fi]
+    geo_tags: [global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://www.cordesfoundation.org/news
+    first_pass_cadence_days: 45
+
+  - name: Tara Health Foundation
+    aliases: ["Tara Health Foundation", "Ruth Shaber"]
+    sector_tags: [gender, health, fi]
+    geo_tags: [us, global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://tarahealth.org/news
+    first_pass_cadence_days: 60
+
+  - name: NoVo Foundation
+    aliases: ["NoVo Foundation", "Peter Buffett", "NoVo"]
+    sector_tags: [gender, agri, edu]
+    geo_tags: [global]
+    lp_type: family_office
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://novofoundation.org/news/
+    first_pass_cadence_days: 30
+
+  - name: Howard G. Buffett Foundation
+    aliases: ["Howard G. Buffett Foundation", "HGBF"]
+    sector_tags: [agri, smb, climate]
+    geo_tags: [global, africa, latam]
+    lp_type: family_office
+    typical_ticket_usd_m: "3-25"
+    public_newsroom_url: https://www.thehowardgbuffettfoundation.org/news/
+    first_pass_cadence_days: 30
+
+  - name: Helmsley Charitable Trust
+    aliases: ["Helmsley Charitable Trust", "Leona M. and Harry B. Helmsley Charitable Trust"]
+    sector_tags: [health, agri]
+    geo_tags: [africa, us]
+    lp_type: family_office
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://helmsleytrust.org/news/
+    first_pass_cadence_days: 21
+
+  - name: Walton Family Foundation
+    aliases: ["Walton Family Foundation", "WFF"]
+    sector_tags: [climate, edu]
+    geo_tags: [us, global]
+    lp_type: family_office
+    typical_ticket_usd_m: "3-25"
+    public_newsroom_url: https://www.waltonfamilyfoundation.org/stories
+    first_pass_cadence_days: 14
+
+  - name: Patrick J. McGovern Foundation
+    aliases: ["Patrick J. McGovern Foundation", "PJMF", "McGovern Foundation"]
+    sector_tags: [climate, edu, health]
+    geo_tags: [global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.mcgovern.org/news/
+    first_pass_cadence_days: 30
+
+  - name: Lemelson Foundation
+    aliases: ["Lemelson Foundation", "The Lemelson Foundation"]
+    sector_tags: [smb, climate, energy]
+    geo_tags: [global, africa, asia]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.lemelson.org/news/
+    first_pass_cadence_days: 30
+
+  - name: Cisneros Foundation
+    aliases: ["Cisneros Foundation", "Fundación Cisneros", "Gustavo Cisneros"]
+    sector_tags: [edu, smb]
+    geo_tags: [latam]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://fundacioncisneros.org/en/
+    first_pass_cadence_days: 60
+
+  - name: Tides
+    aliases: ["Tides", "Tides Foundation", "Tides Network"]
+    sector_tags: [generalist, gender, climate, fi]
+    geo_tags: [global, us]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.tides.org/insights/
+    first_pass_cadence_days: 30
+
+  - name: Inherent Group
+    aliases: ["Inherent Group", "Tony Davis"]
+    sector_tags: [climate, energy]
+    geo_tags: [global, us]
+    lp_type: family_office
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.inherentgroup.com/news
+    first_pass_cadence_days: 45
+
+  - name: Tata Trusts
+    aliases: ["Tata Trusts", "Sir Dorabji Tata Trust", "Sir Ratan Tata Trust"]
+    sector_tags: [health, edu, agri]
+    geo_tags: [asia]
+    lp_type: family_office
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://www.tatatrusts.org/our-news/news
+    first_pass_cadence_days: 21
+
+  - name: Wadhwani Foundation
+    aliases: ["Wadhwani Foundation", "Romesh Wadhwani"]
+    sector_tags: [smb, edu]
+    geo_tags: [asia, latam, africa]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://wadhwanifoundation.org/news/
+    first_pass_cadence_days: 30
+
+  - name: Azim Premji Foundation
+    aliases: ["Azim Premji Foundation", "APF", "Azim Premji Philanthropic Initiatives", "APPI"]
+    sector_tags: [edu, generalist]
+    geo_tags: [asia]
+    lp_type: family_office
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://azimpremjifoundation.org/announcements
+    first_pass_cadence_days: 30
+
+  - name: Prince Albert II of Monaco Foundation
+    aliases: ["Prince Albert II of Monaco Foundation", "FPA2"]
+    sector_tags: [climate]
+    geo_tags: [global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://www.fpa2.org/en/news.html
+    first_pass_cadence_days: 45
+
+  - name: Esmée Fairbairn Foundation
+    aliases: ["Esmée Fairbairn Foundation", "Esmee Fairbairn"]
+    sector_tags: [climate, fi, smb]
+    geo_tags: [uk, global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://esmeefairbairn.org.uk/news/
+    first_pass_cadence_days: 30
+
+  - name: Lankelly Chase
+    aliases: ["Lankelly Chase", "Lankelly Chase Foundation"]
+    sector_tags: [smb, gender]
+    geo_tags: [uk]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-3"
+    public_newsroom_url: https://lankellychase.org.uk/blog/
+    first_pass_cadence_days: 45
+
+  - name: John Ellerman Foundation
+    aliases: ["John Ellerman Foundation", "Ellerman"]
+    sector_tags: [climate, smb]
+    geo_tags: [uk]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-3"
+    public_newsroom_url: https://ellerman.org.uk/news/
+    first_pass_cadence_days: 60
+
+  - name: Argidius Foundation
+    aliases: ["Argidius Foundation", "Argidius", "Schmidheiny family"]
+    sector_tags: [smb]
+    geo_tags: [africa, latam]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://www.argidius.com/en/news
+    first_pass_cadence_days: 45
+
+  - name: Rockefeller Brothers Fund
+    aliases: ["Rockefeller Brothers Fund", "RBF"]
+    sector_tags: [climate, gender, generalist]
+    geo_tags: [global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.rbf.org/news
+    first_pass_cadence_days: 21
+
+  - name: Caprock Group
+    aliases: ["Caprock Group", "The Caprock Group", "Caprock Impact"]
+    sector_tags: [generalist, climate, fi]
+    geo_tags: [us, global]
+    lp_type: family_office
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.thecaprockgroup.com/news/
+    first_pass_cadence_days: 30
+
   # ---------- Corporate impact arms ----------
 
   - name: MetLife Foundation

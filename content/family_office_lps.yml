@@ -389,3 +389,612 @@ family_offices:
     invests_via_grants: null
     public_newsroom_url: https://www.ecfvp.org/
     last_seen_at: 2026-04-27
+
+  # ---- Additional single-family offices and family-controlled foundations ----
+  #
+  # Mix of single-family vehicles and family-controlled grantmaking foundations
+  # whose impact-investing arms have publicly LP'd or co-anchored impact funds.
+  # Honest-null discipline: AUM, thesis text, and channel mix left null until
+  # confirmed via primary materials.
+
+  - slug: sorenson-impact-foundation
+    name: Sorenson Impact Foundation
+    aliases: ["Sorenson Impact Foundation", "Sorenson Impact", "James Lee Sorenson Family Foundation"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi, smb, gender, edu]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://sorensonimpact.com/news/
+    last_seen_at: 2026-04-27
+
+  - slug: kl-felicitas-foundation
+    name: KL Felicitas Foundation
+    aliases: ["KL Felicitas Foundation", "KLF", "Charly and Lisa Kleissner"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist, gender, climate, smb]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://klfelicitasfoundation.org/
+    last_seen_at: 2026-04-27
+
+  - slug: cordes-foundation
+    name: Cordes Foundation
+    aliases: ["Cordes Foundation", "Ron Cordes", "Ron and Marty Cordes"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [gender, smb, fi]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.cordesfoundation.org/news
+    last_seen_at: 2026-04-27
+
+  - slug: russell-family-foundation
+    name: The Russell Family Foundation
+    aliases: ["Russell Family Foundation", "TRFF"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, wash]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.trff.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: heron-foundation
+    name: Heron Foundation
+    aliases: ["Heron Foundation", "F.B. Heron Foundation"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi, smb, housing]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.heron.org/news
+    last_seen_at: 2026-04-27
+
+  - slug: mcconnell-foundation
+    name: McConnell Foundation
+    aliases: ["McConnell Foundation", "J.W. McConnell Family Foundation"]
+    country: "CA"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, smb, generalist]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://mcconnellfoundation.ca/news/
+    last_seen_at: 2026-04-27
+
+  - slug: novo-foundation
+    name: NoVo Foundation
+    aliases: ["NoVo Foundation", "Peter Buffett", "NoVo"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [gender, agri, edu]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://novofoundation.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: howard-g-buffett-foundation
+    name: Howard G. Buffett Foundation
+    aliases: ["Howard G. Buffett Foundation", "HGBF"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [agri, smb, climate]
+    stated_geo_focus: [global, africa, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 25
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.thehowardgbuffettfoundation.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: helmsley-charitable-trust
+    name: Helmsley Charitable Trust
+    aliases: ["Helmsley Charitable Trust", "Leona M. and Harry B. Helmsley Charitable Trust"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health, agri]
+    stated_geo_focus: [africa, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://helmsleytrust.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: walton-family-foundation
+    name: Walton Family Foundation
+    aliases: ["Walton Family Foundation", "WFF"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, edu]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 25
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.waltonfamilyfoundation.org/stories
+    last_seen_at: 2026-04-27
+
+  - slug: patrick-j-mcgovern-foundation
+    name: Patrick J. McGovern Foundation
+    aliases: ["Patrick J. McGovern Foundation", "PJMF", "McGovern Foundation"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, edu, health]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.mcgovern.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: lemelson-foundation
+    name: Lemelson Foundation
+    aliases: ["Lemelson Foundation", "The Lemelson Foundation"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [smb, climate, energy]
+    stated_geo_focus: [global, africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.lemelson.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: cisneros-foundation
+    name: Cisneros Foundation
+    aliases: ["Cisneros Foundation", "Fundación Cisneros", "Gustavo Cisneros"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu, smb]
+    stated_geo_focus: [latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://fundacioncisneros.org/en/
+    last_seen_at: 2026-04-27
+
+  - slug: schmidt-family-foundation
+    name: Schmidt Family Foundation / 11th Hour Project
+    aliases: ["Schmidt Family Foundation", "11th Hour Project", "TSFF", "Wendy Schmidt"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, energy, agri]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://tsffoundation.org/our-work/
+    last_seen_at: 2026-04-27
+
+  - slug: inherent-group
+    name: Inherent Group
+    aliases: ["Inherent Group", "Tony Davis"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, energy]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.inherentgroup.com/news
+    last_seen_at: 2026-04-27
+
+  - slug: rockefeller-brothers-fund
+    name: Rockefeller Brothers Fund
+    aliases: ["Rockefeller Brothers Fund", "RBF"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, gender, generalist]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.rbf.org/news
+    last_seen_at: 2026-04-27
+
+  # ---- Additional philanthropy LLCs ----
+
+  - slug: pivotal-ventures
+    name: Pivotal Ventures
+    aliases: ["Pivotal Ventures", "Melinda French Gates"]
+    country: "US"
+    category: philanthropy_llc
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [gender, edu, health]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 25
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.pivotalventures.org/newsroom
+    last_seen_at: 2026-04-27
+
+  - slug: schmidt-futures
+    name: Schmidt Futures
+    aliases: ["Schmidt Futures", "Eric Schmidt"]
+    country: "US"
+    category: philanthropy_llc
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu, climate, health]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 25
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.schmidtfutures.com/news/
+    last_seen_at: 2026-04-27
+
+  - slug: ballmer-group
+    name: Ballmer Group
+    aliases: ["Ballmer Group", "Steve and Connie Ballmer"]
+    country: "US"
+    category: philanthropy_llc
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu, smb, gender]
+    stated_geo_focus: [us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.ballmergroup.org/news/
+    last_seen_at: 2026-04-27
+
+  # ---- Multi-family offices and impact-wealth platforms ----
+  #
+  # Aggregators of multi-family capital with explicit impact-investing teams.
+  # Often the practical first-call when an INGO-spinout GP needs to reach
+  # a curated set of impact-aligned HNWI LPs without running 30 individual
+  # processes.
+
+  - slug: caprock-group
+    name: Caprock Group
+    aliases: ["Caprock Group", "The Caprock Group", "Caprock Impact"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist, climate, fi]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.thecaprockgroup.com/news/
+    last_seen_at: 2026-04-27
+
+  - slug: tiedemann-advisors
+    name: Tiedemann Advisors
+    aliases: ["Tiedemann Advisors", "Tiedemann Constantia", "Threshold Group", "AlTi Tiedemann Global"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist, climate, gender, fi]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.tiedemannadvisors.com/insights
+    last_seen_at: 2026-04-27
+
+  - slug: veris-wealth-partners
+    name: Veris Wealth Partners
+    aliases: ["Veris Wealth Partners", "Veris"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist, gender, climate]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.veriswp.com/news/
+    last_seen_at: 2026-04-27
+
+  # ---- Additional DAF / aggregated impact platforms ----
+
+  - slug: impactassets
+    name: ImpactAssets
+    aliases: ["ImpactAssets", "ImpactAssets DAF"]
+    country: "US"
+    category: daf
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist, climate, fi, gender]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://impactassets.org/news/
+    last_seen_at: 2026-04-27
+
+  # ---- Non-US single-family vehicles and family-controlled foundations ----
+
+  - slug: tata-trusts
+    name: Tata Trusts
+    aliases: ["Tata Trusts", "Sir Dorabji Tata Trust", "Sir Ratan Tata Trust"]
+    country: "IN"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health, edu, agri]
+    stated_geo_focus: [asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.tatatrusts.org/our-news/news
+    last_seen_at: 2026-04-27
+
+  - slug: wadhwani-foundation
+    name: Wadhwani Foundation
+    aliases: ["Wadhwani Foundation", "Romesh Wadhwani"]
+    country: "IN"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [smb, edu]
+    stated_geo_focus: [asia, latam, africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://wadhwanifoundation.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: azim-premji-foundation
+    name: Azim Premji Foundation
+    aliases: ["Azim Premji Foundation", "APF", "Azim Premji Philanthropic Initiatives", "APPI"]
+    country: "IN"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu, generalist]
+    stated_geo_focus: [asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://azimpremjifoundation.org/announcements
+    last_seen_at: 2026-04-27
+
+  - slug: prince-albert-ii-monaco
+    name: Prince Albert II of Monaco Foundation
+    aliases: ["Prince Albert II of Monaco Foundation", "FPA2"]
+    country: "MC"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.fpa2.org/en/news.html
+    last_seen_at: 2026-04-27
+
+  - slug: esmee-fairbairn-foundation
+    name: Esmée Fairbairn Foundation
+    aliases: ["Esmée Fairbairn Foundation", "Esmee Fairbairn"]
+    country: "GB"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, fi, smb]
+    stated_geo_focus: [uk, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://esmeefairbairn.org.uk/news/
+    last_seen_at: 2026-04-27
+
+  - slug: lankelly-chase
+    name: Lankelly Chase
+    aliases: ["Lankelly Chase", "Lankelly Chase Foundation"]
+    country: "GB"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [smb, gender]
+    stated_geo_focus: [uk]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 3
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://lankellychase.org.uk/blog/
+    last_seen_at: 2026-04-27
+
+  - slug: john-ellerman-foundation
+    name: John Ellerman Foundation
+    aliases: ["John Ellerman Foundation", "Ellerman"]
+    country: "GB"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, smb]
+    stated_geo_focus: [uk]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 3
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://ellerman.org.uk/news/
+    last_seen_at: 2026-04-27
+
+  - slug: argidius-foundation
+    name: Argidius Foundation
+    aliases: ["Argidius Foundation", "Argidius", "Schmidheiny family"]
+    country: "CH"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [smb]
+    stated_geo_focus: [africa, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.argidius.com/en/news
+    last_seen_at: 2026-04-27
