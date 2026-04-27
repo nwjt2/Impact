@@ -429,8 +429,11 @@
     //   bottom — stated interest: foundations + family offices (muted violet, rightward
     //            from the axis). Thinner bar to signal it's a secondary evidence type.
     var ROW_H = 52, ROW_GAP = 8, LABEL_W = 240, GUTTER = 28;
-    var BAR_AREA = 280;
-    var NUM_MARGIN = 44;          // reserved for the count text past the bar
+    var BAR_AREA = 320;
+    // Reserved space past the bar for the count label. The stated-interest
+    // label is the widest case: "NN (NNf / NNfo)" ~ 16 chars in mono, plus
+    // a 6px lead-in. Sized so the label never spills past the SVG viewBox.
+    var NUM_MARGIN = 110;
     var BAR_W_MAX = BAR_AREA - NUM_MARGIN;
     var PADDING = 14;
     var width = LABEL_W + BAR_AREA + GUTTER + BAR_AREA + PADDING * 2;
