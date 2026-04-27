@@ -8,10 +8,10 @@ pageKey: index
   <div class="doc-title-tag">
     <span>For INGO fund teams · pre-first-close</span>
     <span class="sep">·</span>
-    <span>{{ slot_meta.slot_counts.deadlines }} deadlines · {{ slot_meta.slot_counts.dfi_ingo_commits }} DFIs · {{ slot_meta.slot_counts.peer_ingo_funds }} peer funds</span>
+    <span>{{ slot_meta.slot_counts.deadlines }} deadlines · {{ slot_meta.slot_counts.dfi_ingo_commits }} DFIs · {{ slot_meta.slot_counts.foundation_lps }} foundations · {{ slot_meta.slot_counts.family_office_lps }} family offices · {{ slot_meta.slot_counts.peer_ingo_funds }} peer funds</span>
   </div>
   <h1 class="doc-title-h1">Every dated window, donor, and peer-fund close <span class="accent">— traced to a public source.</span></h1>
-  <p class="doc-title-sub">Reference desk for INGO-sponsored impact funds. {{ slot_meta.slot_counts.deadlines }} dated items (application close-dates, regulator filings, board meetings, conferences), {{ slot_meta.slot_counts.dfi_ingo_commits }} DFI commitment profiles, {{ slot_meta.slot_counts.peer_ingo_funds }} peer first-close precedents. Each record carries a primary-source link and a last-verified timestamp. Local build, no telemetry.</p>
+  <p class="doc-title-sub">Reference desk for INGO-sponsored impact funds. {{ slot_meta.slot_counts.deadlines }} dated items (application close-dates, regulator filings, board meetings, conferences), {{ slot_meta.slot_counts.dfi_ingo_commits }} DFI profiles, {{ slot_meta.slot_counts.foundation_lps }} foundation LPs, {{ slot_meta.slot_counts.family_office_lps }} family-office &amp; faith-based investors, {{ slot_meta.slot_counts.peer_ingo_funds }} peer first-close precedents. Each record carries a primary-source link and a last-verified timestamp. Local build, no telemetry.</p>
 </section>
 
 <section class="data-ribbon" id="data-ribbon"></section>
@@ -40,10 +40,14 @@ pageKey: index
 
 <section class="sec">
   <header class="sec-head">
-    <h2 class="sec-title">Capital sources <em>// DFIs &amp; peer-fund precedents</em></h2>
+    <h2 class="sec-title">Capital sources <em>// LPs &amp; peer precedents</em></h2>
   </header>
   <div class="grid-2">
     <div id="shelf-dfis"></div>
+    <div id="shelf-foundations"></div>
+  </div>
+  <div class="grid-2">
+    <div id="shelf-famofs"></div>
     <div id="shelf-peers"></div>
   </div>
 </section>
@@ -61,6 +65,8 @@ pageKey: index
 <script type="application/json" id="data-peer-funds">{{ peer_ingo_funds | dump | safe }}</script>
 <script type="application/json" id="data-dfi-commits">{{ dfi_ingo_commits | dump | safe }}</script>
 <script type="application/json" id="data-deadlines">{{ deadlines | dump | safe }}</script>
+<script type="application/json" id="data-foundations">{{ foundation_lps | dump | safe }}</script>
+<script type="application/json" id="data-family-offices">{{ family_office_lps | dump | safe }}</script>
 <script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
 <script type="application/json" id="data-meta">{{ meta | dump | safe }}</script>
 <script type="application/json" id="data-impact-areas">{{ impact_areas | dump | safe }}</script>
@@ -71,11 +77,13 @@ pageKey: index
   "use strict";
   var I = window.IFC;
 
-  var PEER  = I.loadJSON("data-peer-funds")  || [];
-  var DFIS  = I.loadJSON("data-dfi-commits") || [];
-  var DEADS = I.loadJSON("data-deadlines")   || [];
-  var META  = I.loadJSON("data-slot-meta")   || {};
-  var BUILD = I.loadJSON("data-meta")        || {};
+  var PEER   = I.loadJSON("data-peer-funds")     || [];
+  var DFIS   = I.loadJSON("data-dfi-commits")    || [];
+  var DEADS  = I.loadJSON("data-deadlines")      || [];
+  var FDNS   = I.loadJSON("data-foundations")    || [];
+  var FAMOFS = I.loadJSON("data-family-offices") || [];
+  var META   = I.loadJSON("data-slot-meta")      || {};
+  var BUILD  = I.loadJSON("data-meta")           || {};
 
   var TODAY = (BUILD.last_run_timestamp || BUILD.generated_at || new Date().toISOString()).slice(0, 10);
 
@@ -267,6 +275,75 @@ pageKey: index
       + '</div>';
   }
 
+  var FOUNDATION_TYPE_LABELS = {
+    private: "Private", corporate: "Corporate", community: "Community",
+    operating: "Operating", public_charity: "Public charity",
+    supporting_org: "Supporting org", philanthropy: "Philanthropy LLC"
+  };
+
+  function renderShelfFoundations() {
+    var ranked = FDNS.slice().sort(function (a, b) {
+      var ac = (a.known_ingo_gp_commits || []).length;
+      var bc = (b.known_ingo_gp_commits || []).length;
+      if (ac !== bc) return bc - ac;
+      return (a.name || "").localeCompare(b.name || "");
+    }).slice(0, 7);
+
+    var rows = ranked.map(function (d, i) {
+      var commits = (d.known_ingo_gp_commits || []).length;
+      var url = d.stated_thesis_url || d.public_newsroom_url || '{{ "/foundations/" | url }}';
+      var typeLabel = FOUNDATION_TYPE_LABELS[d.foundation_type] || "";
+      return '<tr><td class="ref-rank">' + pad(i + 1) + '</td>'
+        + '<td>'
+        + '<div class="ref-name"><a href="' + I.escAttr(url) + '" target="_blank" rel="noopener">' + I.esc(d.name) + '</a></div>'
+        + '<div class="ref-meta">' + I.esc(I.countryName(META, d.country))
+          + (typeLabel ? '<span class="emf">' + I.esc(typeLabel) + '</span>' : '')
+          + '</div>'
+        + '</td>'
+        + '<td class="num"><span class="ref-figure">' + commits + '</span><span class="ref-figure-label">commits</span></td>'
+        + '</tr>';
+    }).join("");
+
+    return '<div class="panel">'
+      + '<div class="panel-head"><span class="label">Foundations &amp; corporate-impact arms</span><a class="tail" href="{{ "/foundations/" | url }}">All ' + FDNS.length + ' →</a></div>'
+      + '<table class="ref-list"><tbody>' + rows + '</tbody></table>'
+      + '</div>';
+  }
+
+  var FAMILY_OFFICE_CATEGORY_LABELS = {
+    family_office: "Family office", faith_based: "Faith-based",
+    daf: "DAF", philanthropy_llc: "Philanthropy LLC", hnwi_collective: "HNWI"
+  };
+
+  function renderShelfFamilyOffices() {
+    var ranked = FAMOFS.slice().sort(function (a, b) {
+      var ac = (a.known_ingo_gp_commits || []).length;
+      var bc = (b.known_ingo_gp_commits || []).length;
+      if (ac !== bc) return bc - ac;
+      return (a.name || "").localeCompare(b.name || "");
+    }).slice(0, 7);
+
+    var rows = ranked.map(function (d, i) {
+      var commits = (d.known_ingo_gp_commits || []).length;
+      var url = d.stated_thesis_url || d.public_newsroom_url || '{{ "/family-offices/" | url }}';
+      var catLabel = FAMILY_OFFICE_CATEGORY_LABELS[d.category] || "";
+      return '<tr><td class="ref-rank">' + pad(i + 1) + '</td>'
+        + '<td>'
+        + '<div class="ref-name"><a href="' + I.escAttr(url) + '" target="_blank" rel="noopener">' + I.esc(d.name) + '</a></div>'
+        + '<div class="ref-meta">' + I.esc(I.countryName(META, d.country))
+          + (catLabel ? '<span class="emf">' + I.esc(catLabel) + '</span>' : '')
+          + '</div>'
+        + '</td>'
+        + '<td class="num"><span class="ref-figure">' + commits + '</span><span class="ref-figure-label">commits</span></td>'
+        + '</tr>';
+    }).join("");
+
+    return '<div class="panel">'
+      + '<div class="panel-head"><span class="label">Family offices, faith-based &amp; philanthropy LLCs</span><a class="tail" href="{{ "/family-offices/" | url }}">All ' + FAMOFS.length + ' →</a></div>'
+      + '<table class="ref-list"><tbody>' + rows + '</tbody></table>'
+      + '</div>';
+  }
+
   function renderShelfPeers() {
     var ranked = PEER.slice().sort(function (a, b) {
       var ad = a.first_close_date || "0000";
@@ -306,8 +383,10 @@ pageKey: index
   // ---------- Mount ----------
   document.getElementById("data-ribbon").innerHTML = renderRibbon();
   mountAgenda();
-  document.getElementById("shelf-dfis").innerHTML  = renderShelfDfis();
-  document.getElementById("shelf-peers").innerHTML = renderShelfPeers();
+  document.getElementById("shelf-dfis").innerHTML        = renderShelfDfis();
+  document.getElementById("shelf-foundations").innerHTML = renderShelfFoundations();
+  document.getElementById("shelf-famofs").innerHTML      = renderShelfFamilyOffices();
+  document.getElementById("shelf-peers").innerHTML       = renderShelfPeers();
 
   // Impact-areas chart — homepage variant: 3y "active DFI" filter is locked on.
   var IMPACT = I.loadJSON("data-impact-areas") || [];

@@ -246,6 +246,106 @@ class DfiIngoCommit(BaseModel):
     last_seen_at: Optional[date] = None
 
 
+# ---- Foundation LPs (separate page, parallel to slot 2) ------------------
+
+FoundationType = Literal[
+    "private",       # private grantmaking foundation (Ford, MacArthur)
+    "corporate",     # corporate foundation (Visa, Citi, JPMorgan Chase)
+    "community",     # community foundation
+    "operating",     # operating foundation that runs programs directly
+    "public_charity", # 501(c)(3) public charity
+    "supporting_org", # supporting org or DAF host
+    "philanthropy",  # umbrella for newer-form vehicles (Bloomberg, Bezos Earth Fund)
+]
+FoundationVehicle = Literal["grant", "pri", "mri", "fund_lp", "guarantee", "loan"]
+
+
+class FoundationProgram(BaseModel):
+    """Foundation PRI / MRI / fund-LP program block.
+
+    Same shape as EmergingManagerFacility for consistency. `exists=null`
+    permitted (we treat exists==False with a "could not be confirmed" note
+    as the explicit honest-null pattern).
+    """
+    model_config = ConfigDict(extra="allow")
+    exists: bool = False
+    program_name: Optional[str] = None
+    application_url: Optional[str] = None
+    notes: Optional[str] = None
+
+
+class FoundationLp(BaseModel):
+    """One foundation LP card.
+
+    Flows from content/foundation_lps.yml. Sectors / geos / AUM / vehicle
+    types follow honest-null discipline — only confirmed via primary
+    sources (foundation site, 990s, annual reports).
+    """
+
+    model_config = ConfigDict(extra="allow")
+
+    slug: str
+    name: str
+    aliases: list[str] = Field(default_factory=list)
+    country: Optional[str] = None
+    foundation_type: Optional[FoundationType] = None
+    aum_usd_m: Optional[float] = None
+    aum_usd_m_year: Optional[int] = None
+    stated_priority_themes: list[str] = Field(default_factory=list)
+    stated_geo_focus: list[str] = Field(default_factory=list)
+    stated_thesis_url: Optional[str] = None
+    stated_thesis_excerpt: Optional[str] = None
+    pri_program: Optional[FoundationProgram] = None
+    mri_program: Optional[FoundationProgram] = None
+    typical_check_usd_m_min: Optional[float] = None
+    typical_check_usd_m_max: Optional[float] = None
+    known_ingo_gp_commits: list[IngoGpCommit] = Field(default_factory=list)
+    public_newsroom_url: Optional[str] = None
+    last_seen_at: Optional[date] = None
+
+
+# ---- Family-Office / Faith-Based / DAF LPs -------------------------------
+
+FamilyOfficeCategory = Literal[
+    "family_office",     # single- or multi-family
+    "faith_based",       # religious-mission asset manager
+    "daf",               # donor-advised fund host
+    "philanthropy_llc",  # 501(c)(4) or LLC vehicle (CZI, Yield Giving)
+    "hnwi_collective",   # named individual or pooled HNWI vehicle
+]
+
+
+class FamilyOfficeLp(BaseModel):
+    """One family-office / faith-based / DAF LP card.
+
+    Flows from content/family_office_lps.yml. Smaller, faster check-writers
+    than DFIs; often catalytic for INGO-GP first close. Honest-null for
+    AUM and named-anchor history where not publicly disclosed.
+    """
+
+    model_config = ConfigDict(extra="allow")
+
+    slug: str
+    name: str
+    aliases: list[str] = Field(default_factory=list)
+    country: Optional[str] = None
+    category: Optional[FamilyOfficeCategory] = None
+    aum_usd_m: Optional[float] = None
+    aum_usd_m_year: Optional[int] = None
+    stated_priority_themes: list[str] = Field(default_factory=list)
+    stated_geo_focus: list[str] = Field(default_factory=list)
+    stated_thesis_url: Optional[str] = None
+    stated_thesis_excerpt: Optional[str] = None
+    typical_check_usd_m_min: Optional[float] = None
+    typical_check_usd_m_max: Optional[float] = None
+    invests_via_fund_lp: Optional[bool] = None  # null = not confirmed
+    invests_via_direct: Optional[bool] = None
+    invests_via_grants: Optional[bool] = None
+    known_ingo_gp_commits: list[IngoGpCommit] = Field(default_factory=list)
+    public_newsroom_url: Optional[str] = None
+    last_seen_at: Optional[date] = None
+
+
 # ---- Slot 3: Deadlines ----------------------------------------------------
 
 DeadlineKind = Literal[

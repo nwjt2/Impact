@@ -767,6 +767,17 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
   font-weight: 500;
 }
 
+.dfi-commits-empty {
+  margin: 10px 0 12px;
+  padding: 8px 12px;
+  border-left: 2px solid var(--rule);
+  background: var(--bg-1);
+  font-size: 11.5px;
+  color: var(--fg-3);
+  line-height: 1.5;
+  font-style: normal;
+}
+
 .dfi-commits { margin: 12px 0; }
 .dfi-commits > summary {
   cursor: pointer;

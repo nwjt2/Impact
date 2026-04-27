@@ -1,0 +1,91 @@
+---
+layout: base.njk
+title: Family offices & faith-based
+permalink: /family-offices/index.html
+pageKey: family-offices
+---
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
+  <header class="detail-header">
+    <div class="detail-eyebrow">
+      <span>Capital sources · family offices, faith-based, philanthropy LLCs</span>
+    </div>
+    <h1>Family offices, faith-based investors, and philanthropy LLCs.</h1>
+    <p class="detail-sub">{{ family_office_lps | length }} profiles. Smaller, faster check-writers than DFIs — often catalytic for a first close, especially when faith-aligned or family-founder mission overlaps with the fund thesis. Public disclosure for this LP class is thin; most rows surface stated thematic priorities only, with empty commitment lists where no public source confirms a fund-LP commitment.</p>
+  </header>
+
+  <div class="filter-bar">
+    <label class="filter-label" for="country-filter">Country</label>
+    <select id="country-filter" class="filter-select"></select>
+    <label class="filter-label" for="cat-filter">Category</label>
+    <select id="cat-filter" class="filter-select">
+      <option value="ALL">All categories</option>
+      <option value="family_office">Family office</option>
+      <option value="faith_based">Faith-based</option>
+      <option value="philanthropy_llc">Philanthropy LLC</option>
+      <option value="daf">DAF host</option>
+      <option value="hnwi_collective">HNWI collective</option>
+    </select>
+    <span id="filter-summary" class="filter-summary"></span>
+  </div>
+
+  <div id="famof-list" class="dfi-list" aria-live="polite"></div>
+  <div id="famof-empty" class="empty-state" hidden></div>
+</section>
+
+<script type="application/json" id="data-family-offices">{{ family_office_lps | dump | safe }}</script>
+<script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
+
+<script src="{{ '/assets/js/render.js' | url }}"></script>
+<script>
+(function () {
+  "use strict";
+  var I = window.IFC;
+  var FAMOFS = I.loadJSON("data-family-offices") || [];
+  var META = I.loadJSON("data-slot-meta") || {};
+
+  var state = { country: "ALL", cat: "ALL" };
+
+  function render() {
+    var list = FAMOFS.filter(function (d) {
+      if (state.country !== "ALL" && d.country !== state.country) return false;
+      if (state.cat !== "ALL" && d.category !== state.cat) return false;
+      return true;
+    });
+    list.sort(function (a, b) {
+      var ac = (a.known_ingo_gp_commits || []).length;
+      var bc = (b.known_ingo_gp_commits || []).length;
+      if (ac !== bc) return bc - ac;
+      return (a.name || "").localeCompare(b.name || "");
+    });
+
+    var root = document.getElementById("famof-list");
+    var empty = document.getElementById("famof-empty");
+    var sum = document.getElementById("filter-summary");
+
+    if (list.length === 0) {
+      root.innerHTML = "";
+      empty.hidden = false;
+      empty.innerHTML = "<p>No matches. Try <em>All countries</em> or <em>All categories</em>.</p>";
+      sum.textContent = "Showing 0 of " + FAMOFS.length;
+      return;
+    }
+    empty.hidden = true; empty.innerHTML = "";
+    root.innerHTML = list.map(function (d) { return I.renderFamilyOfficeCard(d, META); }).join("");
+    sum.textContent = "Showing " + list.length + " of " + FAMOFS.length;
+  }
+
+  document.getElementById("country-filter").innerHTML =
+    I.buildCountryOptions(META, "family_office_country").join("");
+  document.getElementById("country-filter").addEventListener("change", function (e) {
+    state.country = e.target.value; render();
+  });
+  document.getElementById("cat-filter").addEventListener("change", function (e) {
+    state.cat = e.target.value; render();
+  });
+
+  I.installCardClick(".detail-page");
+  render();
+})();
+</script>

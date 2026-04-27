@@ -30,6 +30,8 @@ tool/state/
 # site/src/_data/site.json is hand-edited static config and stays tracked.
 site/src/_data/deadlines.json
 site/src/_data/dfi_ingo_commits.json
+site/src/_data/family_office_lps.json
+site/src/_data/foundation_lps.json
 site/src/_data/health.json
 site/src/_data/impact_areas.json
 site/src/_data/meta.json

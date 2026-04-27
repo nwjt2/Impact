@@ -47,6 +47,56 @@ _dfi_slug_mapping:
   ebrd: EBRD
   idb-invest: IDB Invest
   jica: JICA
+  aecid: AECID
+  adb: Asian Development Bank
+  afdb: African Development Bank
+  cdb: Caribbean Development Bank
+  isdb: Islamic Development Bank
+  aiib: AIIB
+  opec-fund: OPEC Fund for International Development
+  gif: Global Innovation Fund
+  gef: Global Environment Facility
+  agdevco: AgDevCo
+  power-africa: Power Africa
+  usaid-div: USAID DIV
+  ukfcdo: UK FCDO What Works
+  sida: SIDA Sweden
+  norad: NORAD
+  giz: GIZ Germany
+  undp-sdg-impact: UNDP SDG Impact
+  caf: CAF Development Bank of Latin America
+  ifad: IFAD
+  dbsa: DBSA
+  tdb: TDB
+  boad: BOAD
+  afc: Africa Finance Corporation
+  nib: Nordic Investment Bank
+  cofides: COFIDES
+  simest: SIMEST
+  sofid: SOFID
+  oeeb: OeEB
+  jbic: JBIC
+  edcf: Korea EDCF
+  koica: KOICA
+  sfd: Saudi Fund for Development
+  kfaed: Kuwait Fund for Arab Economic Development
+  adfd: Abu Dhabi Fund for Development
+  qfd: Qatar Fund for Development
+  china-cdb: China Development Bank
+  chexim: China Eximbank
+  ndb: New Development Bank
+  bndes: BNDES
+  cabei: CABEI
+  nadbank: North American Development Bank
+  shelter-afrique: Shelter Afrique
+  eadb: East African Development Bank
+  atidi: ATIDI
+  bgk: BGK Poland
+  adaptation-fund: Adaptation Fund
+  efsd-plus: EFSD+
+  dbn-nigeria: Development Bank of Nigeria
+  bstdb: BSTDB
+  sidbi: SIDBI
 
 commitments:
 
@@ -791,3 +841,822 @@ dfi_profiles:
         EIB does not typically anchor emerging managers; tickets are
         too large. EIB Global (the external-investment arm) is more
         approachable but still expects a mature GP.
+
+  # ---- profiles below this line: no public INGO-GP fund LP commitment
+  # disclosed in DFI press materials at last verification. Sectors/geos/
+  # tickets are sourced from pipeline/entities.yml (curated). EMF status
+  # is null where a dedicated emerging-manager facility for fund LPs
+  # could not be confirmed in public sources. Direct outreach
+  # recommended in all cases. ---------------------------------------
+
+  - dfi_slug: kfw
+    dfi_name: KfW Development Bank
+    dfi_country: "DE"
+    stated_sector_preferences: [climate, energy, wash]
+    stated_geo_focus: [africa, asia, latam, mena]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 75
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.kfw.de/About-KfW/Newsroom/
+    emerging_manager_facility: null
+
+  - dfi_slug: aecid
+    dfi_name: AECID
+    dfi_country: "ES"
+    stated_sector_preferences: [fi, health, edu]
+    stated_geo_focus: [latam, africa, mena]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 15
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.aecid.es/EN/press-room
+    emerging_manager_facility: null
+
+  - dfi_slug: afd
+    dfi_name: AFD
+    dfi_country: "FR"
+    stated_sector_preferences: [climate, health, edu, wash]
+    stated_geo_focus: [africa, mena, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 75
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.afd.fr/en/actualites
+    emerging_manager_facility: null
+
+  - dfi_slug: jica
+    dfi_name: JICA
+    dfi_country: "JP"
+    stated_sector_preferences: [generalist, energy, agri, health]
+    stated_geo_focus: [asia, africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.jica.go.jp/english/news/index.html
+    emerging_manager_facility: null
+
+  - dfi_slug: ebrd
+    dfi_name: EBRD
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, energy, fi, climate]
+    stated_geo_focus: [eu, mena, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 15
+    typical_ticket_usd_m_max: 75
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.ebrd.com/news.html
+    emerging_manager_facility: null
+
+  - dfi_slug: idb-invest
+    dfi_name: IDB Invest
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, fi, energy]
+    stated_geo_focus: [latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.idbinvest.org/en/news
+    emerging_manager_facility: null
+
+  - dfi_slug: adb
+    dfi_name: Asian Development Bank
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, climate, energy, wash]
+    stated_geo_focus: [asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 15
+    typical_ticket_usd_m_max: 100
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.adb.org/news
+    emerging_manager_facility: null
+
+  - dfi_slug: afdb
+    dfi_name: African Development Bank
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, energy, agri]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 75
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.afdb.org/en/news-and-events
+    emerging_manager_facility: null
+
+  - dfi_slug: cdb
+    dfi_name: Caribbean Development Bank
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, climate, wash]
+    stated_geo_focus: [latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 15
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.caribank.org/newsroom
+    emerging_manager_facility: null
+
+  - dfi_slug: isdb
+    dfi_name: Islamic Development Bank
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, fi, health]
+    stated_geo_focus: [mena, africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.isdb.org/news
+    emerging_manager_facility: null
+
+  - dfi_slug: bio-invest
+    dfi_name: BIO Invest
+    dfi_country: "BE"
+    stated_sector_preferences: [fi, agri, energy]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 15
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.bio-invest.be/en/news
+    emerging_manager_facility: null
+
+  - dfi_slug: sifem
+    dfi_name: SIFEM
+    dfi_country: "CH"
+    stated_sector_preferences: [fi, energy, agri]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 15
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.sifem.ch/news
+    emerging_manager_facility: null
+
+  - dfi_slug: aiib
+    dfi_name: AIIB
+    dfi_country: "INT"
+    stated_sector_preferences: [energy, climate, wash]
+    stated_geo_focus: [asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 25
+    typical_ticket_usd_m_max: 100
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.aiib.org/en/news-events/news/index.html
+    emerging_manager_facility: null
+
+  - dfi_slug: opec-fund
+    dfi_name: OPEC Fund for International Development
+    dfi_country: "INT"
+    stated_sector_preferences: [energy, fi, wash]
+    stated_geo_focus: [africa, asia, mena]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 25
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://opecfund.org/news
+    emerging_manager_facility: null
+
+  - dfi_slug: gif
+    dfi_name: Global Innovation Fund
+    dfi_country: "GB"
+    stated_sector_preferences: [health, edu, smb]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 1
+    typical_ticket_usd_m_max: 10
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.globalinnovation.fund/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: cif
+    dfi_name: Climate Investment Funds
+    dfi_country: "INT"
+    stated_sector_preferences: [climate, energy]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.cif.org/news
+    emerging_manager_facility: null
+
+  - dfi_slug: gef
+    dfi_name: Global Environment Facility
+    dfi_country: "INT"
+    stated_sector_preferences: [climate, agri]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.thegef.org/newsroom
+    emerging_manager_facility: null
+
+  - dfi_slug: agdevco
+    dfi_name: AgDevCo
+    dfi_country: "GB"
+    stated_sector_preferences: [agri]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 15
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.agdevco.com/news
+    emerging_manager_facility: null
+
+  - dfi_slug: power-africa
+    dfi_name: Power Africa
+    dfi_country: "US"
+    stated_sector_preferences: [energy]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.usaid.gov/powerafrica/newsroom
+    emerging_manager_facility: null
+
+  - dfi_slug: usaid-div
+    dfi_name: USAID Development Innovation Ventures
+    dfi_country: "US"
+    stated_sector_preferences: [generalist, health, edu]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 1
+    typical_ticket_usd_m_max: 5
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.usaid.gov/div
+    emerging_manager_facility: null
+
+  - dfi_slug: ukfcdo
+    dfi_name: UK FCDO
+    dfi_country: "GB"
+    stated_sector_preferences: [generalist, gender, health]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.gov.uk/government/organisations/foreign-commonwealth-development-office
+    emerging_manager_facility: null
+
+  - dfi_slug: sida
+    dfi_name: SIDA Sweden
+    dfi_country: "SE"
+    stated_sector_preferences: [generalist, gender, climate]
+    stated_geo_focus: [global, africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 15
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.sida.se/en/news
+    emerging_manager_facility: null
+
+  - dfi_slug: norad
+    dfi_name: NORAD
+    dfi_country: "NO"
+    stated_sector_preferences: [generalist, gender, climate]
+    stated_geo_focus: [global, africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 15
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.norad.no/en/front/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: giz
+    dfi_name: GIZ Germany
+    dfi_country: "DE"
+    stated_sector_preferences: [generalist, energy, climate]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 25
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.giz.de/en/mediacenter/news.html
+    emerging_manager_facility: null
+
+  - dfi_slug: undp-sdg-impact
+    dfi_name: UNDP SDG Impact
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, climate]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 25
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.undp.org/news
+    emerging_manager_facility: null
+
+  - dfi_slug: caf
+    dfi_name: CAF Development Bank of Latin America
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, fi, energy, climate]
+    stated_geo_focus: [latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 100
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.caf.com/en/currently/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: ifad
+    dfi_name: IFAD
+    dfi_country: "INT"
+    stated_sector_preferences: [agri, fi, climate]
+    stated_geo_focus: [global, africa, asia, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.ifad.org/en/news
+    emerging_manager_facility: null
+
+  - dfi_slug: dbsa
+    dfi_name: DBSA
+    dfi_country: "ZA"
+    stated_sector_preferences: [generalist, energy, wash, fi]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.dbsa.org/news
+    emerging_manager_facility: null
+
+  - dfi_slug: tdb
+    dfi_name: TDB Group
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, fi, energy, agri]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.tdbgroup.org/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: boad
+    dfi_name: BOAD
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, energy, wash]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 30
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.boad.org/en/category/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: afc
+    dfi_name: Africa Finance Corporation
+    dfi_country: "INT"
+    stated_sector_preferences: [energy, climate, generalist]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 100
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.africafc.org/news-and-insights
+    emerging_manager_facility: null
+
+  - dfi_slug: nib
+    dfi_name: Nordic Investment Bank
+    dfi_country: "INT"
+    stated_sector_preferences: [climate, energy, fi]
+    stated_geo_focus: [eu, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 20
+    typical_ticket_usd_m_max: 100
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.nib.int/news
+    emerging_manager_facility: null
+
+  - dfi_slug: cofides
+    dfi_name: COFIDES
+    dfi_country: "ES"
+    stated_sector_preferences: [fi, agri, energy]
+    stated_geo_focus: [latam, africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 30
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.cofides.es/en/news
+    emerging_manager_facility: null
+
+  - dfi_slug: simest
+    dfi_name: SIMEST
+    dfi_country: "IT"
+    stated_sector_preferences: [fi, generalist]
+    stated_geo_focus: [latam, africa, mena, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 30
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.simest.it/en/news
+    emerging_manager_facility: null
+
+  - dfi_slug: sofid
+    dfi_name: SOFID
+    dfi_country: "PT"
+    stated_sector_preferences: [fi, agri]
+    stated_geo_focus: [africa, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 1
+    typical_ticket_usd_m_max: 10
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.sofid.pt/en/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: oeeb
+    dfi_name: OeEB
+    dfi_country: "AT"
+    stated_sector_preferences: [fi, energy, agri]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 15
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.oe-eb.at/en/News-and-Events/News.html
+    emerging_manager_facility: null
+
+  - dfi_slug: jbic
+    dfi_name: JBIC
+    dfi_country: "JP"
+    stated_sector_preferences: [generalist, energy, climate]
+    stated_geo_focus: [asia, africa, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 20
+    typical_ticket_usd_m_max: 200
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.jbic.go.jp/en/information/news/index.html
+    emerging_manager_facility: null
+
+  - dfi_slug: edcf
+    dfi_name: Korea EDCF
+    dfi_country: "KR"
+    stated_sector_preferences: [generalist, energy, wash]
+    stated_geo_focus: [asia, africa, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 75
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.edcfkorea.go.kr/en/edcf/notification/news.do
+    emerging_manager_facility: null
+
+  - dfi_slug: koica
+    dfi_name: KOICA
+    dfi_country: "KR"
+    stated_sector_preferences: [health, edu, agri]
+    stated_geo_focus: [asia, africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 25
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.koica.go.kr/koica_en/index.do
+    emerging_manager_facility: null
+
+  - dfi_slug: sfd
+    dfi_name: Saudi Fund for Development
+    dfi_country: "SA"
+    stated_sector_preferences: [energy, generalist]
+    stated_geo_focus: [mena, africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.sfd.gov.sa/en/m/4
+    emerging_manager_facility: null
+
+  - dfi_slug: kfaed
+    dfi_name: Kuwait Fund for Arab Economic Development
+    dfi_country: "KW"
+    stated_sector_preferences: [energy, wash, agri, generalist]
+    stated_geo_focus: [mena, africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.kuwait-fund.org/en/web/kfund/news
+    emerging_manager_facility: null
+
+  - dfi_slug: adfd
+    dfi_name: Abu Dhabi Fund for Development
+    dfi_country: "AE"
+    stated_sector_preferences: [energy, generalist, wash]
+    stated_geo_focus: [mena, africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 100
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.adfd.ae/english/news
+    emerging_manager_facility: null
+
+  - dfi_slug: qfd
+    dfi_name: Qatar Fund for Development
+    dfi_country: "QA"
+    stated_sector_preferences: [edu, health, generalist]
+    stated_geo_focus: [mena, africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://qatarfund.org.qa/en/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: china-cdb
+    dfi_name: China Development Bank
+    dfi_country: "CN"
+    stated_sector_preferences: [generalist, energy, climate]
+    stated_geo_focus: [asia, africa, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 50
+    typical_ticket_usd_m_max: 500
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.cdb.com.cn/English/xwzx_715/khdt/
+    emerging_manager_facility: null
+
+  - dfi_slug: chexim
+    dfi_name: China Eximbank
+    dfi_country: "CN"
+    stated_sector_preferences: [generalist, energy]
+    stated_geo_focus: [asia, africa, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 50
+    typical_ticket_usd_m_max: 500
+    last_seen_at: 2026-04-27
+    public_newsroom_url: http://english.eximbank.gov.cn/News/
+    emerging_manager_facility: null
+
+  - dfi_slug: ndb
+    dfi_name: New Development Bank
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, energy, climate, wash]
+    stated_geo_focus: [global, latam, asia, africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 50
+    typical_ticket_usd_m_max: 300
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.ndb.int/news_landing/
+    emerging_manager_facility: null
+
+  - dfi_slug: bndes
+    dfi_name: BNDES
+    dfi_country: "BR"
+    stated_sector_preferences: [generalist, climate, energy]
+    stated_geo_focus: [latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 20
+    typical_ticket_usd_m_max: 200
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.bndes.gov.br/SiteBNDES/bndes/bndes_en/Hotsites/Press_Office/news.html
+    emerging_manager_facility: null
+
+  - dfi_slug: cabei
+    dfi_name: CABEI
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, energy, climate]
+    stated_geo_focus: [latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 100
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.bcie.org/en/communications-room/news
+    emerging_manager_facility: null
+
+  - dfi_slug: nadbank
+    dfi_name: North American Development Bank
+    dfi_country: "INT"
+    stated_sector_preferences: [climate, wash, energy]
+    stated_geo_focus: [latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.nadb.org/news
+    emerging_manager_facility: null
+
+  - dfi_slug: shelter-afrique
+    dfi_name: Shelter Afrique
+    dfi_country: "INT"
+    stated_sector_preferences: [housing]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 20
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.shelterafrique.org/category/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: eadb
+    dfi_name: East African Development Bank
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, fi, agri]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 20
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.eadb.org/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: atidi
+    dfi_name: ATIDI
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, energy, fi]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.ati-aca.org/category/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: bgk
+    dfi_name: BGK Poland
+    dfi_country: "PL"
+    stated_sector_preferences: [generalist, fi, energy]
+    stated_geo_focus: [eu]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.bgk.pl/en/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: adaptation-fund
+    dfi_name: Adaptation Fund
+    dfi_country: "INT"
+    stated_sector_preferences: [climate, agri, wash]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 1
+    typical_ticket_usd_m_max: 10
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.adaptation-fund.org/category/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: efsd-plus
+    dfi_name: EFSD+
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, climate, fi]
+    stated_geo_focus: [eu, africa, mena]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 100
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://international-partnerships.ec.europa.eu/policies/european-fund-sustainable-development-plus-efsd_en
+    emerging_manager_facility: null
+
+  - dfi_slug: dbn-nigeria
+    dfi_name: Development Bank of Nigeria
+    dfi_country: "NG"
+    stated_sector_preferences: [smb, fi, agri]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 30
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.devbankng.com/news/
+    emerging_manager_facility: null
+
+  - dfi_slug: bstdb
+    dfi_name: BSTDB
+    dfi_country: "INT"
+    stated_sector_preferences: [generalist, energy, fi]
+    stated_geo_focus: [eu, mena]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.bstdb.org/news
+    emerging_manager_facility: null
+
+  - dfi_slug: sidbi
+    dfi_name: SIDBI
+    dfi_country: "IN"
+    stated_sector_preferences: [smb, fi]
+    stated_geo_focus: [asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 25
+    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.sidbi.in/en/news
+    emerging_manager_facility: null

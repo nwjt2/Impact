@@ -261,6 +261,303 @@ target_lps:
     public_newsroom_url: https://opecfund.org/news
     first_pass_cadence_days: 21
 
+  - name: CAF Development Bank of Latin America
+    aliases: ["CAF", "Banco de Desarrollo de América Latina", "Corporación Andina de Fomento"]
+    sector_tags: [generalist, fi, energy, climate]
+    geo_tags: [latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-100"
+    public_newsroom_url: https://www.caf.com/en/currently/news/
+    first_pass_cadence_days: 7
+
+  - name: IFAD
+    aliases: ["IFAD", "International Fund for Agricultural Development"]
+    sector_tags: [agri, fi, climate]
+    geo_tags: [global, africa, asia, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-50"
+    public_newsroom_url: https://www.ifad.org/en/news
+    first_pass_cadence_days: 7
+
+  - name: DBSA
+    aliases: ["DBSA", "Development Bank of Southern Africa"]
+    sector_tags: [generalist, energy, wash, fi]
+    geo_tags: [africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-50"
+    public_newsroom_url: https://www.dbsa.org/news
+    first_pass_cadence_days: 14
+
+  - name: TDB
+    aliases: ["TDB", "Trade and Development Bank", "Eastern and Southern African Trade and Development Bank", "PTA Bank"]
+    sector_tags: [generalist, fi, energy, agri]
+    geo_tags: [africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-50"
+    public_newsroom_url: https://www.tdbgroup.org/news/
+    first_pass_cadence_days: 14
+
+  - name: BOAD
+    aliases: ["BOAD", "Banque Ouest Africaine de Développement", "West African Development Bank"]
+    sector_tags: [generalist, energy, wash]
+    geo_tags: [africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-30"
+    public_newsroom_url: https://www.boad.org/en/category/news/
+    first_pass_cadence_days: 14
+
+  - name: Africa Finance Corporation
+    aliases: ["AFC", "Africa Finance Corporation"]
+    sector_tags: [energy, climate, generalist]
+    geo_tags: [africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-100"
+    public_newsroom_url: https://www.africafc.org/news-and-insights
+    first_pass_cadence_days: 14
+
+  - name: Nordic Investment Bank
+    aliases: ["NIB", "Nordic Investment Bank"]
+    sector_tags: [climate, energy, fi]
+    geo_tags: [eu, global]
+    lp_type: dfi
+    typical_ticket_usd_m: "20-100"
+    public_newsroom_url: https://www.nib.int/news
+    first_pass_cadence_days: 7
+
+  - name: COFIDES
+    aliases: ["COFIDES", "Compañía Española de Financiación del Desarrollo"]
+    sector_tags: [fi, agri, energy]
+    geo_tags: [latam, africa, asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-30"
+    public_newsroom_url: https://www.cofides.es/en/news
+    first_pass_cadence_days: 21
+
+  - name: SIMEST
+    aliases: ["SIMEST", "Società Italiana per le Imprese all'Estero", "CDP SIMEST"]
+    sector_tags: [fi, generalist]
+    geo_tags: [latam, africa, mena, asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-30"
+    public_newsroom_url: https://www.simest.it/en/news
+    first_pass_cadence_days: 21
+
+  - name: SOFID
+    aliases: ["SOFID", "Sociedade para o Financiamento do Desenvolvimento"]
+    sector_tags: [fi, agri]
+    geo_tags: [africa, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.sofid.pt/en/news/
+    first_pass_cadence_days: 30
+
+  - name: OeEB
+    aliases: ["OeEB", "Oesterreichische Entwicklungsbank", "Austrian Development Bank"]
+    sector_tags: [fi, energy, agri]
+    geo_tags: [africa, asia, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.oe-eb.at/en/News-and-Events/News.html
+    first_pass_cadence_days: 21
+
+  - name: JBIC
+    aliases: ["JBIC", "Japan Bank for International Cooperation"]
+    sector_tags: [generalist, energy, climate]
+    geo_tags: [asia, africa, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "20-200"
+    public_newsroom_url: https://www.jbic.go.jp/en/information/news/index.html
+    first_pass_cadence_days: 7
+
+  - name: Korea EDCF
+    aliases: ["EDCF", "Economic Development Cooperation Fund", "Korea EXIM Bank EDCF", "Export-Import Bank of Korea EDCF"]
+    sector_tags: [generalist, energy, wash]
+    geo_tags: [asia, africa, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-75"
+    public_newsroom_url: https://www.edcfkorea.go.kr/en/edcf/notification/news.do
+    first_pass_cadence_days: 14
+
+  - name: KOICA
+    aliases: ["KOICA", "Korea International Cooperation Agency"]
+    sector_tags: [health, edu, agri]
+    geo_tags: [asia, africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://www.koica.go.kr/koica_en/index.do
+    first_pass_cadence_days: 14
+
+  - name: Saudi Fund for Development
+    aliases: ["SFD", "Saudi Fund for Development"]
+    sector_tags: [energy, generalist]
+    geo_tags: [mena, africa, asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-50"
+    public_newsroom_url: https://www.sfd.gov.sa/en/m/4
+    first_pass_cadence_days: 21
+
+  - name: Kuwait Fund for Arab Economic Development
+    aliases: ["KFAED", "Kuwait Fund for Arab Economic Development", "Kuwait Fund"]
+    sector_tags: [energy, wash, agri, generalist]
+    geo_tags: [mena, africa, asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-50"
+    public_newsroom_url: https://www.kuwait-fund.org/en/web/kfund/news
+    first_pass_cadence_days: 21
+
+  - name: Abu Dhabi Fund for Development
+    aliases: ["ADFD", "Abu Dhabi Fund for Development"]
+    sector_tags: [energy, generalist, wash]
+    geo_tags: [mena, africa, asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-100"
+    public_newsroom_url: https://www.adfd.ae/english/news
+    first_pass_cadence_days: 21
+
+  - name: Qatar Fund for Development
+    aliases: ["QFD", "Qatar Fund for Development", "Qatar Fund"]
+    sector_tags: [edu, health, generalist]
+    geo_tags: [mena, africa, asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-50"
+    public_newsroom_url: https://qatarfund.org.qa/en/news/
+    first_pass_cadence_days: 21
+
+  - name: China Development Bank
+    aliases: ["CDB China", "China Development Bank", "Guokai Bank"]
+    sector_tags: [generalist, energy, climate]
+    geo_tags: [asia, africa, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "50-500"
+    public_newsroom_url: https://www.cdb.com.cn/English/xwzx_715/khdt/
+    first_pass_cadence_days: 14
+
+  - name: China Eximbank
+    aliases: ["CHEXIM", "Export-Import Bank of China", "China Exim Bank"]
+    sector_tags: [generalist, energy]
+    geo_tags: [asia, africa, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "50-500"
+    public_newsroom_url: http://english.eximbank.gov.cn/News/
+    first_pass_cadence_days: 14
+
+  - name: New Development Bank
+    aliases: ["NDB", "New Development Bank", "BRICS Bank"]
+    sector_tags: [generalist, energy, climate, wash]
+    geo_tags: [global, latam, asia, africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "50-300"
+    public_newsroom_url: https://www.ndb.int/news_landing/
+    first_pass_cadence_days: 14
+
+  - name: BNDES
+    aliases: ["BNDES", "Banco Nacional de Desenvolvimento Econômico e Social"]
+    sector_tags: [generalist, climate, energy]
+    geo_tags: [latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "20-200"
+    public_newsroom_url: https://www.bndes.gov.br/SiteBNDES/bndes/bndes_en/Hotsites/Press_Office/news.html
+    first_pass_cadence_days: 14
+
+  - name: CABEI
+    aliases: ["CABEI", "Central American Bank for Economic Integration", "Banco Centroamericano de Integración Económica", "BCIE"]
+    sector_tags: [generalist, energy, climate]
+    geo_tags: [latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-100"
+    public_newsroom_url: https://www.bcie.org/en/communications-room/news
+    first_pass_cadence_days: 14
+
+  - name: North American Development Bank
+    aliases: ["NADBank", "NADB", "North American Development Bank"]
+    sector_tags: [climate, wash, energy]
+    geo_tags: [latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-50"
+    public_newsroom_url: https://www.nadb.org/news
+    first_pass_cadence_days: 21
+
+  - name: Shelter Afrique
+    aliases: ["Shelter Afrique", "Shelter Afrique Development Bank"]
+    sector_tags: [housing]
+    geo_tags: [africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-20"
+    public_newsroom_url: https://www.shelterafrique.org/category/news/
+    first_pass_cadence_days: 21
+
+  - name: East African Development Bank
+    aliases: ["EADB", "East African Development Bank"]
+    sector_tags: [generalist, fi, agri]
+    geo_tags: [africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-20"
+    public_newsroom_url: https://www.eadb.org/news/
+    first_pass_cadence_days: 21
+
+  - name: ATIDI
+    aliases: ["ATIDI", "African Trade & Investment Development Insurance", "African Trade Insurance Agency", "ATI"]
+    sector_tags: [generalist, energy, fi]
+    geo_tags: [africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-50"
+    public_newsroom_url: https://www.ati-aca.org/category/news/
+    first_pass_cadence_days: 21
+
+  - name: BGK Poland
+    aliases: ["BGK", "Bank Gospodarstwa Krajowego"]
+    sector_tags: [generalist, fi, energy]
+    geo_tags: [eu]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-50"
+    public_newsroom_url: https://www.bgk.pl/en/news/
+    first_pass_cadence_days: 21
+
+  - name: Adaptation Fund
+    aliases: ["Adaptation Fund", "AF"]
+    sector_tags: [climate, agri, wash]
+    geo_tags: [global]
+    lp_type: dfi
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.adaptation-fund.org/category/news/
+    first_pass_cadence_days: 14
+
+  - name: EFSD+
+    aliases: ["EFSD+", "European Fund for Sustainable Development Plus", "EFSD"]
+    sector_tags: [generalist, climate, fi]
+    geo_tags: [eu, africa, mena]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-100"
+    public_newsroom_url: https://international-partnerships.ec.europa.eu/policies/european-fund-sustainable-development-plus-efsd_en
+    first_pass_cadence_days: 14
+
+  - name: Development Bank of Nigeria
+    aliases: ["DBN", "Development Bank of Nigeria", "DBN Nigeria"]
+    sector_tags: [smb, fi, agri]
+    geo_tags: [africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-30"
+    public_newsroom_url: https://www.devbankng.com/news/
+    first_pass_cadence_days: 21
+
+  - name: BSTDB
+    aliases: ["BSTDB", "Black Sea Trade and Development Bank"]
+    sector_tags: [generalist, energy, fi]
+    geo_tags: [eu, mena]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-50"
+    public_newsroom_url: https://www.bstdb.org/news
+    first_pass_cadence_days: 21
+
+  - name: SIDBI
+    aliases: ["SIDBI", "Small Industries Development Bank of India"]
+    sector_tags: [smb, fi]
+    geo_tags: [asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-25"
+    public_newsroom_url: https://www.sidbi.in/en/news
+    first_pass_cadence_days: 21
+
   # ---------- Foundations ----------
 
   - name: Ford Foundation

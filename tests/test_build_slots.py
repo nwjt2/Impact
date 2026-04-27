@@ -21,6 +21,8 @@ from pipeline import build_slots
 from pipeline.schemas import (
     Deadline,
     DfiIngoCommit,
+    FamilyOfficeLp,
+    FoundationLp,
     PeerIngoFund,
 )
 
@@ -185,12 +187,84 @@ def _write_fixture_deadlines(tmp_path: Path) -> Path:
     return p
 
 
+def _write_fixture_foundation_lps(tmp_path: Path, with_bad_slug: bool = False) -> Path:
+    rows = [
+        {
+            "slug": "test-foundation",
+            "name": "Test Foundation",
+            "aliases": ["Test Foundation"],
+            "country": "US",
+            "foundation_type": "private",
+            "stated_priority_themes": ["climate", "health"],
+            "stated_geo_focus": ["global"],
+            "typical_check_usd_m_min": 3,
+            "typical_check_usd_m_max": 15,
+            "public_newsroom_url": "https://example.com/news",
+            "last_seen_at": "2026-04-27",
+            "known_ingo_gp_commits": [
+                {
+                    "peer_fund_slug": "microbuild-fund",
+                    "peer_fund_name": "MicroBuild Fund",
+                    "parent_ingo": "Habitat for Humanity",
+                    "commit_date": "2018-06-01",
+                    "amount_usd_m": 5,
+                    "public_source_url": "https://example.com/commit",
+                },
+            ],
+        },
+        {
+            "slug": "test-corp-foundation",
+            "name": "Test Corp Foundation",
+            "country": "GB",
+            "foundation_type": "corporate",
+            "stated_priority_themes": ["smb"],
+            "stated_geo_focus": ["africa"],
+            "public_newsroom_url": "https://example.com/corpnews",
+        },
+    ]
+    if with_bad_slug:
+        rows[0]["known_ingo_gp_commits"][0]["peer_fund_slug"] = "ghost-fund-slug"
+    p = tmp_path / "foundation_lps.yml"
+    p.write_text(yaml.safe_dump({"foundations": rows}))
+    return p
+
+
+def _write_fixture_family_office_lps(tmp_path: Path) -> Path:
+    rows = [
+        {
+            "slug": "test-famof",
+            "name": "Test Family Office",
+            "country": "US",
+            "category": "family_office",
+            "stated_priority_themes": ["fi", "smb"],
+            "stated_geo_focus": ["africa"],
+            "typical_check_usd_m_min": 1,
+            "typical_check_usd_m_max": 5,
+            "invests_via_fund_lp": True,
+            "public_newsroom_url": "https://example.com/famof",
+        },
+        {
+            "slug": "test-faith-based",
+            "name": "Test Faith-Based Investor",
+            "country": "US",
+            "category": "faith_based",
+            "stated_priority_themes": ["housing"],
+            "stated_geo_focus": ["us"],
+        },
+    ]
+    p = tmp_path / "family_office_lps.yml"
+    p.write_text(yaml.safe_dump({"family_offices": rows}))
+    return p
+
+
 @pytest.fixture
 def patch_paths(tmp_path, monkeypatch):
     """Rebind build_slots's module-level file paths to a tmp-scoped set."""
     monkeypatch.setattr(build_slots, "PEER_FUNDS_YML", tmp_path / "peer_funds.yml")
     monkeypatch.setattr(build_slots, "DFI_COMMITS_YML", tmp_path / "dfi_ingo_commitments.yml")
     monkeypatch.setattr(build_slots, "DEADLINES_YML", tmp_path / "deadlines.yml")
+    monkeypatch.setattr(build_slots, "FOUNDATION_LPS_YML", tmp_path / "foundation_lps.yml")
+    monkeypatch.setattr(build_slots, "FAMILY_OFFICE_LPS_YML", tmp_path / "family_office_lps.yml")
     # redirect JSON emits to tmp so we don't clobber the real site/src/_data
     data_dir = tmp_path / "_data"
     data_dir.mkdir()
@@ -288,6 +362,72 @@ def test_deadlines_rejects_duplicate_id(patch_paths, tmp_path):
     assert "duplicate" in str(exc.value).lower()
 
 
+def test_load_foundation_lps_ok(patch_paths):
+    _write_fixture_peer_funds(patch_paths)
+    _write_fixture_foundation_lps(patch_paths)
+    models, _ = build_slots.load_peer_funds()
+    peer_slugs = {m.slug for m in models}
+    fdns = build_slots.load_foundation_lps(peer_slugs)
+    assert len(fdns) == 2
+    assert all(isinstance(f, FoundationLp) for f in fdns)
+    by_slug = {f.slug: f for f in fdns}
+    assert by_slug["test-foundation"].foundation_type == "private"
+    assert by_slug["test-foundation"].country == "US"
+    assert len(by_slug["test-foundation"].known_ingo_gp_commits) == 1
+    assert by_slug["test-corp-foundation"].foundation_type == "corporate"
+
+
+def test_foundation_lps_missing_file_returns_empty(patch_paths):
+    """If content/foundation_lps.yml doesn't exist, loader must not raise."""
+    _write_fixture_peer_funds(patch_paths)
+    models, _ = build_slots.load_peer_funds()
+    peer_slugs = {m.slug for m in models}
+    fdns = build_slots.load_foundation_lps(peer_slugs)
+    assert fdns == []
+
+
+def test_foundation_lps_handshake_fails_on_bad_fund_slug(patch_paths):
+    _write_fixture_peer_funds(patch_paths)
+    _write_fixture_foundation_lps(patch_paths, with_bad_slug=True)
+    models, _ = build_slots.load_peer_funds()
+    peer_slugs = {m.slug for m in models}
+    with pytest.raises(build_slots.HandshakeError) as exc:
+        build_slots.load_foundation_lps(peer_slugs)
+    assert "ghost-fund-slug" in str(exc.value)
+
+
+def test_foundation_lps_rejects_duplicate_slug(patch_paths, tmp_path):
+    rows = [
+        {"slug": "dup", "name": "A"},
+        {"slug": "dup", "name": "B"},
+    ]
+    (tmp_path / "foundation_lps.yml").write_text(yaml.safe_dump({"foundations": rows}))
+    with pytest.raises(build_slots.HandshakeError) as exc:
+        build_slots.load_foundation_lps(set())
+    assert "duplicate" in str(exc.value).lower()
+
+
+def test_load_family_office_lps_ok(patch_paths):
+    _write_fixture_peer_funds(patch_paths)
+    _write_fixture_family_office_lps(patch_paths)
+    models, _ = build_slots.load_peer_funds()
+    peer_slugs = {m.slug for m in models}
+    famofs = build_slots.load_family_office_lps(peer_slugs)
+    assert len(famofs) == 2
+    assert all(isinstance(f, FamilyOfficeLp) for f in famofs)
+    by_slug = {f.slug: f for f in famofs}
+    assert by_slug["test-famof"].category == "family_office"
+    assert by_slug["test-famof"].invests_via_fund_lp is True
+    assert by_slug["test-faith-based"].category == "faith_based"
+    # Tri-state: not specified → null, not False
+    assert by_slug["test-faith-based"].invests_via_fund_lp is None
+
+
+def test_family_office_lps_missing_file_returns_empty(patch_paths):
+    famofs = build_slots.load_family_office_lps(set())
+    assert famofs == []
+
+
 # --------------------------------------------------------------- build()
 
 
@@ -295,18 +435,24 @@ def test_build_end_to_end_fixture(patch_paths):
     _write_fixture_peer_funds(patch_paths)
     _write_fixture_dfi_commits(patch_paths)
     _write_fixture_deadlines(patch_paths)
+    _write_fixture_foundation_lps(patch_paths)
+    _write_fixture_family_office_lps(patch_paths)
 
     counts = build_slots.build(verbose=False)
     assert counts["peer_ingo_funds"] == 2
     assert counts["dfi_ingo_commits"] == 1
     assert counts["deadlines"] == 2  # one past entry dropped
+    assert counts["foundation_lps"] == 2
+    assert counts["family_office_lps"] == 2
 
     from pipeline import emit
-    # JSON files emitted
-    for name in ("peer_ingo_funds", "dfi_ingo_commits", "deadlines", "slot_meta"):
+    # JSON files emitted (all six)
+    for name in (
+        "peer_ingo_funds", "dfi_ingo_commits", "deadlines",
+        "foundation_lps", "family_office_lps", "slot_meta",
+    ):
         p = emit.DATA_DIR / f"{name}.json"
         assert p.exists(), f"{name}.json not emitted"
-        # Parseable
         data = json.loads(p.read_text())
         assert data is not None
 
@@ -315,6 +461,10 @@ def test_build_end_to_end_fixture(patch_paths):
     assert "country_enum" in slot_meta
     assert "slot_counts" in slot_meta
     assert slot_meta["slot_counts"]["peer_ingo_funds"] == 2
+    assert slot_meta["slot_counts"]["foundation_lps"] == 2
+    assert slot_meta["slot_counts"]["family_office_lps"] == 2
+    assert "foundation_country" in slot_meta["country_counts"]
+    assert "family_office_country" in slot_meta["country_counts"]
 
 
 # --------------------------------------------------------------- integration
@@ -334,14 +484,30 @@ def test_real_content_yaml_loads():
     # Any rolling + future entries should survive; past one-offs drop.
     assert len(deadlines) >= 5
 
+    fdns = build_slots.load_foundation_lps(set(slugs))
+    assert len(fdns) >= 10, f"foundation_lps.yml produced too few cards: {len(fdns)}"
+    fdn_slugs = [f.slug for f in fdns]
+    assert len(fdn_slugs) == len(set(fdn_slugs)), "duplicate slugs in foundation_lps.yml"
 
-def test_real_build_emits_all_four_jsons():
+    famofs = build_slots.load_family_office_lps(set(slugs))
+    assert len(famofs) >= 5, f"family_office_lps.yml produced too few cards: {len(famofs)}"
+    famof_slugs = [f.slug for f in famofs]
+    assert len(famof_slugs) == len(set(famof_slugs)), "duplicate slugs in family_office_lps.yml"
+
+
+def test_real_build_emits_all_jsons():
     counts = build_slots.build(verbose=False)
     assert counts["peer_ingo_funds"] > 0
     assert counts["dfi_ingo_commits"] > 0
     assert counts["deadlines"] > 0
-    # slot_meta.json should always emit
-    assert (DATA_DIR / "slot_meta.json").exists()
+    assert counts["foundation_lps"] > 0
+    assert counts["family_office_lps"] > 0
+    # All emitted JSONs should exist
+    for name in (
+        "peer_ingo_funds", "dfi_ingo_commits", "deadlines",
+        "foundation_lps", "family_office_lps", "slot_meta",
+    ):
+        assert (DATA_DIR / f"{name}.json").exists(), f"{name}.json missing"
 
 
 def test_real_build_does_not_emit_market_terms():
@@ -361,6 +527,8 @@ def test_slot_json_countries_are_iso2_or_sentinel():
         ("peer_ingo_funds.json", "parent_ingo_country"),
         ("dfi_ingo_commits.json", "country"),
         ("deadlines.json", "country"),
+        ("foundation_lps.json", "country"),
+        ("family_office_lps.json", "country"),
     ]:
         p = DATA_DIR / name
         if not p.exists():

@@ -1,0 +1,930 @@
+# Foundation LP registry — parallel to content/dfi_ingo_commitments.yml.
+#
+# Source of truth for the /foundations/ page. Hand-curated.
+#
+# Honest-null discipline:
+#   - aum_usd_m left null where not confirmed via primary public materials
+#     (foundation site / 990s / annual report). Where set, aum_usd_m_year
+#     records the disclosure date so readers can judge staleness.
+#   - pri_program / mri_program null where existence cannot be verified
+#     in public materials. Default-false-with-note hides the section in
+#     the UI; explicit-true-with-program-name+url surfaces it.
+#   - known_ingo_gp_commits is empty until each commit is traced to a
+#     public source (mirrors the DFI commitments discipline).
+#
+# Sectors / geos / typical-check ranges are sourced from the corresponding
+# entry in pipeline/entities.yml (curated metadata).
+
+foundations:
+
+  # ---- US private grantmaking foundations ----
+
+  - slug: ford-foundation
+    name: Ford Foundation
+    aliases: ["Ford Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [gender, fi, housing, generalist]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.fordfoundation.org/news-and-stories/
+    last_seen_at: 2026-04-27
+
+  - slug: rockefeller-foundation
+    name: Rockefeller Foundation
+    aliases: ["Rockefeller Foundation", "The Rockefeller Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, health, fi, energy]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 20
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.rockefellerfoundation.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: gates-foundation
+    name: Bill & Melinda Gates Foundation
+    aliases: ["Gates Foundation", "Bill & Melinda Gates Foundation", "BMGF"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health, agri, wash, edu]
+    stated_geo_focus: [africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 10
+    typical_check_usd_m_max: 100
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.gatesfoundation.org/ideas/media-center/press-releases
+    last_seen_at: 2026-04-27
+
+  - slug: macarthur-foundation
+    name: MacArthur Foundation
+    aliases: ["MacArthur Foundation", "John D. and Catherine T. MacArthur Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, gender, housing]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.macfound.org/press
+    last_seen_at: 2026-04-27
+
+  - slug: hewlett-foundation
+    name: Hewlett Foundation
+    aliases: ["Hewlett Foundation", "William and Flora Hewlett Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, edu, gender]
+    stated_geo_focus: [global, africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://hewlett.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: packard-foundation
+    name: David and Lucile Packard Foundation
+    aliases: ["Packard Foundation", "David and Lucile Packard Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, health, gender]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.packard.org/news-insights/
+    last_seen_at: 2026-04-27
+
+  - slug: hilton-foundation
+    name: Conrad N. Hilton Foundation
+    aliases: ["Hilton Foundation", "Conrad N. Hilton Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [wash, health]
+    stated_geo_focus: [africa, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 10
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.hiltonfoundation.org/news
+    last_seen_at: 2026-04-27
+
+  - slug: kellogg-foundation
+    name: W.K. Kellogg Foundation
+    aliases: [Kellogg Foundation, "W.K. Kellogg Foundation", "WKKF"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu, agri, health]
+    stated_geo_focus: [us, latam, africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.wkkf.org/news-and-media
+    last_seen_at: 2026-04-27
+
+  - slug: skoll-foundation
+    name: Skoll Foundation
+    aliases: ["Skoll Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist, health, edu]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://skoll.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: surdna-foundation
+    name: Surdna Foundation
+    aliases: ["Surdna Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [housing, fi]
+    stated_geo_focus: [us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://surdna.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: rwjf
+    name: Robert Wood Johnson Foundation
+    aliases: ["RWJF", "Robert Wood Johnson Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health, housing]
+    stated_geo_focus: [us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.rwjf.org/en/news-and-insights.html
+    last_seen_at: 2026-04-27
+
+  - slug: mcknight-foundation
+    name: McKnight Foundation
+    aliases: ["McKnight Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, agri]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.mcknight.org/news-ideas/
+    last_seen_at: 2026-04-27
+
+  - slug: macp
+    name: Margaret A. Cargill Philanthropies
+    aliases: ["Cargill Philanthropies", "MACP", "Margaret A. Cargill Philanthropies"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [agri, climate, wash]
+    stated_geo_focus: [global, africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.macphilanthropies.org/news
+    last_seen_at: 2026-04-27
+
+  - slug: open-society-foundations
+    name: Open Society Foundations
+    aliases: ["Open Society Foundations", "OSF", "Open Society Institute"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [gender, housing, generalist]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 20
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.opensocietyfoundations.org/newsroom
+    last_seen_at: 2026-04-27
+
+  # ---- New-form philanthropy / LLC vehicles ----
+
+  - slug: omidyar-network
+    name: Omidyar Network
+    aliases: ["Omidyar Network", "Omidyar"]
+    country: "US"
+    foundation_type: philanthropy
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi, edu, smb]
+    stated_geo_focus: [global, asia, africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://omidyar.com/news/
+    last_seen_at: 2026-04-27
+
+  - slug: czi
+    name: Chan Zuckerberg Initiative
+    aliases: ["CZI", "Chan Zuckerberg Initiative"]
+    country: "US"
+    foundation_type: philanthropy
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health, edu]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://chanzuckerberg.com/newsroom/
+    last_seen_at: 2026-04-27
+
+  - slug: bloomberg-philanthropies
+    name: Bloomberg Philanthropies
+    aliases: ["Bloomberg Philanthropies"]
+    country: "US"
+    foundation_type: philanthropy
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, health]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.bloomberg.org/press/
+    last_seen_at: 2026-04-27
+
+  - slug: yield-giving
+    name: Yield Giving
+    aliases: ["Yield Giving", "MacKenzie Scott"]
+    country: "US"
+    foundation_type: philanthropy
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist, gender, housing]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 50
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://yieldgiving.com/
+    last_seen_at: 2026-04-27
+
+  - slug: bezos-earth-fund
+    name: Bezos Earth Fund
+    aliases: ["Bezos Earth Fund"]
+    country: "US"
+    foundation_type: philanthropy
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 10
+    typical_check_usd_m_max: 50
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.bezosearthfund.org/news
+    last_seen_at: 2026-04-27
+
+  - slug: emerson-collective
+    name: Emerson Collective
+    aliases: ["Emerson Collective"]
+    country: "US"
+    foundation_type: philanthropy
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu, climate, health]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.emersoncollective.com/news/
+    last_seen_at: 2026-04-27
+
+  # ---- Mastercard Foundation, CIFF, Wellcome — large global private ----
+
+  - slug: mastercard-foundation
+    name: Mastercard Foundation
+    aliases: ["Mastercard Foundation"]
+    country: "CA"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu, smb, fi]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 10
+    typical_check_usd_m_max: 100
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://mastercardfdn.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: ciff
+    name: Children's Investment Fund Foundation
+    aliases: ["CIFF", "Children's Investment Fund Foundation"]
+    country: "GB"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, health, edu]
+    stated_geo_focus: [global, africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://ciff.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: ciff-us
+    name: Children's Investment Fund Foundation US
+    aliases: ["CIFF US"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, health]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 10
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://ciff.org/
+    last_seen_at: 2026-04-27
+
+  - slug: wellcome-trust
+    name: Wellcome Trust
+    aliases: ["Wellcome Trust", "Wellcome"]
+    country: "GB"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health, climate]
+    stated_geo_focus: [global, uk]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 10
+    typical_check_usd_m_max: 50
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://wellcome.org/news
+    last_seen_at: 2026-04-27
+
+  # ---- European private foundations ----
+
+  - slug: ikea-foundation
+    name: IKEA Foundation
+    aliases: ["IKEA Foundation"]
+    country: "NL"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, energy, agri]
+    stated_geo_focus: [africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://ikeafoundation.org/press-release/
+    last_seen_at: 2026-04-27
+
+  - slug: novo-nordisk-foundation
+    name: Novo Nordisk Foundation
+    aliases: ["Novo Nordisk Foundation", "NNF"]
+    country: "DK"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://novonordiskfonden.dk/en/news/
+    last_seen_at: 2026-04-27
+
+  - slug: laudes-foundation
+    name: Laudes Foundation
+    aliases: ["Laudes Foundation", "C&A Foundation"]
+    country: "NL"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, agri]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.laudesfoundation.org/latest
+    last_seen_at: 2026-04-27
+
+  - slug: jacobs-foundation
+    name: Jacobs Foundation
+    aliases: ["Jacobs Foundation"]
+    country: "CH"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu]
+    stated_geo_focus: [global, africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://jacobsfoundation.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: shell-foundation
+    name: Shell Foundation
+    aliases: ["Shell Foundation"]
+    country: "GB"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [energy, climate, smb]
+    stated_geo_focus: [africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://shellfoundation.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: luminate
+    name: Luminate
+    aliases: [Luminate, "Luminate Group"]
+    country: "GB"
+    foundation_type: philanthropy
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [gender, edu]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.luminategroup.com/posts
+    last_seen_at: 2026-04-27
+
+  # ---- Corporate foundations / corporate impact arms ----
+
+  - slug: visa-foundation
+    name: Visa Foundation
+    aliases: ["Visa Foundation"]
+    country: "US"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [gender, fi, smb]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://usa.visa.com/about-visa/visa-foundation.html
+    last_seen_at: 2026-04-27
+
+  - slug: citi-foundation
+    name: Citi Foundation
+    aliases: ["Citi Foundation"]
+    country: "US"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi, smb]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.citigroup.com/global/foundation
+    last_seen_at: 2026-04-27
+
+  - slug: jpmc-foundation
+    name: JPMorgan Chase Foundation
+    aliases: ["JPMorgan Chase Foundation", "JPMC Foundation"]
+    country: "US"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi, smb, housing]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.jpmorganchase.com/impact
+    last_seen_at: 2026-04-27
+
+  - slug: bofa-foundation
+    name: Bank of America Foundation
+    aliases: ["Bank of America Foundation", "BofA Foundation"]
+    country: "US"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi, housing]
+    stated_geo_focus: [us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://about.bankofamerica.com/en/making-an-impact
+    last_seen_at: 2026-04-27
+
+  - slug: nuveen-tiaa-impact
+    name: Nuveen / TIAA Impact
+    aliases: ["Nuveen", "TIAA Impact", "Nuveen Global Impact"]
+    country: "US"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, fi, housing]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 10
+    typical_check_usd_m_max: 50
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.nuveen.com/global/insights
+    last_seen_at: 2026-04-27
+
+  - slug: prudential-impact
+    name: Prudential Financial Impact Investments
+    aliases: ["Prudential Impact Investments", "Prudential Financial"]
+    country: "US"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [housing, fi]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.prudential.com/links/about/corporate-social-responsibility
+    last_seen_at: 2026-04-27
+
+  - slug: metlife-foundation
+    name: MetLife Foundation
+    aliases: ["MetLife Foundation"]
+    country: "US"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.metlife.com/metlife-foundation/
+    last_seen_at: 2026-04-27
+
+  - slug: pfizer-foundation
+    name: Pfizer Foundation
+    aliases: ["Pfizer Foundation"]
+    country: "US"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.pfizer.com/about/responsibility/pfizer-foundation
+    last_seen_at: 2026-04-27
+
+  - slug: autodesk-foundation
+    name: Autodesk Foundation
+    aliases: ["Autodesk Foundation"]
+    country: "US"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, edu]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.autodesk.org/newsroom
+    last_seen_at: 2026-04-27
+
+  - slug: patagonia-holdfast
+    name: Patagonia / Holdfast Collective
+    aliases: ["Patagonia Inc", "Holdfast Collective", "Patagonia"]
+    country: "US"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, agri]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.patagonia.com/stories/
+    last_seen_at: 2026-04-27
+
+  - slug: vitol-foundation
+    name: Vitol Foundation
+    aliases: ["Vitol Foundation"]
+    country: "GB"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health, edu]
+    stated_geo_focus: [africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.vitol.com/about-us/vitol-foundation/
+    last_seen_at: 2026-04-27
+
+  - slug: ikea-social-entrepreneurship
+    name: IKEA Social Entrepreneurship
+    aliases: ["Ikea Social Entrepreneurship", "IKEA Social Entrepreneurship"]
+    country: "NL"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [smb, generalist]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://ikeasocialentrepreneurship.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: ubs-optimus
+    name: UBS Optimus Foundation
+    aliases: ["UBS Optimus Foundation", "UBS Optimus"]
+    country: "CH"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu, gender, health]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.ubs.com/microsites/optimus-foundation/en/news.html
+    last_seen_at: 2026-04-27
+
+  # ---- Multilateral / pooled health & education trust funds ----
+
+  - slug: gavi
+    name: GAVI The Vaccine Alliance
+    aliases: [GAVI, "Gavi, the Vaccine Alliance"]
+    country: "INT"
+    foundation_type: public_charity
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health]
+    stated_geo_focus: [africa, asia, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 10
+    typical_check_usd_m_max: 100
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.gavi.org/news
+    last_seen_at: 2026-04-27
+
+  - slug: global-fund
+    name: The Global Fund
+    aliases: ["The Global Fund", "Global Fund to Fight AIDS Tuberculosis and Malaria"]
+    country: "INT"
+    foundation_type: public_charity
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health]
+    stated_geo_focus: [global, africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 10
+    typical_check_usd_m_max: 100
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.theglobalfund.org/en/news/
+    last_seen_at: 2026-04-27
+
+  - slug: gpe
+    name: Global Partnership for Education
+    aliases: ["GPE", "Global Partnership for Education"]
+    country: "INT"
+    foundation_type: public_charity
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu]
+    stated_geo_focus: [global, africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.globalpartnership.org/news
+    last_seen_at: 2026-04-27
+
+  - slug: grand-challenges-canada
+    name: Grand Challenges Canada
+    aliases: ["Grand Challenges Canada", "GCC"]
+    country: "CA"
+    foundation_type: public_charity
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health]
+    stated_geo_focus: [global, africa, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.grandchallenges.ca/news/
+    last_seen_at: 2026-04-27
+
+  - slug: idh-sustainable-trade
+    name: IDH Sustainable Trade
+    aliases: ["IDH", "IDH The Sustainable Trade Initiative"]
+    country: "NL"
+    foundation_type: public_charity
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [agri, climate]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.idhsustainabletrade.com/news/
+    last_seen_at: 2026-04-27
+
+  - slug: co-impact
+    name: Co-Impact
+    aliases: [Co-Impact]
+    country: "CH"
+    foundation_type: public_charity
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health, edu, gender]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.co-impact.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: schmidt-family-foundation
+    name: Schmidt Family Foundation / 11th Hour Project
+    aliases: ["Schmidt Family Foundation", "11th Hour Project", "Wendy Schmidt"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, energy, agri, wash]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://tsffoundation.org/news/
+    last_seen_at: 2026-04-27

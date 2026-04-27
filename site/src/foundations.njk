@@ -1,0 +1,90 @@
+---
+layout: base.njk
+title: Foundations
+permalink: /foundations/index.html
+pageKey: foundations
+---
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
+  <header class="detail-header">
+    <div class="detail-eyebrow">
+      <span>Capital sources · private &amp; corporate foundations</span>
+    </div>
+    <h1>Foundations and corporate-impact arms that back impact funds.</h1>
+    <p class="detail-sub">{{ foundation_lps | length }} foundation profiles. Stated priority themes and geographies, typical check sizes, and disclosed INGO-GP commitments where traceable to a public source. Foundation behaviour ranges from straight grants to PRI / MRI / fund-LP commitments — for many entries the public-source bar means commitment lists are sparse; verify via 990s and annual reports.</p>
+  </header>
+
+  <div class="filter-bar">
+    <label class="filter-label" for="country-filter">Country</label>
+    <select id="country-filter" class="filter-select"></select>
+    <label class="filter-label" for="type-filter">Type</label>
+    <select id="type-filter" class="filter-select">
+      <option value="ALL">All types</option>
+      <option value="private">Private</option>
+      <option value="corporate">Corporate</option>
+      <option value="philanthropy">Philanthropy LLC</option>
+      <option value="public_charity">Public charity</option>
+    </select>
+    <span id="filter-summary" class="filter-summary"></span>
+  </div>
+
+  <div id="fdn-list" class="dfi-list" aria-live="polite"></div>
+  <div id="fdn-empty" class="empty-state" hidden></div>
+</section>
+
+<script type="application/json" id="data-foundations">{{ foundation_lps | dump | safe }}</script>
+<script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
+
+<script src="{{ '/assets/js/render.js' | url }}"></script>
+<script>
+(function () {
+  "use strict";
+  var I = window.IFC;
+  var FDNS = I.loadJSON("data-foundations") || [];
+  var META = I.loadJSON("data-slot-meta") || {};
+
+  var state = { country: "ALL", type: "ALL" };
+
+  function render() {
+    var list = FDNS.filter(function (d) {
+      if (state.country !== "ALL" && d.country !== state.country) return false;
+      if (state.type !== "ALL" && d.foundation_type !== state.type) return false;
+      return true;
+    });
+    list.sort(function (a, b) {
+      var ac = (a.known_ingo_gp_commits || []).length;
+      var bc = (b.known_ingo_gp_commits || []).length;
+      if (ac !== bc) return bc - ac;
+      return (a.name || "").localeCompare(b.name || "");
+    });
+
+    var root = document.getElementById("fdn-list");
+    var empty = document.getElementById("fdn-empty");
+    var sum = document.getElementById("filter-summary");
+
+    if (list.length === 0) {
+      root.innerHTML = "";
+      empty.hidden = false;
+      empty.innerHTML = "<p>No foundations match this filter. Try <em>All countries</em> or <em>All types</em>.</p>";
+      sum.textContent = "Showing 0 of " + FDNS.length;
+      return;
+    }
+    empty.hidden = true; empty.innerHTML = "";
+    root.innerHTML = list.map(function (d) { return I.renderFoundationCard(d, META); }).join("");
+    sum.textContent = "Showing " + list.length + " of " + FDNS.length;
+  }
+
+  document.getElementById("country-filter").innerHTML =
+    I.buildCountryOptions(META, "foundation_country").join("");
+  document.getElementById("country-filter").addEventListener("change", function (e) {
+    state.country = e.target.value; render();
+  });
+  document.getElementById("type-filter").addEventListener("change", function (e) {
+    state.type = e.target.value; render();
+  });
+
+  I.installCardClick(".detail-page");
+  render();
+})();
+</script>

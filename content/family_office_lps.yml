@@ -1,0 +1,391 @@
+# Family-office, faith-based, DAF and HNWI-collective LP registry.
+#
+# Source of truth for the /family-offices/ page. Hand-curated.
+#
+# Honest-null discipline applies (see content/foundation_lps.yml header).
+# Family offices and faith-based investors typically disclose less than
+# DFIs or foundations — most rows will have null AUM and empty
+# known_ingo_gp_commits at first publication.
+
+family_offices:
+
+  # ---- Single- and multi-family offices with impact mandates ----
+
+  - slug: blue-haven-initiative
+    name: Blue Haven Initiative
+    aliases: ["Blue Haven", "Blue Haven Initiative"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, fi, gender]
+    stated_geo_focus: [africa, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://bluehaveninitiative.com/
+    last_seen_at: 2026-04-27
+
+  - slug: ceniarth
+    name: Ceniarth
+    aliases: ["Ceniarth"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi, smb, agri]
+    stated_geo_focus: [africa, latam, asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://ceniarth.com/news/
+    last_seen_at: 2026-04-27
+
+  - slug: porticus
+    name: Porticus
+    aliases: ["Porticus"]
+    country: "NL"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu, climate, fi]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.porticus.com/en/news-stories
+    last_seen_at: 2026-04-27
+
+  - slug: temasek-trust
+    name: Temasek Trust / Philanthropy Asia
+    aliases: ["Temasek Trust", "Philanthropy Asia Alliance"]
+    country: "SG"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, health, edu]
+    stated_geo_focus: [asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 25
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.temasektrust.org.sg/newsroom
+    last_seen_at: 2026-04-27
+
+  - slug: iconiq-impact
+    name: ICONIQ Impact
+    aliases: ["ICONIQ Impact", "ICONIQ"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, edu]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.iconiqimpact.com/
+    last_seen_at: 2026-04-27
+
+  # ---- Philanthropy-LLC vehicles ----
+
+  - slug: soros-economic-development-fund
+    name: Soros Economic Development Fund
+    aliases: ["SEDF", "Soros Economic Development Fund"]
+    country: "US"
+    category: philanthropy_llc
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi, smb, housing]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 15
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.opensocietyfoundations.org/who-we-are/programs/soros-economic-development-fund
+    last_seen_at: 2026-04-27
+
+  # ---- Faith-based mission-aligned asset managers ----
+  #
+  # These investors have explicit social-return / values-aligned mandates
+  # tied to specific religious traditions. They are often willing to accept
+  # below-market returns for mission fit, and have multi-decade histories
+  # backing community development and impact funds. Primary-source links
+  # point to each org's investments / responsible-investing page.
+
+  - slug: trinity-church-wall-street
+    name: Trinity Church Wall Street
+    aliases: ["Trinity Church", "Trinity Church Wall Street", "Trinity Wall Street"]
+    country: "US"
+    category: faith_based
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [housing, fi]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://trinitywallstreet.org/news
+    last_seen_at: 2026-04-27
+
+  - slug: catholic-investment-services
+    name: Catholic Investment Services
+    aliases: ["CIS", "Catholic Investment Services"]
+    country: "US"
+    category: faith_based
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist, fi]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://catholicinvest.org/
+    last_seen_at: 2026-04-27
+
+  - slug: mercy-investment-services
+    name: Mercy Investment Services
+    aliases: ["Mercy Investment Services", "Sisters of Mercy"]
+    country: "US"
+    category: faith_based
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [housing, fi, climate, gender]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.mercyinvestmentservices.org/
+    last_seen_at: 2026-04-27
+
+  - slug: wespath
+    name: Wespath Investment Management
+    aliases: ["Wespath", "Wespath Investments", "United Methodist Church Wespath"]
+    country: "US"
+    category: faith_based
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, fi, housing]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 5
+    typical_check_usd_m_max: 25
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.wespath.com/news
+    last_seen_at: 2026-04-27
+
+  - slug: adrian-dominican-sisters
+    name: Adrian Dominican Sisters Portfolio Advisory Board
+    aliases: ["Adrian Dominican Sisters", "Adrian Dominican PAB"]
+    country: "US"
+    category: faith_based
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [housing, fi, climate, gender]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 3
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://adriandominicans.org/
+    last_seen_at: 2026-04-27
+
+  - slug: christian-brothers-investment-services
+    name: Christian Brothers Investment Services
+    aliases: ["CBIS", "Christian Brothers Investment Services"]
+    country: "US"
+    category: faith_based
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist, fi, housing]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.cbisonline.com/news/
+    last_seen_at: 2026-04-27
+
+  # ---- Public-charity asset managers (often classified alongside faith-based) ----
+
+  - slug: calvert-impact-capital
+    name: Calvert Impact Capital
+    aliases: ["Calvert Impact Capital", "Calvert Impact"]
+    country: "US"
+    category: philanthropy_llc
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi, climate, housing]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 20
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://calvertimpactcapital.org/media
+    last_seen_at: 2026-04-27
+
+  # ---- Single- and multi-family offices (impact-active branches only) ----
+
+  - slug: pritzker-innovation-fund
+    name: Pritzker Innovation Fund
+    aliases: ["Pritzker Innovation Fund", "Liesel Pritzker Simmons", "Ian Simmons"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, gender, fi]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.bluehavenmgmt.com/
+    last_seen_at: 2026-04-27
+
+  - slug: tara-health-foundation
+    name: Tara Health Foundation
+    aliases: ["Tara Health Foundation", "Tara Health"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [gender, health]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://tarahealthfoundation.org/news/
+    last_seen_at: 2026-04-27
+
+  - slug: builders-initiative
+    name: Builders Initiative
+    aliases: ["Builders Initiative", "Lukas Walton"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, agri, generalist]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 3
+    typical_check_usd_m_max: 25
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://buildersinitiative.org/news/
+    last_seen_at: 2026-04-27
+
+  # ---- Additional philanthropy LLCs / DAF hosts ----
+
+  - slug: imaginable-futures
+    name: Imaginable Futures
+    aliases: ["Imaginable Futures", "Pam Omidyar", "Pierre Omidyar"]
+    country: "US"
+    category: philanthropy_llc
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu]
+    stated_geo_focus: [global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.imaginablefutures.com/learnings/
+    last_seen_at: 2026-04-27
+
+  - slug: tides-foundation
+    name: Tides Foundation
+    aliases: ["Tides Foundation", "Tides Advocacy", "Tides"]
+    country: "US"
+    category: daf
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist, gender, fi, housing]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.tides.org/news/
+    last_seen_at: 2026-04-27
+
+  # ---- Additional faith-based ----
+
+  - slug: episcopal-church-foundation
+    name: Episcopal Church Foundation
+    aliases: ["Episcopal Church Foundation", "ECF", "ECF Endowment Management Solutions"]
+    country: "US"
+    category: faith_based
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [housing, fi, climate, generalist]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 5
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: https://www.ecfvp.org/
+    last_seen_at: 2026-04-27

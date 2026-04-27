@@ -249,6 +249,8 @@
         return '<li class="commit-row">' + bits.join('<span class="sep">·</span>') + '</li>';
       });
       parts.push('<details class="dfi-commits" open><summary>Disclosed INGO-GP commitments (' + commits.length + ')</summary><ul class="commit-list">' + lis.join("") + '</ul></details>');
+    } else {
+      parts.push('<p class="dfi-commits-empty muted">No INGO-GP fund LP commitments located in public press materials at last verification. Stated sectors and geographies are sourced from this DFI’s own public profile.</p>');
     }
 
     var prefBits = [];
@@ -593,6 +595,187 @@
       + '</div>';
   }
 
+  // ---- Foundation card ---------------------------------------------------
+
+  var FOUNDATION_TYPE_LABELS = {
+    private: "Private foundation",
+    corporate: "Corporate foundation",
+    community: "Community foundation",
+    operating: "Operating foundation",
+    public_charity: "Public charity / pooled fund",
+    supporting_org: "Supporting org / DAF",
+    philanthropy: "Philanthropy LLC",
+  };
+
+  function renderLpCheckRange(d) {
+    var lo = d.typical_check_usd_m_min, hi = d.typical_check_usd_m_max;
+    if (lo == null && hi == null) return "";
+    var rangeStr = "";
+    if (lo != null && hi != null) rangeStr = fmtUSDm(lo) + "–" + fmtUSDm(hi);
+    else if (lo != null) rangeStr = "from " + fmtUSDm(lo);
+    else rangeStr = "up to " + fmtUSDm(hi);
+    return '<span class="stat"><span class="stat-num">' + esc(rangeStr) + '</span><span class="stat-label">stated check size</span></span>';
+  }
+
+  function renderFoundationCard(d, meta) {
+    var parts = [];
+    parts.push('<h3 class="dfi-name">' + esc(d.name) + '</h3>');
+
+    var hdrBits = [];
+    if (d.country) hdrBits.push(badge(countryName(meta, d.country), "badge-country"));
+    if (d.foundation_type && FOUNDATION_TYPE_LABELS[d.foundation_type]) {
+      hdrBits.push(badge(FOUNDATION_TYPE_LABELS[d.foundation_type], "badge-remit"));
+    }
+    parts.push('<div class="dfi-sub">' + hdrBits.join(" ") + '</div>');
+
+    var stats = [];
+    var commits = d.known_ingo_gp_commits || [];
+    if (commits.length > 0) {
+      stats.push('<span class="stat"><span class="stat-num">' + commits.length + '</span><span class="stat-label">disclosed INGO-GP commitments</span></span>');
+    }
+    if (d.aum_usd_m != null) {
+      var yr = d.aum_usd_m_year ? ' (' + d.aum_usd_m_year + ')' : '';
+      stats.push('<span class="stat"><span class="stat-num">' + fmtUSDm(d.aum_usd_m) + '</span><span class="stat-label">AUM' + esc(yr) + '</span></span>');
+    }
+    var checkStat = renderLpCheckRange(d);
+    if (checkStat) stats.push(checkStat);
+    if (stats.length) parts.push('<div class="dfi-stats">' + stats.join("") + '</div>');
+
+    if (commits.length > 0) {
+      var lis = commits.map(function (c) {
+        var prefix = (typeof window !== "undefined" && window.IFC_PATH_PREFIX) || "/";
+        var inner = c.peer_fund_slug
+          ? '<a href="' + prefix + 'peer-funds/#fund-' + escAttr(c.peer_fund_slug) + '" class="commit-fund">' + esc(c.peer_fund_name) + '</a>'
+          : '<span class="commit-fund">' + esc(c.peer_fund_name) + '</span>';
+        var bits = [inner];
+        if (c.parent_ingo) bits.push('<span class="commit-ingo muted">' + esc(c.parent_ingo) + '</span>');
+        if (c.amount_usd_m != null) bits.push('<span class="commit-amt">' + esc(fmtUSDm(c.amount_usd_m)) + '</span>');
+        if (c.commit_date) bits.push('<span class="commit-date muted">' + esc(fmtDate(c.commit_date)) + '</span>');
+        if (c.public_source_url) bits.push(sourceLink(c.public_source_url, "source"));
+        return '<li class="commit-row">' + bits.join('<span class="sep">·</span>') + '</li>';
+      });
+      parts.push('<details class="dfi-commits" open><summary>Disclosed INGO-GP commitments (' + commits.length + ')</summary><ul class="commit-list">' + lis.join("") + '</ul></details>');
+    } else {
+      parts.push('<p class="dfi-commits-empty muted">No INGO-GP fund LP commitments located in public materials at last verification. Foundation may operate via grants, PRI, or MRI rather than fund-LP commitments — verify via 990s and annual reports.</p>');
+    }
+
+    var prefBits = [];
+    if (d.stated_priority_themes && d.stated_priority_themes.length) {
+      prefBits.push('<div class="pref-row"><span class="pref-label">Priority themes:</span> ' +
+        d.stated_priority_themes.map(function (t) { return chip(sectorLabel(t), "chip-sector"); }).join("") + '</div>');
+    }
+    if (d.stated_geo_focus && d.stated_geo_focus.length) {
+      prefBits.push('<div class="pref-row"><span class="pref-label">Geo focus:</span> ' +
+        d.stated_geo_focus.map(function (t) { return chip(geoLabel(t), "chip-geo"); }).join("") + '</div>');
+    }
+    if (d.stated_thesis_excerpt) {
+      prefBits.push('<blockquote class="thesis-excerpt">' + esc(d.stated_thesis_excerpt) + '</blockquote>');
+    }
+    if (prefBits.length) parts.push('<div class="dfi-prefs">' + prefBits.join("") + '</div>');
+
+    function renderProgram(p, label) {
+      if (!p || !p.exists) return "";
+      var bits = ['<span class="emf-label">' + esc(label) + ':</span>'];
+      if (p.program_name) bits.push('<strong>' + esc(p.program_name) + '</strong>');
+      if (p.application_url) bits.push(sourceLink(p.application_url, "apply"));
+      if (p.notes) bits.push('<p class="emf-notes muted">' + esc(String(p.notes).replace(/\s+/g, " ")) + '</p>');
+      return '<div class="dfi-emf">' + bits.join(" ") + '</div>';
+    }
+    parts.push(renderProgram(d.pri_program, "PRI program"));
+    parts.push(renderProgram(d.mri_program, "MRI program"));
+
+    var footBits = [];
+    if (d.stated_thesis_url) footBits.push(sourceLink(d.stated_thesis_url, "Stated thesis"));
+    if (d.public_newsroom_url) footBits.push(sourceLink(d.public_newsroom_url, "Newsroom"));
+    if (d.last_seen_at) footBits.push('<span class="verified muted">Last verified ' + esc(fmtDate(d.last_seen_at)) + '</span>');
+    if (footBits.length) parts.push('<div class="dfi-foot">' + footBits.join('<span class="sep">·</span>') + '</div>');
+
+    var url = d.stated_thesis_url || d.public_newsroom_url;
+    var clickCls = url ? " card-clickable" : "";
+    var dataAttr = url ? ' data-source-url="' + escAttr(url) + '"' : "";
+    var idAttr = d.slug ? ' id="fdn-' + escAttr(d.slug) + '"' : "";
+    return '<article class="card dfi-card' + clickCls + '"' + idAttr + dataAttr + '>' + parts.join("") + '</article>';
+  }
+
+  // ---- Family-office card ------------------------------------------------
+
+  var FAMILY_OFFICE_CATEGORY_LABELS = {
+    family_office: "Family office",
+    faith_based: "Faith-based investor",
+    daf: "DAF host",
+    philanthropy_llc: "Philanthropy LLC",
+    hnwi_collective: "HNWI collective",
+  };
+
+  function renderFamilyOfficeCard(d, meta) {
+    var parts = [];
+    parts.push('<h3 class="dfi-name">' + esc(d.name) + '</h3>');
+
+    var hdrBits = [];
+    if (d.country) hdrBits.push(badge(countryName(meta, d.country), "badge-country"));
+    if (d.category && FAMILY_OFFICE_CATEGORY_LABELS[d.category]) {
+      hdrBits.push(badge(FAMILY_OFFICE_CATEGORY_LABELS[d.category], "badge-remit"));
+    }
+    parts.push('<div class="dfi-sub">' + hdrBits.join(" ") + '</div>');
+
+    var stats = [];
+    var commits = d.known_ingo_gp_commits || [];
+    if (commits.length > 0) {
+      stats.push('<span class="stat"><span class="stat-num">' + commits.length + '</span><span class="stat-label">disclosed INGO-GP commitments</span></span>');
+    }
+    if (d.aum_usd_m != null) {
+      var yr = d.aum_usd_m_year ? ' (' + d.aum_usd_m_year + ')' : '';
+      stats.push('<span class="stat"><span class="stat-num">' + fmtUSDm(d.aum_usd_m) + '</span><span class="stat-label">AUM' + esc(yr) + '</span></span>');
+    }
+    var checkStat = renderLpCheckRange(d);
+    if (checkStat) stats.push(checkStat);
+    if (stats.length) parts.push('<div class="dfi-stats">' + stats.join("") + '</div>');
+
+    if (commits.length > 0) {
+      var lis = commits.map(function (c) {
+        var prefix = (typeof window !== "undefined" && window.IFC_PATH_PREFIX) || "/";
+        var inner = c.peer_fund_slug
+          ? '<a href="' + prefix + 'peer-funds/#fund-' + escAttr(c.peer_fund_slug) + '" class="commit-fund">' + esc(c.peer_fund_name) + '</a>'
+          : '<span class="commit-fund">' + esc(c.peer_fund_name) + '</span>';
+        var bits = [inner];
+        if (c.parent_ingo) bits.push('<span class="commit-ingo muted">' + esc(c.parent_ingo) + '</span>');
+        if (c.amount_usd_m != null) bits.push('<span class="commit-amt">' + esc(fmtUSDm(c.amount_usd_m)) + '</span>');
+        if (c.commit_date) bits.push('<span class="commit-date muted">' + esc(fmtDate(c.commit_date)) + '</span>');
+        if (c.public_source_url) bits.push(sourceLink(c.public_source_url, "source"));
+        return '<li class="commit-row">' + bits.join('<span class="sep">·</span>') + '</li>';
+      });
+      parts.push('<details class="dfi-commits" open><summary>Disclosed INGO-GP commitments (' + commits.length + ')</summary><ul class="commit-list">' + lis.join("") + '</ul></details>');
+    } else {
+      parts.push('<p class="dfi-commits-empty muted">No INGO-GP fund LP commitments located in public materials at last verification. Family offices and faith-based investors typically disclose less than DFIs — direct outreach is the usual discovery path.</p>');
+    }
+
+    var prefBits = [];
+    if (d.stated_priority_themes && d.stated_priority_themes.length) {
+      prefBits.push('<div class="pref-row"><span class="pref-label">Priority themes:</span> ' +
+        d.stated_priority_themes.map(function (t) { return chip(sectorLabel(t), "chip-sector"); }).join("") + '</div>');
+    }
+    if (d.stated_geo_focus && d.stated_geo_focus.length) {
+      prefBits.push('<div class="pref-row"><span class="pref-label">Geo focus:</span> ' +
+        d.stated_geo_focus.map(function (t) { return chip(geoLabel(t), "chip-geo"); }).join("") + '</div>');
+    }
+    if (d.stated_thesis_excerpt) {
+      prefBits.push('<blockquote class="thesis-excerpt">' + esc(d.stated_thesis_excerpt) + '</blockquote>');
+    }
+    if (prefBits.length) parts.push('<div class="dfi-prefs">' + prefBits.join("") + '</div>');
+
+    var footBits = [];
+    if (d.stated_thesis_url) footBits.push(sourceLink(d.stated_thesis_url, "Stated thesis"));
+    if (d.public_newsroom_url) footBits.push(sourceLink(d.public_newsroom_url, "Newsroom"));
+    if (d.last_seen_at) footBits.push('<span class="verified muted">Last verified ' + esc(fmtDate(d.last_seen_at)) + '</span>');
+    if (footBits.length) parts.push('<div class="dfi-foot">' + footBits.join('<span class="sep">·</span>') + '</div>');
+
+    var url = d.stated_thesis_url || d.public_newsroom_url;
+    var clickCls = url ? " card-clickable" : "";
+    var dataAttr = url ? ' data-source-url="' + escAttr(url) + '"' : "";
+    var idAttr = d.slug ? ' id="famof-' + escAttr(d.slug) + '"' : "";
+    return '<article class="card dfi-card' + clickCls + '"' + idAttr + dataAttr + '>' + parts.join("") + '</article>';
+  }
+
   // ---- Public API ---------------------------------------------------------
 
   root.IFC = {
@@ -602,6 +785,8 @@
     countryName: countryName, dateVerb: dateVerb,
     renderFundCard: renderFundCard,
     renderDfiCard: renderDfiCard,
+    renderFoundationCard: renderFoundationCard,
+    renderFamilyOfficeCard: renderFamilyOfficeCard,
     renderDeadlineRow: renderDeadlineRow,
     renderImpactChart: renderImpactChart,
     renderImpactDrawer: renderImpactDrawer,

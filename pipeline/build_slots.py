@@ -52,6 +52,9 @@ from .schemas import (
     Deadline,
     DfiIngoCommit,
     EmergingManagerFacility,
+    FamilyOfficeLp,
+    FoundationLp,
+    FoundationProgram,
     IngoGpCommit,
     PeerIngoFund,
     TicketRange,
@@ -62,6 +65,8 @@ CONTENT = REPO / "content"
 PEER_FUNDS_YML = CONTENT / "peer_funds.yml"
 DFI_COMMITS_YML = CONTENT / "dfi_ingo_commitments.yml"
 DEADLINES_YML = CONTENT / "deadlines.yml"
+FOUNDATION_LPS_YML = CONTENT / "foundation_lps.yml"
+FAMILY_OFFICE_LPS_YML = CONTENT / "family_office_lps.yml"
 ENTITIES_YML = REPO / "pipeline" / "entities.yml"
 
 HEALTH_DIR = REPO / "tool" / "health"
@@ -71,6 +76,11 @@ DATA_DIR = REPO / "site" / "src" / "_data"
 COUNTRY_ENUM = [
     "GB", "US", "NL", "CH", "FR", "DE", "SE", "NO", "FI",
     "CA", "AU", "IN", "SG", "LU", "IE", "BE", "IT", "JP", "KR",
+    "ES", "AT", "PT", "PL", "DK",  # additional European
+    "ZA", "NG",              # African DFI HQs
+    "BR", "MX",              # LatAm DFI HQs
+    "CN",                    # China DFI HQs
+    "SA", "KW", "AE", "QA",  # Gulf DFI HQs
     "BD",  # Bangladesh (BRAC)
     "KE",  # Kenya (Kenya-domiciled peer INGOs)
     "INT",  # synthetic for multilateral / supranational
@@ -82,6 +92,10 @@ COUNTRY_DISPLAY_NAMES = {
     "NO": "Norway", "FI": "Finland", "CA": "Canada", "AU": "Australia",
     "IN": "India", "SG": "Singapore", "LU": "Luxembourg", "IE": "Ireland",
     "BE": "Belgium", "IT": "Italy", "JP": "Japan", "KR": "South Korea",
+    "ES": "Spain", "AT": "Austria", "PT": "Portugal", "PL": "Poland", "DK": "Denmark",
+    "ZA": "South Africa", "NG": "Nigeria",
+    "BR": "Brazil", "MX": "Mexico", "CN": "China",
+    "SA": "Saudi Arabia", "KW": "Kuwait", "AE": "United Arab Emirates", "QA": "Qatar",
     "BD": "Bangladesh", "KE": "Kenya",
     "INT": "Supranational / Multilateral",
     "OTHER": "Other",
@@ -479,6 +493,152 @@ def load_deadlines() -> list[Deadline]:
     return out
 
 
+# ------------------------------------------------------------------ foundations / family offices
+
+
+def _load_foundation_program(raw: Any) -> FoundationProgram | None:
+    if not isinstance(raw, dict):
+        return None
+    return FoundationProgram(
+        exists=bool(raw.get("exists")),
+        program_name=raw.get("program_name"),
+        application_url=raw.get("application_url"),
+        notes=_trim(raw.get("notes")),
+    )
+
+
+def load_foundation_lps(peer_slugs: set[str]) -> list[FoundationLp]:
+    """Parse content/foundation_lps.yml. Returns FoundationLp models.
+
+    Empty list if the file is missing — tolerated so the pipeline keeps
+    working in environments where this content has not been seeded yet.
+    """
+    if not FOUNDATION_LPS_YML.exists():
+        return []
+    raw = yaml.safe_load(FOUNDATION_LPS_YML.read_text(encoding="utf-8")) or {}
+    rows = raw.get("foundations") or []
+
+    seen: set[str] = set()
+    out: list[FoundationLp] = []
+    for i, row in enumerate(rows):
+        if not isinstance(row, dict):
+            raise HandshakeError(f"foundation_lps.yml row {i} is not a mapping")
+        slug = (row.get("slug") or "").strip()
+        if not slug:
+            raise HandshakeError(f"foundation_lps.yml row {i} missing required `slug`")
+        if slug in seen:
+            raise HandshakeError(f"foundation_lps.yml: duplicate slug `{slug}`")
+        seen.add(slug)
+
+        # Validate any nested INGO-GP commitments (peer_fund_slug handshake).
+        commit_models: list[IngoGpCommit] = []
+        for c in (row.get("known_ingo_gp_commits") or []):
+            if not isinstance(c, dict):
+                continue
+            fs = (c.get("peer_fund_slug") or "").strip() or None
+            if fs and fs not in peer_slugs:
+                raise HandshakeError(
+                    f"foundation_lps.yml: commit peer_fund_slug `{fs}` for "
+                    f"foundation `{slug}` not found in peer_funds.yml"
+                )
+            commit_models.append(IngoGpCommit(
+                peer_fund_slug=fs,
+                peer_fund_name=c.get("peer_fund_name") or "unknown",
+                parent_ingo=c.get("parent_ingo"),
+                commit_date=_parse_date(c.get("commit_date")),
+                amount_usd_m=c.get("amount_usd_m"),
+                role=c.get("role"),
+                public_source_url=c.get("public_source_url"),
+                notes=_trim(c.get("notes")),
+            ))
+
+        out.append(FoundationLp(
+            slug=slug,
+            name=row.get("name") or slug,
+            aliases=row.get("aliases") or [],
+            country=_normalize_country(row.get("country")),
+            foundation_type=row.get("foundation_type"),
+            aum_usd_m=row.get("aum_usd_m"),
+            aum_usd_m_year=row.get("aum_usd_m_year"),
+            stated_priority_themes=row.get("stated_priority_themes") or [],
+            stated_geo_focus=row.get("stated_geo_focus") or [],
+            stated_thesis_url=row.get("stated_thesis_url"),
+            stated_thesis_excerpt=_trim(row.get("stated_thesis_excerpt")),
+            pri_program=_load_foundation_program(row.get("pri_program")),
+            mri_program=_load_foundation_program(row.get("mri_program")),
+            typical_check_usd_m_min=row.get("typical_check_usd_m_min"),
+            typical_check_usd_m_max=row.get("typical_check_usd_m_max"),
+            known_ingo_gp_commits=commit_models,
+            public_newsroom_url=row.get("public_newsroom_url"),
+            last_seen_at=_parse_date(row.get("last_seen_at")) or _today(),
+        ))
+    return out
+
+
+def load_family_office_lps(peer_slugs: set[str]) -> list[FamilyOfficeLp]:
+    """Parse content/family_office_lps.yml. Returns FamilyOfficeLp models."""
+    if not FAMILY_OFFICE_LPS_YML.exists():
+        return []
+    raw = yaml.safe_load(FAMILY_OFFICE_LPS_YML.read_text(encoding="utf-8")) or {}
+    rows = raw.get("family_offices") or []
+
+    seen: set[str] = set()
+    out: list[FamilyOfficeLp] = []
+    for i, row in enumerate(rows):
+        if not isinstance(row, dict):
+            raise HandshakeError(f"family_office_lps.yml row {i} is not a mapping")
+        slug = (row.get("slug") or "").strip()
+        if not slug:
+            raise HandshakeError(f"family_office_lps.yml row {i} missing required `slug`")
+        if slug in seen:
+            raise HandshakeError(f"family_office_lps.yml: duplicate slug `{slug}`")
+        seen.add(slug)
+
+        commit_models: list[IngoGpCommit] = []
+        for c in (row.get("known_ingo_gp_commits") or []):
+            if not isinstance(c, dict):
+                continue
+            fs = (c.get("peer_fund_slug") or "").strip() or None
+            if fs and fs not in peer_slugs:
+                raise HandshakeError(
+                    f"family_office_lps.yml: commit peer_fund_slug `{fs}` for "
+                    f"family-office `{slug}` not found in peer_funds.yml"
+                )
+            commit_models.append(IngoGpCommit(
+                peer_fund_slug=fs,
+                peer_fund_name=c.get("peer_fund_name") or "unknown",
+                parent_ingo=c.get("parent_ingo"),
+                commit_date=_parse_date(c.get("commit_date")),
+                amount_usd_m=c.get("amount_usd_m"),
+                role=c.get("role"),
+                public_source_url=c.get("public_source_url"),
+                notes=_trim(c.get("notes")),
+            ))
+
+        out.append(FamilyOfficeLp(
+            slug=slug,
+            name=row.get("name") or slug,
+            aliases=row.get("aliases") or [],
+            country=_normalize_country(row.get("country")),
+            category=row.get("category"),
+            aum_usd_m=row.get("aum_usd_m"),
+            aum_usd_m_year=row.get("aum_usd_m_year"),
+            stated_priority_themes=row.get("stated_priority_themes") or [],
+            stated_geo_focus=row.get("stated_geo_focus") or [],
+            stated_thesis_url=row.get("stated_thesis_url"),
+            stated_thesis_excerpt=_trim(row.get("stated_thesis_excerpt")),
+            typical_check_usd_m_min=row.get("typical_check_usd_m_min"),
+            typical_check_usd_m_max=row.get("typical_check_usd_m_max"),
+            invests_via_fund_lp=row.get("invests_via_fund_lp"),
+            invests_via_direct=row.get("invests_via_direct"),
+            invests_via_grants=row.get("invests_via_grants"),
+            known_ingo_gp_commits=commit_models,
+            public_newsroom_url=row.get("public_newsroom_url"),
+            last_seen_at=_parse_date(row.get("last_seen_at")) or _today(),
+        ))
+    return out
+
+
 # ------------------------------------------------------------------ emit
 
 
@@ -508,6 +668,13 @@ def build(verbose: bool = True) -> dict[str, int]:
     if verbose:
         print(f"[slot 3] deadlines: {len(deadlines)} entries")
 
+    # --- foundations / family offices (parallel to slot 2) ---
+    foundation_models = load_foundation_lps(peer_slug_set)
+    family_office_models = load_family_office_lps(peer_slug_set)
+    if verbose:
+        print(f"[fdn]    foundation_lps: {len(foundation_models)} entries")
+        print(f"[famof]  family_office_lps: {len(family_office_models)} entries")
+
     # --- emit ---
     # Slot 1 title is "INGOs like you that closed a fund" — filter emit to
     # rows that (a) actually have a parent INGO and (b) are a real fund
@@ -527,6 +694,8 @@ def build(verbose: bool = True) -> dict[str, int]:
     write_json("peer_ingo_funds", peer_payload)
     write_json("dfi_ingo_commits", dfi_payload)
     write_json("deadlines", dead_payload)
+    write_json("foundation_lps", [_dump(m) for m in foundation_models])
+    write_json("family_office_lps", [_dump(m) for m in family_office_models])
 
     # --- impact-areas aggregation ---
     impact_rows = build_impact_areas(peer_models, dfi_cards, raw_commits, _today(), deadlines)
@@ -540,6 +709,8 @@ def build(verbose: bool = True) -> dict[str, int]:
     slot1_countries = Counter(m.parent_ingo_country for m in slot1_models if m.parent_ingo_country)
     slot2_countries = Counter(c.country for c in dfi_cards if c.country)
     slot3_countries = Counter(d.country for d in deadlines if d.country)
+    fdn_countries = Counter(m.country for m in foundation_models if m.country)
+    famof_countries = Counter(m.country for m in family_office_models if m.country)
 
     meta = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -550,11 +721,15 @@ def build(verbose: bool = True) -> dict[str, int]:
             "dfi_ingo_commits": len(dfi_cards),
             "deadlines": len(deadlines),
             "impact_areas": len(impact_rows),
+            "foundation_lps": len(foundation_models),
+            "family_office_lps": len(family_office_models),
         },
         "country_counts": {
             "slot_1_parent_ingo_country": dict(slot1_countries),
             "slot_2_dfi_country":         dict(slot2_countries),
             "slot_3_issuing_body_country": dict(slot3_countries),
+            "foundation_country":          dict(fdn_countries),
+            "family_office_country":       dict(famof_countries),
         },
     }
     write_json("slot_meta", meta)

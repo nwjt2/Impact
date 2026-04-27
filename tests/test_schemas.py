@@ -8,6 +8,8 @@ Models under test:
   - PeerIngoFund     (slot 1)
   - DfiIngoCommit    + IngoGpCommit, TicketRange, EmergingManagerFacility (slot 2)
   - Deadline         (slot 3)
+  - FoundationLp     + FoundationProgram (foundations page)
+  - FamilyOfficeLp   (family-offices / faith-based page)
 """
 
 from datetime import date, datetime, timezone
@@ -20,6 +22,9 @@ from pipeline.schemas import (
     DfiIngoCommit,
     EmergingManagerFacility,
     FailureRecord,
+    FamilyOfficeLp,
+    FoundationLp,
+    FoundationProgram,
     IngoGpCommit,
     PeerIngoFund,
     Source,
@@ -241,3 +246,103 @@ def test_outreach_import_fails():
     """outreach.py is deleted. Confirm no other module imports it."""
     with pytest.raises(ImportError):
         from pipeline.schemas import Outreach  # noqa: F401
+
+
+# ---- FoundationLp + FoundationProgram -----------------------------------
+
+
+def test_foundation_program_default_exists_false():
+    p = FoundationProgram()
+    assert p.exists is False
+    assert p.program_name is None
+    assert p.application_url is None
+    assert p.notes is None
+
+
+def test_foundation_lp_minimal():
+    f = FoundationLp(slug="test-fdn", name="Test Foundation")
+    assert f.slug == "test-fdn"
+    assert f.aliases == []
+    assert f.country is None
+    assert f.foundation_type is None
+    assert f.aum_usd_m is None
+    assert f.stated_priority_themes == []
+    assert f.pri_program is None
+    assert f.mri_program is None
+    assert f.known_ingo_gp_commits == []
+
+
+def test_foundation_lp_full_round_trip():
+    f = FoundationLp(
+        slug="rockefeller-foundation",
+        name="Rockefeller Foundation",
+        aliases=["Rockefeller Foundation"],
+        country="US",
+        foundation_type="private",
+        aum_usd_m=6000.0,
+        aum_usd_m_year=2024,
+        stated_priority_themes=["climate", "health"],
+        stated_geo_focus=["global"],
+        stated_thesis_url="https://www.rockefellerfoundation.org/strategy/",
+        stated_thesis_excerpt="Promote the well-being of humanity",
+        pri_program=FoundationProgram(
+            exists=True,
+            program_name="Rockefeller PRI program",
+            application_url="https://example.com/pri",
+            notes="By invitation",
+        ),
+        mri_program=None,
+        typical_check_usd_m_min=5,
+        typical_check_usd_m_max=20,
+        known_ingo_gp_commits=[],
+        public_newsroom_url="https://www.rockefellerfoundation.org/news/",
+        last_seen_at=date(2026, 4, 27),
+    )
+    assert f.foundation_type == "private"
+    assert f.pri_program is not None
+    assert f.pri_program.exists is True
+    assert f.mri_program is None
+    assert f.aum_usd_m_year == 2024
+
+
+def test_foundation_lp_rejects_bad_type():
+    with pytest.raises(Exception):
+        FoundationLp(slug="x", name="X", foundation_type="bogus_type")
+
+
+# ---- FamilyOfficeLp ------------------------------------------------------
+
+
+def test_family_office_lp_minimal():
+    f = FamilyOfficeLp(slug="test-famof", name="Test Family Office")
+    assert f.slug == "test-famof"
+    assert f.category is None
+    assert f.invests_via_fund_lp is None  # honest-null tri-state
+    assert f.known_ingo_gp_commits == []
+
+
+def test_family_office_lp_full_round_trip():
+    f = FamilyOfficeLp(
+        slug="trinity-church",
+        name="Trinity Church Wall Street",
+        country="US",
+        category="faith_based",
+        aum_usd_m=6000.0,
+        aum_usd_m_year=2024,
+        stated_priority_themes=["housing", "fi"],
+        stated_geo_focus=["us"],
+        typical_check_usd_m_min=1,
+        typical_check_usd_m_max=10,
+        invests_via_fund_lp=True,
+        invests_via_direct=True,
+        invests_via_grants=True,
+        public_newsroom_url="https://trinitywallstreet.org/news",
+        last_seen_at=date(2026, 4, 27),
+    )
+    assert f.category == "faith_based"
+    assert f.invests_via_fund_lp is True
+
+
+def test_family_office_lp_rejects_bad_category():
+    with pytest.raises(Exception):
+        FamilyOfficeLp(slug="x", name="X", category="bogus_category")
