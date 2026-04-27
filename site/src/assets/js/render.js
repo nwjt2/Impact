@@ -424,10 +424,12 @@
     });
 
     // ---- geometry ---------------------------------------------------------
+    // The axis splits "capital sources" (left) from "fund vehicles" (right).
     // Each sector gets two stacked sub-rows:
-    //   top    — butterfly: DFIs (cyan, leftward) ◀ axis ▶ peer funds (amber, rightward)
-    //   bottom — stated interest: foundations + family offices (muted violet, rightward
-    //            from the axis). Thinner bar to signal it's a secondary evidence type.
+    //   top    — DFIs committed (cyan, leftward) ◀ axis ▶ peer-fund precedents (amber)
+    //   bottom — Stated interest: foundations + family offices (muted violet,
+    //            leftward — same side as DFIs because they're also capital
+    //            sources). Thinner bar signals it's intent, not committed.
     var ROW_H = 52, ROW_GAP = 8, LABEL_W = 155, GUTTER = 28;
     var BAR_AREA = 320;
     // Reserved space past the bar for the count label. The stated-interest
@@ -456,8 +458,8 @@
     // axis labels (top — committed/precedent butterfly)
     parts.push('<text class="ic-axis-head ic-axis-head-dfi" x="' + (axisX - GUTTER / 2 - 6) + '" y="' + (PADDING + 12) + '" text-anchor="end">' + esc(dfiAxisLabel) + '</text>');
     parts.push('<text class="ic-axis-head ic-axis-head-peer" x="' + (axisX + GUTTER / 2 + 6) + '" y="' + (PADDING + 12) + '" text-anchor="start">' + esc(peerAxisLabel) + '</text>');
-    // axis sub-label for the stated-interest band
-    parts.push('<text class="ic-axis-head ic-axis-head-stated" x="' + (axisX + GUTTER / 2 + 6) + '" y="' + (PADDING + 26) + '" text-anchor="start">▶ Stated interest (foundations + family offices)</text>');
+    // axis sub-label for the stated-interest band (left side, mirroring DFI)
+    parts.push('<text class="ic-axis-head ic-axis-head-stated" x="' + (axisX - GUTTER / 2 - 6) + '" y="' + (PADDING + 26) + '" text-anchor="end">Stated interest (foundations + family offices) ◀</text>');
 
     // axis line
     var axisY1 = PADDING + 32;
@@ -495,15 +497,16 @@
           '" y="' + (barY + barH - 6) + '" text-anchor="start">' + r.peerN + '</text>');
       }
 
-      // Stated-interest bar (grows rightward from axis, thinner & muted)
+      // Stated-interest bar (grows leftward from axis, same side as DFI —
+      // both are capital-source counts. Thinner + muted to signal intent).
       var statedW = r.statedN > 0 ? Math.max(1, (r.statedN / maxBar) * BAR_W_MAX) : 0;
       if (statedW > 0) {
-        parts.push('<rect class="ic-bar ic-bar-stated" x="' + (axisX + GUTTER / 2) +
+        parts.push('<rect class="ic-bar ic-bar-stated" x="' + (axisX - GUTTER / 2 - statedW) +
           '" y="' + statedBarY + '" width="' + statedW + '" height="' + statedBarH + '" rx="1.5" />');
         var statedLabel = r.statedN +
           ' (' + r.statedFoundationN + 'f / ' + r.statedFamilyOfficeN + 'fo)';
-        parts.push('<text class="ic-num ic-num-stated" x="' + (axisX + GUTTER / 2 + statedW + 6) +
-          '" y="' + (statedBarY + statedBarH - 2) + '" text-anchor="start">' + statedLabel + '</text>');
+        parts.push('<text class="ic-num ic-num-stated" x="' + (axisX - GUTTER / 2 - statedW - 6) +
+          '" y="' + (statedBarY + statedBarH - 2) + '" text-anchor="end">' + statedLabel + '</text>');
       }
 
       // click overlay (transparent, full row width — covers both sub-rows)

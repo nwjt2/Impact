@@ -662,8 +662,10 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
 .fund-ingo { color: var(--cyan); font-weight: 600; }
 
 .fund-facts {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  width: fit-content;
+  max-width: 100%;
   gap: 0;
   margin: 10px 0;
   padding: 0;
@@ -858,7 +860,7 @@ a.commit-fund:hover { color: var(--amber); }
 .deadline-list .card { padding: 14px 0; }
 .deadline-row {
   display: grid;
-  grid-template-columns: 130px 1fr;
+  grid-template-columns: 95px 1fr;
   gap: 16px;
 }
 @media (max-width: 560px) { .deadline-row { grid-template-columns: 1fr; gap: 6px; } }
