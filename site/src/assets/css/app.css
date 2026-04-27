@@ -1341,6 +1341,18 @@ a.commit-fund:hover { color: var(--amber); }
 .ic-active-dot   { color: var(--green); font-size: 12px; line-height: 1; }
 .ic-inactive-dot { color: var(--fg-mute); font-size: 12px; line-height: 1; }
 .ic-commit-n { color: var(--fg-2); }
+.ic-calling-tag {
+  display: inline-block;
+  padding: 0 5px;
+  border: 1px solid var(--green-dim);
+  color: var(--green);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 1px;
+  background: rgba(74, 222, 128, 0.08);
+}
 
 .ic-honest {
   margin-top: 18px;

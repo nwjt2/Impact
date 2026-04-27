@@ -20,6 +20,10 @@ pageKey: impact-areas
       <input type="checkbox" id="ic-active-toggle" />
       <span>Active DFIs only (last 3y)</span>
     </label>
+    <label class="ic-toggle">
+      <input type="checkbox" id="ic-calling-toggle" />
+      <span>DFIs that are calling (open RFP or rolling application)</span>
+    </label>
     <span id="ic-summary" class="ic-summary"></span>
   </div>
 
@@ -38,7 +42,7 @@ pageKey: impact-areas
   <div id="ic-drawer" class="ic-drawer-wrap"></div>
 
   <p class="ic-honest muted">
-    Honesty notes. <strong>Peer-fund precedents</strong> are INGO-sponsored fund vehicles tagged with this sector in <a href="{{ '/peer-funds/' | url }}">/peer-funds/</a>; non-INGO comparables and programmatic-not-fund entries are excluded. <strong>DFIs</strong> are counted when there is a publicly disclosed commitment to one of those INGO-sponsored funds on record in <a href="{{ '/dfis/' | url }}">/dfis/</a>. <strong>Active</strong> means the DFI's most recent in-sector commit_date is within the last 3 years. Counts will undershoot reality where commitments exist but are not yet disclosed.
+    Honesty notes. <strong>Peer-fund precedents</strong> are INGO-sponsored fund vehicles tagged with this sector in <a href="{{ '/peer-funds/' | url }}">/peer-funds/</a>; non-INGO comparables and programmatic-not-fund entries are excluded. <strong>DFIs</strong> are counted when there is a publicly disclosed commitment to one of those INGO-sponsored funds on record in <a href="{{ '/dfis/' | url }}">/dfis/</a>. <strong>Active</strong> means the DFI's most recent in-sector commit_date is within the last 3 years. <strong>Calling</strong> means the DFI has at least one currently-open RFP, open call, or rolling application in <a href="{{ '/deadlines/' | url }}">/deadlines/</a>; the join is by DFI name, so call-windows operated by sub-entities or programs not in the DFI registry won't surface here. Counts will undershoot reality where commitments exist but are not yet disclosed.
   </p>
 </section>
 
@@ -53,7 +57,7 @@ pageKey: impact-areas
   var ROWS = I.loadJSON("data-impact-areas") || [];
   var DFIS = I.loadJSON("data-dfi-commits") || [];
 
-  var state = { useActive: false, dfiFilter: [] };
+  var state = { useActive: false, useCalling: false, dfiFilter: [] };
 
   // ---- Build DFI multi-select ----------------------------------------------
   // Show every DFI that appears in at least one sector's commits. Sorted by
@@ -95,6 +99,7 @@ pageKey: impact-areas
     renderPills();
     var visible = I.renderImpactChart(chartEl, drawerEl, ROWS, {
       useActive: state.useActive,
+      useCalling: state.useCalling,
       dfiFilter: state.dfiFilter,
       openFirst: true,
     });
@@ -102,12 +107,19 @@ pageKey: impact-areas
     var dfiTotal = state.dfiFilter.length
       ? state.dfiFilter.length + ' DFIs selected'
       : dfiOptions.length + ' DFIs across registry';
-    var activeNote = state.useActive ? ' · active DFIs only' : '';
-    sumEl.textContent = sectorN + ' sectors shown · ' + dfiTotal + activeNote;
+    var notes = [];
+    if (state.useActive)  notes.push('active 3y');
+    if (state.useCalling) notes.push('calling now');
+    var noteStr = notes.length ? ' · ' + notes.join(' + ') : '';
+    sumEl.textContent = sectorN + ' sectors shown · ' + dfiTotal + noteStr;
   }
 
   document.getElementById("ic-active-toggle").addEventListener("change", function (e) {
     state.useActive = e.target.checked;
+    render();
+  });
+  document.getElementById("ic-calling-toggle").addEventListener("change", function (e) {
+    state.useCalling = e.target.checked;
     render();
   });
 

@@ -56,9 +56,48 @@ SECTOR_LABELS: dict[str, str] = {
 
 ACTIVE_WINDOW_YEARS = 3
 
+# Deadline kinds that count as "this DFI is currently calling" for the
+# purposes of the impact-areas filter. RFPs, open calls, and rolling
+# applications all signal "you can submit now"; board meetings, regulator
+# filings, template revisions, and conference dates do not.
+CALLING_DEADLINE_KINDS = {"rfp", "open_call", "rolling_application"}
+
 
 def _label(slug: str) -> str:
     return SECTOR_LABELS.get(slug, slug.replace("_", " ").title())
+
+
+def _calling_dfi_slugs(dfi_cards: list, deadlines: list) -> set[str]:
+    """Return the set of DFI slugs with at least one currently-open call.
+
+    Joins deadlines.yml issuing_body free text against the DFI's name +
+    aliases. Any deadline that build_slots already let through (i.e. not a
+    strictly-past one-off) and whose kind signals an open submission window
+    counts.
+    """
+    if not deadlines:
+        return set()
+
+    # name → slug index, lowercased and stripped for tolerant matching
+    name_to_slug: dict[str, str] = {}
+    for d in dfi_cards:
+        keys = [d.name] + list(d.aliases or [])
+        for k in keys:
+            if k:
+                name_to_slug[k.strip().lower()] = d.slug
+
+    calling: set[str] = set()
+    for dl in deadlines:
+        kind = getattr(dl, "kind", None)
+        if kind not in CALLING_DEADLINE_KINDS:
+            continue
+        body = (getattr(dl, "issuing_body", "") or "").strip().lower()
+        if not body:
+            continue
+        slug = name_to_slug.get(body)
+        if slug:
+            calling.add(slug)
+    return calling
 
 
 def _is_precedent(fund) -> bool:
@@ -75,6 +114,7 @@ def build_impact_areas(
     dfi_cards: list,
     raw_commits: list[dict[str, Any]],
     today: date,
+    deadlines: list | None = None,
 ) -> list[dict[str, Any]]:
     """Return sorted list of impact-area rows for site/src/_data/impact_areas.json.
 
@@ -82,6 +122,7 @@ def build_impact_areas(
     "what's funded" axis the homepage chart sorts on.
     """
     cutoff = today - timedelta(days=ACTIVE_WINDOW_YEARS * 365 + 1)
+    calling_slugs = _calling_dfi_slugs(dfi_cards, deadlines or [])
 
     precedents = [f for f in peer_models if _is_precedent(f)]
     fund_by_slug = {f.slug: f for f in peer_models}
@@ -144,6 +185,7 @@ def build_impact_areas(
                 "commit_count": n,
                 "last_commit_date": last.isoformat() if last else None,
                 "is_active_3y": is_active,
+                "is_calling": slug in calling_slugs,
             })
 
         fund_rows: list[dict[str, Any]] = []

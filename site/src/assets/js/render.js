@@ -369,8 +369,9 @@
 
   function renderImpactChart(svgRoot, drawerRoot, rows, opts) {
     opts = opts || {};
-    var useActive = !!opts.useActive;          // homepage: true; /impact-areas: toggle
-    var dfiFilter = opts.dfiFilter || null;    // array of dfi slugs OR null
+    var useActive  = !!opts.useActive;         // homepage: true; /impact-areas: toggle
+    var useCalling = !!opts.useCalling;        // /impact-areas: toggle, default off
+    var dfiFilter  = opts.dfiFilter || null;   // array of dfi slugs OR null
     var prefix = (typeof window !== "undefined" && window.IFC_PATH_PREFIX) || "/";
 
     // ---- prepare rows: filter by DFI selection and re-tally counts ---------
@@ -379,9 +380,11 @@
       if (dfiFilter && dfiFilter.length) {
         dfis = dfis.filter(function (d) { return dfiFilter.indexOf(d.slug) !== -1; });
       }
-      // When the "active 3y" toggle is on, both the bar count AND the drawer
-      // list are restricted to active DFIs so the two views stay consistent.
-      var visibleDfis = useActive ? dfis.filter(function (d) { return d.is_active_3y; }) : dfis;
+      // Toggle filters compose: when both are on, the bar shows only DFIs
+      // that are BOTH active in the last 3y AND have a current open call.
+      var visibleDfis = dfis;
+      if (useActive)  visibleDfis = visibleDfis.filter(function (d) { return d.is_active_3y; });
+      if (useCalling) visibleDfis = visibleDfis.filter(function (d) { return d.is_calling; });
       var peerN = (r.peer_funds || []).length;
       return {
         slug: r.slug, label: r.label,
@@ -416,7 +419,12 @@
     var height = working.length * (ROW_H + ROW_GAP) + PADDING * 2 + 32;
     var axisX = PADDING + LABEL_W + BAR_AREA + GUTTER / 2;
 
-    var dfiAxisLabel = useActive ? "DFIs active 3y ◀" : "DFIs ◀";
+    var axisFlags = [];
+    if (useActive)  axisFlags.push("active 3y");
+    if (useCalling) axisFlags.push("calling now");
+    var dfiAxisLabel = axisFlags.length
+      ? "DFIs " + axisFlags.join(" + ") + " ◀"
+      : "DFIs ◀";
     var peerAxisLabel = "▶ Peer-fund precedents";
 
     // ---- SVG ----------------------------------------------------------------
@@ -534,6 +542,7 @@
       if (d.country) meta.push(flag(d.country));
       meta.push('<span class="ic-commit-n">' + d.commit_count + ' commit' + (d.commit_count === 1 ? '' : 's') + '</span>');
       if (d.last_commit_date) meta.push('<span class="muted">last ' + esc(fmtDate(d.last_commit_date)) + '</span>');
+      if (d.is_calling) meta.push('<span class="ic-calling-tag" title="Currently has an open call / RFP / rolling application">calling</span>');
       return '<li class="ic-drawer-item ic-drawer-dfi">'
         + activeDot(d.is_active_3y)
         + '<a class="ic-drawer-name" href="' + escAttr(dfiUrl(d.slug)) + '">' + esc(d.name) + '</a>'

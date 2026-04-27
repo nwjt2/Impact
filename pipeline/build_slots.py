@@ -529,7 +529,7 @@ def build(verbose: bool = True) -> dict[str, int]:
     write_json("deadlines", dead_payload)
 
     # --- impact-areas aggregation ---
-    impact_rows = build_impact_areas(peer_models, dfi_cards, raw_commits, _today())
+    impact_rows = build_impact_areas(peer_models, dfi_cards, raw_commits, _today(), deadlines)
     write_json("impact_areas", impact_rows)
     if verbose:
         print(f"[impact] impact_areas: {len(impact_rows)} sectors")
