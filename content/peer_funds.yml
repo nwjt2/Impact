@@ -1167,6 +1167,815 @@ peer_funds:
       the full MicroBuild Initiative. No first-close date publicly
       announced as of verification.
 
+  # ---------- Active-discovery additions (since 2026-04-28) ----------
+
+  - slug: hivos-triodos-fund
+    name: Hivos-Triodos Fonds
+    manager: Triodos Investment Management
+    parent_ingo: Hivos
+    parent_ingo_country: NL
+    vintage: 1994
+    size_usd_m: 62
+    sector_tags: [fi, agri, energy]
+    geo_tags: [global, africa, asia, latam]
+    vehicle_type: evergreen
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Triodos Investment Management
+    placement_agent: null
+    status: deployed
+    public_source_url: https://hivos.org/program/hivos-triodos-fund/
+    last_seen_at: 2026-04-28
+    notes: >
+      Established 1994 as a joint initiative of Stichting Hivos (Dutch
+      humanist INGO) and Triodos Bank. AUM EUR 58.2m end-2023 (~$62m).
+      Open-ended evergreen vehicle financing rural MFIs and renewable-
+      energy SMEs. Triodos IM is the licensed manager; Hivos provides
+      impact mandate and co-governance. One of the longest-running
+      INGO-bank impact-fund partnerships.
+
+  - slug: oxfam-novib-fund
+    name: Oxfam Novib Fund (ONF)
+    manager: Triple Jump
+    parent_ingo: Oxfam Novib
+    parent_ingo_country: NL
+    vintage: 1998
+    size_usd_m: 290
+    sector_tags: [fi, gender, agri]
+    geo_tags: [global, africa, asia, latam]
+    vehicle_type: evergreen
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Oxfam Novib
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Triple Jump
+    placement_agent: null
+    status: deployed
+    public_source_url: https://triplejump.eu/fund/oxfam-novib/
+    last_seen_at: 2026-04-28
+    notes: >
+      Mandate established 1998 by Oxfam Novib to finance high-impact MFIs
+      worldwide; managed by Triple Jump since 2007. Portfolio reported at
+      EUR 270m in 2017. Triple Jump itself was co-founded by Oxfam Novib,
+      ASN Bank, and NOTS Foundation in 2006, so the shareholder linkage
+      is direct INGO sponsorship.
+
+  - slug: asn-novib-microkredietfonds
+    name: ASN-Novib Microkredietfonds (ANMF)
+    manager: Triple Jump
+    parent_ingo: Oxfam Novib
+    parent_ingo_country: NL
+    vintage: 1999
+    size_usd_m: 430
+    sector_tags: [fi, gender]
+    geo_tags: [global, africa, asia, latam]
+    vehicle_type: evergreen
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: ASN Bank / Oxfam Novib
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Triple Jump
+    placement_agent: null
+    status: deployed
+    public_source_url: https://triplejump.eu/fund/asn-novib-microcredit-fund/
+    last_seen_at: 2026-04-28
+    notes: >
+      Founded 1999 by ASN Bank and Oxfam Novib as a EUR ~400m retail
+      microcredit fund; Euronext-listed October 2015. Managed by Triple
+      Jump. Borderline INGO-sponsored: dual sponsorship with ASN Bank
+      (Dutch sustainability-driven retail bank); included because Oxfam
+      Novib is named co-founder.
+
+  - slug: hivos-food-lifestyle-fund
+    name: Hivos Food & Lifestyle Fund
+    manager: Hivos Impact Investments
+    parent_ingo: Hivos
+    parent_ingo_country: NL
+    vintage: 2015
+    size_usd_m: null
+    sector_tags: [agri, smb]
+    geo_tags: [africa]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Hivos Foundation
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Hivos Impact Investments
+    placement_agent: null
+    status: deployed
+    public_source_url: https://hivosimpactinvestments.com/
+    last_seen_at: 2026-04-28
+    notes: >
+      Hivos Impact Investments (est. 2015, NL+Zambia) manages this
+      Southern Africa food-systems fund. Co-funder INGOs include Hivos
+      Foundation, Welthungerhilfe (DE), Cesvi (IT), Ayuda en Acción (ES),
+      plus LifeCo UnLtd (ZA). Tickets EUR 50k-500k. Fund size not
+      publicly disclosed.
+
+  - slug: av-ventures-ghana
+    name: AV Ventures Ghana (AVVG)
+    manager: AV Ventures
+    parent_ingo: ACDI/VOCA
+    parent_ingo_country: US
+    vintage: 2018
+    size_usd_m: 4
+    sector_tags: [agri, smb]
+    geo_tags: [africa]
+    vehicle_type: blended
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: USDA / US DFC
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://av-ventures.com/our_funds/
+    last_seen_at: 2026-04-28
+    notes: >
+      Evergreen blended-finance LLC funded with USDA concessionary
+      capital and a US DFC long-term loan; size $3.6m per ACDI/VOCA 2022
+      disclosure. AV Ventures spun out by ACDI/VOCA in 2016; Ghana fund
+      operationalized 2018-2019.
+
+  - slug: av-frontiers-caif
+    name: AV Frontiers Central Asia Investment Fund (CAIF)
+    manager: AV Ventures
+    parent_ingo: ACDI/VOCA
+    parent_ingo_country: US
+    vintage: 2020
+    size_usd_m: 5
+    sector_tags: [fi, smb, agri]
+    geo_tags: [asia]
+    vehicle_type: evergreen
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: ACDI/VOCA + private Kazakh investor
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://av-ventures.com/our_funds/
+    last_seen_at: 2026-04-28
+    notes: >
+      Sector-agnostic evergreen blended fund covering Uzbekistan,
+      Tajikistan, Kyrgyzstan, Kazakhstan; reported at $5.2m AUM in
+      ACDI/VOCA 2022 annual report. Anchored by ACDI/VOCA and a private
+      Kazakh investor.
+
+  - slug: av-ventures-ink-kenya
+    name: AV Ventures Impact for Kenya (INK Fund)
+    manager: AV Ventures
+    parent_ingo: ACDI/VOCA
+    parent_ingo_country: US
+    vintage: 2020
+    size_usd_m: 38
+    sector_tags: [agri, smb]
+    geo_tags: [africa]
+    vehicle_type: blended
+    first_close_date: 2020-12-01
+    first_close_date_month_only: true
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: USAID KUZA
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.acdivoca.org/2020/12/av-ventures-launches-fund-in-northern-kenya/
+    last_seen_at: 2026-04-28
+    notes: >
+      Launched December 2020 to invest in Kenya's ten northern Frontier
+      Counties. ACDI/VOCA disclosed $38m fund size in 2022 annual
+      report. Anchored by USAID through the KUZA programme.
+
+  - slug: av-ventures-avas
+    name: AV Ventures Africa SME Fund (AVAS)
+    manager: AV Ventures
+    parent_ingo: ACDI/VOCA
+    parent_ingo_country: US
+    vintage: 2024
+    size_usd_m: 60
+    sector_tags: [agri, smb, fi]
+    geo_tags: [africa]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: ACDI/VOCA + AV Ventures
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: raising
+    public_source_url: https://av-ventures.com/our_funds/
+    last_seen_at: 2026-04-28
+    notes: >
+      Currently raising $60m to invest across Ghana, Kenya, Tanzania,
+      Burkina Faso, Côte d'Ivoire, and Zambia. ACDI/VOCA + AV Ventures
+      named as anchors on AV's published fund page.
+
+  - slug: idh-farmfit-fund
+    name: IDH Farmfit Fund
+    manager: IDH Investment Management
+    parent_ingo: IDH (Stichting IDH Sustainable Trade Initiative)
+    parent_ingo_country: NL
+    vintage: 2019
+    size_usd_m: 110
+    sector_tags: [agri, smb]
+    geo_tags: [global, africa, asia, latam]
+    vehicle_type: blended
+    first_close_date: 2019-11-01
+    first_close_date_month_only: true
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Dutch Ministry of Foreign Affairs
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Innpact (structuring)
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.idhsustainabletrade.com/farmfit-fund/
+    last_seen_at: 2026-04-28
+    notes: >
+      First close November 2019, EUR 100m blended fund for smallholder
+      farmer finance with USAID second-loss guarantee up to $250m.
+      Anchored by Dutch government; corporate LPs include Jacobs DE,
+      Mondelez, Unilever, Rabobank. IDH is the Dutch INGO sponsor; IDH
+      Investment Management is the manager.
+
+  - slug: andgreen-fund
+    name: "&Green Fund"
+    manager: SAIL Ventures
+    parent_ingo: IDH (Stichting IDH Sustainable Trade Initiative)
+    parent_ingo_country: NL
+    vintage: 2017
+    size_usd_m: null
+    sector_tags: [agri, climate]
+    geo_tags: [global, latam, asia, africa]
+    vehicle_type: blended
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: NICFI (Norway)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.andgreen.fund/about-us/
+    last_seen_at: 2026-04-28
+    notes: >
+      Set up in 2017 by IDH and Norway's NICFI. Blended-finance debt fund
+      providing $5m-$30m tickets in tropical-forest-protecting agriculture
+      (palm oil, beef, soy, forestry/rubber). Targets to mobilize $2bn.
+      Fund-sized AUM not consistently disclosed.
+
+  - slug: truvalu-business-booster-fund
+    name: Truvalu Business Booster Fund
+    manager: Truvalu (formerly ICCO subsidiary)
+    parent_ingo: Cordaid
+    parent_ingo_country: NL
+    vintage: 2015
+    size_usd_m: null
+    sector_tags: [agri, smb]
+    geo_tags: [global, latam, africa, asia]
+    vehicle_type: evergreen
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: ICCO Cooperation
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Truvalu
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.icco-cooperation.org/en/news/icco-sells-share-in-truvalu-2/
+    last_seen_at: 2026-04-28
+    notes: >
+      Founded 2015 by ICCO Cooperation as Truvalu (initially Fair and
+      Sustainable Participations / iMPACT Booster). ICCO sold 50% to
+      Boom 31 BV in 2020; ICCO merged into Cordaid Jan 2021. Fund size
+      not publicly disclosed. INGO origin clear.
+
+  - slug: rural-peace-investment-fund-colombia
+    name: Rural Peace Investment Fund (Colombia)
+    manager: Truvalu / ICCO Cooperation
+    parent_ingo: Cordaid
+    parent_ingo_country: NL
+    vintage: 2018
+    size_usd_m: null
+    sector_tags: [agri, smb]
+    geo_tags: [latam]
+    vehicle_type: blended
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: European Union Trust Fund for Colombia
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Truvalu
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.icco-cooperation.org/en/news/rural-peace-investment-fund-launched-in-colombia/
+    last_seen_at: 2026-04-28
+    notes: >
+      Constituted 2018 with seed capital of EUR 700k from EU, ICCO
+      Cooperation, and Truvalu (Embassy of the Netherlands as supporter).
+      Targets EUR 5m AUM over 7 years for agrifood SMEs in Nariño and
+      Putumayo. Blended (EU grant + investment fund). ICCO is the INGO
+      sponsor.
+
+  - slug: kcd-mikrofinanzfonds-iii
+    name: KCD Mikrofinanzfonds III
+    manager: Bank im Bistum Essen (with IPConcept Luxembourg)
+    parent_ingo: Bank im Bistum Essen
+    parent_ingo_country: DE
+    vintage: 2014
+    size_usd_m: null
+    sector_tags: [fi]
+    geo_tags: [global, latam, africa, asia]
+    vehicle_type: evergreen
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Bank im Bistum Essen
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Metzler (FX overlay)
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.bib-fairbanking.de/mikrofinanzierung/mikrofinanzfonds.html
+    last_seen_at: 2026-04-28
+    notes: >
+      KCD = Kirche, Caritas, Diakonie. SICAV launched 2014 (LU1106543249);
+      retail microfinance bond fund investing across 29 emerging markets.
+      Borderline INGO sponsorship: parent is the Diocese of Essen's bank
+      ('Kirche und Caritas') — Catholic faith-based financial institution
+      rather than commercial bank.
+
+  - slug: fefisol-i
+    name: FEFISOL I (Fonds Européen de Financement Solidaire pour l'Afrique)
+    manager: SIDI / Alterfin / Etimos
+    parent_ingo: SIDI (CCFD-Terre Solidaire subsidiary)
+    parent_ingo_country: FR
+    vintage: 2011
+    size_usd_m: 17
+    sector_tags: [fi, agri]
+    geo_tags: [africa]
+    vehicle_type: closed_end_fund
+    first_close_date: 2011-07-01
+    first_close_date_month_only: true
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: European Investment Bank
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: SIDI
+    placement_agent: null
+    status: wound_down
+    public_source_url: https://www.eib.org/en/press/all/2011-116-africas-first-microfinance-fund-for-sustainable-farmers-launched
+    last_seen_at: 2026-04-28
+    notes: >
+      Launched 2011 at EUR 15m for 10-year term. SIDI is wholly owned by
+      CCFD-Terre Solidaire (the leading French Catholic development INGO,
+      founded 1961); Alterfin is a Belgian solidarity finance cooperative;
+      Etimos is an Italian participatory foundation. Anchor EUR 5m from
+      EIB. Wound down ~2021 ahead of FEFISOL II.
+
+  - slug: fefisol-ii
+    name: FEFISOL II
+    manager: Inpulse
+    parent_ingo: SIDI (CCFD-Terre Solidaire subsidiary)
+    parent_ingo_country: FR
+    vintage: 2022
+    size_usd_m: 25
+    sector_tags: [fi, agri]
+    geo_tags: [africa]
+    vehicle_type: closed_end_fund
+    first_close_date: 2022-06-01
+    first_close_date_month_only: true
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: European Investment Bank
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: SIDI / Alterfin
+    placement_agent: null
+    status: raising
+    public_source_url: https://www.eib.org/en/press/all/2022-254-launch-of-the-new-european-solidarity-financing-fund-for-africa-fefisol-ii-with-a-first-closing-of-eur2-5-million-and-a-technical-support-envelope-of-1-million-euros
+    last_seen_at: 2026-04-28
+    notes: >
+      First close June 2022 at EUR 22.5m + EUR 1m TA envelope; target
+      EUR 30m for final close. Promoters SIDI (CCFD-Terre Solidaire
+      subsidiary, FR) and Alterfin (BE cooperative). Other investors
+      include EIB, Proparco, BIO, Banca Etica, Crédit Coopératif, SOS
+      Faim Luxembourg.
+
+  - slug: kampani
+    name: Kampani
+    manager: Kampani CVBA-SO
+    parent_ingo: Rikolto + Broederlijk Delen + Trias + Oxfam-Solidarité Belgium + Louvain Coopération + SIDI
+    parent_ingo_country: BE
+    vintage: 2015
+    size_usd_m: null
+    sector_tags: [agri, smb]
+    geo_tags: [global, africa, latam]
+    vehicle_type: evergreen
+    first_close_date: 2015-01-29
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: King Baudouin Foundation
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://diplomatie.belgium.be/en/policy/policy-areas/highlighted/kampani-provides-patient-growth-capital-cooperatives-and-small-farms
+    last_seen_at: 2026-04-28
+    notes: >
+      Deed of incorporation 29 January 2015. Founding shareholders are
+      five Belgian INGOs (Rikolto/Vredeseilanden, Broederlijk Delen,
+      Trias, Oxfam-Solidarité, Louvain Coopération) plus Alterfin, SIDI,
+      Boerenbond, King Baudouin Foundation, and private investors. Base
+      capital EUR 2m at founding; >EUR 13m deployed across 30+ deals in
+      15+ countries. Tickets EUR 100k-500k, 5-10yr unsecured debt.
+
+  - slug: azure-source-capital
+    name: Azure Source Capital
+    manager: Total Impact Capital / CRS / IDB Lab
+    parent_ingo: Catholic Relief Services
+    parent_ingo_country: US
+    vintage: 2019
+    size_usd_m: 12
+    sector_tags: [wash]
+    geo_tags: [latam]
+    vehicle_type: blended
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Catholic Relief Services + IDB Lab
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Total Impact Capital
+    placement_agent: null
+    status: deployed
+    public_source_url: https://andeglobal.org/azure-blended-finance-for-sustainable-water-services/
+    last_seen_at: 2026-04-28
+    notes: >
+      Established 2019 by CRS and IDB Lab as a blended-finance facility
+      for water-system operators in El Salvador, Honduras, Guatemala.
+      $12m in loans deployed plus $8m co-investment. Distinct from CRS
+      Inclusive Impact Investing programme; this is a named investment
+      vehicle.
+
+  - slug: kiva-refugee-investment-fund
+    name: Kiva Refugee Investment Fund (KRIF)
+    manager: Kiva Capital Management LLC
+    parent_ingo: Kiva.org
+    parent_ingo_country: US
+    vintage: 2019
+    size_usd_m: 33
+    sector_tags: [fi, gender, humanitarian]
+    geo_tags: [mena, africa, latam]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: 2021-04-07
+    timeline_days_announce_to_first_close: null
+    anchor_lp: US DFC + Soros Economic Development Fund
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.prnewswire.com/news-releases/kiva-capital-management-announces-final-close-of-kiva-refugee-investment-fund-to-scale-lending-to-fragile-communities-globally-301264464.html
+    last_seen_at: 2026-04-28
+    notes: >
+      Announced June 2019 by Kiva (US nonprofit INGO); final close 7 April
+      2021 at $32.5m. LPs include US DFC, Soros Economic Development Fund,
+      Sobrato Philanthropies, ImpactAssets, Ceniarth, Missionary Sisters
+      of the Sacred Heart of Jesus, Mercy Investment Services, Tiedemann
+      Advisors, Shapiro/Dunn/Fairmount foundations. Manager Kiva Capital
+      Management LLC, wholly-owned subsidiary of Kiva.org (est. 2019).
+
+  - slug: watercredit-investment-fund-1
+    name: WaterCredit Investment Fund 1 (WCIF1)
+    manager: WaterEquity
+    parent_ingo: Water.org
+    parent_ingo_country: US
+    vintage: 2014
+    size_usd_m: 11
+    sector_tags: [wash, fi]
+    geo_tags: [asia]
+    vehicle_type: closed_end_fund
+    first_close_date: 2014-01-01
+    final_close_date: 2016-01-01
+    final_close_date_month_only: true
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: wound_down
+    public_source_url: https://www.excelsiorimpact.org/waterequity-1
+    last_seen_at: 2026-04-28
+    notes: >
+      Inaugural $11m fund launched 2014, closed with investors January
+      2016. Lent at slightly concessionary rates to Indian MFIs to scale
+      water/sanitation loan portfolios; reported to have served 320,000
+      people. Predecessor of GAF series; Water.org is the INGO sponsor.
+
+  - slug: watercredit-investment-fund-3
+    name: WaterCredit Investment Fund 3 (WCIF3)
+    manager: WaterEquity
+    parent_ingo: Water.org
+    parent_ingo_country: US
+    vintage: 2017
+    size_usd_m: 50
+    sector_tags: [wash, fi]
+    geo_tags: [asia]
+    vehicle_type: closed_end_fund
+    first_close_date: 2018-09-01
+    first_close_date_month_only: true
+    final_close_date: 2019-03-01
+    final_close_date_month_only: true
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.prnewswire.com/news-releases/waterequity-announces-the-first-closing-of-its-us-50-million-impact-investment-fund-300716450.html
+    last_seen_at: 2026-04-28
+    notes: >
+      Q1 2017 launch with $50m target. First close September 2018 at $33m;
+      final close March 2019 at $50m. Provides debt to water/sanitation
+      enterprises in India, Indonesia, Cambodia, Philippines. Direct
+      predecessor to GAF3/WACI4/Everspring entries.
+
+  - slug: strong-women-impact-fund
+    name: Strong Women Impact Fund (SWIFT)
+    manager: VisionFund International
+    parent_ingo: World Vision International
+    parent_ingo_country: US
+    vintage: 2023
+    size_usd_m: 100
+    sector_tags: [fi, gender, wash, smb]
+    geo_tags: [global, africa, asia, latam]
+    vehicle_type: closed_end_fund
+    first_close_date: 2023-09-20
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: VisionFund International
+    placement_agent: null
+    status: raising
+    public_source_url: https://www.worldvision.org/about-us/media-center/world-vision-and-visionfund-launch-strong-women-impact-fund-to-promote-economic-empowerment-for-women-in-poverty
+    last_seen_at: 2026-04-28
+    notes: >
+      Announced 20 September 2023 at the Concordia Annual Summit (NYC)
+      jointly by World Vision International and VisionFund International.
+      $100m debt fund targeting >200,000 women across 24 countries in 4
+      regions. Distinct from VisionFund Microfinance entry — SWIFT is a
+      specific named raise on top of VisionFund's standing operations.
+      Anchor LP not publicly named.
+
+  - slug: helvetas-africa-sustainable-rice-bond
+    name: Helvetas Africa Sustainable Rice Bond
+    manager: iGravity
+    parent_ingo: Helvetas
+    parent_ingo_country: CH
+    vintage: 2025
+    size_usd_m: null
+    sector_tags: [agri, climate, gender]
+    geo_tags: [africa]
+    vehicle_type: blended
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Helvetas (technical assistance)
+    placement_agent: null
+    status: raising
+    public_source_url: https://www.helvetas.org/en/switzerland/what-we-do/our-topics/skills-jobs-income/private-sector-development/impact-finance/sustainable-rice-bond
+    last_seen_at: 2026-04-28
+    notes: >
+      Blended bond instrument running 2025-2030 in Tanzania and Kenya;
+      Helvetas (Swiss INGO) provides TA and impact mandate, iGravity (CH
+      advisory) is facility manager. Fund size, anchor LP, and first close
+      not publicly disclosed; structured as a bond with first-loss tranche
+      + TA grant facility.
+
+  - slug: aleg-acumen-latam-early-growth
+    name: Acumen Latin America Early Growth Fund (ALEG / ALCP I)
+    manager: ALIVE Ventures (Acumen LatAm Impact Ventures)
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    vintage: 2017
+    size_usd_m: 28
+    sector_tags: [smb, gender, fi]
+    geo_tags: [latam]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: 2020-07-01
+    final_close_date_month_only: true
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Inter-American Development Bank
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.lavca.org/alive-ventures-reaches-final-close-for-us28m-latin-america-impact-fund/
+    last_seen_at: 2026-04-28
+    notes: >
+      Final close July/August 2020 at $28m. IDB anchor at $3m. Other LPs
+      IDB Lab, Dutch Good Growth Fund, MacArthur Foundation, Bancoldex,
+      Mercantil Colpatria, Fundación Bancolombia, Fundación Sura,
+      Fundación WWB Colombia. Manager Acumen LatAm Capital Partners (now
+      ALIVE Ventures), wholly owned by Acumen Fund Inc.
+
+  - slug: aleg-ii-acumen-latam
+    name: ALEG II (ALIVE)
+    manager: ALIVE Ventures
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    vintage: 2024
+    size_usd_m: 55
+    sector_tags: [smb, gender, climate, fi]
+    geo_tags: [latam]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Proparco / FISEA+
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.alive-ventures.com/post/alive-ventures-announces-final-close-of-usd-55m-fund-to-scale-inclusive-growth-and-climate-resilience-in-latin-america
+    last_seen_at: 2026-04-28
+    notes: >
+      Final close at $55m announced 2024; brings ALIVE AUM above $80m.
+      Targets 10-15 early-stage SMEs in Colombia and Peru with equity/
+      mezzanine. LPs include Proparco/FISEA+, Impact Fund Denmark, plus
+      foundations and regional lenders. Acumen-sponsored INGO vehicle.
+
+  - slug: hope-global-investments
+    name: HOPE Global Investments LLC (HGI)
+    manager: HOPE International
+    parent_ingo: HOPE International
+    parent_ingo_country: US
+    vintage: null
+    size_usd_m: null
+    sector_tags: [fi, smb]
+    geo_tags: [global, africa, latam, asia]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.hopeinternational.org/hope-global-investments
+    last_seen_at: 2026-04-28
+    notes: >
+      Accredited-investor lending platform LLC for HOPE International
+      (US Christian microfinance INGO, founded 1997). Channels lender
+      capital to HOPE-network MFIs as on-lent debt. Treated as
+      programmatic_not_fund because there is no closed-end vintage
+      structure; investors lend directly to HGI under Reg D.
+
+  - slug: finca-ventures
+    name: FINCA Ventures
+    manager: FINCA International
+    parent_ingo: FINCA International
+    parent_ingo_country: US
+    vintage: 2018
+    size_usd_m: null
+    sector_tags: [fi, energy, wash, agri, health, edu]
+    geo_tags: [global, africa, asia, latam]
+    vehicle_type: programmatic_not_fund
+    first_close_date: 2018-08-20
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: FINCA International balance sheet
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://finca.org/press-release/finca-ventures-impact-investing-launch/
+    last_seen_at: 2026-04-28
+    notes: >
+      Launched 20 August 2018 by FINCA International (US microfinance
+      INGO) as an impact-investing platform deploying patient capital to
+      early-stage social enterprises. ~$2m deployed across 8 enterprises
+      in initial cohort; structured as balance-sheet programme rather
+      than closed-end fund.
+
   # ---------- Non-INGO impact funds (comparables; NOT included in slot 1 or slot 4) ----------
   #
   # The `parent_ingo` field being null marks these as comparables. Slot 1
