@@ -339,6 +339,7 @@
     if (!rootEl) return;
     rootEl.addEventListener("click", function (evt) {
       if (evt.target.closest("a")) return;
+      if (evt.target.closest("summary")) return;
       var card = evt.target.closest(".card-clickable");
       if (!card) return;
       var url = card.getAttribute("data-source-url");
