@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>IFC — Pressroom</title>
+    <link>https://pressroom.ifc.org</link>
+    <description>IFC press releases.</description>
+    <item>
+      <title>IFC invests $30m in climate-smart agriculture fund</title>
+      <link>https://pressroom.ifc.org/all/pages/climate-smart-agri.aspx</link>
+      <description>IFC invests $30m in XYZ fund targeting climate-smart agriculture across sub-Saharan Africa.</description>
+      <pubDate>Tue, 22 Apr 2026 10:00:00 GMT</pubDate>
+      <guid>https://pressroom.ifc.org/all/pages/climate-smart-agri.aspx</guid>
+    </item>
+    <item>
+      <title>IFC supports South Asia SME platform</title>
+      <link>https://pressroom.ifc.org/all/pages/south-asia-sme.aspx</link>
+      <description>IFC commits $40m to regional SME financing platform.</description>
+      <pubDate>Mon, 21 Apr 2026 09:30:00 GMT</pubDate>
+      <guid>https://pressroom.ifc.org/all/pages/south-asia-sme.aspx</guid>
+    </item>
+  </channel>
+</rss>

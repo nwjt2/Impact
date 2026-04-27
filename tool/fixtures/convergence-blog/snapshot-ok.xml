@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Convergence — Blog</title>
+    <link>https://www.convergence.finance</link>
+    <description>Blended finance news and insights from Convergence.</description>
+    <item>
+      <title>Blended Finance State of the Market 2026</title>
+      <link>https://www.convergence.finance/news-and-events/blended-finance-state-2026/</link>
+      <description>Convergence's annual report on blended finance flows reports $15B committed in 2025 across 72 deals. Climate adaptation and primary healthcare are the fastest-growing sectors.</description>
+      <pubDate>Mon, 21 Apr 2026 12:00:00 GMT</pubDate>
+      <guid>https://www.convergence.finance/news-and-events/blended-finance-state-2026/</guid>
+    </item>
+    <item>
+      <title>First-loss tranches: design guide for emerging managers</title>
+      <link>https://www.convergence.finance/news-and-events/first-loss-design-guide/</link>
+      <description>Design patterns for first-loss tranches in emerging manager funds, with case studies from foundations deploying MRI capital as catalytic first-loss in African debt funds.</description>
+      <pubDate>Thu, 17 Apr 2026 10:00:00 GMT</pubDate>
+      <guid>https://www.convergence.finance/news-and-events/first-loss-design-guide/</guid>
+    </item>
+  </channel>
+</rss>

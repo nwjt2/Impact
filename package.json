@@ -1,0 +1,16 @@
+{
+  "name": "ingo-first-close-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "INGO first-close tool — static site (Eleventy).",
+  "scripts": {
+    "build": "eleventy --input=site/src --output=site/_site",
+    "build:private": "PRIVATE=1 eleventy --input=site/src --output=site/_site",
+    "watch": "eleventy --input=site/src --output=site/_site --serve",
+    "prepublishOnly": "echo 'this is not an npm package — site is published via GitHub Pages workflow' && exit 1"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "3.1.5",
+    "@11ty/eleventy-plugin-rss": "2.0.3"
+  }
+}

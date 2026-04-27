@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Stanford Social Innovation Review</title>
+    <link>https://ssir.org</link>
+    <description>SSIR articles and blog posts.</description>
+    <item>
+      <title>Why INGOs Struggle to Launch Impact Funds</title>
+      <link>https://ssir.org/articles/entry/why_ingos_struggle_impact_funds/</link>
+      <description>A look at the structural and political barriers INGOs face when spinning up impact investing funds, with lessons from Oxfam, CARE, and WaterEquity. Brand risk, board governance, and the GP-vs-sub-advisor decision loom large.</description>
+      <pubDate>Thu, 17 Apr 2026 10:00:00 GMT</pubDate>
+      <guid>https://ssir.org/articles/entry/why_ingos_struggle_impact_funds/</guid>
+    </item>
+    <item>
+      <title>Sub-advisor Models: The Rise of Symbiotics and Bamboo</title>
+      <link>https://ssir.org/articles/entry/subadvisor_models/</link>
+      <description>Why sub-advised fund structures are growing for INGO cornerstone LPs. Symbiotics, Bamboo Capital, and Incofin have each taken on multiple INGO-partnered mandates since 2024.</description>
+      <pubDate>Tue, 15 Apr 2026 09:00:00 GMT</pubDate>
+      <guid>https://ssir.org/articles/entry/subadvisor_models/</guid>
+    </item>
+  </channel>
+</rss>

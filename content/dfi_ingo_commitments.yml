@@ -1,0 +1,793 @@
+# DFI -> INGO-GP fund commitments registry.
+#
+# Source of truth for slot 2 ("Which DFIs fund INGO-GPs, and what do they
+# look for"). Hand-curated. Scrapers append as new commitments are announced.
+#
+# Two top-level lists:
+#   - commitments: named DFI commitments to INGO-sponsored funds
+#   - dfi_profiles: per-DFI stated sector/geo preferences + emerging-manager
+#     facility signals
+#
+# Handshake keys (enforced at pipeline startup):
+#   - fund_slug MUST match a slug in content/peer_funds.yml
+#   - dfi_slug  MUST match a target_lps entry in pipeline/entities.yml
+#     (matched by name or alias; see `_dfi_slug_mapping` below)
+#
+# DFI slug convention:
+#   - Lower-case, kebab-case
+#   - Typically the first alias in entities.yml target_lps.aliases, lowercased
+#   - For DFIs where no natural short form exists, use a descriptive slug
+#
+# Honesty requirement:
+#   If a commitment cannot be traced to a public press release or annual
+#   report, it MUST NOT be in this file. commit_usd_m = null when the press
+#   release announced the commitment but did not disclose the amount — this
+#   is common for DFI-INGO-fund commitments where the fund's LPA has
+#   confidentiality clauses.
+
+_dfi_slug_mapping:
+  # Documentation only — pipeline enforces these matches against entities.yml
+  bii: British International Investment
+  fmo: FMO
+  dfc: U.S. International Development Finance Corporation
+  proparco: Proparco
+  norfund: Norfund
+  finnfund: Finnfund
+  ifc: IFC Asset Management / AIP
+  swedfund: Swedfund
+  deg: DEG
+  findev-canada: FinDev Canada
+  kfw: KfW Development Bank
+  afd: AFD
+  eib: European Investment Bank
+  gcf: Green Climate Fund
+  cif: Climate Investment Funds
+  bio-invest: BIO Invest
+  sifem: SIFEM
+  ebrd: EBRD
+  idb-invest: IDB Invest
+  jica: JICA
+
+commitments:
+
+  # ---------- BII (UK) ----------
+  # NOTE: A 2026-04-25 verification pass removed the BII → Mercy Corps
+  # Ventures "watchlist" entry. No fund-level commitment was located in
+  # public press releases. BII has confirmed Accion Digital Transformation
+  # Fund involvement (entry below); MCV is co-investor at portfolio level
+  # only, which does not meet the "fund LP commitment" bar for slot 2.
+
+  - dfi_slug: bii
+    dfi_name: British International Investment
+    dfi_country: GB
+    fund_slug: accion-impact-management-digital-transformation-fund
+    fund_name: Accion Digital Transformation Fund
+    parent_ingo: Accion
+    parent_ingo_country: US
+    commit_date: 2024-05-15
+    commit_usd_m: null
+    sector_tags: [fi]
+    geo_tags: [africa, asia, latam]
+    public_source_url: https://www.accion.org/news/accion-launches-152-5m-fund-investing-in-digital-transformation-of-financial-institutions-serving-small-businesses-globally/
+    notes: |
+      BII publicly named as LP in the $152.5m Accion Digital
+      Transformation Fund at launch (2024-05-15). Specific commitment
+      amount not disclosed.
+
+  - dfi_slug: bii
+    dfi_name: British International Investment
+    dfi_country: GB
+    fund_slug: acumen-h2r-amplify
+    fund_name: Acumen Hardest-to-Reach (H2R) — Amplify
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    commit_date: 2026-01-06
+    commit_usd_m: null
+    sector_tags: [energy, climate]
+    geo_tags: [africa]
+    public_source_url: https://acumen.org/news/acumens-hardest-to-reach-initiative-reaches-target-raise-of-250-million-as-amplify-completes-final-close/
+    notes: |
+      BII publicly named as LP in Acumen H2R Amplify final close
+      announcement 2026-01-06 ($180m). Amount undisclosed. Q1 2026
+      INGO-GP commitment.
+
+  - dfi_slug: bii
+    dfi_name: British International Investment
+    dfi_country: GB
+    fund_slug: agdevco-smallholder-development-unit
+    fund_name: AgDevCo Smallholder Development Unit
+    parent_ingo: null
+    parent_ingo_country: null
+    commit_date: 2014-01-01
+    commit_usd_m: null
+    # 2026-04-25 freshness pass: URL verified live (AgDevCo homepage,
+    # ~$340m AUM, 40+ active African agribusiness investments).
+    sector_tags: [agri]
+    geo_tags: [africa]
+    public_source_url: https://www.agdevco.com/
+    notes: |
+      AgDevCo was seeded by UK FCDO and has received co-funding from BII
+      (then CDC). Included as a non-INGO comparable — for slot 2 filtering,
+      this commitment is useful context but will be filtered out of the
+      "INGO-GP commitments" view.
+
+  # ---------- FMO (Netherlands) ----------
+  # NOTE: A 2026-04-25 verification pass dropped the FMO → MicroBuild
+  # Fund watchlist entry. FMO's publicly-confirmed INGO-GP commitments
+  # are: ARAF (per Acumen press release), Accion DTF (per Accion launch
+  # press release), and Pact Global Microfinance Fund (FMO project
+  # register entry, see below). Co-lending to shared MFIs ≠ fund LP.
+
+  - dfi_slug: fmo
+    dfi_name: FMO
+    dfi_country: NL
+    fund_slug: pact-global-microfinance-fund
+    fund_name: Pact Global Microfinance Fund (Myanmar)
+    parent_ingo: Pact
+    parent_ingo_country: US
+    commit_date: null
+    commit_usd_m: null
+    sector_tags: [fi]
+    geo_tags: [asia]
+    public_source_url: https://www.fmo.nl/project-detail/57920
+    notes: |
+      FMO project detail page #57920 documents the FMO commitment to
+      PGMF. Specific date/amount not in the page summary; PGMF wound
+      down June 2023 after Myanmar junta refused commercial registration.
+
+  - dfi_slug: fmo
+    dfi_name: FMO
+    dfi_country: NL
+    fund_slug: acumen-araf
+    fund_name: Acumen Resilient Agriculture Fund (ARAF)
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    commit_date: 2021-06-30
+    commit_usd_m: null
+    sector_tags: [agri, climate]
+    geo_tags: [africa]
+    public_source_url: https://acumen.org/news/acumen-resilient-agriculture-fund/
+    notes: |
+      FMO publicly named as LP in ARAF's final close press release
+      (2021-06-30, $58m total fund). Amount undisclosed.
+
+  - dfi_slug: fmo
+    dfi_name: FMO
+    dfi_country: NL
+    fund_slug: accion-impact-management-digital-transformation-fund
+    fund_name: Accion Digital Transformation Fund
+    parent_ingo: Accion
+    parent_ingo_country: US
+    commit_date: 2024-05-15
+    commit_usd_m: null
+    sector_tags: [fi]
+    geo_tags: [africa, asia, latam]
+    public_source_url: https://www.accion.org/news/accion-launches-152-5m-fund-investing-in-digital-transformation-of-financial-institutions-serving-small-businesses-globally/
+    notes: |
+      FMO publicly named as LP at the $152.5m fund launch
+      (2024-05-15). Amount undisclosed.
+
+  # ---------- DFC (United States) ----------
+
+  - dfi_slug: dfc
+    dfi_name: U.S. International Development Finance Corporation
+    dfi_country: US
+    fund_slug: microbuild-fund
+    fund_name: MicroBuild Fund
+    parent_ingo: Habitat for Humanity
+    parent_ingo_country: US
+    commit_date: 2012-11-01
+    commit_usd_m: null
+    # 2026-04-25 freshness pass: prior URL (/emea/about/what-we-do/...)
+    # returned 404; replaced with current canonical Habitat path under
+    # /our-work/terwilliger-center-innovation-in-shelter/microbuild.
+    sector_tags: [housing, fi]
+    geo_tags: [africa, asia, latam]
+    public_source_url: https://www.habitat.org/our-work/terwilliger-center-innovation-in-shelter/microbuild
+    notes: |
+      OPIC (predecessor to DFC) was the anchor senior-debt lender to the
+      MicroBuild Fund at its 2012 launch. The Habitat program page
+      documents OPIC anchor status; specific commitment amount not
+      disclosed in current public materials.
+
+  - dfi_slug: dfc
+    dfi_name: U.S. International Development Finance Corporation
+    dfi_country: US
+    fund_slug: acumen-araf
+    fund_name: Acumen Resilient Agriculture Fund (ARAF)
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    commit_date: 2021-06-30
+    commit_usd_m: null
+    sector_tags: [agri, climate]
+    geo_tags: [africa]
+    public_source_url: https://acumen.org/news/acumen-resilient-agriculture-fund/
+    notes: |
+      DFC publicly named as LP in ARAF alongside the GCF anchor at
+      final close 2021-06-30. Amount not disclosed in close press
+      release.
+
+  - dfi_slug: dfc
+    dfi_name: U.S. International Development Finance Corporation
+    dfi_country: US
+    fund_slug: waterequity-gaf3
+    fund_name: WaterEquity Global Access Fund (Fund III)
+    parent_ingo: Water.org
+    parent_ingo_country: US
+    commit_date: 2021-04-23
+    commit_usd_m: 100.0
+    sector_tags: [wash, fi]
+    geo_tags: [asia, latam, africa]
+    public_source_url: https://www.dfc.gov/media/press-releases/dfc-achieves-first-close-100-million-loan-waterequitys-global-access-fund
+    notes: |
+      DFC achieved first close on a $100m loan to WaterEquity's
+      Global Access Fund on 2021-04-23. Largest DFC-to-INGO-GP
+      commitment in the registry. Sajery quote in press release.
+
+  - dfi_slug: dfc
+    dfi_name: U.S. International Development Finance Corporation
+    dfi_country: US
+    fund_slug: waterequity-waci4
+    fund_name: WaterEquity Global Access Fund IV
+    parent_ingo: Water.org
+    parent_ingo_country: US
+    commit_date: 2023-03-16
+    commit_usd_m: 100.0
+    sector_tags: [wash, climate, fi]
+    geo_tags: [asia, africa, latam]
+    public_source_url: https://www.newswire.com/news/waterequity-announces-final-close-of-150-million-global-access-fund-iv-22128210
+    notes: |
+      DFC again committed $100m to WaterEquity's successor fund
+      (Global Access Fund IV) at first close 2023-03-16. Final close
+      July 2023 at $150m total.
+
+  # ---------- Proparco (France) ----------
+
+  - dfi_slug: proparco
+    dfi_name: Proparco
+    dfi_country: FR
+    fund_slug: acumen-araf
+    fund_name: Acumen Resilient Agriculture Fund (ARAF)
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    commit_date: 2021-06-30
+    commit_usd_m: null
+    sector_tags: [agri, climate]
+    geo_tags: [africa]
+    public_source_url: https://acumen.org/news/acumen-resilient-agriculture-fund/
+    notes: |
+      Proparco named as LP in ARAF's $58m final close press release
+      (2021-06-30). Amount not disclosed.
+
+  - dfi_slug: proparco
+    dfi_name: Proparco
+    dfi_country: FR
+    fund_slug: incofin-agrif
+    fund_name: Incofin agRIF
+    parent_ingo: null
+    parent_ingo_country: null
+    commit_date: 2015-11-01
+    commit_usd_m: null
+    sector_tags: [agri, fi]
+    geo_tags: [africa, asia, latam]
+    public_source_url: https://incofin.com/news/
+    notes: |
+      Proparco is a named LP in Incofin's agRIF close. Non-INGO comparable;
+      included for DFI thesis-pattern reading in slot 2.
+
+  # ---------- Norfund (Norway) ----------
+
+  - dfi_slug: norfund
+    dfi_name: Norfund
+    dfi_country: "NO"
+    fund_slug: acumen-kawisafi
+    fund_name: Acumen KawiSafi Ventures Fund
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    commit_date: 2015-11-05
+    commit_usd_m: null
+    sector_tags: [energy, climate]
+    geo_tags: [africa]
+    public_source_url: https://www.greenclimate.fund/project/fp005
+    notes: |
+      Norfund publicly-referenced LP in KawiSafi alongside GCF
+      ($25m equity+grant, FP005 approved 2015-11-05). Amount not
+      individually disclosed.
+
+  # ---------- Finnfund (Finland) ----------
+
+  - dfi_slug: finnfund
+    dfi_name: Finnfund
+    dfi_country: FI
+    fund_slug: acumen-kawisafi
+    fund_name: Acumen KawiSafi Ventures Fund
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    commit_date: 2015-11-05
+    commit_usd_m: null
+    sector_tags: [energy, climate]
+    geo_tags: [africa]
+    public_source_url: https://www.greenclimate.fund/project/fp005
+    notes: |
+      Finnfund publicly-referenced LP in KawiSafi alongside GCF
+      ($25m, FP005 approved at B.11 on 2015-11-05). Amount not
+      individually disclosed.
+
+  # ---------- IFC (International) ----------
+
+  - dfi_slug: ifc
+    dfi_name: International Finance Corporation
+    dfi_country: US
+    fund_slug: grassroots-business-fund
+    fund_name: Grassroots Business Fund
+    parent_ingo: null
+    parent_ingo_country: null
+    commit_date: 2008-01-01
+    commit_usd_m: null
+    sector_tags: [smb, agri]
+    geo_tags: [global]
+    public_source_url: https://www.ifc.org/
+    notes: |
+      GBF was spun out of IFC in 2008 and retains IFC as a foundational
+      backer. Non-INGO comparable — useful as a model for IFC's willingness
+      to support nonprofit-affiliated GPs.
+
+  # NOTE: 2026-04-25 verification dropped IFC → MicroBuild Fund watchlist
+  # entry. No fund-level LP commitment located in IFC project disclosures
+  # or Habitat materials; co-lending relationship at MFI level only.
+
+  - dfi_slug: ifc
+    dfi_name: International Finance Corporation
+    dfi_country: US
+    fund_slug: accion-impact-management-digital-transformation-fund
+    fund_name: Accion Digital Transformation Fund
+    parent_ingo: Accion
+    parent_ingo_country: US
+    commit_date: 2024-05-15
+    commit_usd_m: null
+    sector_tags: [fi]
+    geo_tags: [africa, asia, latam]
+    public_source_url: https://www.accion.org/news/accion-launches-152-5m-fund-investing-in-digital-transformation-of-financial-institutions-serving-small-businesses-globally/
+    notes: |
+      IFC publicly named as LP at the $152.5m fund launch
+      (2024-05-15). Amount undisclosed.
+
+  - dfi_slug: ifc
+    dfi_name: International Finance Corporation
+    dfi_country: US
+    fund_slug: acumen-h2r-amplify
+    fund_name: Acumen Hardest-to-Reach (H2R) — Amplify
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    commit_date: 2026-01-06
+    commit_usd_m: null
+    sector_tags: [energy, climate]
+    geo_tags: [africa]
+    public_source_url: https://acumen.org/news/acumens-hardest-to-reach-initiative-reaches-target-raise-of-250-million-as-amplify-completes-final-close/
+    notes: |
+      IFC publicly named as LP in H2R Amplify final close 2026-01-06
+      ($180m). Amount undisclosed. Q1 2026 INGO-GP commitment.
+
+  - dfi_slug: ifc
+    dfi_name: International Finance Corporation
+    dfi_country: US
+    fund_slug: quona-inclusion-fund
+    fund_name: Accion Quona Inclusion Fund (Fund II)
+    parent_ingo: Accion
+    parent_ingo_country: US
+    commit_date: 2020-03-04
+    commit_usd_m: null
+    sector_tags: [fi, smb]
+    geo_tags: [latam, africa, asia]
+    public_source_url: https://disclosures.ifc.org/project-detail/SII/42191/accion-quona-inclusion-fund
+    notes: |
+      IFC project disclosure SII/42191 lists Accion Quona Inclusion
+      Fund. Quona's second fund ($203m final close 2020-03-04).
+
+  # ---------- KfW / DEG (Germany) ----------
+
+  - dfi_slug: deg
+    dfi_name: DEG
+    dfi_country: DE
+    fund_slug: incofin-agrif
+    fund_name: Incofin agRIF
+    parent_ingo: null
+    parent_ingo_country: null
+    commit_date: 2015-11-01
+    commit_usd_m: null
+    sector_tags: [agri, fi]
+    geo_tags: [africa, asia, latam]
+    public_source_url: https://www.deginvest.de/
+    notes: |
+      DEG is a named LP in Incofin's agRIF. Non-INGO comparable.
+
+  # NOTE: 2026-04-25 verification dropped KfW → ARAF watchlist entry.
+  # The 2021-06-30 ARAF final close press release names GCF, FMO, Soros
+  # Economic Development Fund, Proparco, CIFF, IKEA Foundation, and
+  # Global Social Impact — KfW is NOT in the explicit LP list. Likely
+  # confused with the WWB Fund II commitment (KfW = anchor there).
+  # KfW's verified INGO-GP commitment is to WWB CP II below.
+
+  - dfi_slug: kfw
+    dfi_name: KfW Development Bank
+    dfi_country: DE
+    fund_slug: wwb-capital-partners-fund-ii
+    fund_name: WWB Capital Partners Fund II
+    parent_ingo: Women's World Banking
+    parent_ingo_country: US
+    commit_date: 2020-03-01
+    commit_usd_m: null
+    sector_tags: [fi, gender]
+    geo_tags: [africa, asia, latam]
+    public_source_url: https://www.womensworldbanking.org/insights/womens-world-banking-asset-management-closes-second-fund-for-financial-inclusion-at-103m/
+    notes: |
+      KfW (acting on behalf of German BMZ) named as anchor investor
+      in WWB Capital Partners II at first close 2020-03 ($75m).
+      Final close 2022-03 at $103m.
+
+  # ---------- FinDev Canada ----------
+
+  # NOTE: 2026-04-25 verification dropped FinDev Canada → CARE-SheTrades
+  # entry. No formal fund-level commitment located in FinDev Canada press
+  # releases or 2X portfolio disclosures. Conservative drop per directive.
+
+  # ---------- Green Climate Fund ----------
+
+  - dfi_slug: gcf
+    dfi_name: Green Climate Fund
+    dfi_country: KR
+    fund_slug: acumen-kawisafi
+    fund_name: Acumen KawiSafi Ventures Fund
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    commit_date: 2015-11-05
+    commit_usd_m: 25.0
+    sector_tags: [energy, climate]
+    geo_tags: [africa]
+    public_source_url: https://www.greenclimate.fund/project/fp005
+    notes: |
+      GCF project FP005: $25m total ($20m equity + $5m grant). Approved
+      at B.11 (2015-11-05). One of GCF's first private-sector equity
+      commitments — widely-cited anchor-LP precedent for INGO-sponsored
+      vehicles.
+
+  - dfi_slug: gcf
+    dfi_name: Green Climate Fund
+    dfi_country: KR
+    fund_slug: acumen-h2r-amplify
+    fund_name: Acumen Hardest-to-Reach (H2R) — Amplify
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    commit_date: 2026-01-06
+    commit_usd_m: null
+    sector_tags: [energy, climate]
+    geo_tags: [africa]
+    public_source_url: https://acumen.org/news/acumens-hardest-to-reach-initiative-reaches-target-raise-of-250-million-as-amplify-completes-final-close/
+    notes: |
+      GCF named as anchor LP in Acumen H2R Amplify final close
+      2026-01-06 ($180m). H2R initiative announced at COP28 (2023);
+      GCF is the anchor across both Amplify and Catalyze sleeves.
+      Specific amount within Amplify not disclosed in close press
+      release.
+
+  - dfi_slug: gcf
+    dfi_name: Green Climate Fund
+    dfi_country: KR
+    fund_slug: acumen-araf
+    fund_name: Acumen Resilient Agriculture Fund (ARAF)
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    commit_date: 2018-03-01
+    commit_usd_m: 26.0
+    sector_tags: [agri, climate]
+    geo_tags: [africa]
+    public_source_url: https://www.greenclimate.fund/project/fp078
+    notes: |
+      GCF project FP078 (ARAF). $26m total ($23m equity + $3m grant)
+      approved at B.19 on 2018-03-01. Template for INGO-GP climate-fund
+      structures.
+
+  # ---------- EIB (European Union) ----------
+
+  - dfi_slug: eib
+    dfi_name: European Investment Bank
+    dfi_country: LU
+    fund_slug: incofin-agrif
+    fund_name: Incofin agRIF
+    parent_ingo: null
+    parent_ingo_country: null
+    commit_date: 2015-11-01
+    commit_usd_m: null
+    sector_tags: [agri, fi]
+    geo_tags: [africa, asia, latam]
+    public_source_url: https://incofin.com/news/
+    notes: |
+      EIB is the senior-debt anchor in Incofin's blended agRIF structure.
+      Non-INGO comparable; included as a reference for blended-finance
+      term sheets.
+
+  # ---------- BIO Invest (Belgium) ----------
+
+  - dfi_slug: bio-invest
+    dfi_name: BIO Invest
+    dfi_country: BE
+    fund_slug: incofin-agrif
+    fund_name: Incofin agRIF
+    parent_ingo: null
+    parent_ingo_country: null
+    commit_date: 2015-11-01
+    commit_usd_m: null
+    sector_tags: [agri, fi]
+    geo_tags: [africa, asia, latam]
+    public_source_url: https://www.bio-invest.be/
+    notes: |
+      BIO Invest is a publicly-named LP in Incofin agRIF. Non-INGO
+      comparable.
+
+# ---------- Per-DFI stated preferences and emerging-manager facilities ----------
+#
+# Scope: DFIs with publicly-stated thesis pages. Unknown fields = null.
+# Named contacts: included ONLY where a named human is in a public press
+# release; otherwise empty list (do not scrape LinkedIn).
+
+dfi_profiles:
+
+  - dfi_slug: bii
+    dfi_name: British International Investment
+    stated_sector_preferences: [climate, gender_lens, fi, energy, agri]
+    stated_geo_focus: [africa, south-asia]
+    stated_thesis_url: https://www.bii.co.uk/en/about/our-company/investment-portfolios/
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 50
+    last_seen_at: 2026-04-25
+    emerging_manager_facility:
+      exists: true
+      program_name: Kinetic Portfolio
+      application_url: https://www.bii.co.uk/en/about/our-company/investment-portfolios/kinetic/
+      notes: |
+        BII's Kinetic Portfolio (introduced ~2021) is the catalytic
+        capital arm — higher risk tolerance than BII's Growth and
+        Catalyst portfolios. Three facilities: Climate Innovation
+        Facility (£240m FCDO seed), Mobilization Facility, and a third
+        catalytic facility. Open to first/second-time GPs only via
+        BII direct LP conversation; no public application form.
+        Status update: thesis_url updated from /en/our-impact/ (403)
+        to /en/about/our-company/investment-portfolios/.
+
+  - dfi_slug: fmo
+    dfi_name: FMO
+    stated_sector_preferences: [fi, energy, agri]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: https://www.fmo.nl/strategy
+    stated_thesis_excerpt: "Our Pioneer-Develop-Scale strategy towards 2030 will maximize what we as a development finance institution can contribute to a world in which all people live well, within the boundaries of our planet."
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 40
+    last_seen_at: 2026-04-25
+    emerging_manager_facility:
+      exists: true
+      program_name: MASSIF
+      application_url: https://www.fmo.nl/partner-with-us/massif
+      notes: |
+        MASSIF is FMO's financial-inclusion fund managed on behalf of
+        the Dutch government. Invests in seed capital, local-currency
+        debt, mezzanine, equity, and investment funds — the most
+        accessible FMO entry point for an INGO-sponsored MFI vehicle
+        or first-time emerging manager. Three SDG focus: 8 (jobs), 10
+        (inequality), 13 (climate).
+
+  - dfi_slug: dfc
+    dfi_name: U.S. International Development Finance Corporation
+    stated_sector_preferences: [health, energy, fi, agri, gender_lens]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.dfc.gov/what-we-offer/our-products
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 100
+    last_seen_at: 2026-04-25
+    emerging_manager_facility:
+      exists: true
+      program_name: 2X Women's Initiative
+      application_url: https://www.dfc.gov/our-work/2x-womens-initiative
+      notes: |
+        DFC offers two products to fund managers: debt support and
+        equity support for private equity funds. Categorized under
+        "Platforms and Funds." 2X facility is the most accessible DFC
+        pathway for INGO-sponsored gender-lens funds; typically requires
+        commercial-anchor co-investment.
+
+  - dfi_slug: proparco
+    dfi_name: Proparco
+    stated_sector_preferences: [fi, agri, energy, health]
+    stated_geo_focus: [africa, mena, latam, asia]
+    stated_thesis_url: https://www.proparco.fr/en
+    stated_thesis_excerpt: "Proparco provides funding and support to businesses and financial institutions in Africa, Asia, Latin America, Eurasia and the Middle-East."
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 30
+    last_seen_at: 2026-04-25
+    emerging_manager_facility:
+      exists: true
+      program_name: FISEA+ / Choose Africa
+      application_url: https://www.proparco.fr/en/carte-des-projets
+      notes: |
+        FISEA / FISEA+ is AFD/Proparco's early-stage Africa equity
+        facility, historically accessible to emerging managers with
+        African geographic focus. Successor programs continue under
+        the Choose Africa initiative. thesis_url updated from
+        /en/our-mission (404) to /en (homepage with thesis statement).
+
+  - dfi_slug: norfund
+    dfi_name: Norfund
+    stated_sector_preferences: [energy, fi, agri, climate]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: https://www.norfund.no/strategy/
+    stated_thesis_excerpt: "The Climate Investment Fund is Norway's most important tool in accelerating the global energy transition by investing in renewable energy in developing countries with large emissions from coal and other fossil power production."
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 30
+    last_seen_at: 2026-04-25
+    emerging_manager_facility:
+      exists: false
+      program_name: null
+      application_url: null
+      notes: |
+        Norfund does not operate a dedicated emerging-manager facility.
+        Direct investments and some fund LP commitments; thesis
+        emphasizes renewable energy and financial inclusion.
+
+  - dfi_slug: finnfund
+    dfi_name: Finnfund
+    stated_sector_preferences: [energy, agri, fi, climate, forestry]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: https://www.finnfund.fi/en/
+    stated_thesis_excerpt: "We build a sustainable future and generate lasting impact by investing in businesses that solve global development challenges."
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 15
+    last_seen_at: 2026-04-25
+    emerging_manager_facility:
+      exists: false
+      program_name: null
+      application_url: null
+      notes: |
+        Finnfund has no dedicated emerging-manager facility but is
+        smaller-ticket friendly. Sectors per public site: forestry,
+        renewable energy, agriculture, financial institutions, digital
+        infrastructure. thesis_url updated from /en/strategy/ (404)
+        to /en/.
+
+  - dfi_slug: ifc
+    dfi_name: International Finance Corporation
+    stated_sector_preferences: [generalist, fi, climate, agri]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.ifc.org/en/about/strategy
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 15
+    typical_ticket_usd_m_max: 75
+    last_seen_at: 2026-04-25
+    emerging_manager_facility:
+      exists: true
+      program_name: IFC AMC / AIP (Accelerator Investment Platform)
+      application_url: https://www.ifcamc.org/
+      notes: |
+        IFC Asset Management Company's AIP is structured specifically
+        as an emerging-manager commitment vehicle. Among the most
+        INGO-friendly pathways into IFC LP capital. Tickets typically
+        $15-40m; IFC requires alignment to its Performance Standards.
+        Status update: AIP's continued openness to new emerging-GP
+        commitments unconfirmed in current ifcamc.org materials —
+        scraper / direct contact recommended before relying on AIP
+        as a live channel.
+
+  - dfi_slug: swedfund
+    dfi_name: Swedfund
+    dfi_country: "SE"
+    stated_sector_preferences: [energy, health, fi, climate]
+    stated_geo_focus: [africa, asia]
+    stated_thesis_url: https://www.swedfund.se/en/
+    stated_thesis_excerpt: "Sweden's development finance institution with the mission to reduce poverty through sustainable investments in developing countries."
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 3
+    typical_ticket_usd_m_max: 15
+    last_seen_at: 2026-04-25
+    emerging_manager_facility:
+      exists: false
+      program_name: null
+      application_url: null
+      notes: |
+        No dedicated emerging-manager program; Swedfund makes a small
+        number of fund LP commitments per year. Strong gender-lens and
+        climate emphasis tied to Swedish government priorities. Named
+        LP in Accion Digital Transformation Fund (2024). thesis_url
+        updated from /en/how-we-work/ (404) to /en/.
+
+  - dfi_slug: deg
+    dfi_name: DEG
+    stated_sector_preferences: [generalist, fi, energy, agri]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: https://www.deginvest.de/
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 30
+    last_seen_at: 2026-04-25
+    emerging_manager_facility:
+      exists: false
+      program_name: null
+      application_url: null
+      notes: |
+        No explicit emerging-manager facility. DEG operates business-hub
+        model with country offices; typical transaction entry is via
+        direct LP conversation, not a public call. KfW Group's
+        development-finance arm. thesis_url updated from
+        /International-financing/DEG/ (301-redirect) to /.
+
+  - dfi_slug: findev-canada
+    dfi_name: FinDev Canada
+    stated_sector_preferences: [fi, energy, agri, gender_lens, climate]
+    stated_geo_focus: [africa, latam, asia]
+    stated_thesis_url: https://www.findevcanada.ca/en
+    stated_thesis_excerpt: "We provide financing, investment, and blended finance solutions, as well as technical assistance and advisory, to promote sustainable and inclusive growth in emerging markets and developing economies (EMDEs) aligned with the Sustainable Development Goals (SDGs) and Paris Agreement commitments."
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 25
+    last_seen_at: 2026-04-25
+    emerging_manager_facility:
+      exists: true
+      program_name: 2X Canada
+      application_url: https://www.findevcanada.ca/en/what-we-do/2x-canada
+      notes: |
+        2X Canada is a CAD 75.9m blended-finance facility (FinDev
+        Canada + Global Affairs Canada) supporting gender-equality
+        investments in LAC and Sub-Saharan Africa. FinDev applies
+        gender lens to 100% of transactions. Not strictly an
+        emerging-manager facility but the closest analogue from
+        FinDev. thesis_url updated from /en/what-we-do (template
+        page) to /en (homepage with thesis statement).
+
+  - dfi_slug: gcf
+    dfi_name: Green Climate Fund
+    stated_sector_preferences: [climate, energy, agri, wash]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.greenclimate.fund/about/partners/ae
+    stated_thesis_excerpt: "Accredited Entities partner with GCF to implement projects. Guided by our investment framework and the priorities of developing country governments, Accredited Entities convert concepts into action."
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 10
+    typical_ticket_usd_m_max: 100
+    last_seen_at: 2026-04-25
+    emerging_manager_facility:
+      exists: true
+      program_name: Private Sector Facility / Accredited Entity pathway
+      application_url: https://www.greenclimate.fund/about/partners/ae
+      notes: |
+        GCF Accredited Entities can be private/public, NGO, sub-national,
+        national, regional, or international. INGOs already accredited
+        include Conservation International Foundation and Catholic
+        Relief Services. AE is a multi-year credentialing pathway —
+        Acumen's AE status is the precedent that enabled both KawiSafi
+        (FP005) and ARAF (FP078). thesis_url updated from
+        /investment/private-sector (404) to /about/partners/ae.
+
+  - dfi_slug: eib
+    dfi_name: European Investment Bank
+    stated_sector_preferences: [climate, energy, fi]
+    stated_geo_focus: [eu, africa, mena]
+    stated_thesis_url: https://www.eib.org/en/projects/topics/index.htm
+    stated_thesis_excerpt: "We provide economic support to sectors that contribute significantly to growth, employment, regional cohesion and environmental sustainability in Europe and beyond."
+    known_contacts_public: []
+    typical_ticket_usd_m_min: 20
+    typical_ticket_usd_m_max: 100
+    last_seen_at: 2026-04-25
+    emerging_manager_facility:
+      exists: false
+      program_name: null
+      application_url: null
+      notes: |
+        EIB does not typically anchor emerging managers; tickets are
+        too large. EIB Global (the external-investment arm) is more
+        approachable but still expects a mature GP.

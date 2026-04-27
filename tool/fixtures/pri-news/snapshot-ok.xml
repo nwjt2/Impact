@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>PRI News</title>
+    <link>https://www.unpri.org/news</link>
+    <description>Principles for Responsible Investment — news.</description>
+    <item>
+      <title>PRI releases 2026 signatory guide to impact reporting</title>
+      <link>https://www.unpri.org/news/pri-2026-impact-reporting/</link>
+      <description>New PRI guidance for signatories on impact reporting, aligned with OPIM and IRIS+ standards. Intended to reduce DDQ response burden for emerging managers.</description>
+      <pubDate>Tue, 22 Apr 2026 11:00:00 GMT</pubDate>
+      <guid>https://www.unpri.org/news/pri-2026-impact-reporting/</guid>
+    </item>
+    <item>
+      <title>Climate-aligned investing: reporting standards convergence</title>
+      <link>https://www.unpri.org/news/climate-reporting-convergence/</link>
+      <description>Update on the convergence of climate-aligned investing reporting standards across EU SFDR, US SEC climate rules, and voluntary frameworks.</description>
+      <pubDate>Fri, 18 Apr 2026 09:00:00 GMT</pubDate>
+      <guid>https://www.unpri.org/news/climate-reporting-convergence/</guid>
+    </item>
+  </channel>
+</rss>

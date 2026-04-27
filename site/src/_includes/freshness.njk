@@ -1,0 +1,7 @@
+{% if meta %}
+  <div class="freshness freshness-{{ meta.status or 'green' }}">
+    <span class="dot"></span>
+    {% set okSources = meta.sources_polled - (meta.incidents_filed or 0) %}
+    Updated {{ meta.generated_at | dateISO }} · {{ okSources }}/{{ meta.sources_polled }} sources green
+  </div>
+{% endif %}

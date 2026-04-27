@@ -1,0 +1,81 @@
+---
+layout: base.njk
+title: Deadlines
+permalink: /deadlines/index.html
+pageKey: deadlines
+---
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
+  <header class="detail-header">
+    <div class="detail-eyebrow">
+      <span>Agenda · dated items</span>
+    </div>
+    <h1>Application windows, regulator filings, board meetings, and conferences.</h1>
+    <p class="detail-sub">{{ deadlines | length }} records across DFIs, regulators, template publishers, and conferences. Each row is labelled with what its date means — <em>Apply by</em> / <em>File by</em> for true deadlines, <em>Board meets</em> / <em>Event starts</em> / <em>Reissued</em> for fixed-date events. Hard dates first; rolling and cyclical windows follow. Each row links to its primary source.</p>
+  </header>
+
+  <div class="filter-bar">
+    <label class="filter-label" for="country-filter">Issuer country</label>
+    <select id="country-filter" class="filter-select"></select>
+    <span id="filter-summary" class="filter-summary"></span>
+  </div>
+
+  <div id="slot-3-list" class="deadline-list" aria-live="polite"></div>
+  <div id="slot-3-empty" class="empty-state" hidden></div>
+</section>
+
+<script type="application/json" id="data-deadlines">{{ deadlines | dump | safe }}</script>
+<script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
+
+<script src="{{ '/assets/js/render.js' | url }}"></script>
+<script>
+(function () {
+  "use strict";
+  var I = window.IFC;
+  var DEADS = I.loadJSON("data-deadlines") || [];
+  var META = I.loadJSON("data-slot-meta") || {};
+
+  var state = { country: "ALL" };
+
+  function render() {
+    var today = new Date().toISOString().slice(0, 10);
+    var list = DEADS.filter(function (d) {
+      if (state.country !== "ALL" && d.country !== state.country) return false;
+      if (d.deadline_date && d.deadline_date < today && !d.recurring) return false;
+      return true;
+    });
+    list.sort(function (a, b) {
+      var ad = a.deadline_date, bd = b.deadline_date;
+      if (ad && bd) return ad.localeCompare(bd);
+      if (ad) return -1; if (bd) return 1;
+      var ar = a.recurring || "zzz", br = b.recurring || "zzz";
+      if (ar !== br) return ar.localeCompare(br);
+      return (a.title || "").localeCompare(b.title || "");
+    });
+
+    var root = document.getElementById("slot-3-list");
+    var empty = document.getElementById("slot-3-empty");
+    var sum = document.getElementById("filter-summary");
+
+    if (list.length === 0) {
+      root.innerHTML = ""; empty.hidden = false;
+      empty.innerHTML = "<p>No deadlines match <strong>" + I.esc(I.countryName(META, state.country)) + "</strong>. Try <em>All countries</em>.</p>";
+      sum.textContent = "Showing 0 of " + DEADS.length;
+      return;
+    }
+    empty.hidden = true; empty.innerHTML = "";
+    root.innerHTML = list.map(function (d) { return I.renderDeadlineRow(d, META); }).join("");
+    sum.textContent = "Showing " + list.length + " of " + DEADS.length;
+  }
+
+  document.getElementById("country-filter").innerHTML =
+    I.buildCountryOptions(META, "slot_3_issuing_body_country").join("");
+  document.getElementById("country-filter").addEventListener("change", function (e) {
+    state.country = e.target.value; render();
+  });
+
+  I.installCardClick(".detail-page");
+  render();
+})();
+</script>

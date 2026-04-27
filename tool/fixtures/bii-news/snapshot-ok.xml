@@ -1,0 +1,15 @@
+<!doctype html>
+<html><body>
+<main>
+  <article class="news-card">
+    <h3 class="news-card__title"><a class="news-card__link" href="/en/news/tlg-africa-credit/">BII commits $50m to TLG Capital's Africa Credit Opportunities Fund II</a></h3>
+    <time datetime="2026-04-18">18 April 2026</time>
+    <p class="news-card__summary">British International Investment has committed $50m to TLG Capital's Africa Credit Opportunities Fund II, targeting African SME lending in financial inclusion.</p>
+  </article>
+  <article class="news-card">
+    <h3 class="news-card__title"><a class="news-card__link" href="/en/news/helios-climate-iii/">BII approves GBP 30m commitment to Helios Climate Tech III</a></h3>
+    <time datetime="2026-04-15">15 April 2026</time>
+    <p class="news-card__summary">Project: Helios Climate Tech III. Commitment GBP 30m. Sector: Climate. Geography: Africa (multi-country).</p>
+  </article>
+</main>
+</body></html>

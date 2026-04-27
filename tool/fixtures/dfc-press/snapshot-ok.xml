@@ -1,0 +1,19 @@
+<!doctype html>
+<html><body>
+<div class="view-content">
+  <div class="views-row">
+    <article class="node--type-press-release">
+      <h2 class="node-title"><a href="/news/africa-renewable-iv">DFC Board approves $75m equity commitment to Africa Renewable Energy Fund IV</a></h2>
+      <time datetime="2026-04-08">8 April 2026</time>
+      <div class="field--name-field-summary"><p>DFC approves $75m commitment to ARE Fund IV.</p></div>
+    </article>
+  </div>
+  <div class="views-row">
+    <article class="node--type-press-release">
+      <h2 class="node-title"><a href="/news/latam-credit-iii">DFC commits $50m to LATAM Credit Fund III</a></h2>
+      <time datetime="2026-04-03">3 April 2026</time>
+      <div class="field--name-field-summary"><p>Commitment to LATAM Credit.</p></div>
+    </article>
+  </div>
+</div>
+</body></html>

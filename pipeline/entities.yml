@@ -1,0 +1,1399 @@
+# Entity-match library used for scraper-output enrichment and peer-fund
+# cross-referencing.
+#
+# ~150 entries across three sections (target_lps, regulators, peer_ingos).
+# Cross-referenced against content/peer_funds.yml for slot 1.
+#
+# Match on `aliases` (list) for any entry.
+#
+# ---- Schema ----
+#
+# target_lps: (named LPs a typical INGO-GP fund-raise will approach)
+#   - name:                  canonical display string
+#     aliases:               [list; include legal name, common short form, ticker-ish abbr]
+#     sector_tags:           [climate, health, agri, edu, fi, wash, gender, housing, energy, smb, generalist]
+#     geo_tags:              [africa, latam, asia, mena, global, us, eu, uk]
+#     lp_type:               dfi | foundation | family_office | corp_impact
+#     typical_ticket_usd_m:  "5-25" style string (low-high), estimator only
+#     public_newsroom_url:   best-guess URL; manually validated
+#     first_pass_cadence_days: integer; how often we'd expect a new LP-press item
+#
+# regulators: (for M6 jurisdiction filtering)
+#   - name:              canonical display string
+#     aliases:           [list]
+#     jurisdiction:      ISO-2 country code (or "EU")
+#     regulator_type:    charity | securities | tax | corporate_registry | prudential
+#     rss_or_news_url:   best-guess URL; engineer validates
+#
+# peer_ingos: (parent INGO names for M3 cross-ref + peer-close context)
+#   - name:                canonical display
+#     aliases:             [list: legal, short, abbr]
+#     parent_jurisdictions: [ISO-2 list]
+#     sector_tags:         [list]
+#     fund_vehicle_name:   nullable string (e.g. "Mercy Corps Ventures" for Mercy Corps)
+
+target_lps:
+
+  # ---------- DFIs ----------
+
+  - name: British International Investment
+    aliases: [British International Investment, BII, CDC Group, CDC, "CDC Group plc"]
+    sector_tags: [generalist, climate, fi, agri, health]
+    geo_tags: [africa, asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-50"
+    public_newsroom_url: https://www.bii.co.uk/en/news-insight/
+    first_pass_cadence_days: 7
+
+  - name: FMO
+    aliases: [FMO, "Dutch entrepreneurial development bank", "Nederlandse Financierings-Maatschappij voor Ontwikkelingslanden"]
+    sector_tags: [fi, energy, agri]
+    geo_tags: [africa, asia, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-40"
+    public_newsroom_url: https://www.fmo.nl/news
+    first_pass_cadence_days: 5
+
+  - name: U.S. International Development Finance Corporation
+    aliases: [DFC, "U.S. DFC", "US DFC", "United States International Development Finance Corporation"]
+    sector_tags: [generalist, health, energy, fi]
+    geo_tags: [global]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-100"
+    public_newsroom_url: https://www.dfc.gov/media/press-releases
+    first_pass_cadence_days: 5
+
+  - name: Proparco
+    aliases: [Proparco, "PROPARCO", "Promotion et Participation pour la Coopération économique"]
+    sector_tags: [fi, agri, energy, health]
+    geo_tags: [africa, latam, asia, mena]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-30"
+    public_newsroom_url: https://www.proparco.fr/en/news
+    first_pass_cadence_days: 10
+
+  - name: Norfund
+    aliases: [Norfund, "Norwegian Investment Fund for Developing Countries"]
+    sector_tags: [energy, fi, agri]
+    geo_tags: [africa, asia, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-30"
+    public_newsroom_url: https://www.norfund.no/news/
+    first_pass_cadence_days: 10
+
+  - name: Finnfund
+    aliases: [Finnfund, "Finnish Fund for Industrial Cooperation"]
+    sector_tags: [energy, agri, fi, climate]
+    geo_tags: [africa, asia, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.finnfund.fi/en/news/
+    first_pass_cadence_days: 14
+
+  - name: IFC Asset Management / AIP
+    aliases: [IFC, "International Finance Corporation", "IFC Asset Management Company", "AMC", "IFC AIP", "Accelerator Investment Platform"]
+    sector_tags: [generalist, fi, climate, agri]
+    geo_tags: [global]
+    lp_type: dfi
+    typical_ticket_usd_m: "15-75"
+    public_newsroom_url: https://pressroom.ifc.org/
+    first_pass_cadence_days: 3
+
+  - name: Swedfund
+    aliases: [Swedfund, "Swedfund International"]
+    sector_tags: [energy, health, fi]
+    geo_tags: [africa, asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.swedfund.se/en/news/
+    first_pass_cadence_days: 14
+
+  - name: DEG
+    aliases: [DEG, "Deutsche Investitions- und Entwicklungsgesellschaft", "DEG Invest"]
+    sector_tags: [generalist, fi, energy]
+    geo_tags: [africa, asia, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-30"
+    public_newsroom_url: https://www.deginvest.de/International-financing/DEG/Press/
+    first_pass_cadence_days: 10
+
+  - name: KfW Development Bank
+    aliases: [KfW, "KfW Entwicklungsbank", "KfW Development Bank"]
+    sector_tags: [climate, energy, wash]
+    geo_tags: [africa, asia, latam, mena]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-75"
+    public_newsroom_url: https://www.kfw.de/About-KfW/Newsroom/
+    first_pass_cadence_days: 7
+
+  - name: AECID
+    aliases: [AECID, "Agencia Española de Cooperación Internacional para el Desarrollo", "FONPRODE"]
+    sector_tags: [fi, health, edu]
+    geo_tags: [latam, africa, mena]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.aecid.es/EN/press-room
+    first_pass_cadence_days: 21
+
+  - name: FinDev Canada
+    aliases: [FinDev, "FinDev Canada", "Development Finance Institute Canada"]
+    sector_tags: [fi, energy, agri, gender]
+    geo_tags: [africa, latam, asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://www.findevcanada.ca/en/news
+    first_pass_cadence_days: 14
+
+  - name: AFD
+    aliases: [AFD, "Agence Française de Développement", "French Development Agency"]
+    sector_tags: [climate, health, edu, wash]
+    geo_tags: [africa, mena, asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-75"
+    public_newsroom_url: https://www.afd.fr/en/actualites
+    first_pass_cadence_days: 7
+
+  - name: JICA
+    aliases: [JICA, "Japan International Cooperation Agency"]
+    sector_tags: [generalist, energy, agri, health]
+    geo_tags: [asia, africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-50"
+    public_newsroom_url: https://www.jica.go.jp/english/news/index.html
+    first_pass_cadence_days: 10
+
+  - name: EBRD
+    aliases: [EBRD, "European Bank for Reconstruction and Development"]
+    sector_tags: [generalist, energy, fi, climate]
+    geo_tags: [eu, mena, asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "15-75"
+    public_newsroom_url: https://www.ebrd.com/news.html
+    first_pass_cadence_days: 5
+
+  - name: IDB Invest
+    aliases: [IDB Invest, "Inter-American Investment Corporation", "IIC", "Inter-American Development Bank Invest"]
+    sector_tags: [generalist, fi, energy]
+    geo_tags: [latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-50"
+    public_newsroom_url: https://www.idbinvest.org/en/news
+    first_pass_cadence_days: 5
+
+  - name: Asian Development Bank
+    aliases: [ADB, "Asian Development Bank"]
+    sector_tags: [generalist, climate, energy, wash]
+    geo_tags: [asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "15-100"
+    public_newsroom_url: https://www.adb.org/news
+    first_pass_cadence_days: 5
+
+  - name: African Development Bank
+    aliases: [AfDB, "African Development Bank", "Banque Africaine de Développement"]
+    sector_tags: [generalist, energy, agri]
+    geo_tags: [africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-75"
+    public_newsroom_url: https://www.afdb.org/en/news-and-events
+    first_pass_cadence_days: 7
+
+  - name: Caribbean Development Bank
+    aliases: [CDB, "Caribbean Development Bank"]
+    sector_tags: [generalist, climate, wash]
+    geo_tags: [latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.caribank.org/newsroom
+    first_pass_cadence_days: 21
+
+  - name: European Investment Bank
+    aliases: [EIB, "European Investment Bank", "EIB Global"]
+    sector_tags: [climate, energy, fi]
+    geo_tags: [eu, africa, mena]
+    lp_type: dfi
+    typical_ticket_usd_m: "20-100"
+    public_newsroom_url: https://www.eib.org/en/press/index.htm
+    first_pass_cadence_days: 3
+
+  - name: Islamic Development Bank
+    aliases: [IsDB, "Islamic Development Bank"]
+    sector_tags: [generalist, fi, health]
+    geo_tags: [mena, africa, asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-50"
+    public_newsroom_url: https://www.isdb.org/news
+    first_pass_cadence_days: 14
+
+  - name: BIO Invest
+    aliases: [BIO, "BIO Invest", "Belgian Investment Company for Developing Countries"]
+    sector_tags: [fi, agri, energy]
+    geo_tags: [africa, asia, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.bio-invest.be/en/news
+    first_pass_cadence_days: 21
+
+  - name: SIFEM
+    aliases: [SIFEM, "Swiss Investment Fund for Emerging Markets"]
+    sector_tags: [fi, energy, agri]
+    geo_tags: [africa, asia, latam]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.sifem.ch/news
+    first_pass_cadence_days: 21
+
+  - name: AIIB
+    aliases: [AIIB, "Asian Infrastructure Investment Bank"]
+    sector_tags: [energy, climate, wash]
+    geo_tags: [asia]
+    lp_type: dfi
+    typical_ticket_usd_m: "25-100"
+    public_newsroom_url: https://www.aiib.org/en/news-events/news/index.html
+    first_pass_cadence_days: 7
+
+  - name: OPEC Fund for International Development
+    aliases: [OPEC Fund, "OFID", "OPEC Fund for International Development"]
+    sector_tags: [energy, fi, wash]
+    geo_tags: [africa, asia, mena]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://opecfund.org/news
+    first_pass_cadence_days: 21
+
+  # ---------- Foundations ----------
+
+  - name: Ford Foundation
+    aliases: ["Ford Foundation"]
+    sector_tags: [gender, fi, housing, generalist]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://www.fordfoundation.org/news-and-stories/
+    first_pass_cadence_days: 7
+
+  - name: Rockefeller Foundation
+    aliases: ["Rockefeller Foundation", "The Rockefeller Foundation"]
+    sector_tags: [climate, health, fi, energy]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "5-20"
+    public_newsroom_url: https://www.rockefellerfoundation.org/news/
+    first_pass_cadence_days: 7
+
+  - name: Bill & Melinda Gates Foundation
+    aliases: ["Gates Foundation", "Bill & Melinda Gates Foundation", "BMGF"]
+    sector_tags: [health, agri, wash, edu]
+    geo_tags: [africa, asia]
+    lp_type: foundation
+    typical_ticket_usd_m: "10-100"
+    public_newsroom_url: https://www.gatesfoundation.org/ideas/media-center/press-releases
+    first_pass_cadence_days: 5
+
+  - name: MacArthur Foundation
+    aliases: ["MacArthur Foundation", "John D. and Catherine T. MacArthur Foundation"]
+    sector_tags: [climate, gender, housing]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.macfound.org/press
+    first_pass_cadence_days: 14
+
+  - name: Omidyar Network
+    aliases: ["Omidyar Network", "Omidyar"]
+    sector_tags: [fi, edu, smb]
+    geo_tags: [global, asia, africa]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://omidyar.com/news/
+    first_pass_cadence_days: 14
+
+  - name: Skoll Foundation
+    aliases: ["Skoll Foundation"]
+    sector_tags: [generalist, health, edu]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://skoll.org/news/
+    first_pass_cadence_days: 21
+
+  - name: W.K. Kellogg Foundation
+    aliases: [Kellogg Foundation, "W.K. Kellogg Foundation", "WKKF"]
+    sector_tags: [edu, agri, health]
+    geo_tags: [us, latam, africa]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.wkkf.org/news-and-media
+    first_pass_cadence_days: 21
+
+  - name: Hewlett Foundation
+    aliases: ["Hewlett Foundation", "William and Flora Hewlett Foundation"]
+    sector_tags: [climate, edu, gender]
+    geo_tags: [global, africa]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://hewlett.org/news/
+    first_pass_cadence_days: 14
+
+  - name: Conrad N. Hilton Foundation
+    aliases: ["Hilton Foundation", "Conrad N. Hilton Foundation"]
+    sector_tags: [wash, health]
+    geo_tags: [africa, us]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-10"
+    public_newsroom_url: https://www.hiltonfoundation.org/news
+    first_pass_cadence_days: 21
+
+  - name: Mastercard Foundation
+    aliases: ["Mastercard Foundation"]
+    sector_tags: [edu, smb, fi]
+    geo_tags: [africa]
+    lp_type: foundation
+    typical_ticket_usd_m: "10-100"
+    public_newsroom_url: https://mastercardfdn.org/news/
+    first_pass_cadence_days: 7
+
+  - name: Open Society Foundations
+    aliases: ["Open Society Foundations", "OSF", "Open Society Institute"]
+    sector_tags: [gender, housing, generalist]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-20"
+    public_newsroom_url: https://www.opensocietyfoundations.org/newsroom
+    first_pass_cadence_days: 5
+
+  - name: Wellcome Trust
+    aliases: ["Wellcome Trust", "Wellcome"]
+    sector_tags: [health, climate]
+    geo_tags: [global, uk]
+    lp_type: foundation
+    typical_ticket_usd_m: "10-50"
+    public_newsroom_url: https://wellcome.org/news
+    first_pass_cadence_days: 7
+
+  - name: Shell Foundation
+    aliases: ["Shell Foundation"]
+    sector_tags: [energy, climate, smb]
+    geo_tags: [africa, asia]
+    lp_type: foundation
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://shellfoundation.org/news/
+    first_pass_cadence_days: 21
+
+  - name: Visa Foundation
+    aliases: ["Visa Foundation"]
+    sector_tags: [gender, fi, smb]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://usa.visa.com/about-visa/visa-foundation.html
+    first_pass_cadence_days: 30
+
+  - name: Co-Impact
+    aliases: [Co-Impact]
+    sector_tags: [health, edu, gender]
+    geo_tags: [africa, asia, latam]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.co-impact.org/news/
+    first_pass_cadence_days: 30
+
+  - name: Bloomberg Philanthropies
+    aliases: ["Bloomberg Philanthropies"]
+    sector_tags: [climate, health]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://www.bloomberg.org/press/
+    first_pass_cadence_days: 14
+
+  - name: ICONIQ Impact
+    aliases: ["ICONIQ Impact", "ICONIQ"]
+    sector_tags: [climate, edu]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.iconiqimpact.com/
+    first_pass_cadence_days: 30
+
+  - name: Children's Investment Fund Foundation
+    aliases: ["CIFF", "Children's Investment Fund Foundation"]
+    sector_tags: [climate, health, edu]
+    geo_tags: [global, africa, asia]
+    lp_type: foundation
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://ciff.org/news/
+    first_pass_cadence_days: 14
+
+  - name: David and Lucile Packard Foundation
+    aliases: ["Packard Foundation", "David and Lucile Packard Foundation"]
+    sector_tags: [climate, health, gender]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.packard.org/news-insights/
+    first_pass_cadence_days: 21
+
+  - name: IKEA Foundation
+    aliases: ["IKEA Foundation"]
+    sector_tags: [climate, energy, agri]
+    geo_tags: [africa, asia]
+    lp_type: foundation
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://ikeafoundation.org/press-release/
+    first_pass_cadence_days: 21
+
+  - name: Children's Investment Fund Foundation US
+    aliases: ["CIFF US"]
+    sector_tags: [climate, health]
+    geo_tags: [us, global]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-10"
+    public_newsroom_url: https://ciff.org/
+    first_pass_cadence_days: 30
+
+  - name: Chan Zuckerberg Initiative
+    aliases: ["CZI", "Chan Zuckerberg Initiative"]
+    sector_tags: [health, edu]
+    geo_tags: [global, us]
+    lp_type: foundation
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://chanzuckerberg.com/newsroom/
+    first_pass_cadence_days: 14
+
+  - name: Yield Giving
+    aliases: ["Yield Giving", "MacKenzie Scott"]
+    sector_tags: [generalist, gender, housing]
+    geo_tags: [us, global]
+    lp_type: foundation
+    typical_ticket_usd_m: "5-50"
+    public_newsroom_url: https://yieldgiving.com/
+    first_pass_cadence_days: 60
+
+  # ---------- Family office / impact-investor arms ----------
+
+  - name: Calvert Impact Capital
+    aliases: ["Calvert Impact Capital", "Calvert Impact"]
+    sector_tags: [fi, climate, housing]
+    geo_tags: [global, us]
+    lp_type: family_office
+    typical_ticket_usd_m: "3-20"
+    public_newsroom_url: https://calvertimpactcapital.org/media
+    first_pass_cadence_days: 14
+
+  - name: Blue Haven Initiative
+    aliases: ["Blue Haven", "Blue Haven Initiative"]
+    sector_tags: [climate, fi, gender]
+    geo_tags: [africa, global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://bluehaveninitiative.com/
+    first_pass_cadence_days: 45
+
+  - name: Acumen Capital Partners
+    aliases: ["Acumen Capital Partners", "Acumen", "Acumen Fund"]
+    sector_tags: [energy, agri, health]
+    geo_tags: [africa, asia]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://acumen.org/blog/
+    first_pass_cadence_days: 14
+
+  - name: Emerson Collective
+    aliases: ["Emerson Collective"]
+    sector_tags: [edu, climate, health]
+    geo_tags: [global, us]
+    lp_type: family_office
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.emersoncollective.com/news/
+    first_pass_cadence_days: 30
+
+  - name: Ceniarth
+    aliases: ["Ceniarth"]
+    sector_tags: [fi, smb, agri]
+    geo_tags: [africa, latam, asia]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://ceniarth.com/news/
+    first_pass_cadence_days: 45
+
+  - name: Trinity Church Wall Street
+    aliases: ["Trinity Church", "Trinity Church Wall Street", "Trinity Wall Street"]
+    sector_tags: [housing, fi]
+    geo_tags: [us, global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://trinitywallstreet.org/news
+    first_pass_cadence_days: 45
+
+  - name: Surdna Foundation
+    aliases: ["Surdna Foundation"]
+    sector_tags: [housing, fi]
+    geo_tags: [us]
+    lp_type: foundation
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://surdna.org/news/
+    first_pass_cadence_days: 45
+
+  - name: Soros Economic Development Fund
+    aliases: ["SEDF", "Soros Economic Development Fund"]
+    sector_tags: [fi, smb, housing]
+    geo_tags: [global]
+    lp_type: family_office
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.opensocietyfoundations.org/who-we-are/programs/soros-economic-development-fund
+    first_pass_cadence_days: 30
+
+  # ---------- Corporate impact arms ----------
+
+  - name: MetLife Foundation
+    aliases: ["MetLife Foundation"]
+    sector_tags: [fi]
+    geo_tags: [global]
+    lp_type: corp_impact
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://www.metlife.com/metlife-foundation/
+    first_pass_cadence_days: 30
+
+  - name: Citi Foundation
+    aliases: ["Citi Foundation"]
+    sector_tags: [fi, smb]
+    geo_tags: [global]
+    lp_type: corp_impact
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.citigroup.com/global/foundation
+    first_pass_cadence_days: 30
+
+  - name: JPMorgan Chase Foundation
+    aliases: ["JPMorgan Chase Foundation", "JPMC Foundation"]
+    sector_tags: [fi, smb, housing]
+    geo_tags: [global]
+    lp_type: corp_impact
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.jpmorganchase.com/impact
+    first_pass_cadence_days: 30
+
+  - name: Bank of America Foundation
+    aliases: ["Bank of America Foundation", "BofA Foundation"]
+    sector_tags: [fi, housing]
+    geo_tags: [us]
+    lp_type: corp_impact
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://about.bankofamerica.com/en/making-an-impact
+    first_pass_cadence_days: 45
+
+  - name: Nuveen / TIAA Impact
+    aliases: ["Nuveen", "TIAA Impact", "Nuveen Global Impact"]
+    sector_tags: [climate, fi, housing]
+    geo_tags: [global]
+    lp_type: corp_impact
+    typical_ticket_usd_m: "10-50"
+    public_newsroom_url: https://www.nuveen.com/global/insights
+    first_pass_cadence_days: 14
+
+  - name: Prudential Financial Impact Investments
+    aliases: ["Prudential Impact Investments", "Prudential Financial"]
+    sector_tags: [housing, fi]
+    geo_tags: [us, global]
+    lp_type: corp_impact
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://www.prudential.com/links/about/corporate-social-responsibility
+    first_pass_cadence_days: 30
+
+  # ---------- Sector-specific LPs ----------
+
+  - name: Global Innovation Fund
+    aliases: ["Global Innovation Fund", "GIF"]
+    sector_tags: [health, edu, smb]
+    geo_tags: [global]
+    lp_type: dfi
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.globalinnovation.fund/news/
+    first_pass_cadence_days: 21
+
+  - name: Grand Challenges Canada
+    aliases: ["Grand Challenges Canada", "GCC"]
+    sector_tags: [health]
+    geo_tags: [global, africa, asia]
+    lp_type: foundation
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://www.grandchallenges.ca/news/
+    first_pass_cadence_days: 21
+
+  - name: Climate Investment Funds
+    aliases: [CIF, "Climate Investment Funds"]
+    sector_tags: [climate, energy]
+    geo_tags: [global]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-50"
+    public_newsroom_url: https://www.cif.org/news
+    first_pass_cadence_days: 14
+
+  - name: Green Climate Fund
+    aliases: [GCF, "Green Climate Fund"]
+    sector_tags: [climate, energy, wash]
+    geo_tags: [global]
+    lp_type: dfi
+    typical_ticket_usd_m: "10-100"
+    public_newsroom_url: https://www.greenclimate.fund/news
+    first_pass_cadence_days: 7
+
+  - name: Global Environment Facility
+    aliases: [GEF, "Global Environment Facility"]
+    sector_tags: [climate, agri]
+    geo_tags: [global]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-50"
+    public_newsroom_url: https://www.thegef.org/newsroom
+    first_pass_cadence_days: 14
+
+  - name: GAVI The Vaccine Alliance
+    aliases: [GAVI, "Gavi, the Vaccine Alliance"]
+    sector_tags: [health]
+    geo_tags: [africa, asia, global]
+    lp_type: foundation
+    typical_ticket_usd_m: "10-100"
+    public_newsroom_url: https://www.gavi.org/news
+    first_pass_cadence_days: 14
+
+  - name: The Global Fund
+    aliases: ["The Global Fund", "Global Fund to Fight AIDS Tuberculosis and Malaria"]
+    sector_tags: [health]
+    geo_tags: [global, africa, asia]
+    lp_type: foundation
+    typical_ticket_usd_m: "10-100"
+    public_newsroom_url: https://www.theglobalfund.org/en/news/
+    first_pass_cadence_days: 14
+
+  - name: Educate Girls DIB / UBS Optimus
+    aliases: ["UBS Optimus Foundation", "UBS Optimus"]
+    sector_tags: [edu, gender, health]
+    geo_tags: [global]
+    lp_type: corp_impact
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.ubs.com/microsites/optimus-foundation/en/news.html
+    first_pass_cadence_days: 30
+
+  - name: IDH Sustainable Trade
+    aliases: ["IDH", "IDH The Sustainable Trade Initiative"]
+    sector_tags: [agri, climate]
+    geo_tags: [africa, asia, latam]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.idhsustainabletrade.com/news/
+    first_pass_cadence_days: 30
+
+  - name: AgDevCo
+    aliases: ["AgDevCo"]
+    sector_tags: [agri]
+    geo_tags: [africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.agdevco.com/news
+    first_pass_cadence_days: 30
+
+  - name: Power Africa
+    aliases: ["Power Africa"]
+    sector_tags: [energy]
+    geo_tags: [africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-50"
+    public_newsroom_url: https://www.usaid.gov/powerafrica/newsroom
+    first_pass_cadence_days: 14
+
+  - name: Global Partnership for Education
+    aliases: ["GPE", "Global Partnership for Education"]
+    sector_tags: [edu]
+    geo_tags: [global, africa]
+    lp_type: foundation
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://www.globalpartnership.org/news
+    first_pass_cadence_days: 21
+
+  - name: USAID DIV
+    aliases: ["USAID DIV", "Development Innovation Ventures"]
+    sector_tags: [generalist, health, edu]
+    geo_tags: [global]
+    lp_type: dfi
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://www.usaid.gov/div
+    first_pass_cadence_days: 21
+
+  - name: UK FCDO What Works
+    aliases: ["FCDO", "UK FCDO", "Foreign Commonwealth & Development Office"]
+    sector_tags: [generalist, gender, health]
+    geo_tags: [global]
+    lp_type: dfi
+    typical_ticket_usd_m: "5-50"
+    public_newsroom_url: https://www.gov.uk/government/organisations/foreign-commonwealth-development-office
+    first_pass_cadence_days: 7
+
+  - name: SIDA Sweden
+    aliases: [SIDA, "Swedish International Development Cooperation Agency"]
+    sector_tags: [generalist, gender, climate]
+    geo_tags: [global, africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.sida.se/en/news
+    first_pass_cadence_days: 14
+
+  - name: NORAD
+    aliases: [NORAD, "Norwegian Agency for Development Cooperation"]
+    sector_tags: [generalist, gender, climate]
+    geo_tags: [global, africa]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.norad.no/en/front/news/
+    first_pass_cadence_days: 21
+
+  - name: GIZ Germany
+    aliases: [GIZ, "Deutsche Gesellschaft für Internationale Zusammenarbeit"]
+    sector_tags: [generalist, energy, climate]
+    geo_tags: [global]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-25"
+    public_newsroom_url: https://www.giz.de/en/mediacenter/news.html
+    first_pass_cadence_days: 14
+
+  - name: UNDP SDG Impact
+    aliases: ["UNDP", "UNDP SDG Impact"]
+    sector_tags: [generalist, climate]
+    geo_tags: [global]
+    lp_type: dfi
+    typical_ticket_usd_m: "3-25"
+    public_newsroom_url: https://www.undp.org/news
+    first_pass_cadence_days: 5
+
+  - name: Luminate
+    aliases: [Luminate, "Luminate Group"]
+    sector_tags: [gender, edu]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.luminategroup.com/posts
+    first_pass_cadence_days: 30
+
+  - name: Robert Wood Johnson Foundation
+    aliases: ["RWJF", "Robert Wood Johnson Foundation"]
+    sector_tags: [health, housing]
+    geo_tags: [us]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.rwjf.org/en/news-and-insights.html
+    first_pass_cadence_days: 21
+
+  - name: Ceniarth / McKnight Foundation
+    aliases: ["McKnight Foundation"]
+    sector_tags: [climate, agri]
+    geo_tags: [global, us]
+    lp_type: foundation
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.mcknight.org/news-ideas/
+    first_pass_cadence_days: 30
+
+  - name: Margaret A. Cargill Philanthropies
+    aliases: ["Cargill Philanthropies", "MACP", "Margaret A. Cargill Philanthropies"]
+    sector_tags: [agri, climate, wash]
+    geo_tags: [global, africa]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.macphilanthropies.org/news
+    first_pass_cadence_days: 30
+
+  - name: Echoing Green
+    aliases: ["Echoing Green"]
+    sector_tags: [generalist, smb]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "1-3"
+    public_newsroom_url: https://echoinggreen.org/news/
+    first_pass_cadence_days: 30
+
+  - name: Autodesk Foundation
+    aliases: ["Autodesk Foundation"]
+    sector_tags: [climate, edu]
+    geo_tags: [global]
+    lp_type: corp_impact
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://www.autodesk.org/newsroom
+    first_pass_cadence_days: 45
+
+  - name: Patagonia
+    aliases: ["Patagonia Inc", "Holdfast Collective", "Patagonia"]
+    sector_tags: [climate, agri]
+    geo_tags: [global]
+    lp_type: corp_impact
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.patagonia.com/stories/
+    first_pass_cadence_days: 60
+
+  - name: Pfizer Foundation
+    aliases: ["Pfizer Foundation"]
+    sector_tags: [health]
+    geo_tags: [global]
+    lp_type: corp_impact
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://www.pfizer.com/about/responsibility/pfizer-foundation
+    first_pass_cadence_days: 45
+
+  - name: Novo Nordisk Foundation
+    aliases: ["Novo Nordisk Foundation", "NNF"]
+    sector_tags: [health]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "5-25"
+    public_newsroom_url: https://novonordiskfonden.dk/en/news/
+    first_pass_cadence_days: 14
+
+  - name: Bezos Earth Fund
+    aliases: ["Bezos Earth Fund"]
+    sector_tags: [climate]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "10-50"
+    public_newsroom_url: https://www.bezosearthfund.org/news
+    first_pass_cadence_days: 14
+
+  - name: Laudes Foundation
+    aliases: ["Laudes Foundation", "C&A Foundation"]
+    sector_tags: [climate, agri]
+    geo_tags: [global]
+    lp_type: foundation
+    typical_ticket_usd_m: "3-15"
+    public_newsroom_url: https://www.laudesfoundation.org/latest
+    first_pass_cadence_days: 21
+
+  - name: Ikea Social Entrepreneurship
+    aliases: ["Ikea Social Entrepreneurship", "IKEA Social Entrepreneurship"]
+    sector_tags: [smb, generalist]
+    geo_tags: [global]
+    lp_type: corp_impact
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://ikeasocialentrepreneurship.org/news/
+    first_pass_cadence_days: 45
+
+  - name: Temasek Trust / Philanthropy Asia
+    aliases: ["Temasek Trust", "Philanthropy Asia Alliance"]
+    sector_tags: [climate, health, edu]
+    geo_tags: [asia]
+    lp_type: family_office
+    typical_ticket_usd_m: "3-25"
+    public_newsroom_url: https://www.temasektrust.org.sg/newsroom
+    first_pass_cadence_days: 30
+
+  - name: Vitol Foundation
+    aliases: ["Vitol Foundation"]
+    sector_tags: [health, edu]
+    geo_tags: [africa, asia]
+    lp_type: corp_impact
+    typical_ticket_usd_m: "1-5"
+    public_newsroom_url: https://www.vitol.com/about-us/vitol-foundation/
+    first_pass_cadence_days: 60
+
+  - name: Porticus
+    aliases: ["Porticus"]
+    sector_tags: [edu, climate, fi]
+    geo_tags: [global]
+    lp_type: family_office
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://www.porticus.com/en/news-stories
+    first_pass_cadence_days: 30
+
+  - name: Jacobs Foundation
+    aliases: ["Jacobs Foundation"]
+    sector_tags: [edu]
+    geo_tags: [global, africa]
+    lp_type: foundation
+    typical_ticket_usd_m: "1-10"
+    public_newsroom_url: https://jacobsfoundation.org/news/
+    first_pass_cadence_days: 30
+
+regulators:
+
+  - name: UK Charity Commission
+    aliases: ["Charity Commission", "Charity Commission for England and Wales"]
+    jurisdiction: GB
+    regulator_type: charity
+    rss_or_news_url: https://www.gov.uk/government/organisations/charity-commission.atom
+
+  - name: Companies House UK
+    aliases: ["Companies House"]
+    jurisdiction: GB
+    regulator_type: corporate_registry
+    rss_or_news_url: https://www.gov.uk/government/organisations/companies-house.atom
+
+  - name: Financial Conduct Authority
+    aliases: ["FCA", "Financial Conduct Authority"]
+    jurisdiction: GB
+    regulator_type: securities
+    rss_or_news_url: https://www.fca.org.uk/news/rss.xml
+
+  - name: HM Revenue and Customs
+    aliases: ["HMRC", "HM Revenue & Customs", "HM Revenue and Customs"]
+    jurisdiction: GB
+    regulator_type: tax
+    rss_or_news_url: https://www.gov.uk/government/organisations/hm-revenue-customs.atom
+
+  - name: Prudential Regulation Authority
+    aliases: ["PRA", "Prudential Regulation Authority"]
+    jurisdiction: GB
+    regulator_type: prudential
+    rss_or_news_url: https://www.bankofengland.co.uk/rss/news
+
+  - name: US Securities and Exchange Commission
+    aliases: ["SEC", "US SEC", "Securities and Exchange Commission"]
+    jurisdiction: US
+    regulator_type: securities
+    rss_or_news_url: https://www.sec.gov/news/pressreleases.rss
+
+  - name: IRS Exempt Organizations
+    aliases: ["IRS", "Internal Revenue Service", "IRS EO", "IRS Exempt Organizations"]
+    jurisdiction: US
+    regulator_type: tax
+    rss_or_news_url: https://www.irs.gov/newsroom/news-releases-for-current-month
+
+  - name: US Treasury
+    aliases: ["US Treasury", "U.S. Department of the Treasury"]
+    jurisdiction: US
+    regulator_type: tax
+    rss_or_news_url: https://home.treasury.gov/news/press-releases/feed
+
+  - name: US Department of Justice
+    aliases: ["DOJ", "US DOJ", "Department of Justice"]
+    jurisdiction: US
+    regulator_type: prudential
+    rss_or_news_url: https://www.justice.gov/feeds/opa/justice-news.xml
+
+  - name: Dutch Chamber of Commerce
+    aliases: ["KvK", "Kamer van Koophandel"]
+    jurisdiction: NL
+    regulator_type: corporate_registry
+    rss_or_news_url: https://www.kvk.nl/en/news/
+
+  - name: Dutch Authority for the Financial Markets
+    aliases: ["AFM", "Autoriteit Financiële Markten"]
+    jurisdiction: NL
+    regulator_type: securities
+    rss_or_news_url: https://www.afm.nl/en/professionals/news
+
+  - name: Swiss Financial Market Supervisory Authority
+    aliases: ["FINMA", "Swiss FINMA"]
+    jurisdiction: CH
+    regulator_type: securities
+    rss_or_news_url: https://www.finma.ch/en/news/
+
+  - name: Autorité de Contrôle Prudentiel et de Résolution
+    aliases: ["ACPR", "Autorité de Contrôle Prudentiel et de Résolution"]
+    jurisdiction: FR
+    regulator_type: prudential
+    rss_or_news_url: https://acpr.banque-france.fr/en/news
+
+  - name: Autorité des Marchés Financiers
+    aliases: ["AMF France", "Autorité des Marchés Financiers"]
+    jurisdiction: FR
+    regulator_type: securities
+    rss_or_news_url: https://www.amf-france.org/en/news-publications
+
+  - name: BaFin Germany
+    aliases: ["BaFin", "Bundesanstalt für Finanzdienstleistungsaufsicht"]
+    jurisdiction: DE
+    regulator_type: securities
+    rss_or_news_url: https://www.bafin.de/SharedDocs/Newsroom/EN/news_rss.xml
+
+  - name: Monetary Authority of Singapore
+    aliases: ["MAS", "Monetary Authority of Singapore"]
+    jurisdiction: SG
+    regulator_type: securities
+    rss_or_news_url: https://www.mas.gov.sg/news
+
+  - name: Luxembourg CSSF
+    aliases: ["CSSF", "Commission de Surveillance du Secteur Financier"]
+    jurisdiction: LU
+    regulator_type: securities
+    rss_or_news_url: https://www.cssf.lu/en/news/
+
+  - name: Ireland Charities Regulator
+    aliases: ["Charities Regulator Ireland", "Charities Regulatory Authority", "CRA Ireland"]
+    jurisdiction: IE
+    regulator_type: charity
+    rss_or_news_url: https://www.charitiesregulator.ie/en/cr/pages/news
+
+  - name: Ireland Companies Registration Office
+    aliases: ["CRO", "Companies Registration Office Ireland"]
+    jurisdiction: IE
+    regulator_type: corporate_registry
+    rss_or_news_url: https://www.cro.ie/en-ie/About-CRO/News
+
+  - name: Canada Revenue Agency
+    aliases: ["CRA Canada", "Canada Revenue Agency"]
+    jurisdiction: CA
+    regulator_type: tax
+    rss_or_news_url: https://www.canada.ca/en/revenue-agency/news.html
+
+  - name: Australia Charities and Not-for-profits Commission
+    aliases: ["ACNC", "Australia Charities and Not-for-profits Commission"]
+    jurisdiction: AU
+    regulator_type: charity
+    rss_or_news_url: https://www.acnc.gov.au/news
+
+  - name: New Zealand Charities Services
+    aliases: ["Charities Services", "DIA Charities", "New Zealand Charities Services"]
+    jurisdiction: NZ
+    regulator_type: charity
+    rss_or_news_url: https://www.charities.govt.nz/news-and-events/
+
+  - name: European Commission
+    aliases: ["European Commission", "EC"]
+    jurisdiction: EU
+    regulator_type: prudential
+    rss_or_news_url: https://ec.europa.eu/commission/presscorner/home/en/rss
+
+  - name: European Securities and Markets Authority
+    aliases: ["ESMA", "European Securities and Markets Authority"]
+    jurisdiction: EU
+    regulator_type: securities
+    rss_or_news_url: https://www.esma.europa.eu/rss.xml
+
+  - name: Office of the Scottish Charity Regulator
+    aliases: ["OSCR", "Scottish Charity Regulator"]
+    jurisdiction: GB
+    regulator_type: charity
+    rss_or_news_url: https://www.oscr.org.uk/news/
+
+peer_ingos:
+
+  - name: Oxfam International
+    aliases: ["Oxfam", "Oxfam International", "Oxfam GB", "Oxfam Novib", "Oxfam America"]
+    parent_jurisdictions: [GB, NL, US, KE]
+    sector_tags: [generalist, wash, gender, humanitarian]
+    fund_vehicle_name: "Small Enterprise Impact Investing Fund (SEIIF)"
+
+  - name: Save the Children
+    aliases: ["Save the Children", "Save the Children International", "Save the Children UK", "Save the Children US", "STC"]
+    parent_jurisdictions: [GB, US]
+    sector_tags: [health, edu, humanitarian]
+    fund_vehicle_name: "Save the Children Global Ventures"
+
+  - name: CARE International
+    aliases: ["CARE", "CARE International", "CARE USA"]
+    parent_jurisdictions: [US, GB]
+    sector_tags: [gender, fi, agri, humanitarian]
+    fund_vehicle_name: "CARE-SheTrades (with Bamboo Capital)"
+
+  - name: Mercy Corps
+    aliases: ["Mercy Corps", "Mercy Corps Europe"]
+    parent_jurisdictions: [US, GB]
+    sector_tags: [fi, humanitarian, climate]
+    fund_vehicle_name: "Mercy Corps Ventures"
+
+  - name: World Vision International
+    aliases: ["World Vision", "World Vision International", "WV"]
+    parent_jurisdictions: [US, GB, CA]
+    sector_tags: [health, wash, edu, humanitarian]
+    fund_vehicle_name: null
+
+  - name: Heifer International
+    aliases: ["Heifer", "Heifer International", "Heifer Intl"]
+    parent_jurisdictions: [US]
+    sector_tags: [agri, smb]
+    fund_vehicle_name: "Heifer Impact Capital"
+
+  - name: Plan International
+    aliases: ["Plan International", "Plan Intl", "Plan"]
+    parent_jurisdictions: [GB, NL, US]
+    sector_tags: [edu, gender, humanitarian]
+    fund_vehicle_name: null
+
+  - name: ChildFund International
+    aliases: ["ChildFund", "ChildFund International"]
+    parent_jurisdictions: [US]
+    sector_tags: [edu, health]
+    fund_vehicle_name: null
+
+  - name: Catholic Relief Services
+    aliases: ["CRS", "Catholic Relief Services"]
+    parent_jurisdictions: [US]
+    sector_tags: [agri, humanitarian, health]
+    fund_vehicle_name: "CRS Inclusive Impact Investing"
+
+  - name: BRAC
+    aliases: ["BRAC", "BRAC International"]
+    parent_jurisdictions: [BD, US, NL]
+    sector_tags: [fi, edu, health]
+    fund_vehicle_name: "BRAC Impact Ventures"
+
+  - name: Grameen Foundation
+    aliases: ["Grameen", "Grameen Foundation", "Grameen Bank"]
+    parent_jurisdictions: [US, BD]
+    sector_tags: [fi, gender]
+    fund_vehicle_name: null
+
+  - name: Acumen
+    aliases: ["Acumen", "Acumen Fund"]
+    parent_jurisdictions: [US, GB]
+    sector_tags: [energy, agri, health]
+    fund_vehicle_name: "Acumen Capital Partners"
+
+  - name: Root Capital
+    aliases: ["Root Capital"]
+    parent_jurisdictions: [US]
+    sector_tags: [agri, fi]
+    fund_vehicle_name: "Root Capital loan funds"
+
+  - name: ICCO Cooperation
+    aliases: ["ICCO", "ICCO Cooperation"]
+    parent_jurisdictions: [NL]
+    sector_tags: [agri, fi]
+    fund_vehicle_name: "ICCO Investments"
+
+  - name: Cordaid
+    aliases: ["Cordaid"]
+    parent_jurisdictions: [NL]
+    sector_tags: [humanitarian, fi, health]
+    fund_vehicle_name: "Cordaid Investment Management"
+
+  - name: International Rescue Committee
+    aliases: ["IRC", "International Rescue Committee"]
+    parent_jurisdictions: [US, GB]
+    sector_tags: [humanitarian, health]
+    fund_vehicle_name: "IRC Airbel Impact Lab"
+
+  - name: Lutheran World Relief
+    aliases: ["LWR", "Lutheran World Relief", "Corus International"]
+    parent_jurisdictions: [US]
+    sector_tags: [agri, humanitarian]
+    fund_vehicle_name: "Ground Up Investing"
+
+  - name: ActionAid International
+    aliases: ["ActionAid", "ActionAid International"]
+    parent_jurisdictions: [ZA, GB]
+    sector_tags: [gender, humanitarian]
+    fund_vehicle_name: null
+
+  - name: WaterAid
+    aliases: ["WaterAid"]
+    parent_jurisdictions: [GB, US]
+    sector_tags: [wash]
+    fund_vehicle_name: null
+
+  - name: Concern Worldwide
+    aliases: ["Concern", "Concern Worldwide"]
+    parent_jurisdictions: [IE, GB, US]
+    sector_tags: [humanitarian, health]
+    fund_vehicle_name: null
+
+  - name: Population Services International
+    aliases: ["PSI", "Population Services International"]
+    parent_jurisdictions: [US]
+    sector_tags: [health]
+    fund_vehicle_name: null
+
+  - name: MSI Reproductive Choices
+    aliases: ["MSI", "MSI Reproductive Choices", "Marie Stopes International"]
+    parent_jurisdictions: [GB]
+    sector_tags: [health, gender]
+    fund_vehicle_name: null
+
+  - name: PATH
+    aliases: ["PATH"]
+    parent_jurisdictions: [US]
+    sector_tags: [health]
+    fund_vehicle_name: null
+
+  - name: One Acre Fund
+    aliases: ["One Acre Fund", "Tupande"]
+    parent_jurisdictions: [US, KE]
+    sector_tags: [agri]
+    fund_vehicle_name: null
+
+  - name: TechnoServe
+    aliases: ["TechnoServe"]
+    parent_jurisdictions: [US]
+    sector_tags: [agri, smb]
+    fund_vehicle_name: null
+
+  - name: Helen Keller International
+    aliases: ["Helen Keller Intl", "Helen Keller International", "HKI"]
+    parent_jurisdictions: [US]
+    sector_tags: [health]
+    fund_vehicle_name: null
+
+  - name: FHI 360
+    aliases: ["FHI 360"]
+    parent_jurisdictions: [US]
+    sector_tags: [health, edu]
+    fund_vehicle_name: null
+
+  - name: Pact
+    aliases: ["Pact", "Pact Inc"]
+    parent_jurisdictions: [US]
+    sector_tags: [generalist, health]
+    fund_vehicle_name: "Pact Global Microfinance Fund"
+
+  - name: Chemonics International
+    aliases: ["Chemonics", "Chemonics International"]
+    parent_jurisdictions: [US]
+    sector_tags: [generalist]
+    fund_vehicle_name: null
+
+  - name: DAI Global
+    aliases: ["DAI", "DAI Global"]
+    parent_jurisdictions: [US, GB]
+    sector_tags: [generalist, fi]
+    fund_vehicle_name: "DAI Magister"
+
+  - name: Abt Associates
+    aliases: ["Abt Associates", "ABT Associates", "Abt Global"]
+    parent_jurisdictions: [US]
+    sector_tags: [health, generalist]
+    fund_vehicle_name: null
+
+  - name: Tetra Tech
+    aliases: ["Tetra Tech"]
+    parent_jurisdictions: [US]
+    sector_tags: [wash, climate]
+    fund_vehicle_name: null
+
+  - name: Pathfinder International
+    aliases: ["Pathfinder", "Pathfinder International"]
+    parent_jurisdictions: [US]
+    sector_tags: [health, gender]
+    fund_vehicle_name: null
+
+  - name: World Resources Institute
+    aliases: ["WRI", "World Resources Institute"]
+    parent_jurisdictions: [US]
+    sector_tags: [climate, energy]
+    fund_vehicle_name: null
+
+  - name: Wildlife Conservation Society
+    aliases: ["WCS", "Wildlife Conservation Society"]
+    parent_jurisdictions: [US]
+    sector_tags: [climate]
+    fund_vehicle_name: null
+
+  - name: Conservation International
+    aliases: ["Conservation International", "CI"]
+    parent_jurisdictions: [US]
+    sector_tags: [climate]
+    fund_vehicle_name: "CI Ventures"
+
+  - name: The Nature Conservancy
+    aliases: ["TNC", "The Nature Conservancy", "Nature Conservancy"]
+    parent_jurisdictions: [US]
+    sector_tags: [climate, wash]
+    fund_vehicle_name: "NatureVest"
+
+  - name: WWF
+    aliases: ["WWF", "World Wildlife Fund", "World Wide Fund for Nature"]
+    parent_jurisdictions: [CH, US, GB, NL]
+    sector_tags: [climate]
+    fund_vehicle_name: "WWF Impact"
+
+  - name: SOS Children's Villages
+    aliases: ["SOS Children's Villages", "SOS Children's Villages International"]
+    parent_jurisdictions: [AT]
+    sector_tags: [edu, humanitarian]
+    fund_vehicle_name: null
+
+  - name: Aga Khan Foundation
+    aliases: ["Aga Khan Foundation", "AKF"]
+    parent_jurisdictions: [CH, GB, US]
+    sector_tags: [edu, health, fi]
+    fund_vehicle_name: "Aga Khan Fund for Economic Development"
+
+  - name: Aga Khan Development Network
+    aliases: ["AKDN", "Aga Khan Development Network"]
+    parent_jurisdictions: [CH]
+    sector_tags: [generalist, edu, health, fi]
+    fund_vehicle_name: "AKFED / AKAM"
+
+  - name: Fairtrade International
+    aliases: ["Fairtrade International", "Fairtrade Intl", "FLO", "Stichting Max Havelaar", "Max Havelaar"]
+    parent_jurisdictions: [DE, NL]
+    sector_tags: [agri]
+    fund_vehicle_name: null
+
+  - name: Habitat for Humanity
+    aliases: ["Habitat for Humanity", "HFHI", "Habitat for Humanity International"]
+    parent_jurisdictions: [US]
+    sector_tags: [housing]
+    fund_vehicle_name: "MicroBuild Fund / Terwilliger Center"
+
+  - name: Village Enterprise
+    aliases: ["Village Enterprise"]
+    parent_jurisdictions: [US, KE]
+    sector_tags: [smb, agri]
+    fund_vehicle_name: null
+
+  - name: Trickle Up
+    aliases: ["Trickle Up"]
+    parent_jurisdictions: [US]
+    sector_tags: [gender, fi]
+    fund_vehicle_name: null
+
+  - name: Women's World Banking
+    aliases: ["Women's World Banking", "WWB"]
+    parent_jurisdictions: [US]
+    sector_tags: [fi, gender]
+    fund_vehicle_name: "WWB Capital Partners Fund"
+
+  - name: Accion
+    aliases: ["Accion", "Accion International"]
+    parent_jurisdictions: [US]
+    sector_tags: [fi]
+    fund_vehicle_name: "Accion Venture Lab / Accion Impact Management"
+
+  - name: Pro Mujer
+    aliases: ["Pro Mujer"]
+    parent_jurisdictions: [US, BO, AR]
+    sector_tags: [fi, gender, health]
+    fund_vehicle_name: null
+
+  - name: Opportunity International
+    aliases: ["Opportunity International", "Opportunity Intl"]
+    parent_jurisdictions: [US, AU, GB]
+    sector_tags: [fi, edu, agri]
+    fund_vehicle_name: null
+
+  - name: Christian Aid
+    aliases: ["Christian Aid"]
+    parent_jurisdictions: [GB, IE]
+    sector_tags: [humanitarian, fi]
+    fund_vehicle_name: "Christian Aid Impact Investments"
+
+  - name: Tearfund
+    aliases: ["Tearfund"]
+    parent_jurisdictions: [GB]
+    sector_tags: [climate, humanitarian]
+    fund_vehicle_name: null
+
+  - name: Islamic Relief Worldwide
+    aliases: ["Islamic Relief", "Islamic Relief Worldwide"]
+    parent_jurisdictions: [GB]
+    sector_tags: [humanitarian]
+    fund_vehicle_name: null
+
+  - name: Water.org
+    aliases: ["Water.org"]
+    parent_jurisdictions: [US]
+    sector_tags: [wash]
+    fund_vehicle_name: "WaterEquity"
+
+  - name: VisionFund International
+    aliases: ["VisionFund", "VisionFund International"]
+    parent_jurisdictions: [US, GB]
+    sector_tags: [fi]
+    fund_vehicle_name: "VisionFund microfinance network"
+
+  - name: Rainforest Alliance
+    aliases: ["Rainforest Alliance"]
+    parent_jurisdictions: [US, NL]
+    sector_tags: [agri, climate]
+    fund_vehicle_name: null
+
+  - name: Solidaridad
+    aliases: ["Solidaridad", "Solidaridad Network"]
+    parent_jurisdictions: [NL]
+    sector_tags: [agri]
+    fund_vehicle_name: null

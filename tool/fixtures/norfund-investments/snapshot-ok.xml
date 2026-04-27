@@ -1,0 +1,8 @@
+<!doctype html>
+<html><body>
+<article class="investment-card">
+  <h3 class="investment-card__title"><a class="investment-card__link" href="/investments/ea-solar-platform">Norfund invests USD 15m in East African off-grid solar</a></h3>
+  <time datetime="2026-04-02">2 April 2026</time>
+  <p class="investment-card__summary">USD 15m equity commitment to East African off-grid solar platform.</p>
+</article>
+</body></html>

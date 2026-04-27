@@ -1,0 +1,6 @@
+{
+  "name": "INGO First-Close Tool",
+  "description": "A reference surface for INGOs raising an impact fund — three slots, zero onboarding.",
+  "version": "0.2.0",
+  "source_of_truth": "content/"
+}

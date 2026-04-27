@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>GIIN — Insights Blog</title>
+    <link>https://thegiin.org/research/publication</link>
+    <description>Global Impact Investing Network publications.</description>
+    <item>
+      <title>2025 GIINsight: Impact Investing Allocations, Activity &amp; Performance</title>
+      <link>https://thegiin.org/research/publication/2025-giinsight-allocations/</link>
+      <description>The GIIN's 2025 GIINsight report shows impact investing AUM reaching $1.7 trillion globally, with continued growth in blended finance structures and increased DFI co-investment activity across emerging markets.</description>
+      <pubDate>Tue, 22 Apr 2026 12:00:00 GMT</pubDate>
+      <guid>https://thegiin.org/research/publication/2025-giinsight-allocations/</guid>
+    </item>
+    <item>
+      <title>Catalytic Capital: Essential to Achieving the SDGs</title>
+      <link>https://thegiin.org/research/publication/catalytic-capital-sdgs/</link>
+      <description>A new brief from the GIIN on how catalytic capital from foundations and DFIs is unlocking impact investing capital in sub-Saharan Africa, with a focus on first-loss tranches in emerging manager funds.</description>
+      <pubDate>Mon, 21 Apr 2026 14:00:00 GMT</pubDate>
+      <guid>https://thegiin.org/research/publication/catalytic-capital-sdgs/</guid>
+    </item>
+    <item>
+      <title>Impact Measurement in Blended Finance: Practitioner Notes</title>
+      <link>https://thegiin.org/research/publication/imm-blended-finance/</link>
+      <description>Practitioner notes on impact measurement in blended finance vehicles, drawing on case studies from Convergence and DFI co-investments.</description>
+      <pubDate>Fri, 18 Apr 2026 09:30:00 GMT</pubDate>
+      <guid>https://thegiin.org/research/publication/imm-blended-finance/</guid>
+    </item>
+  </channel>
+</rss>

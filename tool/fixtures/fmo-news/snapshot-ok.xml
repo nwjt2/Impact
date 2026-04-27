@@ -1,0 +1,13 @@
+<!doctype html>
+<html><body>
+<article class="news-item">
+  <h3 class="news-item__title"><a class="news-item__link" href="/news-detail/banco-pichincha-loan">FMO provides EUR 25m senior loan to Banco Pichincha</a></h3>
+  <time class="news-item__date" datetime="2026-04-10">10 April 2026</time>
+  <p class="news-item__intro">FMO provides EUR 25m senior loan to Banco Pichincha for on-lending to Ecuadorian SMEs.</p>
+</article>
+<article class="news-item">
+  <h3 class="news-item__title"><a class="news-item__link" href="/news-detail/kenya-solar-platform">FMO supports Kenya off-grid solar platform</a></h3>
+  <time class="news-item__date" datetime="2026-04-02">2 April 2026</time>
+  <p class="news-item__intro">EUR 15m commitment to East African solar company.</p>
+</article>
+</body></html>

@@ -1,0 +1,1885 @@
+# Peer impact funds registry.
+#
+# ~50 entries, enriched with anchor LP, close dates, disclosed economics
+# (fees/carry/hurdle/GP commit/investment period), sub-advisor + placement
+# agent, parent-INGO country, and public source URL.
+#
+# Consumed by:
+#   - Slot 1: "INGOs like you that closed a fund"  (filter by parent_ingo_country; INGO-sponsored entries only)
+#   - Slot 2: cross-reference via fund_slug from content/dfi_ingo_commitments.yml
+#
+# Schema per entry:
+#   slug:                                URL-stable kebab-case id (UNIQUE). Handshake key for dfi_ingo_commitments.yml.
+#   name:                                canonical display string
+#   manager:                             fund manager legal entity (who actually runs the vehicle)
+#   parent_ingo:                         nullable; INGO sponsor if any (null = non-INGO comparable)
+#   parent_ingo_country:                 ISO-2 of parent INGO HQ (null if no parent INGO)
+#   vintage:                             integer year of first close (or announcement if not yet closed)
+#   size_usd_m:                          nullable integer or string "TBD"
+#   sector_tags:                         [list]
+#   geo_tags:                            [list]
+#   vehicle_type:                        closed_end_fund | evergreen | blended | DIB
+#   first_close_date:                    YYYY-MM-DD or null
+#   final_close_date:                    YYYY-MM-DD or null
+#   timeline_days_announce_to_first_close: integer or null (computed at emit time; left null where announce date not public)
+#   anchor_lp:                           named anchor commitment (free string) or null
+#   mgmt_fee_bps:                        integer basis points (e.g. 175 = 1.75%) or null. DO NOT FABRICATE.
+#   carry_pct:                           float carried interest % (e.g. 15.0) or null
+#   hurdle_pct:                          float preferred return % (e.g. 8.0) or null
+#   gp_commit_pct:                       float GP commitment as % of fund size or null
+#   investment_period_years:             integer years or null
+#   sub_advisor:                         named sub-advisor firm or null
+#   placement_agent:                     named placement agent or null
+#   status:                              raising | deployed | wound_down
+#   public_source_url:                   link to press release / fund page / annual report
+#   last_seen_at:                        YYYY-MM-DD — today's date for entries updated this round
+#   notes:                               <=2 factual sentences
+#
+# Honesty requirement:
+#   If a field is not in the public record, it MUST be null. A blank field
+#   is infinitely more valuable than a made-up one. A fabricated 175 bps /
+#   15% carry will contaminate any aggregation and make the product dishonest.
+#
+# Reality: mgmt_fee_bps, carry_pct, hurdle_pct, gp_commit_pct, and
+# investment_period_years are rarely disclosed for INGO-sponsored vehicles.
+# Expect the disclosure rate to be low (maybe 15-25%) on the INGO side.
+# Engineer: surface sample size + disclosure rate prominently in slot 4.
+
+peer_funds:
+
+  # ---------- INGO-sponsored vehicles ----------
+
+  - slug: oxfam-seiif
+    name: Small Enterprise Impact Investing Fund (SEIIF)
+    manager: Symbiotics
+    parent_ingo: Oxfam
+    parent_ingo_country: GB
+    vintage: 2012
+    size_usd_m: null
+    sector_tags: [fi, smb, agri]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: closed_end_fund
+    first_close_date: 2012-07-01
+    first_close_date_month_only: true
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: City of London Corporation
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Symbiotics
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.thirdsector.co.uk/oxfam-launches-fund-impact-investments-developing-world/finance/article/1154243
+    last_seen_at: 2026-04-25
+    notes: >
+      Oxfam-City of London-Symbiotics joint initiative; SEIIF launched
+      July 2012 with City of London Corporation $500k cornerstone, target
+      $100m over three years. First investment Oct 2012 ($1m to Xac
+      Leasing, Mongolia). Final fund size never publicly confirmed
+      against the $100m target. Symbiotics is the licensed manager.
+
+  - slug: care-shetrades
+    name: CARE-SheTrades Impact Fund
+    manager: Bamboo Capital Partners
+    parent_ingo: CARE International
+    parent_ingo_country: US
+    vintage: 2018
+    size_usd_m: null
+    sector_tags: [gender, smb, fi]
+    geo_tags: [asia]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: CARE Enterprises ($10m first-loss)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Bamboo Capital Partners
+    placement_agent: null
+    status: raising
+    public_source_url: https://bamboocp.com/the-international-trade-centre-care-enterprises-and-bamboo-capital-partners-join-forces-to-boost-gender-equality-with-the-care-shetrades-impact-fund/
+    last_seen_at: 2026-04-25
+    notes: >
+      Launched June 2018 by Bamboo + CARE; ITC formally joined April
+      2020. Target size $75m. CARE seeded $10m first-loss tranche;
+      Bamboo Capital is the licensed manager. Geographic focus is
+      South/SE Asia (Bangladesh, Cambodia, Indonesia, Myanmar,
+      Philippines, Vietnam). No final-close announcement located in
+      public record as of verification date.
+
+  - slug: mercy-corps-ventures
+    name: Mercy Corps Ventures
+    manager: Mercy Corps Ventures
+    parent_ingo: Mercy Corps
+    parent_ingo_country: US
+    vintage: 2015
+    size_usd_m: null
+    sector_tags: [fi, climate, smb]
+    geo_tags: [africa, latam, asia]
+    vehicle_type: evergreen
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.mercycorps.org/what-we-do/ventures
+    last_seen_at: 2026-04-25
+    notes: >
+      Founded 2015 as Mercy Corps Social Venture Fund (SVF); rebranded
+      to MCV around 2019. Fund I = evergreen seed-stage climate-resilient
+      thesis; Fund II = Resilient Future Fund (early-stage climate
+      adaptation). 61 portfolio companies; mobilized $753m follow-on
+      capital cumulatively. Not a traditional GP-LP fund. AUM not
+      consistently disclosed.
+
+  - slug: heifer-impact-capital
+    name: Heifer Impact Capital
+    manager: Heifer Impact Capital
+    parent_ingo: Heifer International
+    parent_ingo_country: US
+    vintage: 2020
+    size_usd_m: null
+    sector_tags: [agri, smb]
+    geo_tags: [africa, latam, asia, us]
+    vehicle_type: evergreen
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: SEAF (Small Enterprise Assistance Funds)
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.heifer.org/press-release/expand-impact-investing-globally
+    last_seen_at: 2026-04-25
+    notes: >
+      Heifer's impact-investing division. December 2020 SEAF partnership
+      announcement is the most concrete public anchor; specific entity
+      structure (LLC vs. internal program) and fund size never publicly
+      disclosed in press materials. 2022 Heifer Impact Capital Annual
+      Report documents portfolio activity but not capitalization.
+
+  - slug: waterequity-gaf3
+    name: WaterEquity Global Access Fund (Fund III)
+    manager: WaterEquity
+    parent_ingo: Water.org
+    parent_ingo_country: US
+    vintage: 2021
+    size_usd_m: 153
+    sector_tags: [wash, fi]
+    geo_tags: [asia, latam, africa]
+    vehicle_type: closed_end_fund
+    first_close_date: 2021-04-23
+    final_close_date: 2022-03-31
+    timeline_days_announce_to_first_close: null
+    anchor_lp: U.S. International Development Finance Corporation ($100m debt)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.globenewswire.com/news-release/2022/03/31/2414126/0/en/WaterEquity-Raises-Over-150-Million-at-Final-Close-of-Global-Access-Fund.html
+    last_seen_at: 2026-04-25
+    notes: >
+      Final close $153m on 2022-03-31 (oversubscribed vs $150m target).
+      DFC committed $100m senior debt at first close 2021-04-23 alongside
+      $53m equity from foundations, institutionals, and DAFs. Equity LPs
+      not individually named. Third in WaterEquity's fund series; Fund IV
+      (Global Access Fund IV) followed in 2023.
+
+  - slug: waterequity-waci4
+    name: WaterEquity Global Access Fund IV
+    manager: WaterEquity
+    parent_ingo: Water.org
+    parent_ingo_country: US
+    vintage: 2023
+    size_usd_m: 150
+    sector_tags: [wash, climate, fi]
+    geo_tags: [asia, africa, latam]
+    vehicle_type: closed_end_fund
+    first_close_date: 2023-03-16
+    final_close_date: 2023-07-01
+    first_close_date_month_only: false
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Starbucks
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.newswire.com/news/waterequity-announces-final-close-of-150-million-global-access-fund-iv-22128210
+    last_seen_at: 2026-04-25
+    notes: >
+      First vehicle of the Water Resilience Coalition Investment
+      Portfolio. First close 2023-03-16 (~$140m), final close July 2023
+      at $150m. Anchor: Starbucks; co-investors Ecolab, Gap Inc., Reckitt,
+      DuPont; alongside $100m DFC debt. WaterEquity uses "Global Access
+      Fund" branding for both Fund III and Fund IV.
+
+  - slug: save-the-children-global-ventures
+    name: Save the Children Global Ventures
+    manager: Save the Children Global Ventures
+    parent_ingo: Save the Children
+    parent_ingo_country: GB
+    vintage: 2022
+    size_usd_m: null
+    sector_tags: [edu, health, climate]
+    geo_tags: [global]
+    vehicle_type: evergreen
+    first_close_date: 2022-11-16
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: QBE Group
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.savethechildren.net/news/save-children-announces-new-global-investment-entity-deliver-social-benefit-millions-children
+    last_seen_at: 2026-04-24
+    notes: >
+      Globally-launched 2022-11-16 (built on a 2019/2020 Australian
+      precursor — the world's first child-focused impact fund at
+      A$7.5m). Aspirational target: $1bn cumulative by 2030. QBE Group
+      named as launch partner. SCGV separately raising a debt fund
+      targeting $20m first close → $50m for African investments.
+
+  - slug: naturevest-conservation-notes
+    name: NatureVest / TNC Conservation Investing
+    manager: NatureVest / The Nature Conservancy
+    parent_ingo: The Nature Conservancy
+    parent_ingo_country: US
+    vintage: 2014
+    size_usd_m: null
+    sector_tags: [climate, wash]
+    geo_tags: [global]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: JPMorgan Chase (founding support)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.nature.org/en-us/about-us/who-we-are/how-we-work/finance-investing/naturevest/
+    last_seen_at: 2026-04-24
+    notes: >
+      Established 2014 by TNC with founding support from JPMorgan Chase.
+      Has closed ~12 deals representing ~$1.3bn committed capital
+      (cumulative; not AUM). Blue Bonds for Ocean Conservation
+      (Seychelles 2016, Belize 2021, Barbados, Gabon) are NatureVest's
+      signature structures. Treated as programmatic — not a traditional
+      LP-GP fund. Slot 4 excludes from fund-size aggregation.
+
+  - slug: akfed
+    name: Aga Khan Fund for Economic Development (AKFED)
+    manager: AKFED
+    parent_ingo: Aga Khan Development Network
+    parent_ingo_country: CH
+    vintage: 1984
+    size_usd_m: null
+    sector_tags: [fi, energy, agri]
+    geo_tags: [africa, asia, mena]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://the.akdn/en/how-we-work/our-agencies/aga-khan-fund-economic-development
+    last_seen_at: 2026-04-24
+    # status: unverified — homepage URL resolves but precise founding date
+    # and "$4.5bn" AUM figure not confirmed in current public materials.
+    notes: >
+      Oldest INGO-adjacent economic-development holding company. Not a
+      fund — for-profit arm of AKDN with cross-sectoral subsidiaries
+      (industrial promotion services, banking, infrastructure). Slot 4
+      excludes — AKFED predates the impact-fund category.
+
+  - slug: akam-aga-khan-agency-for-microfinance
+    name: Aga Khan Agency for Microfinance (AKAM)
+    manager: Aga Khan Agency for Microfinance
+    parent_ingo: Aga Khan Development Network
+    parent_ingo_country: CH
+    vintage: 2005
+    size_usd_m: null
+    sector_tags: [fi]
+    geo_tags: [asia, africa, mena]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://the.akdn/en/how-we-work/our-agencies/aga-khan-agency-microfinance
+    last_seen_at: 2026-04-24
+    notes: >
+      Microfinance arm of AKDN; holding company structure across multiple
+      country microfinance institutions. Structurally a bank holding,
+      not a fund. Slot 4 excludes.
+
+  - slug: ci-ventures
+    name: Conservation International Ventures (CI Ventures)
+    manager: Conservation International Ventures LLC
+    parent_ingo: Conservation International
+    parent_ingo_country: US
+    vintage: 2019
+    size_usd_m: null
+    sector_tags: [climate, agri]
+    geo_tags: [latam, africa, asia]
+    vehicle_type: evergreen
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.conservation.org/projects/conservation-international-ventures-llc
+    last_seen_at: 2026-04-24
+    notes: >
+      CI Ventures plans 100 deals totaling $30m of CI capital with $200m
+      planned co-financing/private capital over a decade. First five
+      years deployed >$12m, with portfolio companies mobilizing 7x in
+      additional capital. Lending vehicle for nature-positive SMEs.
+      Discrete fund-vintage size never publicly stated.
+
+  - slug: microbuild-fund
+    name: MicroBuild Fund
+    manager: Habitat for Humanity / Triple Jump
+    parent_ingo: Habitat for Humanity
+    parent_ingo_country: US
+    vintage: 2012
+    size_usd_m: null
+    sector_tags: [housing, fi]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Overseas Private Investment Corporation (OPIC, now DFC)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Triple Jump
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.habitat.org/our-work/terwilliger-center-innovation-in-shelter/microbuild
+    last_seen_at: 2026-04-25
+    notes: >
+      Habitat's housing-MFI lending fund, managed day-to-day by Triple
+      Jump in Amsterdam. OPIC (predecessor to DFC) was the anchor at
+      launch; Habitat contributed first-loss. Long-running INGO-sub-
+      advisor precedent. Original close date and consolidated AUM not
+      consistently in current public materials — Triple Jump's project
+      register is the most reliable source.
+
+  - slug: christian-aid-impact-investments
+    name: Christian Aid Philanthropic Capital Investment Fund
+    manager: Christian Aid
+    parent_ingo: Christian Aid
+    parent_ingo_country: GB
+    vintage: null
+    size_usd_m: null
+    sector_tags: [fi, agri]
+    geo_tags: [africa, latam]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.christianaid.org.uk/get-involved/fundraising/philanthropic-capital-investment-fund
+    last_seen_at: 2026-04-24
+    # status: unverified — no formal vehicle launch date or capitalization in
+    # public record; current page describes it as a "collective giving platform"
+    # rather than a registered investment fund.
+    notes: >
+      Christian Aid's Philanthropic Capital Investment Fund pools donor
+      capital for market-based poverty solutions (e.g. Malawi Malonda
+      pigeon pea programme). Functionally a programmatic investing
+      platform, not a registered fund. Useful precedent for UK charity
+      balance-sheet impact allocations; specific structural details not
+      in current public record.
+
+  - slug: brac-impact-ventures
+    name: BRAC Osiris Impact Ventures Ltd
+    manager: BRAC + Osiris Group
+    parent_ingo: BRAC
+    parent_ingo_country: BD
+    vintage: 2018
+    size_usd_m: null
+    sector_tags: [fi, smb, edu, health]
+    geo_tags: [asia]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Osiris Group
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.brac.net/solutions/investments/brac-osiris-impact-ventures-ltd/
+    last_seen_at: 2026-04-24
+    notes: >
+      Joint venture impact-investment vehicle BRAC + Osiris Group,
+      founded 2018. Tech-based startups in education, health, and
+      digital economy across emerging markets. Fund size not publicly
+      disclosed; IFC project register lists it under "BRAC Impact
+      Ventures Limited."
+
+  - slug: root-capital-sustainable-trade-fund
+    name: Root Capital Sustainable Trade Fund
+    manager: Root Capital
+    parent_ingo: Root Capital
+    parent_ingo_country: US
+    vintage: 1999
+    size_usd_m: null
+    sector_tags: [agri, fi]
+    geo_tags: [latam, africa]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://rootcapital.org/news/
+    last_seen_at: 2026-04-24
+    notes: >
+      Root Capital is itself a 501(c)(3) lender (not a GP-LP fund).
+      Included because most INGO fund teams cite it as proof of concept.
+      Slot 4 excludes from fund-economics aggregation — no LP structure
+      in the traditional sense.
+
+  # ---------- INGO-sponsored additions ----------
+
+  - slug: crs-inclusive-impact-investing
+    name: CRS Inclusive Impact Investing (CRS-i3)
+    manager: Catholic Relief Services
+    parent_ingo: Catholic Relief Services
+    parent_ingo_country: US
+    vintage: null
+    size_usd_m: null
+    sector_tags: [agri, smb, wash]
+    geo_tags: [africa, latam, asia]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.crs.org/our-work-overseas/program-areas/microfinance
+    last_seen_at: 2026-04-25
+    notes: >
+      CRS's internal impact-investing practice (i3). CRS is a GCF
+      Accredited Entity. Programmatic capital allocation, not a discrete
+      fund vehicle with LPs; included for INGO-comparison. Fund size
+      not publicly disclosed.
+
+  - slug: ground-up-investing-corus
+    name: Ground Up Investing (Corus International)
+    manager: Corus International (Lutheran World Relief + IMA World Health)
+    parent_ingo: Corus International
+    parent_ingo_country: US
+    vintage: null
+    size_usd_m: null
+    sector_tags: [agri, health, smb]
+    geo_tags: [africa, latam]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://corusinternational.org/what-we-do/impact-investing/
+    last_seen_at: 2026-04-25
+    # status: unverified — page resolves but specific launch date,
+    # capitalization, and fund vehicle formalization not stated publicly.
+    notes: >
+      Corus (merger of LWR + IMA) runs an internal impact-investment
+      practice "Ground Up Investing." Programmatic allocation;
+      vehicle formalization status not in public record.
+
+  - slug: pact-global-microfinance-fund
+    name: Pact Global Microfinance Fund (Myanmar)
+    manager: Pact Global Microfinance Fund
+    parent_ingo: Pact
+    parent_ingo_country: US
+    vintage: 2012
+    size_usd_m: null
+    sector_tags: [fi]
+    geo_tags: [asia]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: UNDP (transferred operations 2014)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: wound_down
+    public_source_url: https://www.pactworld.org/our-expertise/livelihoods/pact-global-microfinance-fund
+    last_seen_at: 2026-04-24
+    notes: >
+      Pact began Myanmar microfinance 1997 with UNDP support; PGMF
+      established 2012 after Myanmar's Microfinance Law passed (2011).
+      UNDP transferred ownership to PGMF June 2014. Wound down June
+      2023 after Myanmar junta refused commercial registration; PGMF
+      forgave $156m in loans to 890,000 borrowers and returned investor
+      capital. Precedent for INGO-incubated MFIs — and for political
+      risk in fragile-state vehicles.
+
+  - slug: wwb-capital-partners-fund
+    name: WWB Capital Partners Fund I
+    manager: WWB Asset Management
+    parent_ingo: Women's World Banking
+    parent_ingo_country: US
+    vintage: 2012
+    size_usd_m: 50
+    sector_tags: [fi, gender]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.womensworldbanking.org/gender-lens-investing/
+    last_seen_at: 2026-04-24
+    notes: >
+      WWB Asset Management's first $50m gender-lens PE fund — billed as
+      the world's first women-managed traditional PE fund focused
+      exclusively on women-focused financial services providers.
+      Launched 2012; specific first-close date and LP roster not in
+      current public materials.
+
+  - slug: wwb-capital-partners-fund-ii
+    name: WWB Capital Partners Fund II
+    manager: WWB Asset Management
+    parent_ingo: Women's World Banking
+    parent_ingo_country: US
+    vintage: 2020
+    size_usd_m: 103
+    sector_tags: [fi, gender]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: closed_end_fund
+    first_close_date: 2020-03-01
+    first_close_date_month_only: true
+    final_close_date: 2022-03-01
+    timeline_days_announce_to_first_close: null
+    anchor_lp: European Union + KfW (Germany BMZ)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.womensworldbanking.org/insights/womens-world-banking-asset-management-closes-second-fund-for-financial-inclusion-at-103m/
+    last_seen_at: 2026-04-24
+    notes: >
+      First close $75m March 2020; final close March 2022 at $103m
+      (Soros Economic Development Fund among LPs). Anchored by EU and
+      KfW (BMZ). One of the more consistently disclosed INGO-GP gender-
+      lens equity funds.
+
+  - slug: accion-venture-lab
+    name: Accion Venture Lab
+    manager: Accion Venture Lab
+    parent_ingo: Accion
+    parent_ingo_country: US
+    vintage: 2012
+    size_usd_m: null
+    sector_tags: [fi, smb]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: evergreen
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.accion.org/how-we-work/invest/venture-lab
+    last_seen_at: 2026-04-24
+    notes: >
+      Accion's seed-stage fintech venture arm. Distinct from Quona,
+      which spun out to independence in 2015. AUM not consistently
+      disclosed.
+
+  - slug: accion-impact-management-digital-transformation-fund
+    name: Accion Digital Transformation Fund
+    manager: Accion Impact Management
+    parent_ingo: Accion
+    parent_ingo_country: US
+    vintage: 2024
+    size_usd_m: 152.5
+    sector_tags: [fi]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: closed_end_fund
+    first_close_date: 2024-05-15
+    final_close_date: 2024-05-15
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.accion.org/news/accion-launches-152-5m-fund-investing-in-digital-transformation-of-financial-institutions-serving-small-businesses-globally/
+    last_seen_at: 2026-04-24
+    notes: >
+      Launched 2024-05-15 at $152.5m. Named LPs: BII, FMO, IDB Invest,
+      IFC, Mastercard, OeEB, Swedfund. Initial deployments: Annapurna
+      Finance and IKF Finance (India). Growth equity into incumbent FI
+      digital transformation.
+
+  - slug: cordaid-investment-management
+    name: Cordaid Investment Management (Stability Impact Fund)
+    manager: Cordaid Investment Management B.V.
+    parent_ingo: Cordaid
+    parent_ingo_country: NL
+    vintage: 2015
+    size_usd_m: null
+    sector_tags: [fi, agri, humanitarian]
+    geo_tags: [africa, mena]
+    vehicle_type: evergreen
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://cordaidinvestment.com/
+    last_seen_at: 2026-04-25
+    notes: >
+      Cordaid IM is Cordaid's AFM-regulated Dutch AIFM (registered
+      under Article 2:66a Wft), founded 2015 in The Hague. Stability
+      Impact Fund focuses on fragile communities. Specific fund
+      capitalization and individual sub-fund vintages not in current
+      public materials.
+
+  - slug: icco-investments
+    name: ICCO Investments (Truvalu)
+    manager: Truvalu (formerly ICCO Cooperation)
+    parent_ingo: Cordaid (merged from ICCO 2021)
+    parent_ingo_country: NL
+    vintage: 2014
+    size_usd_m: null
+    sector_tags: [agri, smb]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: wound_down
+    public_source_url: https://www.icco-cooperation.org/en/news/icco-sells-share-in-truvalu-2/
+    last_seen_at: 2026-04-25
+    notes: >
+      ICCO's agribusiness investing arm Truvalu (~30 portfolio
+      companies, ~€3m portfolio) at peak. ICCO sold 50% of Truvalu
+      shares to Boom 31 BV (Jaap Jan Verboom's company). ICCO merged
+      into Cordaid 2021-01-01. The "ICCO Investments" entity as such
+      no longer exists; included as a precedent for INGO-merger spinout
+      mechanics.
+
+  - slug: visionfund-microfinance
+    name: VisionFund International
+    manager: VisionFund International
+    parent_ingo: World Vision International
+    parent_ingo_country: US
+    vintage: 2003
+    size_usd_m: null
+    sector_tags: [fi]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.visionfund.org/history
+    last_seen_at: 2026-04-25
+    notes: >
+      Founded 2003 as a wholly-owned subsidiary of World Vision
+      International. Holding company over 25 country MFIs (originated
+      from World Vision's 1993 microfinance program work).
+      Self-described as the world's largest Christian microfinance
+      network. Bank holding structure, not a fund. Slot 4 excludes.
+
+  - slug: wwf-impact
+    name: WWF Impact Ventures
+    manager: WWF Impact Ventures
+    parent_ingo: WWF
+    parent_ingo_country: CH
+    vintage: 2013
+    size_usd_m: null
+    sector_tags: [climate]
+    geo_tags: [global]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://wwf-impact.ventures/
+    last_seen_at: 2026-04-25
+    notes: >
+      WWF Impact Ventures established 2013 as a global program
+      supporting impact investors and conservation businesses
+      (partnership with Impact Hub). Programmatic — not a fund
+      vehicle in the GP-LP sense. WWF (US) separately runs an
+      impact investing initiative in regenerative agriculture; no
+      discrete fund close has been publicly announced.
+
+  - slug: britishasiantrust-sdg-outcomes-fund
+    name: $100m Outcomes Fund for Women and Girls (British Asian Trust)
+    manager: British Asian Trust
+    parent_ingo: British Asian Trust
+    parent_ingo_country: GB
+    vintage: null            # not stated in public materials
+    size_usd_m: null         # $100m is announced TARGET (in name); current capitalization not publicly stated
+    sector_tags: [edu, gender]
+    geo_tags: [asia]
+    vehicle_type: DIB
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: UK FCDO (with USAID, UBS Optimus, others)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: raising
+    public_source_url: https://www.britishasiantrust.org/our-work/social-finance/100m-outcomes-fund/
+    last_seen_at: 2026-04-25
+    validation_status: unverified
+    # validation_status: unverified — exact close date and current
+    # capitalization not stated in public materials; British Asian
+    # Trust's "Skill Impact Bond" (2021) is a separate, smaller
+    # predecessor vehicle.
+    notes: >
+      $100m blended outcomes fund for women and girls across South Asia,
+      co-developed with FCDO, USAID, UBS Optimus, diaspora philanthropy.
+      Predecessor: Skill Impact Bond (2021). Model for pay-for-success
+      INGO vehicles. Specific close date and current size not publicly
+      stated.
+
+  - slug: global-partnerships-sif-6
+    name: Global Partnerships Social Investment Fund 6.0
+    manager: Global Partnerships
+    parent_ingo: Global Partnerships
+    parent_ingo_country: US
+    vintage: 2015
+    size_usd_m: 75
+    sector_tags: [fi, agri, health]
+    geo_tags: [latam, africa]
+    vehicle_type: closed_end_fund
+    first_close_date: 2015-10-01
+    first_close_date_month_only: true
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://globalpartnerships.org/global-partnerships-announces-maturity-of-6th-impact-investment-fund/
+    last_seen_at: 2026-04-25
+    notes: >
+      $75m 10-year impact-first debt fund launched October 2015; matured
+      with $280m+ deployed across 108 social enterprises in 27 countries
+      reaching 16.2m lives. FMO co-investor (project register entry
+      49501). Seattle-based nonprofit-GP; close structural analogue for
+      INGO-becoming-GP transitions.
+
+  - slug: one-acre-fund-tupande
+    name: One Acre Fund Tupande Credit Facility
+    manager: One Acre Fund
+    parent_ingo: One Acre Fund
+    parent_ingo_country: US
+    vintage: null
+    size_usd_m: null
+    sector_tags: [agri]
+    geo_tags: [africa]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://oneacrefund.org/
+    last_seen_at: 2026-04-25
+    notes: >
+      One Acre Fund's Kenya affiliate Tupande borrows senior debt from
+      DFIs (FMO, Ceniarth among named lenders). Nonprofit operating
+      entity, not a fund. Frequently cited in INGO LP-conversation
+      comparables. Slot 4 excludes.
+
+  - slug: irc-airbel-impact-lab
+    name: IRC Airbel Impact Lab
+    manager: International Rescue Committee
+    parent_ingo: International Rescue Committee
+    parent_ingo_country: US
+    vintage: 2018
+    size_usd_m: null
+    sector_tags: [humanitarian, health]
+    geo_tags: [africa, mena, asia]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://airbel.rescue.org/
+    last_seen_at: 2026-04-25
+    notes: >
+      IRC's innovation unit; grant-and-some-venture capital allocation,
+      not a conventional impact fund. Include as a comparator for
+      INGOs that are unsure whether they're building a fund or an
+      R&D shop.
+
+  - slug: dai-magister
+    name: DAI Magister
+    manager: DAI Global / Magister Advisors
+    parent_ingo: DAI Global
+    parent_ingo_country: US
+    vintage: null
+    size_usd_m: null
+    sector_tags: [fi, energy, climate]
+    geo_tags: [africa, asia]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Magister Advisors
+    placement_agent: Magister Advisors
+    status: deployed
+    public_source_url: https://www.daimagister.com/about-us-investment-bank/
+    last_seen_at: 2026-04-25
+    notes: >
+      Investment bank / advisory JV between DAI Global and Magister
+      Advisors (Magister founded 2012; DAI Magister partnership formed
+      ~2020-2021). Capital-raising and transaction-advisory business;
+      not a fund. Listed for completeness — slot 4 excludes.
+
+  # ---------- Active-discovery additions (since 2026-01-01) ----------
+
+  - slug: irc-airbel-ventures
+    name: IRC Airbel Ventures (Pilot Fund)
+    manager: International Rescue Committee
+    parent_ingo: International Rescue Committee
+    parent_ingo_country: US
+    vintage: 2026
+    size_usd_m: null
+    sector_tags: [humanitarian, health]
+    geo_tags: [global]
+    vehicle_type: null
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: raising
+    public_source_url: https://www.rescue.org/press-release/irc-launches-airbel-ventures-impact-investing-fund-drive-humanitarian-breakthroughs
+    last_seen_at: 2026-04-26
+    validation_status: unverified
+    # validation_status: unverified — launch announcement only; no first
+    # close, anchor LPs, vehicle structure, or fund economics disclosed.
+    notes: >
+      Launched 2026-01-20 in Davos as IRC's humanitarian impact-investing
+      fund, with a $50m catalytic-capital roadmap. First investment:
+      Signalytic (solar-powered computing for rural health clinics).
+      Distinct from and complementary to the existing IRC Airbel Impact
+      Lab (R&D programmatic vehicle). No anchor LP, vehicle structure,
+      first-close date, or fund terms disclosed at launch.
+
+  - slug: acumen-h2r-amplify
+    name: Acumen Hardest-to-Reach (H2R) — Amplify
+    manager: Acumen
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    vintage: 2026
+    size_usd_m: 180
+    sector_tags: [energy, climate]
+    geo_tags: [africa]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: 2026-01-06
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Green Climate Fund
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://acumen.org/news/acumens-hardest-to-reach-initiative-reaches-target-raise-of-250-million-as-amplify-completes-final-close/
+    last_seen_at: 2026-04-26
+    notes: >
+      H2R Initiative announced at COP28 (2023); Amplify final close
+      2026-01-06 at $180m, bringing the H2R total to the $250m target
+      ($180m Amplify debt + $52m Catalyze + $18m grant). Named LPs
+      (Amplify): GCF (anchor), IFC, Shinhan Bank, BII, Soros Economic
+      Development Fund, Nordic Development Fund, Signify Foundation,
+      ImpactAssets, Swiss SDC ($7.8m). H2R Catalyze separately backed
+      by GCF, Norad, GEAPP, Osprey Foundation, UK FCDO via TEA, Cazenove
+      Capital, Good Energies Foundation. 17 sub-Saharan African
+      countries; targets 70m beneficiaries.
+
+  - slug: waterequity-everspring
+    name: WaterEquity Everspring Fund
+    manager: WaterEquity
+    parent_ingo: Water.org
+    parent_ingo_country: US
+    vintage: 2025
+    size_usd_m: null
+    sector_tags: [wash, fi]
+    geo_tags: [asia, latam]
+    vehicle_type: evergreen
+    first_close_date: 2025-07-01
+    first_close_date_month_only: true
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: raising
+    public_source_url: https://waterequity.com/waterequity-everspring-fund/
+    last_seen_at: 2026-04-26
+    notes: >
+      WaterEquity's first open-ended (evergreen) strategy. Announced
+      2025-03-21 (World Water Day); launched July 2025; "accepted new
+      investors on each subscription date since launch." Disclosed
+      investors include Reckitt ($10m, 2026-01-21), Ecolab, and
+      Colgate-Palmolive. Investments deployed in Indonesia, Tajikistan,
+      Mexico, Cambodia. Open to Qualified Purchasers only. Distinct
+      from the closed-end Global Access Fund III (2022) and IV (2023).
+
+  - slug: microbuild-fund-2
+    name: MicroBuild Fund 2
+    manager: Symbiotics
+    parent_ingo: Habitat for Humanity
+    parent_ingo_country: US
+    vintage: 2025
+    size_usd_m: null
+    sector_tags: [housing, fi]
+    geo_tags: [global]
+    vehicle_type: null
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Symbiotics
+    placement_agent: null
+    status: raising
+    public_source_url: https://www.habitat.org/newsroom/2025/habitat-humanity-international-and-symbiotics-join-forces-accelerate-and-scale
+    last_seen_at: 2026-04-26
+    validation_status: unverified
+    # validation_status: unverified — partnership announced 2025-09-23
+    # but no first-close date or anchor LP disclosed in public materials
+    # as of verification date. Successor to MicroBuild Fund 1 ($100m,
+    # 2012); sub-advisor moves from Triple Jump (Fund 1) to Symbiotics
+    # (Fund 2).
+    notes: >
+      Successor to MicroBuild Fund 1 (Habitat-Triple Jump-OPIC). Habitat
+      and Symbiotics partnership announced 2025-09-23, with target size
+      "in the range of US$300 million to US$500 million." Stated ambition
+      to "leverage as much as US$5 billion in financing globally" across
+      the full MicroBuild Initiative. No first-close date publicly
+      announced as of verification.
+
+  # ---------- Non-INGO impact funds (comparables; NOT included in slot 1 or slot 4) ----------
+  #
+  # The `parent_ingo` field being null marks these as comparables. Slot 1
+  # and slot 4 MUST filter on parent_ingo != null.
+
+  - slug: acumen-capital-partners-i
+    name: Acumen (founding patient-capital vehicle)
+    manager: Acumen
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    vintage: 2001
+    size_usd_m: null
+    sector_tags: [energy, agri, health]
+    geo_tags: [africa, asia]
+    vehicle_type: programmatic_not_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Rockefeller Foundation
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://acumen.org/
+    last_seen_at: 2026-04-25
+    notes: >
+      Acumen founded 2001 by Jacqueline Novogratz with Rockefeller,
+      Cisco, Sterling Stamos seed funding. Operates as a 501(c)(3) +
+      affiliated investing entities; the org has cumulatively impacted
+      700M+ lives per its own claim. Not a traditional fund. The
+      KawiSafi (FP005) and ARAF (FP078) entries are Acumen's discrete
+      LP-GP structures.
+
+  - slug: acumen-kawisafi
+    name: Acumen KawiSafi Ventures Fund
+    manager: Acumen
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    vintage: 2015
+    size_usd_m: null
+    sector_tags: [energy, climate]
+    geo_tags: [africa]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Green Climate Fund ($25m, FP005)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.greenclimate.fund/project/fp005
+    last_seen_at: 2026-04-25
+    notes: >
+      East-Africa off-grid solar fund. GCF FP005 approved 2015-11-05
+      ($25m total: $20m equity + $5m grant) at B.11; one of GCF's first
+      private-sector commitments. Co-financing $85m disclosed at GCF
+      level; total fund AUM and final close not consistently disclosed.
+      Norfund and Finnfund publicly named as additional LPs.
+
+  - slug: acumen-araf
+    name: Acumen Resilient Agriculture Fund (ARAF)
+    manager: Acumen
+    parent_ingo: Acumen
+    parent_ingo_country: US
+    vintage: 2018
+    size_usd_m: 58
+    sector_tags: [agri, climate]
+    geo_tags: [africa]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: 2021-06-30
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Green Climate Fund ($26m, FP078)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://acumen.org/news/acumen-resilient-agriculture-fund/
+    last_seen_at: 2026-04-25
+    notes: >
+      GCF FP078 approved 2018-03-01 at B.19 ($26m total: $23m equity +
+      $3m grant). Final close 2021-06-30 at $58m (vs $50m target).
+      Named LPs: GCF, FMO, Soros Economic Development Fund, Proparco,
+      Children's Investment Fund Foundation, IKEA Foundation, Global
+      Social Impact. ARAF II (FP252) approved subsequently. Template
+      for INGO-GP climate-fund structures.
+
+  - slug: responsability-microfinance
+    name: responsAbility Micro and SME Finance Fund
+    manager: responsAbility Investments
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2003
+    size_usd_m: 1200
+    sector_tags: [fi, smb]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: evergreen
+    first_close_date: 2003-01-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.responsability.com/en/news
+    last_seen_at: 2026-04-24
+    notes: >
+      One of the largest microfinance debt managers; benchmark for ticket
+      sizing and deployment cadence.
+
+  - slug: blueorchard-microfinance-fund
+    name: BlueOrchard Microfinance Fund
+    manager: BlueOrchard (Schroders)
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 1998
+    size_usd_m: 2200
+    sector_tags: [fi]
+    geo_tags: [global]
+    vehicle_type: evergreen
+    first_close_date: 1998-09-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.blueorchard.com/news-insights/
+    last_seen_at: 2026-04-24
+    notes: >
+      World's first commercial microfinance fund; now owned by Schroders.
+      Luxembourg-domiciled SICAV — a structural precedent for INGO
+      vehicles.
+
+  - slug: symbiotics-sgb-fund
+    name: Symbiotics SGB Fund
+    manager: Symbiotics
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2015
+    size_usd_m: 100
+    sector_tags: [smb, fi]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: closed_end_fund
+    first_close_date: 2015-05-01
+    final_close_date: 2017-12-01
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://symbioticsgroup.com/news/
+    last_seen_at: 2026-04-24
+    notes: >
+      Small & Growing Businesses debt fund; Symbiotics is the sub-advisor
+      of choice for multiple INGOs (Oxfam SEIIF, Calvert notes).
+
+  - slug: triodos-microfinance-fund
+    name: Triodos Microfinance Fund
+    manager: Triodos Investment Management
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2009
+    size_usd_m: 560
+    sector_tags: [fi]
+    geo_tags: [global]
+    vehicle_type: evergreen
+    first_close_date: 2009-03-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.triodos-im.com/press-releases
+    last_seen_at: 2026-04-24
+    notes: >
+      Dutch Luxembourg-SICAV microfinance fund; often cited benchmark
+      for NAV mechanics on an open-ended INGO-adjacent structure.
+
+  - slug: calvert-impact-community-note
+    name: Calvert Impact Community Investment Note
+    manager: Calvert Impact Capital
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 1995
+    size_usd_m: 700
+    sector_tags: [fi, housing, climate]
+    geo_tags: [global, us]
+    vehicle_type: evergreen
+    first_close_date: 1995-01-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://calvertimpactcapital.org/
+    last_seen_at: 2026-04-24
+    notes: >
+      Retail-accessible community-investment note; not a fund but a
+      registered offering. Repeatedly cited by INGOs exploring direct
+      retail capital.
+
+  - slug: zevin-impact-portfolios
+    name: Zevin Asset Management impact portfolios
+    manager: Zevin Asset Management
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2006
+    size_usd_m: 600
+    sector_tags: [generalist, climate]
+    geo_tags: [global]
+    vehicle_type: evergreen
+    first_close_date: 2006-01-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.zevin.com/insights/
+    last_seen_at: 2026-04-24
+    notes: >
+      Boston-based SRI manager; relevant to INGOs evaluating
+      outsourced-CIO arrangements for endowment + impact.
+
+  - slug: goodwell-umunthu-ii
+    name: Goodwell uMunthu Fund II
+    manager: Goodwell Investments
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2020
+    size_usd_m: 150
+    sector_tags: [fi, smb, agri]
+    geo_tags: [africa, asia]
+    vehicle_type: closed_end_fund
+    first_close_date: 2020-01-01
+    final_close_date: 2023-06-01
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://goodwell.nl/news
+    last_seen_at: 2026-04-24
+    notes: >
+      Amsterdam-based VC for inclusive businesses; structural reference
+      for venture-style INGO-adjacent funds.
+
+  - slug: leapfrog-emerging-consumer-iii
+    name: LeapFrog Emerging Consumer Fund III
+    manager: LeapFrog Investments
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2019
+    size_usd_m: 700
+    sector_tags: [health, fi]
+    geo_tags: [africa, asia]
+    vehicle_type: closed_end_fund
+    first_close_date: 2019-06-01
+    final_close_date: 2022-03-01
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Temasek
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://leapfroginvest.com/news/
+    last_seen_at: 2026-04-24
+    notes: >
+      Growth-stage impact PE; Temasek is a strategic LP. Sets the upper
+      bar for fund-size that INGO-adjacent GPs aspire to.
+
+  - slug: goodenergies-glassgate
+    name: GoodEnergies / GlassGate Energy Access
+    manager: GoodEnergies
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2016
+    size_usd_m: 250
+    sector_tags: [energy, climate]
+    geo_tags: [global]
+    vehicle_type: closed_end_fund
+    first_close_date: 2016-01-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://goodenergies.com/
+    last_seen_at: 2026-04-24
+    notes: >
+      Family-office-backed energy-transition and energy-access PE.
+
+  - slug: bamboo-bloc-smart-africa
+    name: Bamboo Capital BLOC Smart Africa
+    manager: Bamboo Capital Partners
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2020
+    size_usd_m: 100
+    sector_tags: [smb, fi]
+    geo_tags: [africa]
+    vehicle_type: closed_end_fund
+    first_close_date: 2020-11-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: raising
+    public_source_url: https://bamboocp.com/news/
+    last_seen_at: 2026-04-24
+    notes: >
+      Bamboo + Smart Africa Alliance blended-finance vehicle. Bamboo is
+      a go-to sub-advisor for INGO-adjacent mandates.
+
+  - slug: aavishkaar-india-vi
+    name: Aavishkaar India Fund VI
+    manager: Aavishkaar Capital
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2019
+    size_usd_m: 200
+    sector_tags: [agri, fi, smb]
+    geo_tags: [asia]
+    vehicle_type: closed_end_fund
+    first_close_date: 2019-01-01
+    final_close_date: 2022-12-01
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://aavishkaarcapital.com/news/
+    last_seen_at: 2026-04-24
+    notes: >
+      India-focused SMB impact PE. Part of Aavishkaar Group, one of the
+      oldest impact managers in Asia.
+
+  - slug: omnivore-iii
+    name: Omnivore Fund III
+    manager: Omnivore Partners
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2022
+    size_usd_m: 150
+    sector_tags: [agri, climate]
+    geo_tags: [asia]
+    vehicle_type: closed_end_fund
+    first_close_date: 2022-03-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: raising
+    public_source_url: https://omnivore.vc/news/
+    last_seen_at: 2026-04-24
+    notes: >
+      India agri-tech VC. Structural comparable for INGO agri-venture
+      teams.
+
+  - slug: grassroots-business-fund
+    name: Grassroots Business Fund
+    manager: Grassroots Business Fund
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2008
+    size_usd_m: 85
+    sector_tags: [smb, agri]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: evergreen
+    first_close_date: 2008-01-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: IFC
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.gbfund.org/news
+    last_seen_at: 2026-04-24
+    notes: >
+      Spun out of IFC in 2008; hybrid debt/equity investor in high-impact
+      SMBs. Useful case study on IFC spin-out governance.
+
+  - slug: iix-wlb-series
+    name: IIX Women's Livelihood Bond Series
+    manager: Impact Investment Exchange (IIX)
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2017
+    size_usd_m: 150
+    sector_tags: [gender, fi]
+    geo_tags: [asia]
+    vehicle_type: DIB
+    first_close_date: 2017-07-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://iixglobal.com/news-insights/
+    last_seen_at: 2026-04-24
+    notes: >
+      Series of listed bonds (WLB1-WLB6+) financing women-owned SMEs.
+      Structural precedent for listed-outcomes vehicles.
+
+  - slug: tpg-rise-ii
+    name: The Rise Fund II
+    manager: TPG Rise
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2019
+    size_usd_m: 2200
+    sector_tags: [climate, health, edu]
+    geo_tags: [global]
+    vehicle_type: closed_end_fund
+    first_close_date: 2019-09-01
+    final_close_date: 2020-12-01
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://therisefund.com/news
+    last_seen_at: 2026-04-24
+    notes: >
+      Large-cap impact PE. Included as an "upper bound" comparable;
+      unlikely INGO-GP competitor but often cited in LP conversations.
+
+  - slug: quona-inclusion-fund
+    name: Accion Quona Inclusion Fund (Fund II)
+    manager: Quona Capital (spun from Accion)
+    parent_ingo: Accion
+    parent_ingo_country: US
+    vintage: 2018
+    size_usd_m: 203
+    sector_tags: [fi, smb]
+    geo_tags: [latam, africa, asia]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: 2020-03-04
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.accion.org/news/quona-capital-closes-second-fund-with-203-million-aimed-at-financial-inclusion-in-emerging-markets/
+    last_seen_at: 2026-04-25
+    notes: >
+      Quona's second fund — final close $203m on 2020-03-04. Quona spun
+      out of Accion in 2015. Quona's first fund was the Accion Frontier
+      Inclusion Fund ($141m final close 2018, separate entry below).
+
+  - slug: adobe-capital-mexico
+    name: Adobe Capital Mexico
+    manager: Adobe Capital
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2013
+    size_usd_m: 20
+    sector_tags: [smb]
+    geo_tags: [latam]
+    vehicle_type: closed_end_fund
+    first_close_date: 2013-01-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://adobecapital.com/
+    last_seen_at: 2026-04-24
+    notes: >
+      Mexico mezzanine impact fund; small-ticket structural comparable.
+
+  - slug: creation-investments-iv
+    name: Creation Investments Social Venture Fund IV
+    manager: Creation Investments
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2019
+    size_usd_m: 275
+    sector_tags: [fi]
+    geo_tags: [global]
+    vehicle_type: closed_end_fund
+    first_close_date: 2019-01-01
+    final_close_date: 2021-06-01
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://creationinvestments.com/news/
+    last_seen_at: 2026-04-24
+    notes: >
+      Chicago-based inclusive-finance PE; anchor for microfinance
+      institutions globally.
+
+  - slug: incofin-agrif
+    name: Incofin agRIF
+    manager: Incofin IM
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2015
+    size_usd_m: 180
+    sector_tags: [agri, fi]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: closed_end_fund
+    first_close_date: 2015-11-01
+    final_close_date: 2017-06-01
+    timeline_days_announce_to_first_close: null
+    anchor_lp: European Investment Bank
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://incofin.com/news/
+    last_seen_at: 2026-04-24
+    notes: >
+      Belgium-HQ agri-inclusive-finance fund; blended-finance precedent
+      (EIB senior, DFI mezzanine, private junior).
+
+  - slug: ecoenterprises-iii
+    name: EcoEnterprises Fund III
+    manager: EcoEnterprises Partners
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2018
+    size_usd_m: 75
+    sector_tags: [agri, climate]
+    geo_tags: [latam]
+    vehicle_type: closed_end_fund
+    first_close_date: 2018-09-01
+    final_close_date: 2020-12-01
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.ecoenterprisesfund.com/news/
+    last_seen_at: 2026-04-24
+    notes: >
+      Women-led Latin American sustainable-business fund; precedent
+      for gender-lens GP team composition.
+
+  - slug: agdevco-smallholder-development-unit
+    name: AgDevCo Smallholder Development Unit
+    manager: AgDevCo
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2014
+    size_usd_m: 50
+    sector_tags: [agri]
+    geo_tags: [africa]
+    vehicle_type: evergreen
+    first_close_date: 2014-01-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: UK FCDO
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.agdevco.com/our-news
+    last_seen_at: 2026-04-24
+    notes: >
+      UK FCDO-seeded African agri specialist. Good benchmark for
+      blended-finance from a sovereign donor.
+
+  - slug: ifc-aip
+    name: IFC AIP (Accelerator Investment Platform)
+    manager: IFC Asset Management Company
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2022
+    size_usd_m: 300
+    sector_tags: [generalist, climate]
+    geo_tags: [global]
+    vehicle_type: closed_end_fund
+    first_close_date: 2022-06-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: raising
+    public_source_url: https://www.ifcamc.org/news
+    last_seen_at: 2026-04-24
+    notes: >
+      IFC's emerging-manager commitment vehicle — directly relevant as a
+      potential LP for an INGO debut fund.

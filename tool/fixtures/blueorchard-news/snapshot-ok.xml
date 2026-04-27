@@ -1,0 +1,10 @@
+<!doctype html>
+<html><body>
+<article class="news-item">
+  <div class="news-card">
+    <h3 class="news-card__title"><a class="news-card__link" href="/news/iif-ii-close">BlueOrchard announces $200m final close for InsuResilience Investment Fund II</a></h3>
+    <time datetime="2026-04-01">1 April 2026</time>
+    <p class="news-card__lead">$200m final close for InsuResilience Investment Fund II.</p>
+  </div>
+</article>
+</body></html>

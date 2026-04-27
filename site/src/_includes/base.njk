@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>IFC // {{ title or site.name }}</title>
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ '/assets/css/app.css' | url }}" />
+</head>
+<body class="{% if env.private %}private-build{% endif %}">
+  <header class="site-header">
+    <div class="masthead">
+      <div class="masthead-brand">
+        <span class="masthead-mark">IFC</span>
+        <a class="masthead-title" href="{{ '/' | url }}">INGO First-Close Tool</a>
+      </div>
+      <nav class="site-nav">
+        <a href="{{ '/' | url }}"{% if pageKey == 'index' %} aria-current="page"{% endif %}>Index</a>
+        <a href="{{ '/deadlines/' | url }}"{% if pageKey == 'deadlines' %} aria-current="page"{% endif %}>Deadlines</a>
+        <a href="{{ '/dfis/' | url }}"{% if pageKey == 'dfis' %} aria-current="page"{% endif %}>DFI commitments</a>
+        <a href="{{ '/peer-funds/' | url }}"{% if pageKey == 'peer-funds' %} aria-current="page"{% endif %}>Peer funds</a>
+      </nav>
+      <div class="masthead-meta">
+        {% if meta and meta.last_run_timestamp %}Verified {{ meta.last_run_timestamp | dateISO }}{% endif %}
+      </div>
+    </div>
+  </header>
+
+  <script>window.IFC_PATH_PREFIX = "{{ '/' | url }}";</script>
+
+  <main class="site-main">
+    {{ content | safe }}
+  </main>
+
+  <footer class="site-footer">
+    <span>
+      {% if meta %}Last refresh {{ meta.last_run_timestamp | dateISO }} · {{ meta.sources_polled }} sources polled · {{ slot_meta.slot_counts.peer_ingo_funds + slot_meta.slot_counts.dfi_ingo_commits + slot_meta.slot_counts.deadlines }} records{% else %}Not yet run. Execute <code>make daily</code>.{% endif %}
+    </span>
+    <span>Public source links only · no telemetry</span>
+  </footer>
+</body>
+</html>

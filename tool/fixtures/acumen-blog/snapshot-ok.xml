@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Acumen — Blog</title>
+    <link>https://acumen.org/blog</link>
+    <description>Acumen blog feed.</description>
+    <item>
+      <title>Hardest-to-Reach Fund announces $20m first close</title>
+      <link>https://acumen.org/blog/hardest-to-reach-fund-first-close/</link>
+      <description>Acumen's Hardest-to-Reach Fund announces $20m first close targeting last-mile energy access in East Africa.</description>
+      <pubDate>Thu, 09 Apr 2026 12:00:00 GMT</pubDate>
+      <guid>https://acumen.org/blog/hardest-to-reach-fund-first-close/</guid>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,111 @@
+---
+layout: base.njk
+title: Peer funds
+permalink: /peer-funds/index.html
+pageKey: peer-funds
+---
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
+  <header class="detail-header">
+    <div class="detail-eyebrow">
+      <span>Capital sources · INGO-sponsored vehicles</span>
+    </div>
+    <h1>INGO-sponsored impact-fund vehicles, by precedent.</h1>
+    <p class="detail-sub">{{ peer_ingo_funds | length }} peer funds drawn from public press releases, annual reports, and fund-manager pages. Vintages, sizes, anchor LPs where disclosed. Every record links back to its primary source.</p>
+  </header>
+
+  <div class="filter-bar">
+    <label class="filter-label" for="country-filter">INGO country</label>
+    <select id="country-filter" class="filter-select"></select>
+    <label class="sort-label" for="slot-1-sort">Sort</label>
+    <select id="slot-1-sort" class="sort-select">
+      <option value="first_close_date" selected>First close (recent)</option>
+      <option value="vintage">Vintage (newest)</option>
+      <option value="size_usd_m">Size (largest)</option>
+      <option value="name">Name (A–Z)</option>
+    </select>
+    <input id="slot-1-search" type="search" class="search-input"
+      placeholder="Filter by name, INGO, or sector" aria-label="Search funds" />
+    <span id="filter-summary" class="filter-summary"></span>
+  </div>
+
+  <div id="slot-1-list" class="fund-list" aria-live="polite"></div>
+  <div id="slot-1-empty" class="empty-state" hidden></div>
+</section>
+
+<script type="application/json" id="data-peer-funds">{{ peer_ingo_funds | dump | safe }}</script>
+<script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
+
+<script src="{{ '/assets/js/render.js' | url }}"></script>
+<script>
+(function () {
+  "use strict";
+  var I = window.IFC;
+  var PEER = I.loadJSON("data-peer-funds") || [];
+  var META = I.loadJSON("data-slot-meta") || {};
+
+  var state = { country: "ALL", search: "", sort: "first_close_date" };
+
+  function render() {
+    var list = PEER.filter(function (f) {
+      if (state.country !== "ALL" && f.parent_ingo_country !== state.country) return false;
+      var q = state.search.trim().toLowerCase();
+      if (!q) return true;
+      var hay = [f.name, f.manager, f.parent_ingo,
+        (f.sector_tags || []).join(" "), (f.geo_tags || []).join(" ")
+      ].join(" ").toLowerCase();
+      return hay.indexOf(q) !== -1;
+    });
+
+    var s = state.sort;
+    list.sort(function (a, b) {
+      if (s === "first_close_date") {
+        var ad = a.first_close_date || "", bd = b.first_close_date || "";
+        if (!ad && !bd) return 0; if (!ad) return 1; if (!bd) return -1;
+        return bd.localeCompare(ad);
+      }
+      if (s === "vintage") return (b.vintage || 0) - (a.vintage || 0);
+      if (s === "size_usd_m") {
+        var as = a.size_usd_m == null ? -Infinity : a.size_usd_m;
+        var bs = b.size_usd_m == null ? -Infinity : b.size_usd_m;
+        return bs - as;
+      }
+      if (s === "name") return (a.name || "").localeCompare(b.name || "");
+      return 0;
+    });
+
+    var root = document.getElementById("slot-1-list");
+    var empty = document.getElementById("slot-1-empty");
+    var sum = document.getElementById("filter-summary");
+
+    if (list.length === 0) {
+      root.innerHTML = ""; empty.hidden = false;
+      empty.innerHTML = state.country === "ALL"
+        ? "<p>No funds match your search.</p>"
+        : "<p>No INGO-sponsored funds match <strong>" + I.esc(I.countryName(META, state.country)) + "</strong>. Try <em>All countries</em>.</p>";
+      sum.textContent = "Showing 0 of " + PEER.length;
+      return;
+    }
+    empty.hidden = true; empty.innerHTML = "";
+    root.innerHTML = list.map(function (f) { return I.renderFundCard(f, META); }).join("");
+    sum.textContent = "Showing " + list.length + " of " + PEER.length;
+  }
+
+  document.getElementById("country-filter").innerHTML =
+    I.buildCountryOptions(META, "slot_1_parent_ingo_country").join("");
+
+  document.getElementById("country-filter").addEventListener("change", function (e) {
+    state.country = e.target.value; render();
+  });
+  document.getElementById("slot-1-search").addEventListener("input", function (e) {
+    state.search = e.target.value; render();
+  });
+  document.getElementById("slot-1-sort").addEventListener("change", function (e) {
+    state.sort = e.target.value; render();
+  });
+
+  I.installCardClick(".detail-page");
+  render();
+})();
+</script>

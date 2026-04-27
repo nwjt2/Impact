@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>FCA — News</title>
+    <link>https://www.fca.org.uk</link>
+    <description>FCA publications.</description>
+    <item>
+      <title>FCA publishes Policy Statement PS26/4 on sustainability disclosure requirements</title>
+      <link>https://www.fca.org.uk/publications/policy-statements/ps26-4-sdr-asset-managers</link>
+      <description>FCA publishes Policy Statement PS26/4 on sustainability disclosure requirements for asset managers.</description>
+      <pubDate>Sun, 20 Apr 2026 09:00:00 GMT</pubDate>
+      <guid>https://www.fca.org.uk/publications/policy-statements/ps26-4-sdr-asset-managers</guid>
+    </item>
+  </channel>
+</rss>

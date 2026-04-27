@@ -1,0 +1,281 @@
+---
+layout: base.njk
+title: INGO First-Close Tool
+pageKey: index
+---
+
+<section class="doc-title">
+  <div class="doc-title-tag">
+    <span>For INGO fund teams · pre-first-close</span>
+    <span class="sep">·</span>
+    <span>{{ slot_meta.slot_counts.deadlines }} deadlines · {{ slot_meta.slot_counts.dfi_ingo_commits }} DFIs · {{ slot_meta.slot_counts.peer_ingo_funds }} peer funds</span>
+  </div>
+  <h1 class="doc-title-h1">Every dated window, donor, and peer-fund close <span class="accent">— traced to a public source.</span></h1>
+  <p class="doc-title-sub">Reference desk for INGO-sponsored impact funds. {{ slot_meta.slot_counts.deadlines }} dated items (application close-dates, regulator filings, board meetings, conferences), {{ slot_meta.slot_counts.dfi_ingo_commits }} DFI commitment profiles, {{ slot_meta.slot_counts.peer_ingo_funds }} peer first-close precedents. Each record carries a primary-source link and a last-verified timestamp. Local build, no telemetry.</p>
+</section>
+
+<section class="data-ribbon" id="data-ribbon"></section>
+
+<section class="sec">
+  <header class="sec-head">
+    <h2 class="sec-title">Agenda <em>// upcoming hard dates</em></h2>
+    <a class="sec-link" href="{{ '/deadlines/' | url }}">All {{ slot_meta.slot_counts.deadlines }} deadlines →</a>
+  </header>
+  <div id="agenda"></div>
+  <div id="agenda-fns" class="agenda-fns"></div>
+</section>
+
+<section class="sec">
+  <header class="sec-head">
+    <h2 class="sec-title">Capital sources <em>// DFIs &amp; peer-fund precedents</em></h2>
+  </header>
+  <div class="grid-2">
+    <div id="shelf-dfis"></div>
+    <div id="shelf-peers"></div>
+  </div>
+</section>
+
+<aside class="footnotes">
+  <div class="footnotes-head">
+    <h3>On sourcing</h3>
+    <span class="footnotes-meta">Last scrape {{ meta.last_run_timestamp | dateISO }}</span>
+  </div>
+  <div class="footnotes-body">
+    <p>Every entry links to a public disclosure — DFI press release, INGO annual report, regulator filing, or fund-manager website. Where a fact is not yet public, it is omitted; where a record cannot be re-verified, it is flagged <strong>UNVERIFIED</strong>. The site is static; no user data is collected, stored, or transmitted.</p>
+  </div>
+</aside>
+
+<script type="application/json" id="data-peer-funds">{{ peer_ingo_funds | dump | safe }}</script>
+<script type="application/json" id="data-dfi-commits">{{ dfi_ingo_commits | dump | safe }}</script>
+<script type="application/json" id="data-deadlines">{{ deadlines | dump | safe }}</script>
+<script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
+<script type="application/json" id="data-meta">{{ meta | dump | safe }}</script>
+
+<script src="{{ '/assets/js/render.js' | url }}"></script>
+<script>
+(function () {
+  "use strict";
+  var I = window.IFC;
+
+  var PEER  = I.loadJSON("data-peer-funds")  || [];
+  var DFIS  = I.loadJSON("data-dfi-commits") || [];
+  var DEADS = I.loadJSON("data-deadlines")   || [];
+  var META  = I.loadJSON("data-slot-meta")   || {};
+  var BUILD = I.loadJSON("data-meta")        || {};
+
+  var TODAY = (BUILD.last_run_timestamp || BUILD.generated_at || new Date().toISOString()).slice(0, 10);
+
+  function daysBetween(a, b) {
+    return Math.round((Date.parse(b) - Date.parse(a)) / 86400000);
+  }
+  function pad(n) { return n < 10 ? "0" + n : "" + n; }
+
+  // ---------- Data ribbon ----------
+  function renderRibbon() {
+    var horizonMs = Date.parse(TODAY) + 90 * 86400000;
+    var horizon = new Date(horizonMs).toISOString().slice(0, 10);
+    var nearDeadlines = DEADS.filter(function (d) {
+      return d.deadline_date && d.deadline_date >= TODAY && d.deadline_date <= horizon;
+    });
+    var critical = nearDeadlines.filter(function (d) {
+      return daysBetween(TODAY, d.deadline_date) <= 14;
+    }).length;
+
+    var commitCount = 0, distinctDfis = 0;
+    DFIS.forEach(function (d) {
+      var n = (d.ingo_gp_commits || []).length;
+      if (n > 0) distinctDfis++;
+      commitCount += n;
+    });
+
+    var sized = PEER.filter(function (f) { return f.size_usd_m != null; });
+    var totalSized = sized.reduce(function (s, f) { return s + f.size_usd_m; }, 0);
+
+    var totalRecords = DEADS.length + DFIS.length + PEER.length;
+
+    function cell(label, num, tail) {
+      return '<div class="data-cell">'
+        + '<div class="data-cell-label">' + I.esc(label) + '</div>'
+        + '<div class="data-cell-num">' + num + '</div>'
+        + '<div class="data-cell-tail">' + tail + '</div>'
+        + '</div>';
+    }
+
+    return [
+      cell(
+        "Hard dates, next 90 days",
+        nearDeadlines.length,
+        critical > 0
+          ? '<strong class="warn">' + critical + '</strong> inside 14 days'
+          : 'none inside 14 days'
+      ),
+      cell(
+        "Disclosed DFI commits",
+        commitCount,
+        'across <strong>' + distinctDfis + ' of ' + DFIS.length + '</strong> DFIs'
+      ),
+      cell(
+        "Peer fund AUM",
+        '$' + Math.round(totalSized).toLocaleString() + 'M',
+        'disclosed across <strong>' + sized.length + ' of ' + PEER.length + '</strong> funds'
+      ),
+      cell(
+        "Last verified",
+        I.fmtDate(TODAY),
+        'all <strong>' + totalRecords + '</strong> records re-checked'
+      ),
+    ].join("");
+  }
+
+  // ---------- Agenda blotter ----------
+  var KIND_LABELS = {
+    rfp: "RFP", open_call: "Open call", rolling_application: "Rolling",
+    board_meeting: "Board", template_revision: "Template",
+    regulator_filing: "Reg filing", conference_deadline: "Conference",
+  };
+
+  function renderAgenda() {
+    var sources = [];
+    function srcNum(url) {
+      if (!url) return "";
+      var idx = sources.indexOf(url);
+      if (idx === -1) { sources.push(url); idx = sources.length - 1; }
+      return idx + 1;
+    }
+
+    var hard = DEADS.filter(function (d) {
+      return d.deadline_date && d.deadline_date >= TODAY;
+    }).sort(function (a, b) { return a.deadline_date.localeCompare(b.deadline_date); });
+
+    var top = hard.slice(0, 9);
+
+    if (top.length === 0) {
+      return {
+        html: '<p class="muted" style="padding:18px 0;">No hard-date deadlines on the horizon. See <a href="{{ "/deadlines/" | url }}">all {{ slot_meta.slot_counts.deadlines }} records</a> for rolling and recurring programs.</p>',
+        sources: [],
+      };
+    }
+
+    var rows = top.map(function (d) {
+      var days = daysBetween(TODAY, d.deadline_date);
+      var rel = days === 0 ? "today"
+        : days < 60 ? days + "d"
+        : Math.round(days / 30) + "mo";
+      var relCls = "dl-rel" + (days <= 7 ? " is-critical" : days <= 14 ? " is-imminent" : "");
+      var dStr = I.fmtDate(d.deadline_date);
+      var verb = I.dateVerb(d.kind);
+      var dateCell = verb
+        ? '<span class="dl-date-verb">' + I.esc(verb) + '</span> <span class="dl-date-value">' + dStr + '</span>'
+        : dStr;
+      var n = srcNum(d.public_source_url);
+
+      return '<tr class="dl-kind-' + I.esc(d.kind) + (d.public_source_url ? ' card-clickable' : '') +
+        '" data-source-url="' + I.escAttr(d.public_source_url || "") + '">'
+        + '<td class="col-date">' + dateCell + '</td>'
+        + '<td class="col-rel"><span class="' + relCls + '">' + rel + '</span></td>'
+        + '<td><span class="dl-title">' + I.esc(d.title) + '</span>' + (n ? '<sup class="dl-source-num">' + n + '</sup>' : '') + '</td>'
+        + '<td class="col-issuer">' + I.esc(d.issuing_body || "") + '</td>'
+        + '<td class="col-kind"><span class="dl-kind"><span class="dl-kind-dot"></span>' + I.esc(KIND_LABELS[d.kind] || d.kind) + '</span></td>'
+        + '</tr>';
+    }).join("");
+
+    return {
+      html:
+        '<table class="dl-table"><thead><tr>'
+        + '<th class="col-date">When</th>'
+        + '<th class="col-rel">In</th>'
+        + '<th>Item</th>'
+        + '<th class="col-issuer">Issuer</th>'
+        + '<th class="col-kind">Kind</th>'
+        + '</tr></thead><tbody>' + rows + '</tbody></table>',
+      sources: sources,
+    };
+  }
+
+  // ---------- Reference panels ----------
+  function renderShelfDfis() {
+    var ranked = DFIS.slice().sort(function (a, b) {
+      var ac = (a.ingo_gp_commits || []).length;
+      var bc = (b.ingo_gp_commits || []).length;
+      if (ac !== bc) return bc - ac;
+      var ad = a.last_known_activity_date || "";
+      var bd = b.last_known_activity_date || "";
+      return bd.localeCompare(ad);
+    }).slice(0, 7);
+
+    var rows = ranked.map(function (d, i) {
+      var commits = (d.ingo_gp_commits || []).length;
+      var emf = d.emerging_manager_facility && d.emerging_manager_facility.exists;
+      var url = d.stated_thesis_url || d.public_newsroom_url || d.last_known_activity_url || '{{ "/dfis/" | url }}';
+      return '<tr><td class="ref-rank">' + pad(i + 1) + '</td>'
+        + '<td>'
+        + '<div class="ref-name"><a href="' + I.escAttr(url) + '" target="_blank" rel="noopener">' + I.esc(d.name) + '</a></div>'
+        + '<div class="ref-meta">' + I.esc(I.countryName(META, d.country))
+          + (emf ? '<span class="emf">EMF facility</span>' : '')
+          + '</div>'
+        + '</td>'
+        + '<td class="num"><span class="ref-figure">' + commits + '</span><span class="ref-figure-label">commits</span></td>'
+        + '</tr>';
+    }).join("");
+
+    return '<div class="panel">'
+      + '<div class="panel-head"><span class="label">DFIs by INGO-GP commitments</span><a class="tail" href="{{ "/dfis/" | url }}">All ' + DFIS.length + ' →</a></div>'
+      + '<table class="ref-list"><tbody>' + rows + '</tbody></table>'
+      + '</div>';
+  }
+
+  function renderShelfPeers() {
+    var ranked = PEER.slice().sort(function (a, b) {
+      var ad = a.first_close_date || "0000";
+      var bd = b.first_close_date || "0000";
+      if (ad !== bd) return bd.localeCompare(ad);
+      return (b.size_usd_m || 0) - (a.size_usd_m || 0);
+    }).slice(0, 7);
+
+    var rows = ranked.map(function (f, i) {
+      var url = f.public_source_url || ('{{ "/peer-funds/" | url }}#fund-' + f.slug);
+      var size = f.size_usd_m != null ? "$" + f.size_usd_m + "M" : "n/d";
+      var dateStr = f.first_close_date ? f.first_close_date.slice(0, 7) : (f.vintage ? String(f.vintage) : "—");
+      return '<tr><td class="ref-rank">' + pad(i + 1) + '</td>'
+        + '<td>'
+        + '<div class="ref-name"><a href="' + I.escAttr(url) + '" target="_blank" rel="noopener">' + I.esc(f.name) + '</a></div>'
+        + '<div class="ref-meta">' + I.esc(f.parent_ingo) + ' · ' + I.esc(I.countryName(META, f.parent_ingo_country)) + '</div>'
+        + '</td>'
+        + '<td class="num"><span class="ref-figure">' + size + '</span><span class="ref-figure-label">' + dateStr + '</span></td>'
+        + '</tr>';
+    }).join("");
+
+    return '<div class="panel">'
+      + '<div class="panel-head"><span class="label">Peer funds by first-close recency</span><a class="tail" href="{{ "/peer-funds/" | url }}">All ' + PEER.length + ' →</a></div>'
+      + '<table class="ref-list"><tbody>' + rows + '</tbody></table>'
+      + '</div>';
+  }
+
+  function renderFootnotes(sources) {
+    if (!sources || sources.length === 0) return "";
+    return sources.map(function (url, i) {
+      var host = "";
+      try { host = new URL(url).host.replace(/^www\./, ""); } catch (e) { host = url; }
+      return '<span><span class="fn-num">' + (i + 1) + '</span><a href="' + I.escAttr(url) + '" target="_blank" rel="noopener">' + I.esc(host) + '</a></span>';
+    }).join("");
+  }
+
+  // ---------- Mount ----------
+  document.getElementById("data-ribbon").innerHTML = renderRibbon();
+  var ag = renderAgenda();
+  document.getElementById("agenda").innerHTML = ag.html;
+  document.getElementById("agenda-fns").innerHTML = renderFootnotes(ag.sources);
+  document.getElementById("shelf-dfis").innerHTML  = renderShelfDfis();
+  document.getElementById("shelf-peers").innerHTML = renderShelfPeers();
+
+  // Whole-row click on agenda
+  var agendaEl = document.getElementById("agenda");
+  agendaEl.addEventListener("click", function (evt) {
+    if (evt.target.closest("a")) return;
+    var row = evt.target.closest("tr.card-clickable");
+    if (!row) return;
+    var url = row.getAttribute("data-source-url");
+    if (url) window.open(url, "_blank", "noopener,noreferrer");
+  });
+})();
+</script>

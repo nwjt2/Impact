@@ -1,0 +1,8 @@
+<!doctype html>
+<html><body>
+<article class="news-card">
+  <h3 class="news-card__title"><a class="news-card__link" href="/en/news-events/news/african-fintech-xyz">FinDev Canada commits CAD 15m to African fintech platform XYZ</a></h3>
+  <time datetime="2026-03-10">10 March 2026</time>
+  <p class="news-card__excerpt">CAD 15m commitment to African fintech platform.</p>
+</article>
+</body></html>

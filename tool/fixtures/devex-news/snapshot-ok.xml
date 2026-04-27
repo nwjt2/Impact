@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>Devex News</title>
+    <link>https://www.devex.com/news</link>
+    <description>Devex international development news.</description>
+    <item>
+      <title>DFC approves $100M for African health infrastructure fund</title>
+      <link>https://www.devex.com/news/dfc-100m-african-health/</link>
+      <description>The US International Development Finance Corporation has approved a $100M commitment to an African health infrastructure debt fund. CARE and Heifer International are cornerstone LPs via sub-advisor Bamboo Capital.</description>
+      <pubDate>Wed, 23 Apr 2026 07:00:00 GMT</pubDate>
+      <guid>https://www.devex.com/news/dfc-100m-african-health/</guid>
+    </item>
+    <item>
+      <title>FMO co-invests in Mercy Corps Ventures fund II</title>
+      <link>https://www.devex.com/news/fmo-mercy-corps-fund-ii/</link>
+      <description>Dutch development bank FMO co-invests alongside DFC in Mercy Corps Ventures' second fund, targeting digital infrastructure for smallholder farmers in East Africa.</description>
+      <pubDate>Mon, 21 Apr 2026 13:20:00 GMT</pubDate>
+      <guid>https://www.devex.com/news/fmo-mercy-corps-fund-ii/</guid>
+    </item>
+  </channel>
+</rss>

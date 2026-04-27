@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>ImpactAlpha (free RSS)</title>
+    <link>https://impactalpha.com</link>
+    <description>ImpactAlpha news feed, free tier.</description>
+    <item>
+      <title>BII commits $40M to Africa climate debt fund</title>
+      <link>https://impactalpha.com/bii-40m-africa-climate-debt-fund/</link>
+      <description>British International Investment has committed $40 million to an African climate-adaptation debt fund focused on agri-SMEs in East Africa. The cornerstone LP commitment structures a blended vehicle with a Ford Foundation first-loss tranche.</description>
+      <pubDate>Wed, 23 Apr 2026 10:30:00 GMT</pubDate>
+      <guid>https://impactalpha.com/bii-40m-africa-climate-debt-fund/</guid>
+    </item>
+    <item>
+      <title>Acumen RAF II reaches $90M first close</title>
+      <link>https://impactalpha.com/acumen-raf-ii-first-close/</link>
+      <description>Acumen's Resilient Agriculture Fund II has reached its $90M first close with anchor commitments from MacArthur Foundation and DFC. The fund targets agricultural SMEs in sub-Saharan Africa and Latin America.</description>
+      <pubDate>Tue, 22 Apr 2026 08:15:00 GMT</pubDate>
+      <guid>https://impactalpha.com/acumen-raf-ii-first-close/</guid>
+    </item>
+    <item>
+      <title>Symbiotics launches new impact-investing fund with INGO partner</title>
+      <link>https://impactalpha.com/symbiotics-ingo-partner-fund/</link>
+      <description>Symbiotics announced a new sub-advised vehicle with an INGO cornerstone LP. The structure mirrors the Oxfam-SEIIF arrangement and targets emerging manager capital for primary healthcare SMEs.</description>
+      <pubDate>Mon, 21 Apr 2026 15:00:00 GMT</pubDate>
+      <guid>https://impactalpha.com/symbiotics-ingo-partner-fund/</guid>
+    </item>
+  </channel>
+</rss>

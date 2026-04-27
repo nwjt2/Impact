@@ -1,0 +1,107 @@
+# Build and deploy the public static site to GitHub Pages on push to main.
+#
+# Build runs in fixture mode (INGO_FIXTURE_MODE=1) — deterministic snapshots
+# from tool/fixtures/, no live network calls.
+#
+# Leak guard: if user/ ever appears in the workspace, the job hard-fails
+# before the build artifact is produced.
+#
+# Activation requires (one-time): repo public + Settings → Pages → Source:
+# "GitHub Actions". Without that, the deploy step has nowhere to push.
+
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install Python dependencies
+        run: |
+          python -m venv /opt/venv
+          /opt/venv/bin/pip install --upgrade pip
+          /opt/venv/bin/pip install -e ".[dev]"
+
+      - name: Install Node dependencies (Eleventy)
+        run: |
+          mkdir -p site/node_cache
+          npm --prefix site/node_cache install --no-audit --no-fund \
+            @11ty/eleventy@3.1.5 @11ty/eleventy-plugin-rss@2.0.3
+
+      - name: Leak guard — refuse to build if user/ is present
+        run: |
+          if [ -d user ]; then
+            echo "::error ::user/ directory present in CI workspace — refusing to build"
+            exit 1
+          fi
+
+      - name: Run pipeline (fixture mode — no live fetch on CI)
+        env:
+          INGO_FIXTURE_MODE: "1"
+        run: /opt/venv/bin/python -m pipeline.run
+
+      - name: Cadence check (suspicious_silence)
+        env:
+          INGO_FIXTURE_MODE: "1"
+        run: /opt/venv/bin/python -m pipeline.health --check-silence
+
+      - name: Build slot JSONs (peer_ingo_funds / dfi_ingo_commits / deadlines)
+        env:
+          INGO_FIXTURE_MODE: "1"
+        run: /opt/venv/bin/python -m pipeline.build_slots
+
+      - name: Build site (public only — never PRIVATE=1)
+        env:
+          SITE_PATH_PREFIX: ${{ github.event.repository.name }}
+        run: site/node_cache/node_modules/.bin/eleventy --input=site/src --output=site/_site
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site/_site
+
+      - name: Warn on open incidents (non-blocking)
+        run: |
+          if [ -n "$(ls -A tool/health/open/ 2>/dev/null | grep -v .gitkeep)" ]; then
+            echo "::warning ::incidents open — see tool/health/open/"
+          fi
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

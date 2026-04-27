@@ -1,0 +1,13 @@
+<!doctype html>
+<html><body>
+<main>
+  <!--
+    Case D fixture (C6 suspicious_silence rehearsal).
+    Structurally identical to snapshot-ok.xml: same <main> wrapper, same
+    news-card selector targets, but the list is empty. Scraper returns
+    HTTP-200, parse OK, zero items. When consecutive zero-day runs exceed
+    BII's expected_minimum_cadence_days (7), health.check_suspicious_silence
+    files a suspicious_silence incident against this source.
+  -->
+</main>
+</body></html>

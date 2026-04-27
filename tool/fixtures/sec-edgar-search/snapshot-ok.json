@@ -1,0 +1,22 @@
+{
+  "hits": {
+    "hits": [
+      {
+        "_id": "0001234567-26-000123",
+        "_source": {
+          "display_names": ["Example Impact Fund LLC"],
+          "file_date": "2026-04-10",
+          "adsh": "Form D filing — offering size $250m, first sale 2026-04-10."
+        }
+      },
+      {
+        "_id": "0001234567-26-000124",
+        "_source": {
+          "display_names": ["Peer Impact Partners LP"],
+          "file_date": "2026-04-05",
+          "adsh": "Form D filing — offering size $100m."
+        }
+      }
+    ]
+  }
+}

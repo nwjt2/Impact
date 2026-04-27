@@ -1,0 +1,612 @@
+# Deadlines registry for slot 3 ("Deadlines that matter").
+#
+# Hand-curated seed. Scrapers refresh deadline_date fields and append new
+# RFPs as they surface.
+#
+# Scope:
+#   - DFI open-call / RFP / emerging-manager facility application windows
+#   - DFI board / investment-committee meeting public calendars
+#   - ILPA / IRIS+ / IFC PS / OPIM / SFDR template revision releases
+#   - Regulator-specific INGO-to-fund-manager filings with public deadlines
+#
+# Schema:
+#   deadline_id:         kebab-case id, unique
+#   issuing_body:        who owns the deadline
+#   country:             ISO-2 of the issuing body (not the applicant)
+#   kind:                rfp | open_call | rolling_application | board_meeting | template_revision | regulator_filing | conference_deadline
+#   title:               display string
+#   deadline_date:       YYYY-MM-DD or null (null = rolling / continuous / quarterly-with-no-fixed-date / unknown-next-date)
+#   recurring:           null | annual | quarterly | biennial | rolling | one_off
+#   next_occurrence:     YYYY-MM-DD or null — curated best-guess of the NEXT cycle start/open date; use when
+#                        the current deadline has passed but the cycle repeats, or to forward-signal a window open.
+#                        Populate only when the source STATES the date; never guess from cadence.
+#   why_it_matters:      single sentence, INGO-first-close framing
+#   public_source_url:   the actual page where the deadline is published
+#   last_verified_at:    YYYY-MM-DD
+#
+# Honesty requirement:
+#   If I don't have a credible deadline_date in public record, deadline_date
+#   is null AND recurring carries the pattern (e.g. "quarterly") so the UI
+#   can show "Rolling — check link" rather than invent a date. A fictitious
+#   RFP date is worse than a short list.
+#
+# Reality check: most DFI open calls are either continuously rolling or
+# announced with short notice. Most of what's useful here is the LINK to
+# the facility page plus a reminder pattern, not a fixed date.
+
+deadlines:
+
+  # ---------- DFI emerging-manager facility application pages ----------
+
+  - deadline_id: bii-kinetic-rolling
+    issuing_body: British International Investment
+    country: GB
+    kind: rolling_application
+    title: BII Kinetic — Catalytic Portfolio (rolling)
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      BII's Kinetic Portfolio is the catalytic-capital sleeve alongside
+      Growth and Catalyst; higher risk tolerance, blends with other
+      capital sources. Most INGO-aligned DFI entry point in the UK.
+      No public fixed window — Kinetic intake is engagement-based, not
+      RFP-based. (BII did run a Mercer-partnered Mobilisation Facility
+      RFP that closed 4 March 2025 — now past. No 2026 successor RFP
+      announced as of verification date.)
+    public_source_url: https://www.bii.co.uk/en/about/our-company/investment-portfolios/kinetic/
+    last_verified_at: 2026-04-25
+
+  - deadline_id: ifc-amc-aip-rolling
+    issuing_body: IFC Asset Management Company
+    country: US
+    kind: rolling_application
+    title: IFC Asset Management Company — emerging-market fund commitments
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      IFC AMC manages institutional capital invested in IFC's emerging-
+      markets pipeline; 16 funds closed and over $10bn raised per the
+      current site. The "Accelerator Investment Platform" label inherited
+      from the seed is no longer surfaced on the live site — current
+      framing is generic emerging-markets fund-of-funds. Engagement is
+      direct, not via posted RFP; begin conversation 18 months before
+      first close.
+    public_source_url: https://www.ifcamc.org/
+    last_verified_at: 2026-04-25
+
+  - deadline_id: dfc-2x-women-rolling
+    issuing_body: U.S. International Development Finance Corporation
+    country: US
+    kind: rolling_application
+    title: DFC 2X Women's Initiative — gender-lens fund commitments (rolling)
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      DFC's most-accessible pathway for INGO-sponsored gender-lens funds.
+      Not a traditional RFP — engage DFC deal team directly. URL form is
+      /2x-womens-initiative (possessive). DFC was reauthorised through
+      2031 in the FY2026 NDAA (signed 18 Dec 2025) with contingent-
+      liability ceiling raised $60bn → $205bn — political-risk concern
+      from yesterday's pass is now reduced but not eliminated.
+    public_source_url: https://www.dfc.gov/our-work/2x-womens-initiative
+    last_verified_at: 2026-04-25
+
+  - deadline_id: dfc-climate-funds-rolling
+    issuing_body: U.S. International Development Finance Corporation
+    country: US
+    kind: rolling_application
+    title: DFC Climate-Focused Investment Funds — call for applications (rolling)
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      DFC's open call for climate funds targets vehicles capitalized at
+      $100m+ with DFC tickets $10-400m (≤20% of fund). Source confirms:
+      "DFC will review proposals on a rolling-basis and will continue to
+      collect submissions indefinitely." Original press release dates to
+      April 2021 but rolling language remains live. DFC reauthorised
+      through 2031 in FY2026 NDAA — call remains operationally relevant.
+    public_source_url: https://www.dfc.gov/media/press-releases/dfc-announces-call-applications-climate-focused-investment-funds
+    last_verified_at: 2026-04-25
+
+  - deadline_id: dfc-direct-equity-rolling
+    issuing_body: U.S. International Development Finance Corporation
+    country: US
+    kind: rolling_application
+    title: DFC Direct Equity — Request for Applications (rolling)
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      Parallel DFC rolling intake for direct equity into emerging-market
+      operating companies (not funds), with priority for 2X, Prosper
+      Africa, América Crece, Indo-Pacific themes. Source: "OEI will
+      review proposals on a rolling-basis and will continue to collect
+      submissions indefinitely." Relevant for INGOs whose vehicle is
+      direct-investment rather than a pooled fund. FY2026 NDAA also
+      authorises a $5bn equity revolving fund at Treasury — equity
+      window now structurally larger.
+    public_source_url: https://www.dfc.gov/media/press-releases/dfc-announces-direct-equity-request-applications
+    last_verified_at: 2026-04-25
+
+  - deadline_id: gcf-accredited-entity-prescreen-2026-w2
+    issuing_body: Green Climate Fund
+    country: KR
+    kind: open_call
+    title: GCF Accredited Entity — pre-screening for 2026 W2 window
+    deadline_date: 2026-05-27
+    recurring: biennial
+    next_occurrence: 2026-07-15
+    why_it_matters: |
+      Multi-year credentialing pathway that gates access to GCF anchor-
+      LP commitments. Source quote: "pre-screening submissions received
+      by 27 May 2026 (11:59 PM KST) may be considered for the second
+      2026 accreditation application window, which will open on 15 July
+      2026 (08:00 AM KST)." Each window runs 2 months; then ~9-month
+      review. Begin AE process 18-24 months pre-first-close. Re-confirmed
+      live via search 2026-04-25 (the /accreditation/process page itself
+      no longer surfaces the dates without query parameters).
+    public_source_url: https://www.greenclimate.fund/accreditation/process
+    last_verified_at: 2026-04-25
+
+  - deadline_id: proparco-fisea-plus-rolling
+    issuing_body: Proparco
+    country: FR
+    kind: rolling_application
+    title: Proparco FISEA+ — Africa investment-fund facility (rolling)
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      AFD/Proparco's EUR 210m facility for Africa-focused investment
+      funds, with EUR 21m TA budget. "FISEA+ may support initiatives
+      that can benefit from junior tranches in addition to senior
+      tranches" — explicitly catalytic for emerging managers in
+      Priority Poor Countries and West Africa. Old /carte-des-projets
+      URL now 404s; canonical FISEA+ page replaces it.
+    public_source_url: https://www.proparco.fr/en/fisea-accelerating-capital-mobilization-impact-investment-funds-africa
+    last_verified_at: 2026-04-25
+
+  # ---------- DFI board / investment-committee public calendars ----------
+
+  - deadline_id: gcf-board-b45-2026
+    issuing_body: Green Climate Fund
+    country: KR
+    kind: board_meeting
+    title: GCF Board Meeting B.45 — Dushanbe
+    deadline_date: 2026-06-29
+    recurring: quarterly
+    next_occurrence: 2026-10-26
+    why_it_matters: |
+      GCF funding proposals (FPs) are approved at Board meetings. If
+      targeting GCF as anchor LP, your proposal must be in the board
+      package ~8 weeks before the meeting. B.45 confirmed: 29 June-2 July
+      2026 (Dushanbe, Tajikistan). B.46 follows 26-29 October 2026
+      (Songdo). Re-confirmed via search 2026-04-25; the live boardroom/
+      meetings page has not yet been updated past B.44 (March 2026) —
+      dates traced to GCF B.42/13 dates-and-venues decision document.
+    public_source_url: https://www.greenclimate.fund/boardroom/meetings
+    last_verified_at: 2026-04-25
+
+  - deadline_id: ifc-board-quarterly
+    issuing_body: International Finance Corporation
+    country: US
+    kind: board_meeting
+    title: IFC Board / Committee meetings — public disclosures
+    deadline_date: null
+    recurring: quarterly
+    why_it_matters: |
+      IFC projects (including LP commitments to funds) are disclosed via
+      the SPI project page prior to consideration by IFC's Board of
+      Directors. Source quote: "Investments are disclosed prior to
+      consideration by IFC's Board of Directors, and advisory projects
+      are disclosed following project approval." Watch this feed for
+      INGO-GP precedents advancing.
+    public_source_url: https://disclosures.ifc.org/
+    last_verified_at: 2026-04-25
+
+  - deadline_id: dfc-board-quarterly
+    issuing_body: U.S. International Development Finance Corporation
+    country: US
+    kind: board_meeting
+    title: DFC Board of Directors meetings (quarterly)
+    deadline_date: null
+    recurring: quarterly
+    why_it_matters: |
+      DFC's quarterly board meetings approve headline transactions
+      including fund LP commitments. Board agenda is published ~2 weeks
+      in advance with prospective commitments; watch for INGO-GP
+      signals. Confirmed 2026 dates: 21 January (passed/cancelled per
+      notice), 20 February (passed). Q2/Q3/Q4 2026 schedule still not
+      published as of 2026-04-25 — DFC publishes quarter-by-quarter.
+    public_source_url: https://www.dfc.gov/who-we-are/our-people/board-directors
+    last_verified_at: 2026-04-25
+
+  # ---------- ILPA / IRIS+ / IFC PS / OPIM template revisions ----------
+
+  - deadline_id: ilpa-reporting-performance-templates-2026
+    issuing_body: Institutional Limited Partners Association (ILPA)
+    country: US
+    kind: template_revision
+    title: ILPA updated Reporting Template + new Performance Template — Q1 2026 adoption
+    deadline_date: null
+    recurring: one_off
+    next_occurrence: 2026-01-01
+    why_it_matters: |
+      ILPA released the updated Reporting Template + new Performance
+      Template on 22 January 2025 for Q1 2026 adoption. Source quote:
+      "The updated ILPA Reporting Template is intended to replace the
+      2016 ILPA Reporting Template on a go-forward basis for Funds still
+      in their investment period during Q1 2026 or for Funds commencing
+      operations on or after January 1, 2026." Not legally mandatory but
+      LPs are increasingly adopting as a required component of standard
+      reporting packages. INGO-GP funds with Q1 2026 onward vintages
+      should be on the new template; legacy funds may continue with
+      2016 version.
+    public_source_url: https://ilpa.org/news/ilpa-releases-updated-reporting-template-and-new-performance-template-for-industry-adoption/
+    last_verified_at: 2026-04-25
+
+  - deadline_id: ilpa-principles-revision-watch
+    issuing_body: Institutional Limited Partners Association (ILPA)
+    country: US
+    kind: template_revision
+    title: ILPA Principles & templates — revision watch
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      ILPA Principles 3.0 (June 2019) remains canonical as of 2026-04-25;
+      no Principles 4.0 announced. (The 2026 Reporting + Performance
+      Template launch is tracked separately under ilpa-reporting-
+      performance-templates-2026.) LPs increasingly cite ILPA in term-
+      sheet negotiations; an LPA drafted against out-of-date ILPA will
+      draw immediate LP questions.
+    public_source_url: https://ilpa.org/resources/
+    last_verified_at: 2026-04-25
+
+  - deadline_id: iris-plus-release-watch
+    issuing_body: Global Impact Investing Network (GIIN) / IRIS+
+    country: US
+    kind: template_revision
+    title: IRIS+ thematic taxonomy releases
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      IRIS+ publishes new thematic taxonomies on an irregular cadence
+      (GIIN says "every two to five years"). Most recent surfaced theme:
+      "Waste Management & Circularity" (date not given on the live page).
+      Your impact framework should cite the current IRIS+ thematic
+      taxonomy; outdated references read as un-serious to institutional
+      LPs.
+    public_source_url: https://iris.thegiin.org/
+    last_verified_at: 2026-04-25
+
+  - deadline_id: ifc-ps-sustainability-framework-update
+    issuing_body: International Finance Corporation
+    country: US
+    kind: template_revision
+    title: IFC Sustainability Framework / Performance Standards — Phase II public consultation
+    deadline_date: null
+    recurring: one_off
+    next_occurrence: 2026-04-01
+    why_it_matters: |
+      IFC PS1-PS8 are the de facto ESMS baseline for DFI-backed funds;
+      any revision triggers ESMS re-papering across every INGO-GP fund.
+      Source quote: "Phase I: Dialogue Phase (9-12 months, anticipated
+      to conclude between January and March 2026). Phase II: Public
+      Consultation Phase (anticipated: April 2026-March 2028)." As of
+      2026-04-25, IFC's update page (last updated April 2025) still says
+      Phase II opening "anticipated April 2026" — no public confirmation
+      yet that consultation draft is live. Window to submit consultation
+      input opens whenever Phase I formally closes.
+    public_source_url: https://www.ifc.org/en/what-we-do/sector-expertise/sustainability/policies-and-standards/update-of-ifc-s-sustainability-framework
+    last_verified_at: 2026-04-25
+
+  - deadline_id: opim-signatory-verification-biennial
+    issuing_body: Operating Principles for Impact Management
+    country: US
+    kind: template_revision
+    title: Operating Principles for Impact Management — independent verification cycle
+    deadline_date: null
+    recurring: biennial
+    why_it_matters: |
+      OPIM signatories are expected to publish an independent verification
+      of their alignment at least every two years. Source quote:
+      "Signatories must also conduct regular independent verifications
+      affirming the alignment of their impact management systems with
+      the Impact Principles." Cadence is signatory-specific (pegged to
+      each signatory's own disclosure anniversary); no industry-wide
+      date. Budget for the verification cost and cycle.
+    public_source_url: https://www.impactprinciples.org/signatories-reporting
+    last_verified_at: 2026-04-25
+
+  - deadline_id: sfdr-technical-standards-watch
+    issuing_body: European Commission / ESMA
+    country: EU
+    kind: template_revision
+    title: SFDR Regulatory Technical Standards — revision watch
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      SFDR RTS changes trigger re-papering for Article 8/9 impact funds
+      marketed in the EU. As of 2026-04-25, the EC SFDR page lists a
+      legislative proposal of 20 November 2025: "Proposal for a revision
+      of the Sustainable Finance Disclosures Regulation (SFDR)." This
+      is the most material SFDR signal since the 2022 RTS adoption —
+      EU-domiciled INGO funds should be tracking the legislative process
+      monthly. No new RTS adopted yet as of verification date.
+    public_source_url: https://finance.ec.europa.eu/sustainable-finance/disclosures/sustainability-related-disclosure-financial-services-sector_en
+    last_verified_at: 2026-04-25
+
+  # ---------- Regulator filings (INGO-to-fund-manager specific) ----------
+
+  - deadline_id: uk-charity-commission-annual-return
+    issuing_body: UK Charity Commission
+    country: GB
+    kind: regulator_filing
+    title: UK Charity Annual Return (10 months post financial year-end)
+    deadline_date: null
+    recurring: annual
+    why_it_matters: |
+      UK INGOs spinning up a fund must disclose investments and related-
+      party transactions in the Annual Return. Misfiling around impact-
+      investment allocations (particularly out-of-charitable-object
+      investments) draws CC attention. Source quote: "You must submit
+      your annual return within 10 months of the end of your financial
+      year." Per-charity deadline — varies by FYE.
+    public_source_url: https://www.gov.uk/guidance/prepare-a-charity-annual-return
+    last_verified_at: 2026-04-25
+
+  - deadline_id: uk-cc-investment-policy-notification
+    issuing_body: UK Charity Commission
+    country: GB
+    kind: regulator_filing
+    title: UK Charity Commission — investment policy (CC14 guidance)
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      CC14 (Charities and Investment Matters) governs what UK charities
+      can invest in. Most recent substantial update: 1 August 2023
+      (redesigned to reflect Charities Act 2022). Spinning up or
+      committing to an impact fund should be reflected in the charity's
+      stated investment policy; trustees carry fiduciary exposure if not.
+    public_source_url: https://www.gov.uk/government/publications/charities-and-investment-matters-a-guide-for-trustees-cc14
+    last_verified_at: 2026-04-25
+
+  - deadline_id: irs-form-990-t-ubit
+    issuing_body: US Internal Revenue Service (Exempt Organizations)
+    country: US
+    kind: regulator_filing
+    title: US Form 990-T (UBIT) — fund-generated UBTI (calendar-year filers)
+    deadline_date: 2026-05-15
+    recurring: annual
+    why_it_matters: |
+      US 501(c)(3) INGOs whose impact fund generates UBTI (e.g. from
+      debt-financed income in fund structures) must file 990-T. Source
+      quote: "For most exempt organizations, Form 990-T is due annually
+      by the 15th day of the 5th month after the end of its tax year."
+      Calendar-year filers: 15 May 2026. Extensions via Form 8868
+      available (6 months → 15 Nov 2026). Many INGOs miss this on their
+      first fund-investment year. Non-Dec FYE INGOs should apply their
+      own offset. URL updated to canonical /forms-pubs/about-form-990-t.
+    public_source_url: https://www.irs.gov/forms-pubs/about-form-990-t
+    last_verified_at: 2026-04-25
+
+  - deadline_id: sec-form-d-filing
+    issuing_body: US Securities and Exchange Commission
+    country: US
+    kind: regulator_filing
+    title: SEC Form D (Reg D Rule 506) — 15 days after first sale
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      US private funds relying on Reg D must file Form D within 15 days
+      of the first sale. Source quote: "An issuer must file Form D
+      within 15 days after the first sale of securities in an offering
+      relying on Rule 506(b), Rule 506(c) or Rule 504." INGO fund teams
+      not accustomed to private-placement rules sometimes miss this;
+      filing late is normally curable but creates audit exposure. (SEC
+      September 2024 enforcement action settled charges against multiple
+      entities for failing to timely file Form D — penalty risk is real.)
+      URL updated to the current /resources-small-businesses/exempt-
+      offerings/filing-form-d-notice page.
+    public_source_url: https://www.sec.gov/resources-small-businesses/exempt-offerings/filing-form-d-notice
+    last_verified_at: 2026-04-25
+
+  - deadline_id: sec-form-adv-annual-amendment
+    issuing_body: US Securities and Exchange Commission
+    country: US
+    kind: regulator_filing
+    title: SEC Form ADV — annual amendment (Dec-FYE filers)
+    deadline_date: null
+    recurring: annual
+    next_occurrence: 2027-03-31
+    why_it_matters: |
+      RIAs and ERAs (Exempt Reporting Advisers) must file the annual ADV
+      amendment within 90 days of FYE. Source quote: "Each adviser, once
+      its SEC registration is effective, must file an annual updating
+      amendment within 90 days after the close of its fiscal year."
+      Calendar-year filers: 31 March each year. INGO fund-affiliated
+      advisers usually qualify as ERAs; the deadline still applies. 2026
+      Dec-FYE cycle (31 March 2026) has passed; next_occurrence tracks
+      the 2027 cycle. URL updated to the IARD electronic-filing page.
+    public_source_url: https://www.sec.gov/about/divisions-offices/division-investment-management/electronic-filing-investment-advisers-iard
+    last_verified_at: 2026-04-25
+
+  - deadline_id: afm-aifmd-registration
+    issuing_body: Dutch Authority for the Financial Markets (AFM)
+    country: NL
+    kind: regulator_filing
+    title: AIFMD registration / notification (NL)
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      Dutch-domiciled or Dutch-marketed INGO funds fall under AIFMD.
+      Registration vs full licensing depends on fund size (EUR 100m
+      with leverage / EUR 500m closed-ended, no leverage thresholds for
+      light-regime registration). Cordaid IM and Triple Jump are
+      precedent NL AIFMs. Old /en/sector/themas/aifmd URL now 404s;
+      canonical AIFM hub at /en/sector/beleggingsinstellingen/aifm.
+    public_source_url: https://www.afm.nl/en/sector/beleggingsinstellingen/aifm
+    last_verified_at: 2026-04-25
+
+  - deadline_id: lux-cssf-aifm-authorisation
+    issuing_body: Luxembourg CSSF
+    country: LU
+    kind: regulator_filing
+    title: CSSF — AIFM authorisation
+    deadline_date: null
+    recurring: rolling
+    why_it_matters: |
+      Luxembourg remains the default EU domicile for INGO-sponsored
+      funds (BlueOrchard, Triodos, Incofin all use LU vehicles). Source
+      quote: "Any company intending to act as AIFM shall be authorised
+      by the CSSF beforehand." CSSF authorisation and passporting
+      timelines should be in the INGO fund team's legal workstream from
+      day one. Old /en/investment-funds/ URL now 404s; replaced with
+      the /en/authorisation-aifm/ canonical page.
+    public_source_url: https://www.cssf.lu/en/authorisation-aifm/
+    last_verified_at: 2026-04-25
+
+  # ---------- Industry-body template / convening timing ----------
+
+  - deadline_id: giin-impact-forum-2026
+    issuing_body: Global Impact Investing Network (GIIN)
+    country: NL
+    kind: conference_deadline
+    title: GIIN Impact Forum 2026 — Amsterdam
+    deadline_date: 2026-10-27
+    recurring: annual
+    why_it_matters: |
+      Annual GIIN Investor Forum is the single highest-density LP-GP
+      meetup in the impact calendar. 2026 dates re-confirmed via search
+      2026-04-25: 27-29 October, RAI Amsterdam (the live /giin-impact-
+      forum/ page still shows 2024 content but the 2026 dates are
+      consistent across multiple search results). Side-meetings with
+      DFIs and foundation LPs are the real prize; INGO-GPs planning
+      first close should have the one-pager and DFI targets queued
+      3-4 months ahead. Country set to NL (venue) so EU filter surfaces
+      it.
+    public_source_url: https://thegiin.org/giin-impact-forum/
+    last_verified_at: 2026-04-25
+
+  - deadline_id: convergence-a4fm-2026
+    issuing_body: Convergence Finance
+    country: CA
+    kind: open_call
+    title: Convergence A4FM — Blended Finance Accelerator for Fund Managers
+    deadline_date: 2026-05-25
+    recurring: annual
+    why_it_matters: |
+      CAD 10m Global Affairs Canada-funded accelerator for blended-
+      finance vehicle designers. Source quote (re-confirmed live
+      2026-04-25): "We are accepting concept notes until May 25, 2026."
+      Scoping grants up to CAD 260k; pilot up to CAD 500k (conditionally
+      repayable). This is the single most INGO-friendly source of
+      fund-design funding currently open — covers exactly the "we have
+      the idea, not the structuring budget" gap INGO fund teams hit
+      pre-first-close. Three weeks out as of refresh.
+    public_source_url: https://www.convergence.finance/accelerator/a4fm
+    last_verified_at: 2026-04-25
+
+  - deadline_id: convergence-indo-pacific-2026
+    issuing_body: Convergence Finance
+    country: CA
+    kind: open_call
+    title: Convergence Indo-Pacific NGO Blended Finance Accelerator — 2nd Call
+    deadline_date: null
+    recurring: annual
+    next_occurrence: 2026-05-19
+    why_it_matters: |
+      Parallel Convergence accelerator window specifically flagged for
+      NGOs operating in the Indo-Pacific. Source quote (re-confirmed
+      live 2026-04-25): "Second Call for Proposals launching on May 19,
+      2026." Launch date populated as next_occurrence; actual submission
+      deadline TBD once window opens. Directly relevant for INGOs with
+      Asian programs spinning up first fund — NGO designation is in the
+      program name. ~3 weeks to launch as of refresh.
+    public_source_url: https://www.convergence.finance/accelerator
+    last_verified_at: 2026-04-25
+
+  # ---------- Active-discovery additions (since 2026-01-01) ----------
+
+  - deadline_id: ilpa-edci-2026-cycle
+    issuing_body: Institutional Limited Partners Association (ILPA) / EDCI
+    country: US
+    kind: regulator_filing
+    title: ILPA ESG Data Convergence Initiative — 2026 reporting cycle
+    deadline_date: 2026-04-30
+    recurring: annual
+    why_it_matters: |
+      EDCI is the dominant ESG-data standard for private-fund LPs;
+      participating GPs report annually on a standardized template.
+      Source quote (live 2026-04-26): "The next data submission
+      deadline is April 30, 2026." 2026 cycle adds a new cybersecurity
+      metric and an optional Commercial Outcomes sheet. INGO-GP funds
+      with institutional LPs in the cap table (DFIs especially) will
+      face EDCI questions; first-time GPs commonly miss this.
+      4 days to deadline as of discovery. Annual.
+    public_source_url: https://www.esgdc.org/metrics/
+    last_verified_at: 2026-04-26
+
+  - deadline_id: ec-sfdr-2-proposal-2025
+    issuing_body: European Commission / DG FISMA
+    country: EU
+    kind: template_revision
+    title: SFDR 2.0 — European Commission legislative proposal (Nov 2025)
+    deadline_date: null
+    recurring: one_off
+    next_occurrence: null
+    why_it_matters: |
+      On 20 November 2025, the European Commission published a proposal
+      to amend SFDR — the "SFDR 2.0" review. Proposed: simplified
+      disclosures, new product categories (transition finance, ESG basic,
+      sustainable), repeal of current RTS, removal of certain entity-level
+      obligations. Co-decision in Parliament + Council expected in 2026;
+      18-month entry-into-force pegs implementation to ~2028. EU-domiciled
+      INGO funds (Cordaid IM, Triple Jump, BlueOrchard, Incofin) MUST
+      track legislative process; an LPA written to the current SFDR will
+      need re-papering. This entry distinct from sfdr-technical-standards-
+      watch (rolling) — this is the specific Nov 2025 legislative proposal
+      to track through 2026.
+    public_source_url: https://finance.ec.europa.eu/news/commission-proposes-improvements-sfdr-2025-11-21_en
+    last_verified_at: 2026-04-26
+
+  - deadline_id: gcf-psf-regional-restructure-2026
+    issuing_body: Green Climate Fund
+    country: KR
+    kind: template_revision
+    title: GCF Private Sector Facility — restructured into Regional Departments (2026)
+    deadline_date: null
+    recurring: one_off
+    next_occurrence: null
+    why_it_matters: |
+      GCF kicked off 2026 by integrating its Department of Private Sector
+      Facility team into the four Regional Departments established in
+      2024. Source quote (B.44, Songdo, 25-28 March 2026): structural
+      reform "will strengthen the mobilization of private sector finance
+      in support of countries' national climate priorities." For
+      INGO-GPs on the Accredited Entity track or pitching GCF as anchor
+      LP, the entry point is now a Regional Director, not a central PSF
+      desk. Re-route your relationship map. Old PSF-only contacts may
+      no longer be the relevant counterpart.
+    public_source_url: https://www.greenclimate.fund/news/gcf-kicks-its-first-board-meeting-2026
+    last_verified_at: 2026-04-26
+
+  - deadline_id: ifc-ps-phase-ii-q2-2026
+    issuing_body: International Finance Corporation
+    country: US
+    kind: template_revision
+    title: IFC Sustainability Framework — Phase II public consultation (Q2 2026 - Q1 2028)
+    deadline_date: null
+    recurring: one_off
+    next_occurrence: null
+    why_it_matters: |
+      Update to ifc-ps-sustainability-framework-update entry. Phase II
+      Public Consultation now confirmed window: "Q2 2026 to Q1 2028 with
+      two rounds of global consultations with draft framework releases."
+      Phase I (Dialogue) anticipated to conclude Jan-Mar 2026. INGO-GP
+      ESMS frameworks built on PS1-PS8 will need re-papering across the
+      consultation period. Submit comments early — Round 1 typically
+      shapes the final draft more than Round 2. Watch the official
+      portal for Phase II opening confirmation; not yet announced as of
+      verification.
+    public_source_url: https://www.ifc.org/en/what-we-do/sector-expertise/sustainability/policies-and-standards/update-of-ifc-s-sustainability-framework
+    last_verified_at: 2026-04-26
+

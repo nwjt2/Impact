@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Charity Commission for England and Wales</title>
+  <link href="https://www.gov.uk/government/organisations/charity-commission" />
+  <updated>2026-04-20T10:00:00Z</updated>
+  <id>tag:www.gov.uk,2005:/government/organisations/charity-commission</id>
+  <entry>
+    <title>Charity Commission opens statutory inquiry into Example Charity</title>
+    <link href="https://www.gov.uk/government/news/example-charity-inquiry" />
+    <id>tag:www.gov.uk,2005:/government/news/example-charity-inquiry</id>
+    <updated>2026-04-15T09:00:00Z</updated>
+    <summary type="html">The Charity Commission has opened a statutory inquiry into Example Charity over governance of a related trading subsidiary.</summary>
+  </entry>
+  <entry>
+    <title>Charity Commission publishes new guidance on fundraising standards</title>
+    <link href="https://www.gov.uk/government/news/fundraising-guidance-2026" />
+    <id>tag:www.gov.uk,2005:/government/news/fundraising-guidance-2026</id>
+    <updated>2026-04-10T09:00:00Z</updated>
+    <summary type="html">New guidance for charities on fundraising standards.</summary>
+  </entry>
+</feed>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Case D fixture (C6 suspicious_silence rehearsal).
+  Valid RSS 2.0 feed with zero <item> elements. Scraper returns HTTP-200,
+  feedparser returns zero entries, no schema_drift is raised because the
+  channel itself parses. When consecutive zero-day runs exceed IFC
+  Pressroom's expected_minimum_cadence_days (3), health.check_suspicious_silence
+  files a suspicious_silence incident against this source.
+-->
+<rss version="2.0">
+  <channel>
+    <title>IFC — Pressroom</title>
+    <link>https://pressroom.ifc.org</link>
+    <description>IFC press releases.</description>
+  </channel>
+</rss>

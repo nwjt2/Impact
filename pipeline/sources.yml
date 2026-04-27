@@ -1,0 +1,515 @@
+# Source registry.
+#
+# The scraper fleet feeds the three slot JSONs:
+#
+#   slot 1 — Peer INGO Funds        (peer_ingo_funds.json)
+#   slot 2 — DFI → INGO-GP commits  (dfi_ingo_commits.json)
+#   slot 3 — Deadlines              (deadlines.json)
+#
+# `slots:` is an informational tag on each source — a list of integers
+# indicating which slot(s) the scraper's output enriches. Used by
+# scrapers/run.py stats and by the health page.
+#
+# `status:` is `active` (default) or `parked`. Parked sources are skipped
+# by run.py — their config survives in-tree so re-activation is a
+# one-line change. Self-heal policy: park anything that needs more than
+# ~5 minutes of fixing and walk away.
+#
+# Fields:
+#   id, name, url, type, content_type, expected_minimum_cadence_days,
+#   jurisdiction_tag, validation_status, break_token, html_selectors,
+#   api_params
+
+sources:
+- id: bii-news
+  name: British International Investment — News
+  url: https://www.bii.co.uk/en/news/
+  type: html
+  content_type: lp_commitment
+  slots:
+  - 1
+  - 2
+  status: parked
+  expected_minimum_cadence_days: 7
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.news-card, div.news-listing__item
+    title: h3.news-card__title, .news-card__heading
+    link: a.news-card__link, h3.news-card__title a
+    date: time[datetime], .news-card__date
+    body: .news-card__excerpt, p.news-card__summary
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: bii-data-disclosure
+  name: British International Investment — Investment Disclosures
+  url: https://www.bii.co.uk/en/our-impact/investment-disclosures/
+  type: html
+  content_type: lp_commitment
+  slots:
+  - 2
+  status: parked
+  expected_minimum_cadence_days: 30
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: table.disclosures tbody tr, div.disclosure-item
+    title: td.disclosure-item__name, .disclosure-item__title
+    link: a.disclosure-item__link, td a[href*="/investment/"]
+    date: td.disclosure-item__date, time[datetime]
+    body: td.disclosure-item__description
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: fmo-news
+  name: FMO — News & Transactions
+  url: https://www.fmo.nl/news
+  type: html
+  content_type: lp_commitment
+  slots:
+  - 1
+  - 2
+  status: parked
+  expected_minimum_cadence_days: 14
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.news-item, li.news-list__item
+    title: h3.news-item__title, .news-item__heading
+    link: a.news-item__link, h3 a
+    date: time.news-item__date, span.date
+    body: .news-item__intro, p.news-item__summary
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: dfc-press
+  name: U.S. International Development Finance Corporation — Press
+  url: https://www.dfc.gov/media/press-releases
+  type: html
+  content_type: lp_commitment
+  slots:
+  - 2
+  status: parked
+  expected_minimum_cadence_days: 10
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.node--type-press-release, div.view-content .views-row
+    title: h2.node-title, span.field--name-title
+    link: h2 a, a.press-release-link
+    date: time[datetime], .field--name-field-date
+    body: .field--name-field-summary, div.node__content p:first-of-type
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: dfc-board
+  name: DFC — Board Meetings index
+  url: https://www.dfc.gov/who-we-are/board-directors/board-meetings
+  type: html
+  content_type: lp_commitment
+  slots:
+  - 2
+  - 3
+  status: parked
+  expected_minimum_cadence_days: 45
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: div.view-content .views-row, li.board-meeting
+    title: h3, .field--name-title
+    link: a[href*="board-meeting"]
+    date: time[datetime]
+    body: ''
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: proparco-actualites
+  name: Proparco — News
+  url: https://www.proparco.fr/en/actualites
+  type: html
+  content_type: lp_commitment
+  slots:
+  - 2
+  status: parked
+  expected_minimum_cadence_days: 14
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.node-actualite, div.actualites-list .views-row
+    title: h2.node-title, .field--name-title
+    link: h2 a, a.actualite-link
+    date: time[datetime], .date-display-single
+    body: .field--name-field-chapo, p.intro
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: norfund-investments
+  name: Norfund — Investments
+  url: https://www.norfund.no/investments/
+  type: html
+  content_type: lp_commitment
+  slots:
+  - 2
+  status: parked
+  expected_minimum_cadence_days: 21
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.investment-card, li.investment-item
+    title: h3.investment-card__title
+    link: a.investment-card__link, h3 a
+    date: time, span.investment-card__date
+    body: .investment-card__summary
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: finnfund-news
+  name: Finnfund — News
+  url: https://www.finnfund.fi/en/news/
+  type: html
+  content_type: lp_commitment
+  slots:
+  - 2
+  status: parked
+  expected_minimum_cadence_days: 21
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.news-listing__item, div.news-card
+    title: h3.news-card__title
+    link: a.news-card__link, h3 a
+    date: time[datetime]
+    body: .news-card__excerpt
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: ifc-pressroom
+  name: IFC — Pressroom RSS
+  url: https://pressroom.ifc.org/all/rss.xml
+  type: rss
+  content_type: lp_commitment
+  slots:
+  - 1
+  - 2
+  status: parked
+  expected_minimum_cadence_days: 3
+  break_token: ''
+  validation_status: unverified
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: ifc-aip
+  name: IFC — Access to Information / Project Summaries RSS
+  url: https://disclosures.ifc.org/rss
+  type: rss
+  content_type: lp_commitment
+  slots:
+  - 2
+  status: parked
+  expected_minimum_cadence_days: 5
+  break_token: ''
+  validation_status: unverified
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: swedfund-news
+  name: Swedfund — News
+  url: https://www.swedfund.se/en/media/news/
+  type: html
+  content_type: lp_commitment
+  slots:
+  - 2
+  status: parked
+  expected_minimum_cadence_days: 30
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.news-item, div.news-list .news
+    title: h3.news-item__title
+    link: a.news-item__link, h3 a
+    date: time[datetime], span.date
+    body: .news-item__excerpt
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: deg-news
+  name: DEG — News Room
+  url: https://www.deginvest.de/International-financing/DEG/Press/News/
+  type: html
+  content_type: lp_commitment
+  slots:
+  - 2
+  status: parked
+  expected_minimum_cadence_days: 21
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: li.news-item, div.teaser
+    title: h3.teaser__title
+    link: a.teaser__link, h3 a
+    date: time, span.date
+    body: .teaser__text
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: findev-canada
+  name: FinDev Canada — News
+  url: https://www.findevcanada.ca/en/news-events/news
+  type: html
+  content_type: lp_commitment
+  slots:
+  - 2
+  status: parked
+  expected_minimum_cadence_days: 30
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.news-card, li.news-item
+    title: h3.news-card__title
+    link: h3 a, a.news-card__link
+    date: time[datetime]
+    body: .news-card__excerpt
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: impactalpha
+  name: ImpactAlpha (free RSS)
+  url: https://impactalpha.com/feed/
+  type: rss
+  content_type: peer_close
+  slots:
+  - 1
+  status: active
+  expected_minimum_cadence_days: 2
+  break_token: ''
+  validation_status: verified
+- id: convergence-blog
+  name: Convergence — News & Events
+  url: https://www.convergence.finance/news-and-events/rss
+  type: rss
+  content_type: peer_close
+  slots:
+  - 1
+  status: parked
+  expected_minimum_cadence_days: 5
+  break_token: ''
+  validation_status: verified
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: pri-news
+  name: Principles for Responsible Investment — News
+  url: https://www.unpri.org/rss/news
+  type: rss
+  content_type: peer_close
+  slots:
+  - 1
+  status: parked
+  expected_minimum_cadence_days: 3
+  break_token: ''
+  validation_status: verified
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: responsability-news
+  name: responsAbility — News
+  url: https://www.responsability.com/en/news
+  type: html
+  content_type: peer_close
+  slots:
+  - 1
+  status: parked
+  expected_minimum_cadence_days: 14
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.news-teaser, li.news-list__item
+    title: h3.news-teaser__title
+    link: a.news-teaser__link, h3 a
+    date: time[datetime]
+    body: .news-teaser__lead
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: blueorchard-news
+  name: BlueOrchard — News
+  url: https://www.blueorchard.com/news/
+  type: html
+  content_type: peer_close
+  slots:
+  - 1
+  status: parked
+  expected_minimum_cadence_days: 21
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.news-item, div.news-card
+    title: h3.news-card__title
+    link: h3 a, a.news-card__link
+    date: time, .news-card__date
+    body: .news-card__lead
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: symbiotics-news
+  name: Symbiotics — News
+  url: https://symbioticsgroup.com/news/
+  type: html
+  content_type: peer_close
+  slots:
+  - 1
+  status: parked
+  expected_minimum_cadence_days: 21
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.news-post, li.news-list__item
+    title: h2.news-post__title
+    link: h2 a, a.news-post__link
+    date: time[datetime]
+    body: .news-post__excerpt
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: triodos-im-news
+  name: Triodos Investment Management — News
+  url: https://www.triodos-im.com/press-releases
+  type: html
+  content_type: peer_close
+  slots:
+  - 1
+  status: parked
+  expected_minimum_cadence_days: 21
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.press-release, div.news-list__item
+    title: h3.press-release__title
+    link: h3 a, a.press-release__link
+    date: time[datetime]
+    body: .press-release__summary
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: acumen-blog
+  name: Acumen — Blog RSS
+  url: https://acumen.org/blog/feed/
+  type: rss
+  content_type: peer_close
+  slots:
+  - 1
+  status: parked
+  expected_minimum_cadence_days: 14
+  break_token: ''
+  validation_status: unverified
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: ilpa-publications
+  name: ILPA — Publications index
+  url: https://ilpa.org/resources/publications/
+  type: html
+  content_type: guideline
+  slots:
+  - 3
+  status: parked
+  expected_minimum_cadence_days: 45
+  jurisdiction_tag: global
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.publication, div.publication-card
+    title: h3.publication-card__title
+    link: a.publication-card__link, h3 a
+    date: time[datetime], .publication-card__date
+    body: span.publication-card__version, .version-tag
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: impact-principles-signatories
+  name: Operating Principles for Impact Management — Signatories
+  url: https://www.impactprinciples.org/signatories
+  type: html
+  content_type: guideline
+  slots:
+  - 3
+  status: parked
+  expected_minimum_cadence_days: 30
+  jurisdiction_tag: global
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: div.signatory-card, li.signatory-list__item
+    title: h3.signatory-card__name, .signatory-name
+    link: a[href*="disclosure"], a.disclosure-link
+    date: span.disclosure-date, time[datetime]
+    body: ''
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: iris-github-releases
+  name: GIIN IRIS+ — GitHub releases
+  url: https://api.github.com/repos/GIIN/iris/releases
+  type: api
+  content_type: guideline
+  slots:
+  - 3
+  status: parked
+  expected_minimum_cadence_days: 90
+  jurisdiction_tag: global
+  break_token: ''
+  validation_status: unverified
+  api_params:
+    method: GET
+    headers:
+      Accept: application/vnd.github+json
+    query:
+      per_page: '10'
+    json_path: ''
+    title_path: name
+    link_path: html_url
+    date_path: published_at
+    body_path: body
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: ifc-performance-standards
+  name: IFC — Performance Standards
+  url: https://www.ifc.org/en/insights-reports/2012/ifc-performance-standards
+  type: html
+  content_type: guideline
+  slots:
+  - 3
+  status: active
+  expected_minimum_cadence_days: 180
+  jurisdiction_tag: global
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: a[href*=".pdf"], a.document-link
+    title: h2, h3, .document-title
+    link: ''
+    date: time[datetime], .document-date
+    body: ''
+- id: esma-sfdr
+  name: ESMA — SFDR RTS & Q&A
+  url: https://www.esma.europa.eu/policy-activities/sustainable-finance/sustainability-related-disclosures-regulation-sfdr
+  type: html
+  content_type: guideline
+  slots:
+  - 3
+  status: parked
+  expected_minimum_cadence_days: 60
+  jurisdiction_tag: eu
+  break_token: ''
+  validation_status: unverified
+  html_selectors:
+    list_item: article.document, div.publication-item
+    title: h3.document-title
+    link: a[href*=".pdf"], h3 a
+    date: time[datetime], span.date
+    body: ''
+  parked_reason: 'live-check 2026-04-24: URL returned 404/403/schema-drift; no fix possible within ~5min per user self-heal
+    policy'
+- id: uk-charity-commission
+  name: UK Charity Commission — news (gov.uk)
+  url: https://www.gov.uk/government/organisations/charity-commission.atom
+  type: rss
+  content_type: regulator_bulletin
+  slots:
+  - 3
+  status: active
+  expected_minimum_cadence_days: 5
+  jurisdiction_tag: uk
+  break_token: ''
+  validation_status: unverified
+- id: fca-policy
+  name: FCA — Publications RSS
+  url: https://www.fca.org.uk/news/rss.xml
+  type: rss
+  content_type: regulator_bulletin
+  slots:
+  - 3
+  status: active
+  expected_minimum_cadence_days: 5
+  jurisdiction_tag: uk
+  break_token: ''
+  validation_status: unverified

@@ -1,0 +1,10 @@
+<!doctype html>
+<html><body>
+<article class="publication">
+  <div class="publication-card">
+    <h3 class="publication-card__title"><a class="publication-card__link" href="/resources/publications/ddq-v2-1/">ILPA Due Diligence Questionnaire v2.1</a></h3>
+    <time datetime="2026-02-15" class="publication-card__date">15 February 2026</time>
+    <span class="publication-card__version">v2.1</span>
+  </div>
+</article>
+</body></html>
