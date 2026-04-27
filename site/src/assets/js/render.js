@@ -428,7 +428,7 @@
     //   top    — butterfly: DFIs (cyan, leftward) ◀ axis ▶ peer funds (amber, rightward)
     //   bottom — stated interest: foundations + family offices (muted violet, rightward
     //            from the axis). Thinner bar to signal it's a secondary evidence type.
-    var ROW_H = 52, ROW_GAP = 8, LABEL_W = 240, GUTTER = 28;
+    var ROW_H = 52, ROW_GAP = 8, LABEL_W = 155, GUTTER = 28;
     var BAR_AREA = 320;
     // Reserved space past the bar for the count label. The stated-interest
     // label is the widest case: "NN (NNf / NNfo)" ~ 16 chars in mono, plus

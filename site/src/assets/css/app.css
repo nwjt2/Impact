@@ -1416,7 +1416,7 @@ a.commit-fund:hover { color: var(--amber); }
 
 .home-split {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
   gap: 28px;
   align-items: stretch;
   margin-top: 28px;
