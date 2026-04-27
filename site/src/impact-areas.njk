@@ -1,0 +1,131 @@
+---
+layout: base.njk
+title: Impact areas
+permalink: /impact-areas/index.html
+pageKey: impact-areas
+---
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
+  <header class="detail-header">
+    <div class="detail-eyebrow">
+      <span>Capital sources · Impact areas</span>
+    </div>
+    <h1>Which impact areas are getting funded?</h1>
+    <p class="detail-sub">{{ impact_areas | length }} sectors, ranked by the count of DFIs that have committed and INGO-sponsored fund precedents on record. Click any sector to see the underlying funds and DFIs. Toggle the filter to limit DFIs to those that have committed to an INGO-GP fund in the last 3 years.</p>
+  </header>
+
+  <div class="ic-controls">
+    <label class="ic-toggle">
+      <input type="checkbox" id="ic-active-toggle" />
+      <span>Active DFIs only (last 3y)</span>
+    </label>
+    <span id="ic-summary" class="ic-summary"></span>
+  </div>
+
+  <div class="ic-dfi-bar" id="ic-dfi-bar">
+    <span class="ic-dfi-label">Filter by DFI</span>
+    <div class="ic-pill-row" id="ic-pill-row" role="group" aria-label="Filter sectors by DFI"></div>
+    <button type="button" id="ic-dfi-clear" class="ic-dfi-clear" hidden>Clear</button>
+  </div>
+
+  <div class="ic-legend">
+    <span class="ic-legend-item"><span class="ic-legend-swatch ic-legend-dfi"></span> DFIs that have committed</span>
+    <span class="ic-legend-item"><span class="ic-legend-swatch ic-legend-peer"></span> INGO-sponsored fund precedents</span>
+  </div>
+
+  <div id="ic-chart" class="ic-chart-wrap" aria-live="polite"></div>
+  <div id="ic-drawer" class="ic-drawer-wrap"></div>
+
+  <p class="ic-honest muted">
+    Honesty notes. <strong>Peer-fund precedents</strong> are INGO-sponsored fund vehicles tagged with this sector in <a href="{{ '/peer-funds/' | url }}">/peer-funds/</a>; non-INGO comparables and programmatic-not-fund entries are excluded. <strong>DFIs</strong> are counted when there is a publicly disclosed commitment to one of those INGO-sponsored funds on record in <a href="{{ '/dfis/' | url }}">/dfis/</a>. <strong>Active</strong> means the DFI's most recent in-sector commit_date is within the last 3 years. Counts will undershoot reality where commitments exist but are not yet disclosed.
+  </p>
+</section>
+
+<script type="application/json" id="data-impact-areas">{{ impact_areas | dump | safe }}</script>
+<script type="application/json" id="data-dfi-commits">{{ dfi_ingo_commits | dump | safe }}</script>
+
+<script src="{{ '/assets/js/render.js' | url }}"></script>
+<script>
+(function () {
+  "use strict";
+  var I = window.IFC;
+  var ROWS = I.loadJSON("data-impact-areas") || [];
+  var DFIS = I.loadJSON("data-dfi-commits") || [];
+
+  var state = { useActive: false, dfiFilter: [] };
+
+  // ---- Build DFI multi-select ----------------------------------------------
+  // Show every DFI that appears in at least one sector's commits. Sorted by
+  // total commit count desc.
+  var dfiCounts = {};
+  ROWS.forEach(function (r) {
+    (r.dfis || []).forEach(function (d) {
+      if (!dfiCounts[d.slug]) dfiCounts[d.slug] = { name: d.name, count: 0 };
+      dfiCounts[d.slug].count += d.commit_count;
+    });
+  });
+  var dfiOptions = Object.keys(dfiCounts).map(function (slug) {
+    return { slug: slug, name: dfiCounts[slug].name, count: dfiCounts[slug].count };
+  });
+  dfiOptions.sort(function (a, b) {
+    if (a.count !== b.count) return b.count - a.count;
+    return a.name.localeCompare(b.name);
+  });
+
+  var pillRow = document.getElementById("ic-pill-row");
+  var clearBtn = document.getElementById("ic-dfi-clear");
+
+  function renderPills() {
+    pillRow.innerHTML = dfiOptions.map(function (d) {
+      var pressed = state.dfiFilter.indexOf(d.slug) !== -1;
+      return '<button type="button" class="ic-pill' + (pressed ? ' is-on' : '') +
+        '" data-slug="' + I.escAttr(d.slug) + '" aria-pressed="' + pressed + '">' +
+        I.esc(d.name) + '<span class="ic-pill-n">' + d.count + '</span></button>';
+    }).join("");
+    clearBtn.hidden = state.dfiFilter.length === 0;
+  }
+
+  // ---- Render ---------------------------------------------------------------
+  var chartEl  = document.getElementById("ic-chart");
+  var drawerEl = document.getElementById("ic-drawer");
+  var sumEl    = document.getElementById("ic-summary");
+
+  function render() {
+    renderPills();
+    var visible = I.renderImpactChart(chartEl, drawerEl, ROWS, {
+      useActive: state.useActive,
+      dfiFilter: state.dfiFilter,
+      openFirst: true,
+    });
+    var sectorN = visible.length;
+    var dfiTotal = state.dfiFilter.length
+      ? state.dfiFilter.length + ' DFIs selected'
+      : dfiOptions.length + ' DFIs across registry';
+    var activeNote = state.useActive ? ' · active DFIs only' : '';
+    sumEl.textContent = sectorN + ' sectors shown · ' + dfiTotal + activeNote;
+  }
+
+  document.getElementById("ic-active-toggle").addEventListener("change", function (e) {
+    state.useActive = e.target.checked;
+    render();
+  });
+
+  pillRow.addEventListener("click", function (e) {
+    var btn = e.target.closest(".ic-pill");
+    if (!btn) return;
+    var slug = btn.getAttribute("data-slug");
+    var idx = state.dfiFilter.indexOf(slug);
+    if (idx === -1) state.dfiFilter.push(slug);
+    else state.dfiFilter.splice(idx, 1);
+    render();
+  });
+
+  clearBtn.addEventListener("click", function () {
+    state.dfiFilter = [];
+    render();
+  });
+
+  render();
+})();
+</script>

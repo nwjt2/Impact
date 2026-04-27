@@ -16,13 +16,26 @@ pageKey: index
 
 <section class="data-ribbon" id="data-ribbon"></section>
 
-<section class="sec">
-  <header class="sec-head">
-    <h2 class="sec-title">Agenda <em>// upcoming hard dates</em></h2>
-    <a class="sec-link" href="{{ '/deadlines/' | url }}">All {{ slot_meta.slot_counts.deadlines }} deadlines →</a>
-  </header>
-  <div id="agenda"></div>
-  <div id="agenda-fns" class="agenda-fns"></div>
+<section class="sec home-split">
+  <div class="home-col home-col-impact">
+    <header class="sec-head">
+      <h2 class="sec-title">Impact areas <em>// counted only DFIs that committed in last 3y</em></h2>
+      <a class="sec-link" href="{{ '/impact-areas/' | url }}">All sectors · toggle filter →</a>
+    </header>
+    <p class="ic-strapline muted">Sorted by combined count of <span class="cyan">active DFIs (≤ 3y)</span> and <span class="amber">peer-fund precedents</span>. Click a row for the underlying funds &amp; DFIs.</p>
+    <div id="ic-home-chart" class="ic-chart-wrap"></div>
+    <div id="ic-home-drawer" class="ic-drawer-wrap"></div>
+  </div>
+
+  <div class="home-col home-col-agenda">
+    <header class="sec-head">
+      <h2 class="sec-title">Agenda <em>// upcoming hard dates</em></h2>
+      <a class="sec-link" href="{{ '/deadlines/' | url }}">All {{ slot_meta.slot_counts.deadlines }} deadlines →</a>
+    </header>
+    <div id="agenda" class="agenda-paged"></div>
+    <div id="agenda-pager" class="agenda-pager"></div>
+    <div id="agenda-fns" class="agenda-fns"></div>
+  </div>
 </section>
 
 <section class="sec">
@@ -50,6 +63,7 @@ pageKey: index
 <script type="application/json" id="data-deadlines">{{ deadlines | dump | safe }}</script>
 <script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
 <script type="application/json" id="data-meta">{{ meta | dump | safe }}</script>
+<script type="application/json" id="data-impact-areas">{{ impact_areas | dump | safe }}</script>
 
 <script src="{{ '/assets/js/render.js' | url }}"></script>
 <script>
@@ -134,6 +148,9 @@ pageKey: index
     regulator_filing: "Reg filing", conference_deadline: "Conference",
   };
 
+  var AGENDA_PAGE_SIZE = 8;
+  var agendaPage = 0;
+
   function renderAgenda() {
     var sources = [];
     function srcNum(url) {
@@ -147,16 +164,19 @@ pageKey: index
       return d.deadline_date && d.deadline_date >= TODAY;
     }).sort(function (a, b) { return a.deadline_date.localeCompare(b.deadline_date); });
 
-    var top = hard.slice(0, 9);
-
-    if (top.length === 0) {
+    if (hard.length === 0) {
       return {
         html: '<p class="muted" style="padding:18px 0;">No hard-date deadlines on the horizon. See <a href="{{ "/deadlines/" | url }}">all {{ slot_meta.slot_counts.deadlines }} records</a> for rolling and recurring programs.</p>',
-        sources: [],
+        sources: [], pageCount: 0,
       };
     }
 
-    var rows = top.map(function (d) {
+    var pageCount = Math.ceil(hard.length / AGENDA_PAGE_SIZE);
+    if (agendaPage >= pageCount) agendaPage = 0;
+    var start = agendaPage * AGENDA_PAGE_SIZE;
+    var page = hard.slice(start, start + AGENDA_PAGE_SIZE);
+
+    var rows = page.map(function (d) {
       var days = daysBetween(TODAY, d.deadline_date);
       var rel = days === 0 ? "today"
         : days < 60 ? days + "d"
@@ -189,7 +209,30 @@ pageKey: index
         + '<th class="col-kind">Kind</th>'
         + '</tr></thead><tbody>' + rows + '</tbody></table>',
       sources: sources,
+      pageCount: pageCount,
+      total: hard.length,
+      pageStart: start + 1,
+      pageEnd: start + page.length,
     };
+  }
+
+  function renderAgendaPager(meta) {
+    if (!meta || meta.pageCount <= 1) return "";
+    var prevDis = agendaPage <= 0 ? " is-disabled" : "";
+    var nextDis = agendaPage >= meta.pageCount - 1 ? " is-disabled" : "";
+    return ''
+      + '<button type="button" class="agenda-pg agenda-pg-prev' + prevDis + '" aria-label="Previous deadlines">‹ prev</button>'
+      + '<span class="agenda-pg-status">'
+        + meta.pageStart + '–' + meta.pageEnd + ' of ' + meta.total
+      + '</span>'
+      + '<button type="button" class="agenda-pg agenda-pg-next' + nextDis + '" aria-label="Next deadlines">next ›</button>';
+  }
+
+  function mountAgenda() {
+    var ag = renderAgenda();
+    document.getElementById("agenda").innerHTML = ag.html;
+    document.getElementById("agenda-pager").innerHTML = renderAgendaPager(ag);
+    document.getElementById("agenda-fns").innerHTML = renderFootnotes(ag.sources);
   }
 
   // ---------- Reference panels ----------
@@ -262,13 +305,19 @@ pageKey: index
 
   // ---------- Mount ----------
   document.getElementById("data-ribbon").innerHTML = renderRibbon();
-  var ag = renderAgenda();
-  document.getElementById("agenda").innerHTML = ag.html;
-  document.getElementById("agenda-fns").innerHTML = renderFootnotes(ag.sources);
+  mountAgenda();
   document.getElementById("shelf-dfis").innerHTML  = renderShelfDfis();
   document.getElementById("shelf-peers").innerHTML = renderShelfPeers();
 
-  // Whole-row click on agenda
+  // Impact-areas chart — homepage variant: 3y "active DFI" filter is locked on.
+  var IMPACT = I.loadJSON("data-impact-areas") || [];
+  var icChart  = document.getElementById("ic-home-chart");
+  var icDrawer = document.getElementById("ic-home-drawer");
+  if (icChart && IMPACT.length > 0) {
+    I.renderImpactChart(icChart, icDrawer, IMPACT, { useActive: true, openFirst: false });
+  }
+
+  // Whole-row click on agenda (delegated)
   var agendaEl = document.getElementById("agenda");
   agendaEl.addEventListener("click", function (evt) {
     if (evt.target.closest("a")) return;
@@ -276,6 +325,15 @@ pageKey: index
     if (!row) return;
     var url = row.getAttribute("data-source-url");
     if (url) window.open(url, "_blank", "noopener,noreferrer");
+  });
+
+  // Agenda pagination
+  document.getElementById("agenda-pager").addEventListener("click", function (evt) {
+    var btn = evt.target.closest(".agenda-pg");
+    if (!btn || btn.classList.contains("is-disabled")) return;
+    if (btn.classList.contains("agenda-pg-prev")) agendaPage = Math.max(0, agendaPage - 1);
+    if (btn.classList.contains("agenda-pg-next")) agendaPage = agendaPage + 1;
+    mountAgenda();
   });
 })();
 </script>

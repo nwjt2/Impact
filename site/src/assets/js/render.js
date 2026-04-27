@@ -291,7 +291,8 @@
     var dfiUrl = d.stated_thesis_url || d.public_newsroom_url || d.last_known_activity_url;
     var clickCls = dfiUrl ? " card-clickable" : "";
     var dataAttr = dfiUrl ? ' data-source-url="' + escAttr(dfiUrl) + '"' : "";
-    return '<article class="card dfi-card' + clickCls + '"' + dataAttr + '>' + parts.join("") + '</article>';
+    var idAttr = d.slug ? ' id="dfi-' + escAttr(d.slug) + '"' : "";
+    return '<article class="card dfi-card' + clickCls + '"' + idAttr + dataAttr + '>' + parts.join("") + '</article>';
   }
 
   function renderDeadlineRow(d, meta) {
@@ -360,6 +361,229 @@
     return opts;
   }
 
+  // ---- Impact-area chart --------------------------------------------------
+  //
+  // Diverging horizontal bar chart. One row per sector. DFI count on the
+  // left of the centre axis, peer-fund count on the right. Click a row to
+  // open a drawer below the chart with the underlying DFIs and peer funds.
+
+  function renderImpactChart(svgRoot, drawerRoot, rows, opts) {
+    opts = opts || {};
+    var useActive = !!opts.useActive;          // homepage: true; /impact-areas: toggle
+    var dfiFilter = opts.dfiFilter || null;    // array of dfi slugs OR null
+    var prefix = (typeof window !== "undefined" && window.IFC_PATH_PREFIX) || "/";
+
+    // ---- prepare rows: filter by DFI selection and re-tally counts ---------
+    var working = rows.map(function (r) {
+      var dfis = r.dfis || [];
+      if (dfiFilter && dfiFilter.length) {
+        dfis = dfis.filter(function (d) { return dfiFilter.indexOf(d.slug) !== -1; });
+      }
+      // When the "active 3y" toggle is on, both the bar count AND the drawer
+      // list are restricted to active DFIs so the two views stay consistent.
+      var visibleDfis = useActive ? dfis.filter(function (d) { return d.is_active_3y; }) : dfis;
+      var peerN = (r.peer_funds || []).length;
+      return {
+        slug: r.slug, label: r.label,
+        peerN: peerN, dfiN: visibleDfis.length, totalN: peerN + visibleDfis.length,
+        peer_funds: r.peer_funds, dfis: visibleDfis,
+      };
+    }).filter(function (r) {
+      // If filtering by DFI, drop sectors that DFI doesn't fund.
+      if (dfiFilter && dfiFilter.length) return r.dfiN > 0;
+      // No filter: drop empty sectors.
+      return r.totalN > 0;
+    });
+
+    working.sort(function (a, b) {
+      if (a.totalN !== b.totalN) return b.totalN - a.totalN;
+      return b.peerN - a.peerN;
+    });
+
+    var maxBar = 1;
+    working.forEach(function (r) {
+      if (r.peerN > maxBar) maxBar = r.peerN;
+      if (r.dfiN > maxBar) maxBar = r.dfiN;
+    });
+
+    // ---- geometry ---------------------------------------------------------
+    var ROW_H = 36, ROW_GAP = 6, LABEL_W = 220, GUTTER = 28;
+    var BAR_AREA = 280;
+    var NUM_MARGIN = 36;          // reserved for the count text past the bar
+    var BAR_W_MAX = BAR_AREA - NUM_MARGIN;
+    var PADDING = 14;
+    var width = LABEL_W + BAR_AREA + GUTTER + BAR_AREA + PADDING * 2;
+    var height = working.length * (ROW_H + ROW_GAP) + PADDING * 2 + 32;
+    var axisX = PADDING + LABEL_W + BAR_AREA + GUTTER / 2;
+
+    var dfiAxisLabel = useActive ? "DFIs active 3y ◀" : "DFIs ◀";
+    var peerAxisLabel = "▶ Peer-fund precedents";
+
+    // ---- SVG ----------------------------------------------------------------
+    var parts = [];
+    parts.push('<svg class="impact-chart" viewBox="0 0 ' + width + ' ' + height +
+      '" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Sectors funded by DFI count and peer-fund precedent count">');
+
+    // axis labels
+    parts.push('<text class="ic-axis-head ic-axis-head-dfi" x="' + (axisX - GUTTER / 2 - 6) + '" y="' + (PADDING + 12) + '" text-anchor="end">' + esc(dfiAxisLabel) + '</text>');
+    parts.push('<text class="ic-axis-head ic-axis-head-peer" x="' + (axisX + GUTTER / 2 + 6) + '" y="' + (PADDING + 12) + '" text-anchor="start">' + esc(peerAxisLabel) + '</text>');
+
+    // axis line
+    var axisY1 = PADDING + 22;
+    var axisY2 = height - PADDING;
+    parts.push('<line class="ic-axis" x1="' + axisX + '" x2="' + axisX + '" y1="' + axisY1 + '" y2="' + axisY2 + '" />');
+
+    working.forEach(function (r, i) {
+      var rowTop = PADDING + 32 + i * (ROW_H + ROW_GAP);
+      var barY = rowTop + 6;
+      var barH = ROW_H - 12;
+
+      // label (left of axis-area, above DFI bar)
+      parts.push('<text class="ic-label" x="' + (PADDING + LABEL_W - 8) + '" y="' + (rowTop + 22) + '" text-anchor="end">' +
+        esc(r.label) + '</text>');
+
+      // DFI bar (grows leftward from axis)
+      var dfiW = r.dfiN > 0 ? Math.max(1, (r.dfiN / maxBar) * BAR_W_MAX) : 0;
+      if (dfiW > 0) {
+        parts.push('<rect class="ic-bar ic-bar-dfi" x="' + (axisX - GUTTER / 2 - dfiW) +
+          '" y="' + barY + '" width="' + dfiW + '" height="' + barH + '" rx="1.5" />');
+        parts.push('<text class="ic-num ic-num-dfi" x="' + (axisX - GUTTER / 2 - dfiW - 6) +
+          '" y="' + (rowTop + 22) + '" text-anchor="end">' + r.dfiN + '</text>');
+      }
+
+      // Peer bar (grows rightward from axis)
+      var peerW = r.peerN > 0 ? Math.max(1, (r.peerN / maxBar) * BAR_W_MAX) : 0;
+      if (peerW > 0) {
+        parts.push('<rect class="ic-bar ic-bar-peer" x="' + (axisX + GUTTER / 2) +
+          '" y="' + barY + '" width="' + peerW + '" height="' + barH + '" rx="1.5" />');
+        parts.push('<text class="ic-num ic-num-peer" x="' + (axisX + GUTTER / 2 + peerW + 6) +
+          '" y="' + (rowTop + 22) + '" text-anchor="start">' + r.peerN + '</text>');
+      }
+
+      // click overlay (transparent, full row width)
+      parts.push('<rect class="ic-row-hit" data-sector="' + escAttr(r.slug) +
+        '" x="' + PADDING + '" y="' + rowTop + '" width="' + (width - PADDING * 2) +
+        '" height="' + ROW_H + '" />');
+    });
+
+    if (working.length === 0) {
+      parts.push('<text class="ic-empty" x="' + (width / 2) + '" y="' + (height / 2) +
+        '" text-anchor="middle">No sectors match the current filter.</text>');
+    }
+
+    parts.push('</svg>');
+
+    svgRoot.innerHTML = parts.join("");
+
+    // ---- click → drawer -----------------------------------------------------
+    if (drawerRoot) {
+      var current = null;
+      function open(slug) {
+        var row = working.filter(function (r) { return r.slug === slug; })[0];
+        if (!row) { drawerRoot.innerHTML = ""; return; }
+        current = slug;
+        drawerRoot.innerHTML = renderImpactDrawer(row, prefix);
+        // mark selected hit
+        var hits = svgRoot.querySelectorAll(".ic-row-hit");
+        for (var i = 0; i < hits.length; i++) {
+          hits[i].classList.toggle("is-selected", hits[i].getAttribute("data-sector") === slug);
+        }
+        drawerRoot.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+      svgRoot.addEventListener("click", function (e) {
+        var hit = e.target.closest(".ic-row-hit");
+        if (!hit) return;
+        var slug = hit.getAttribute("data-sector");
+        if (slug === current) {
+          // re-click closes
+          drawerRoot.innerHTML = "";
+          current = null;
+          var hits2 = svgRoot.querySelectorAll(".ic-row-hit");
+          for (var j = 0; j < hits2.length; j++) hits2[j].classList.remove("is-selected");
+          return;
+        }
+        open(slug);
+      });
+
+      // Open the top sector by default if there's something to show.
+      if (working.length > 0 && opts.openFirst !== false) open(working[0].slug);
+    }
+
+    return working;
+  }
+
+  function renderImpactDrawer(row, prefix) {
+    function fundUrl(slug) { return prefix + "peer-funds/#fund-" + slug; }
+    function dfiUrl(slug) { return prefix + "dfis/#dfi-" + slug; }
+    function statusBadge(s) {
+      if (!s) return "";
+      return badge(s.replace(/_/g, " "), "badge-status badge-status-" + esc(s));
+    }
+    function flag(c) {
+      if (!c) return "";
+      return '<span class="ic-cc">' + esc(c) + '</span>';
+    }
+    function activeDot(active) {
+      return active
+        ? '<span class="ic-active-dot" title="Active in last 3y" aria-label="Active in last 3y">●</span>'
+        : '<span class="ic-inactive-dot" title="No commit in last 3y" aria-label="No commit in last 3y">○</span>';
+    }
+
+    var dfiHtml = (row.dfis || []).map(function (d) {
+      var meta = [];
+      if (d.country) meta.push(flag(d.country));
+      meta.push('<span class="ic-commit-n">' + d.commit_count + ' commit' + (d.commit_count === 1 ? '' : 's') + '</span>');
+      if (d.last_commit_date) meta.push('<span class="muted">last ' + esc(fmtDate(d.last_commit_date)) + '</span>');
+      return '<li class="ic-drawer-item ic-drawer-dfi">'
+        + activeDot(d.is_active_3y)
+        + '<a class="ic-drawer-name" href="' + escAttr(dfiUrl(d.slug)) + '">' + esc(d.name) + '</a>'
+        + '<span class="ic-drawer-meta">' + meta.join('<span class="sep">·</span>') + '</span>'
+        + '</li>';
+    }).join("");
+
+    var fundHtml = (row.peer_funds || []).map(function (f) {
+      var meta = [];
+      if (f.parent_ingo) meta.push('<span class="ic-drawer-ingo">' + esc(f.parent_ingo) + '</span>');
+      if (f.parent_ingo_country) meta.push(flag(f.parent_ingo_country));
+      var dateStr = f.first_close_date ? fmtDate(f.first_close_date) : (f.vintage ? String(f.vintage) : "");
+      if (dateStr) meta.push('<span class="muted">' + esc(dateStr) + '</span>');
+      if (f.size_usd_m != null) meta.push('<span class="ic-drawer-size">' + esc(fmtUSDm(f.size_usd_m)) + '</span>');
+      meta.push(statusBadge(f.status));
+      return '<li class="ic-drawer-item ic-drawer-fund">'
+        + '<a class="ic-drawer-name" href="' + escAttr(fundUrl(f.slug)) + '">' + esc(f.name) + '</a>'
+        + '<span class="ic-drawer-meta">' + meta.join('<span class="sep">·</span>') + '</span>'
+        + '</li>';
+    }).join("");
+
+    var dfiHeader = (row.dfis || []).length
+      ? 'DFIs (' + (row.dfis || []).length + ')'
+      : 'DFIs (0 — no commitments on record yet)';
+    var fundHeader = (row.peer_funds || []).length
+      ? 'Peer-fund precedents (' + (row.peer_funds || []).length + ')'
+      : 'Peer-fund precedents (0)';
+
+    return '<div class="ic-drawer">'
+      + '<div class="ic-drawer-head">'
+        + '<h3 class="ic-drawer-title">' + esc(row.label) + '</h3>'
+        + '<div class="ic-drawer-stats">'
+          + '<span><strong>' + (row.dfis || []).length + '</strong> DFIs</span>'
+          + '<span class="sep">·</span>'
+          + '<span><strong>' + (row.peer_funds || []).length + '</strong> peer funds</span>'
+        + '</div>'
+      + '</div>'
+      + '<div class="ic-drawer-cols">'
+        + '<div class="ic-drawer-col"><h4>' + dfiHeader + '</h4>'
+          + (dfiHtml ? '<ul class="ic-drawer-list">' + dfiHtml + '</ul>'
+                     : '<p class="muted">No DFI commitments to INGO-sponsored funds in this sector are in the public record yet.</p>')
+        + '</div>'
+        + '<div class="ic-drawer-col"><h4>' + fundHeader + '</h4>'
+          + (fundHtml ? '<ul class="ic-drawer-list">' + fundHtml + '</ul>'
+                     : '<p class="muted">No INGO-sponsored fund precedents tagged in this sector.</p>')
+        + '</div>'
+      + '</div>'
+      + '</div>';
+  }
+
   // ---- Public API ---------------------------------------------------------
 
   root.IFC = {
@@ -370,6 +594,8 @@
     renderFundCard: renderFundCard,
     renderDfiCard: renderDfiCard,
     renderDeadlineRow: renderDeadlineRow,
+    renderImpactChart: renderImpactChart,
+    renderImpactDrawer: renderImpactDrawer,
     installCardClick: installCardClick,
     buildCountryOptions: buildCountryOptions,
   };

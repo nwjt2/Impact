@@ -31,6 +31,7 @@ tool/state/
 site/src/_data/deadlines.json
 site/src/_data/dfi_ingo_commits.json
 site/src/_data/health.json
+site/src/_data/impact_areas.json
 site/src/_data/meta.json
 site/src/_data/peer_ingo_funds.json
 site/src/_data/slot_meta.json

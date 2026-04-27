@@ -46,6 +46,7 @@ from typing import Any
 
 import yaml
 
+from .aggregate import build_impact_areas
 from .emit import write_json
 from .schemas import (
     Deadline,
@@ -527,6 +528,12 @@ def build(verbose: bool = True) -> dict[str, int]:
     write_json("dfi_ingo_commits", dfi_payload)
     write_json("deadlines", dead_payload)
 
+    # --- impact-areas aggregation ---
+    impact_rows = build_impact_areas(peer_models, dfi_cards, raw_commits, _today())
+    write_json("impact_areas", impact_rows)
+    if verbose:
+        print(f"[impact] impact_areas: {len(impact_rows)} sectors")
+
     # --- slot_meta ---
     # Country enum populated from actually-observed values so the dropdown
     # only shows live options. Includes "All" sentinel.
@@ -542,6 +549,7 @@ def build(verbose: bool = True) -> dict[str, int]:
             "peer_ingo_funds": len(slot1_models),
             "dfi_ingo_commits": len(dfi_cards),
             "deadlines": len(deadlines),
+            "impact_areas": len(impact_rows),
         },
         "country_counts": {
             "slot_1_parent_ingo_country": dict(slot1_countries),
