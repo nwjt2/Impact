@@ -19,10 +19,10 @@ pageKey: index
 <section class="sec home-split">
   <div class="home-col home-col-impact">
     <header class="sec-head">
-      <h2 class="sec-title">Impact areas <em>// counting only DFIs that committed in the last 3 years</em></h2>
+      <h2 class="sec-title">Impact areas <em>// DFIs active in the last 3 years AND with a current open call</em></h2>
       <a class="sec-link" href="{{ '/impact-areas/' | url }}">All sectors →</a>
     </header>
-    <p class="ic-strapline muted">Sorted by combined count of <span class="cyan">active DFIs (≤ 3y)</span> and <span class="amber">peer-fund precedents</span>. Click a row for the underlying funds &amp; DFIs.</p>
+    <p class="ic-strapline muted">Sorted by combined count of <span class="cyan">active &amp; calling DFIs</span> and <span class="amber">peer-fund precedents</span>. Click a row for the underlying funds &amp; DFIs.</p>
     <div id="ic-home-chart" class="ic-chart-wrap"></div>
     <div id="ic-home-drawer" class="ic-drawer-wrap"></div>
   </div>
@@ -314,7 +314,7 @@ pageKey: index
   var icChart  = document.getElementById("ic-home-chart");
   var icDrawer = document.getElementById("ic-home-drawer");
   if (icChart && IMPACT.length > 0) {
-    I.renderImpactChart(icChart, icDrawer, IMPACT, { useActive: true, openFirst: false });
+    I.renderImpactChart(icChart, icDrawer, IMPACT, { useActive: true, useCalling: true, openFirst: false });
   }
 
   // Whole-row click on agenda (delegated)
