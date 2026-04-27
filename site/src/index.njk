@@ -19,8 +19,8 @@ pageKey: index
 <section class="sec home-split">
   <div class="home-col home-col-impact">
     <header class="sec-head">
-      <h2 class="sec-title">Impact areas <em>// counted only DFIs that committed in last 3y</em></h2>
-      <a class="sec-link" href="{{ '/impact-areas/' | url }}">All sectors · toggle filter →</a>
+      <h2 class="sec-title">Impact areas <em>// counting only DFIs that committed in the last 3 years</em></h2>
+      <a class="sec-link" href="{{ '/impact-areas/' | url }}">All sectors →</a>
     </header>
     <p class="ic-strapline muted">Sorted by combined count of <span class="cyan">active DFIs (≤ 3y)</span> and <span class="amber">peer-fund precedents</span>. Click a row for the underlying funds &amp; DFIs.</p>
     <div id="ic-home-chart" class="ic-chart-wrap"></div>
@@ -29,8 +29,8 @@ pageKey: index
 
   <div class="home-col home-col-agenda">
     <header class="sec-head">
-      <h2 class="sec-title">Agenda <em>// upcoming hard dates</em></h2>
-      <a class="sec-link" href="{{ '/deadlines/' | url }}">All {{ slot_meta.slot_counts.deadlines }} deadlines →</a>
+      <h2 class="sec-title">Upcoming deadlines <em>// fixed dates first</em></h2>
+      <a class="sec-link" href="{{ '/deadlines/' | url }}">All {{ slot_meta.slot_counts.deadlines }} →</a>
     </header>
     <div id="agenda" class="agenda-paged"></div>
     <div id="agenda-pager" class="agenda-pager"></div>
@@ -50,8 +50,8 @@ pageKey: index
 
 <aside class="footnotes">
   <div class="footnotes-head">
-    <h3>On sourcing</h3>
-    <span class="footnotes-meta">Last scrape {{ meta.last_run_timestamp | dateISO }}</span>
+    <h3>About the data</h3>
+    <span class="footnotes-meta">Last updated {{ meta.last_run_timestamp | dateISO }}</span>
   </div>
   <div class="footnotes-body">
     <p>Every entry links to a public disclosure — DFI press release, INGO annual report, regulator filing, or fund-manager website. Where a fact is not yet public, it is omitted; where a record cannot be re-verified, it is flagged <strong>UNVERIFIED</strong>. The site is static; no user data is collected, stored, or transmitted.</p>
@@ -117,7 +117,7 @@ pageKey: index
 
     return [
       cell(
-        "Hard dates, next 90 days",
+        "Deadlines, next 90 days",
         nearDeadlines.length,
         critical > 0
           ? '<strong class="warn">' + critical + '</strong> inside 14 days'
@@ -166,7 +166,7 @@ pageKey: index
 
     if (hard.length === 0) {
       return {
-        html: '<p class="muted" style="padding:18px 0;">No hard-date deadlines on the horizon. See <a href="{{ "/deadlines/" | url }}">all {{ slot_meta.slot_counts.deadlines }} records</a> for rolling and recurring programs.</p>',
+        html: '<p class="muted" style="padding:18px 0;">No fixed-date deadlines coming up. See <a href="{{ "/deadlines/" | url }}">all {{ slot_meta.slot_counts.deadlines }} records</a> for rolling and recurring programs.</p>',
         sources: [], pageCount: 0,
       };
     }
@@ -205,7 +205,7 @@ pageKey: index
         + '<th class="col-date">When</th>'
         + '<th class="col-rel">In</th>'
         + '<th>Item</th>'
-        + '<th class="col-issuer">Issuer</th>'
+        + '<th class="col-issuer">From</th>'
         + '<th class="col-kind">Kind</th>'
         + '</tr></thead><tbody>' + rows + '</tbody></table>',
       sources: sources,

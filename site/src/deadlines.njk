@@ -9,14 +9,14 @@ pageKey: deadlines
   <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
   <header class="detail-header">
     <div class="detail-eyebrow">
-      <span>Agenda · dated items</span>
+      <span>Deadlines · dated items</span>
     </div>
     <h1>Application windows, regulator filings, board meetings, and conferences.</h1>
-    <p class="detail-sub">{{ deadlines | length }} records across DFIs, regulators, template publishers, and conferences. Each row is labelled with what its date means — <em>Apply by</em> / <em>File by</em> for true deadlines, <em>Board meets</em> / <em>Event starts</em> / <em>Reissued</em> for fixed-date events. Hard dates first; rolling and cyclical windows follow. Each row links to its primary source.</p>
+    <p class="detail-sub">{{ deadlines | length }} records across DFIs, regulators, template publishers, and conferences. Each row is labelled with what its date means — <em>Apply by</em> / <em>File by</em> for true deadlines, <em>Board meets</em> / <em>Event starts</em> / <em>Reissued</em> for fixed-date events. Fixed dates first; rolling and cyclical windows follow. Each row links to its primary source.</p>
   </header>
 
   <div class="filter-bar">
-    <label class="filter-label" for="country-filter">Issuer country</label>
+    <label class="filter-label" for="country-filter">Country</label>
     <select id="country-filter" class="filter-select"></select>
     <span id="filter-summary" class="filter-summary"></span>
   </div>
