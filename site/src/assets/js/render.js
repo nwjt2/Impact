@@ -388,10 +388,16 @@
       if (useActive)  visibleDfis = visibleDfis.filter(function (d) { return d.is_active_3y; });
       if (useCalling) visibleDfis = visibleDfis.filter(function (d) { return d.is_calling; });
       var peerN = (r.peer_funds || []).length;
+      var statedLps = r.stated_lps || [];
       return {
         slug: r.slug, label: r.label,
-        peerN: peerN, dfiN: visibleDfis.length, totalN: peerN + visibleDfis.length,
-        peer_funds: r.peer_funds, dfis: visibleDfis,
+        peerN: peerN, dfiN: visibleDfis.length,
+        statedN: statedLps.length,
+        statedFoundationN: r.stated_foundation_count || 0,
+        statedFamilyOfficeN: r.stated_family_office_count || 0,
+        totalN: peerN + visibleDfis.length + statedLps.length,
+        committedN: peerN + visibleDfis.length,
+        peer_funds: r.peer_funds, dfis: visibleDfis, stated_lps: statedLps,
       };
     }).filter(function (r) {
       // If filtering by DFI, drop sectors that DFI doesn't fund.
@@ -400,25 +406,35 @@
       return r.totalN > 0;
     });
 
+    // Sort by committed evidence first (DFIs + peer funds), then break ties
+    // with stated interest. Keeps the credibility ranking intact while still
+    // letting stated interest move sectors with no commitments above ones
+    // with neither.
     working.sort(function (a, b) {
-      if (a.totalN !== b.totalN) return b.totalN - a.totalN;
-      return b.peerN - a.peerN;
+      if (a.committedN !== b.committedN) return b.committedN - a.committedN;
+      if (a.peerN     !== b.peerN)       return b.peerN - a.peerN;
+      return b.statedN - a.statedN;
     });
 
     var maxBar = 1;
     working.forEach(function (r) {
-      if (r.peerN > maxBar) maxBar = r.peerN;
-      if (r.dfiN > maxBar) maxBar = r.dfiN;
+      if (r.peerN   > maxBar) maxBar = r.peerN;
+      if (r.dfiN    > maxBar) maxBar = r.dfiN;
+      if (r.statedN > maxBar) maxBar = r.statedN;
     });
 
     // ---- geometry ---------------------------------------------------------
-    var ROW_H = 36, ROW_GAP = 6, LABEL_W = 220, GUTTER = 28;
+    // Each sector gets two stacked sub-rows:
+    //   top    — butterfly: DFIs (cyan, leftward) ◀ axis ▶ peer funds (amber, rightward)
+    //   bottom — stated interest: foundations + family offices (muted violet, rightward
+    //            from the axis). Thinner bar to signal it's a secondary evidence type.
+    var ROW_H = 52, ROW_GAP = 8, LABEL_W = 240, GUTTER = 28;
     var BAR_AREA = 280;
-    var NUM_MARGIN = 36;          // reserved for the count text past the bar
+    var NUM_MARGIN = 44;          // reserved for the count text past the bar
     var BAR_W_MAX = BAR_AREA - NUM_MARGIN;
     var PADDING = 14;
     var width = LABEL_W + BAR_AREA + GUTTER + BAR_AREA + PADDING * 2;
-    var height = working.length * (ROW_H + ROW_GAP) + PADDING * 2 + 32;
+    var height = working.length * (ROW_H + ROW_GAP) + PADDING * 2 + 38;
     var axisX = PADDING + LABEL_W + BAR_AREA + GUTTER / 2;
 
     var axisFlags = [];
@@ -426,30 +442,36 @@
     if (useCalling) axisFlags.push("calling now");
     var dfiAxisLabel = axisFlags.length
       ? "DFIs " + axisFlags.join(" + ") + " ◀"
-      : "DFIs ◀";
+      : "DFIs committed ◀";
     var peerAxisLabel = "▶ Peer-fund precedents";
 
     // ---- SVG ----------------------------------------------------------------
     var parts = [];
     parts.push('<svg class="impact-chart" viewBox="0 0 ' + width + ' ' + height +
-      '" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Sectors funded by DFI count and peer-fund precedent count">');
+      '" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Sectors by committed DFIs, peer-fund precedents, and stated-interest LPs">');
 
-    // axis labels
+    // axis labels (top — committed/precedent butterfly)
     parts.push('<text class="ic-axis-head ic-axis-head-dfi" x="' + (axisX - GUTTER / 2 - 6) + '" y="' + (PADDING + 12) + '" text-anchor="end">' + esc(dfiAxisLabel) + '</text>');
     parts.push('<text class="ic-axis-head ic-axis-head-peer" x="' + (axisX + GUTTER / 2 + 6) + '" y="' + (PADDING + 12) + '" text-anchor="start">' + esc(peerAxisLabel) + '</text>');
+    // axis sub-label for the stated-interest band
+    parts.push('<text class="ic-axis-head ic-axis-head-stated" x="' + (axisX + GUTTER / 2 + 6) + '" y="' + (PADDING + 26) + '" text-anchor="start">▶ Stated interest (foundations + family offices)</text>');
 
     // axis line
-    var axisY1 = PADDING + 22;
+    var axisY1 = PADDING + 32;
     var axisY2 = height - PADDING;
     parts.push('<line class="ic-axis" x1="' + axisX + '" x2="' + axisX + '" y1="' + axisY1 + '" y2="' + axisY2 + '" />');
 
     working.forEach(function (r, i) {
-      var rowTop = PADDING + 32 + i * (ROW_H + ROW_GAP);
-      var barY = rowTop + 6;
-      var barH = ROW_H - 12;
+      var rowTop = PADDING + 38 + i * (ROW_H + ROW_GAP);
+      // Top sub-row: butterfly (committed evidence)
+      var barY = rowTop + 4;
+      var barH = 22;
+      // Bottom sub-row: stated interest
+      var statedBarY = rowTop + 32;
+      var statedBarH = 12;
 
-      // label (left of axis-area, above DFI bar)
-      parts.push('<text class="ic-label" x="' + (PADDING + LABEL_W - 8) + '" y="' + (rowTop + 22) + '" text-anchor="end">' +
+      // label (vertically centered across both sub-rows)
+      parts.push('<text class="ic-label" x="' + (PADDING + LABEL_W - 8) + '" y="' + (rowTop + 24) + '" text-anchor="end">' +
         esc(r.label) + '</text>');
 
       // DFI bar (grows leftward from axis)
@@ -458,7 +480,7 @@
         parts.push('<rect class="ic-bar ic-bar-dfi" x="' + (axisX - GUTTER / 2 - dfiW) +
           '" y="' + barY + '" width="' + dfiW + '" height="' + barH + '" rx="1.5" />');
         parts.push('<text class="ic-num ic-num-dfi" x="' + (axisX - GUTTER / 2 - dfiW - 6) +
-          '" y="' + (rowTop + 22) + '" text-anchor="end">' + r.dfiN + '</text>');
+          '" y="' + (barY + barH - 6) + '" text-anchor="end">' + r.dfiN + '</text>');
       }
 
       // Peer bar (grows rightward from axis)
@@ -467,10 +489,21 @@
         parts.push('<rect class="ic-bar ic-bar-peer" x="' + (axisX + GUTTER / 2) +
           '" y="' + barY + '" width="' + peerW + '" height="' + barH + '" rx="1.5" />');
         parts.push('<text class="ic-num ic-num-peer" x="' + (axisX + GUTTER / 2 + peerW + 6) +
-          '" y="' + (rowTop + 22) + '" text-anchor="start">' + r.peerN + '</text>');
+          '" y="' + (barY + barH - 6) + '" text-anchor="start">' + r.peerN + '</text>');
       }
 
-      // click overlay (transparent, full row width)
+      // Stated-interest bar (grows rightward from axis, thinner & muted)
+      var statedW = r.statedN > 0 ? Math.max(1, (r.statedN / maxBar) * BAR_W_MAX) : 0;
+      if (statedW > 0) {
+        parts.push('<rect class="ic-bar ic-bar-stated" x="' + (axisX + GUTTER / 2) +
+          '" y="' + statedBarY + '" width="' + statedW + '" height="' + statedBarH + '" rx="1.5" />');
+        var statedLabel = r.statedN +
+          ' (' + r.statedFoundationN + 'f / ' + r.statedFamilyOfficeN + 'fo)';
+        parts.push('<text class="ic-num ic-num-stated" x="' + (axisX + GUTTER / 2 + statedW + 6) +
+          '" y="' + (statedBarY + statedBarH - 2) + '" text-anchor="start">' + statedLabel + '</text>');
+      }
+
+      // click overlay (transparent, full row width — covers both sub-rows)
       parts.push('<rect class="ic-row-hit" data-sector="' + escAttr(r.slug) +
         '" x="' + PADDING + '" y="' + rowTop + '" width="' + (width - PADDING * 2) +
         '" height="' + ROW_H + '" />');
@@ -566,12 +599,35 @@
         + '</li>';
     }).join("");
 
+    var statedHtml = (row.stated_lps || []).map(function (lp) {
+      var meta = [];
+      if (lp.country) meta.push(flag(lp.country));
+      var kindLabel = lp.kind === "foundation" ? "Foundation"
+                    : lp.kind === "family_office" ? "Family office / FB / DAF"
+                    : (lp.kind || "");
+      if (kindLabel) meta.push('<span class="ic-stated-kind">' + esc(kindLabel) + '</span>');
+      var hrefBase = lp.kind === "foundation" ? "foundations/#fdn-"
+                  : lp.kind === "family_office" ? "family-offices/#famof-"
+                  : "";
+      var nameHtml = hrefBase
+        ? '<a class="ic-drawer-name" href="' + escAttr(prefix + hrefBase + lp.slug) + '">' + esc(lp.name) + '</a>'
+        : '<span class="ic-drawer-name">' + esc(lp.name) + '</span>';
+      return '<li class="ic-drawer-item ic-drawer-stated">'
+        + '<span class="ic-stated-dot" title="Stated interest, not a confirmed commitment" aria-label="Stated interest">◇</span>'
+        + nameHtml
+        + '<span class="ic-drawer-meta">' + meta.join('<span class="sep">·</span>') + '</span>'
+        + '</li>';
+    }).join("");
+
     var dfiHeader = (row.dfis || []).length
-      ? 'DFIs (' + (row.dfis || []).length + ')'
-      : 'DFIs (0 — no commitments on record yet)';
+      ? 'DFIs committed (' + (row.dfis || []).length + ')'
+      : 'DFIs committed (0 — no commitments on record yet)';
     var fundHeader = (row.peer_funds || []).length
       ? 'Peer-fund precedents (' + (row.peer_funds || []).length + ')'
       : 'Peer-fund precedents (0)';
+    var statedHeader = (row.stated_lps || []).length
+      ? 'Stated interest — foundations &amp; family offices (' + (row.stated_lps || []).length + ')'
+      : 'Stated interest — foundations &amp; family offices (0)';
 
     return '<div class="ic-drawer">'
       + '<div class="ic-drawer-head">'
@@ -580,9 +636,11 @@
           + '<span><strong>' + (row.dfis || []).length + '</strong> DFIs</span>'
           + '<span class="sep">·</span>'
           + '<span><strong>' + (row.peer_funds || []).length + '</strong> peer funds</span>'
+          + '<span class="sep">·</span>'
+          + '<span><strong>' + (row.stated_lps || []).length + '</strong> LPs stated</span>'
         + '</div>'
       + '</div>'
-      + '<div class="ic-drawer-cols">'
+      + '<div class="ic-drawer-cols ic-drawer-cols-3">'
         + '<div class="ic-drawer-col"><h4>' + dfiHeader + '</h4>'
           + (dfiHtml ? '<ul class="ic-drawer-list">' + dfiHtml + '</ul>'
                      : '<p class="muted">No DFI commitments to INGO-sponsored funds in this sector are in the public record yet.</p>')
@@ -590,6 +648,10 @@
         + '<div class="ic-drawer-col"><h4>' + fundHeader + '</h4>'
           + (fundHtml ? '<ul class="ic-drawer-list">' + fundHtml + '</ul>'
                      : '<p class="muted">No INGO-sponsored fund precedents tagged in this sector.</p>')
+        + '</div>'
+        + '<div class="ic-drawer-col"><h4>' + statedHeader + '</h4>'
+          + (statedHtml ? '<ul class="ic-drawer-list">' + statedHtml + '</ul>'
+                       : '<p class="muted">No foundations or family offices have publicly stated this as a priority theme.</p>')
         + '</div>'
       + '</div>'
       + '</div>';

@@ -12,7 +12,7 @@ pageKey: impact-areas
       <span>Capital sources · Impact areas</span>
     </div>
     <h1>Which impact areas are getting funded?</h1>
-    <p class="detail-sub">{{ impact_areas | length }} sectors, ranked by the count of DFIs that have committed and INGO-sponsored fund precedents on record. Click any sector to see the underlying funds and DFIs. Toggle the filter to limit DFIs to those that have committed to an INGO-GP fund in the last 3 years.</p>
+    <p class="detail-sub">{{ impact_areas | length }} sectors, ranked by committed evidence (DFIs that have written checks into INGO-sponsored funds, plus INGO-sponsored fund precedents on record). A second muted bar shows <em>stated interest</em> — foundations and family offices that publicly name the sector as a priority theme. Click any sector to see the underlying funds, DFIs, and stated-interest LPs. Toggle the filter to limit DFIs to those that have committed in the last 3 years.</p>
   </header>
 
   <div class="ic-controls">
@@ -36,13 +36,14 @@ pageKey: impact-areas
   <div class="ic-legend">
     <span class="ic-legend-item"><span class="ic-legend-swatch ic-legend-dfi"></span> DFIs that have committed</span>
     <span class="ic-legend-item"><span class="ic-legend-swatch ic-legend-peer"></span> INGO-sponsored fund precedents</span>
+    <span class="ic-legend-item"><span class="ic-legend-swatch ic-legend-stated"></span> Foundations &amp; family offices · <em>stated interest</em></span>
   </div>
 
   <div id="ic-chart" class="ic-chart-wrap" aria-live="polite"></div>
   <div id="ic-drawer" class="ic-drawer-wrap"></div>
 
   <p class="ic-honest muted">
-    Honesty notes. <strong>Peer-fund precedents</strong> are INGO-sponsored fund vehicles tagged with this sector in <a href="{{ '/peer-funds/' | url }}">/peer-funds/</a>; non-INGO comparables and programmatic-not-fund entries are excluded. <strong>DFIs</strong> are counted when there is a publicly disclosed commitment to one of those INGO-sponsored funds on record in <a href="{{ '/dfis/' | url }}">/dfis/</a>. <strong>Active</strong> means the DFI's most recent in-sector commit_date is within the last 3 years. <strong>Calling</strong> means the DFI has at least one currently-open RFP, open call, or rolling application in <a href="{{ '/deadlines/' | url }}">/deadlines/</a>; the join is by DFI name, so call-windows operated by sub-entities or programs not in the DFI registry won't surface here. Counts will undershoot reality where commitments exist but are not yet disclosed.
+    Honesty notes. <strong>Peer-fund precedents</strong> are INGO-sponsored fund vehicles tagged with this sector in <a href="{{ '/peer-funds/' | url }}">/peer-funds/</a>; non-INGO comparables and programmatic-not-fund entries are excluded. <strong>DFIs</strong> are counted when there is a publicly disclosed commitment to one of those INGO-sponsored funds on record in <a href="{{ '/dfis/' | url }}">/dfis/</a>. <strong>Active</strong> means the DFI's most recent in-sector commit_date is within the last 3 years. <strong>Calling</strong> means the DFI has at least one currently-open RFP, open call, or rolling application in <a href="{{ '/deadlines/' | url }}">/deadlines/</a>; the join is by DFI name, so call-windows operated by sub-entities or programs not in the DFI registry won't surface here. <strong>Stated interest</strong> is a different evidence type: it counts foundations in <a href="{{ '/foundations/' | url }}">/foundations/</a> and family offices in <a href="{{ '/family-offices/' | url }}">/family-offices/</a> whose publicly-stated <code>priority_themes</code> include the sector. It is intent, not a confirmed check — and the LP/FO toggles do <em>not</em> filter this band. Counts will undershoot reality where commitments exist but are not yet disclosed.
   </p>
 </section>
 

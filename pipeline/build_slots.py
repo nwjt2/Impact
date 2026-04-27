@@ -698,7 +698,15 @@ def build(verbose: bool = True) -> dict[str, int]:
     write_json("family_office_lps", [_dump(m) for m in family_office_models])
 
     # --- impact-areas aggregation ---
-    impact_rows = build_impact_areas(peer_models, dfi_cards, raw_commits, _today(), deadlines)
+    impact_rows = build_impact_areas(
+        peer_models,
+        dfi_cards,
+        raw_commits,
+        _today(),
+        deadlines,
+        foundation_lps=foundation_models,
+        family_office_lps=family_office_models,
+    )
     write_json("impact_areas", impact_rows)
     if verbose:
         print(f"[impact] impact_areas: {len(impact_rows)} sectors")

@@ -27,6 +27,8 @@
   --red-dim:   #aa2020;
   --magenta:   #ff7ad9;
   --orange:    #ff8a3d;
+  --violet:    #b59cff;        /* stated-interest band — distinct from cyan/amber */
+  --violet-dim:#5e4f99;
 
   --mono: "IBM Plex Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --sans: "IBM Plex Sans", "Inter Tight", "Inter", system-ui, -apple-system, sans-serif;
@@ -53,8 +55,9 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
 
 .tnum { font-variant-numeric: tabular-nums; }
 .muted { color: var(--fg-3); }
-.amber { color: var(--amber); }
-.cyan  { color: var(--cyan); }
+.amber  { color: var(--amber); }
+.cyan   { color: var(--cyan); }
+.violet { color: var(--violet); }
 .green { color: var(--green); }
 .red   { color: var(--red); }
 .warn  { color: var(--orange); }
@@ -159,17 +162,20 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
   display: grid;
   grid-template-columns: 1fr;
   gap: 10px;
-  max-width: 90ch;
 }
 .doc-title-tag {
   display: flex;
-  gap: 10px;
+  flex-wrap: wrap;
+  row-gap: 4px;
+  column-gap: 10px;
   align-items: center;
   font-size: 11px;
   font-family: var(--mono);
   color: var(--fg-3);
   letter-spacing: 0.01em;
 }
+.doc-title-tag > * { min-width: 0; }
+.doc-title-tag .sep:last-child { display: none; }
 .doc-title-h1 {
   margin: 0;
   font-family: var(--mono);
@@ -184,7 +190,6 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
   margin: 4px 0 0;
   font-size: 13px;
   color: var(--fg-2);
-  max-width: 90ch;
   line-height: 1.6;
 }
 
@@ -1192,8 +1197,10 @@ a.commit-fund:hover { color: var(--amber); }
   height: 10px;
   border-radius: 2px;
 }
-.ic-legend-dfi  { background: var(--cyan-dim); }
-.ic-legend-peer { background: var(--amber); }
+.ic-legend-dfi    { background: var(--cyan-dim); }
+.ic-legend-peer   { background: var(--amber); }
+.ic-legend-stated { background: var(--violet-dim); height: 6px; }
+.ic-legend-item em { color: var(--fg-3); font-style: italic; }
 
 .ic-chart-wrap {
   margin: 14px 0 0;
@@ -1217,8 +1224,16 @@ a.commit-fund:hover { color: var(--amber); }
   text-transform: uppercase;
   font-weight: 600;
 }
-.impact-chart .ic-axis-head-dfi  { fill: var(--cyan); }
-.impact-chart .ic-axis-head-peer { fill: var(--amber); }
+.impact-chart .ic-axis-head-dfi    { fill: var(--cyan); }
+.impact-chart .ic-axis-head-peer   { fill: var(--amber); }
+.impact-chart .ic-axis-head-stated {
+  fill: var(--violet);
+  font-size: 9.5px;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  font-weight: 500;
+  font-style: italic;
+}
 .impact-chart .ic-label {
   fill: var(--fg);
   font-size: 12px;
@@ -1232,13 +1247,19 @@ a.commit-fund:hover { color: var(--amber); }
   dominant-baseline: middle;
   font-variant-numeric: tabular-nums;
 }
-.impact-chart .ic-num-dfi  { fill: var(--cyan); }
-.impact-chart .ic-num-peer { fill: var(--amber); }
+.impact-chart .ic-num-dfi    { fill: var(--cyan); }
+.impact-chart .ic-num-peer   { fill: var(--amber); }
+.impact-chart .ic-num-stated {
+  fill: var(--violet);
+  font-size: 10px;
+  font-weight: 500;
+}
 .impact-chart .ic-bar {
   transition: width 220ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 160ms ease;
 }
-.impact-chart .ic-bar-dfi  { fill: var(--cyan-dim); }
-.impact-chart .ic-bar-peer { fill: var(--amber); fill-opacity: 0.86; }
+.impact-chart .ic-bar-dfi    { fill: var(--cyan-dim); }
+.impact-chart .ic-bar-peer   { fill: var(--amber); fill-opacity: 0.86; }
+.impact-chart .ic-bar-stated { fill: var(--violet-dim); fill-opacity: 0.78; }
 .impact-chart .ic-row-hit {
   fill: transparent;
   cursor: pointer;
@@ -1297,8 +1318,13 @@ a.commit-fund:hover { color: var(--amber); }
   grid-template-columns: 1fr 1fr;
   gap: 24px;
 }
+.ic-drawer-cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+@media (max-width: 1100px) {
+  .ic-drawer-cols-3 { grid-template-columns: 1fr 1fr; }
+}
 @media (max-width: 900px) {
   .ic-drawer-cols { grid-template-columns: 1fr; }
+  .ic-drawer-cols-3 { grid-template-columns: 1fr; }
 }
 .ic-drawer-col h4 {
   margin: 0 0 8px;
@@ -1351,6 +1377,21 @@ a.commit-fund:hover { color: var(--amber); }
 }
 .ic-active-dot   { color: var(--green); font-size: 12px; line-height: 1; }
 .ic-inactive-dot { color: var(--fg-mute); font-size: 12px; line-height: 1; }
+.ic-stated-dot   { color: var(--violet); font-size: 12px; line-height: 1; }
+.ic-drawer-stated .ic-drawer-name { color: var(--violet); }
+.ic-drawer-stated .ic-drawer-name:hover { color: var(--amber); }
+.ic-stated-kind {
+  display: inline-block;
+  padding: 0 5px;
+  border: 1px solid var(--violet-dim);
+  color: var(--violet);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 1px;
+  background: rgba(181, 156, 255, 0.06);
+}
 .ic-commit-n { color: var(--fg-2); }
 .ic-calling-tag {
   display: inline-block;
@@ -1405,8 +1446,9 @@ a.commit-fund:hover { color: var(--amber); }
   margin: 0;
   line-height: 1.6;
 }
-.ic-strapline .cyan  { color: var(--cyan);  font-weight: 600; }
-.ic-strapline .amber { color: var(--amber); font-weight: 600; }
+.ic-strapline .cyan   { color: var(--cyan);   font-weight: 600; }
+.ic-strapline .amber  { color: var(--amber);  font-weight: 600; }
+.ic-strapline .violet { color: var(--violet); font-weight: 600; }
 
 /* ---- Agenda paginator ---- */
 

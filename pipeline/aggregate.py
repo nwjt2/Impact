@@ -115,17 +115,24 @@ def build_impact_areas(
     raw_commits: list[dict[str, Any]],
     today: date,
     deadlines: list | None = None,
+    foundation_lps: list | None = None,
+    family_office_lps: list | None = None,
 ) -> list[dict[str, Any]]:
     """Return sorted list of impact-area rows for site/src/_data/impact_areas.json.
 
     Rows are sorted by (peer_fund_count + dfi_count) descending — the
-    "what's funded" axis the homepage chart sorts on.
+    "what's funded" axis the homepage chart sorts on. The `stated_lp_*`
+    fields capture a *separate* evidence type: foundations and family
+    offices whose `stated_priority_themes` include the sector. This is
+    *intent*, not commitment, and is rendered as a distinct third bar.
     """
     cutoff = today - timedelta(days=ACTIVE_WINDOW_YEARS * 365 + 1)
     calling_slugs = _calling_dfi_slugs(dfi_cards, deadlines or [])
 
     precedents = [f for f in peer_models if _is_precedent(f)]
     fund_by_slug = {f.slug: f for f in peer_models}
+    foundation_lps = foundation_lps or []
+    family_office_lps = family_office_lps or []
 
     # ---- collect sectors mentioned anywhere ---------------------------------
     sectors: set[str] = set()
@@ -139,6 +146,12 @@ def build_impact_areas(
         if not fund or not _is_precedent(fund):
             continue
         for s in (c.get("sector_tags") or fund.sector_tags or []):
+            sectors.add(s)
+    for lp in foundation_lps:
+        for s in getattr(lp, "stated_priority_themes", None) or []:
+            sectors.add(s)
+    for lp in family_office_lps:
+        for s in getattr(lp, "stated_priority_themes", None) or []:
             sectors.add(s)
 
     # ---- index DFIs by slug for fast lookup ---------------------------------
@@ -206,13 +219,45 @@ def build_impact_areas(
                 "public_source_url": getattr(f, "public_source_url", None),
             })
 
+        # ---- stated-interest LPs (foundations + family offices) -------------
+        # Distinct evidence type: stated_priority_themes is *intent*, not a
+        # disclosed check. Surfaced as a separate count and a separate bar.
+        stated_lp_rows: list[dict[str, Any]] = []
+        for lp in foundation_lps:
+            themes = getattr(lp, "stated_priority_themes", None) or []
+            if sector not in themes:
+                continue
+            stated_lp_rows.append({
+                "slug": lp.slug,
+                "name": lp.name,
+                "country": getattr(lp, "country", None),
+                "kind": "foundation",
+                "subtype": getattr(lp, "foundation_type", None),
+            })
+        for lp in family_office_lps:
+            themes = getattr(lp, "stated_priority_themes", None) or []
+            if sector not in themes:
+                continue
+            stated_lp_rows.append({
+                "slug": lp.slug,
+                "name": lp.name,
+                "country": getattr(lp, "country", None),
+                "kind": "family_office",
+                "subtype": getattr(lp, "category", None),
+            })
+        stated_lp_rows.sort(key=lambda r: (r["kind"], r["name"].lower()))
+        stated_foundation_count = sum(1 for r in stated_lp_rows if r["kind"] == "foundation")
+        stated_family_office_count = sum(1 for r in stated_lp_rows if r["kind"] == "family_office")
+        stated_lp_count = len(stated_lp_rows)
+
         peer_count = len(fund_rows)
         dfi_count = len(dfi_rows)
         dfi_count_active = sum(1 for d in dfi_rows if d["is_active_3y"])
 
-        if peer_count == 0 and dfi_count == 0:
-            # Sector tag exists in the registry but has zero precedents and
-            # zero commits after filtering — drop rather than render an empty bar.
+        if peer_count == 0 and dfi_count == 0 and stated_lp_count == 0:
+            # Sector tag exists in the registry but has zero precedents,
+            # zero commits, and zero stated-interest LPs — drop rather than
+            # render an empty bar.
             continue
 
         rows.append({
@@ -221,10 +266,14 @@ def build_impact_areas(
             "peer_fund_count": peer_count,
             "dfi_count": dfi_count,
             "dfi_count_active_3y": dfi_count_active,
+            "stated_lp_count": stated_lp_count,
+            "stated_foundation_count": stated_foundation_count,
+            "stated_family_office_count": stated_family_office_count,
             "total_count": peer_count + dfi_count,
             "total_count_active_3y": peer_count + dfi_count_active,
             "peer_funds": fund_rows,
             "dfis": dfi_rows,
+            "stated_lps": stated_lp_rows,
         })
 
     rows.sort(key=lambda r: (r["total_count"], r["peer_fund_count"]), reverse=True)
