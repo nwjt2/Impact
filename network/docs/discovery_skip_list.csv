@@ -20,7 +20,6 @@ acumen-h2r-amplify,impact_fund,acumen.org behind Cloudflare bot challenge — ne
 acumen-kawisafi,impact_fund,acumen.org behind Cloudflare bot challenge — needs playwright,Phase 5,2026-04-28
 accion-impact-management-digital-transformation-fund,impact_fund,accion.org press release returns 403 — UA-blocked or Cloudflare-walled,Phase 5,2026-04-28
 acumen-araf,impact_fund,acumen.org behind Cloudflare bot challenge — needs playwright,Phase 5,2026-04-28
-ci-ventures,impact_fund,no structurally clean portfolio anchors on conservation.org programmatic page,,2026-04-28
 idh-farmfit-fund,impact_fund,no structurally clean portfolio anchors on idhsustainabletrade.com fund page,,2026-04-28
 hivos-food-lifestyle-fund,impact_fund,prose-only portcos on hivosimpactinvestments.com — no consistent markup pattern,,2026-04-28
 waterequity-everspring,impact_fund,no portfolio companies publicly named yet (fund still raising),,2026-04-28
@@ -42,3 +41,8 @@ azure-source-capital,impact_fund,andeglobal.org returns 403 — UA-blocked or Cl
 quona-inclusion-fund,impact_fund,accion.org press release returns 403 — UA-blocked or Cloudflare-walled,Phase 5,2026-04-28
 accion-venture-lab,impact_fund,accion.org page returns 403 — UA-blocked or Cloudflare-walled,Phase 5,2026-04-28
 aleg-ii-acumen-latam,impact_fund,no public Website URL in catalogue and acumen.org Cloudflare-walled — no primary source for LP roster,Phase 5,2026-04-28
+microbuild-fund-2,impact_fund,habitat.org launch press release names only Habitat + Symbiotics — no LP roster or portcos,,2026-04-28
+global-partnerships-sif-6,impact_fund,maturity press release names only 3 portcos in prose; globalpartnerships.org has no /investees/ page,,2026-04-28
+kcd-mikrofinanzfonds-iii,impact_fund,bib-fairbanking.de page is German marketing copy; named MFIs only in PDF reports (no pdfplumber dep),,2026-04-28
+av-ventures-avas,impact_fund,AVAS still raising — av-ventures.com lists only an About h4 with no portcos,,2026-04-28
+britishasiantrust-sdg-outcomes-fund,impact_fund,no public Website URL in catalogue; britishasiantrust.org /social-finance/ paths return 404,,2026-04-28

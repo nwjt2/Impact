@@ -79,6 +79,23 @@ ACTIVE_FUND_SLUGS = {
     "wwb-capital-partners-fund",
     "watercredit-investment-fund-3",
     "aleg-acumen-latam-early-growth",
+    # Activated 2026-04-28 (third batch).
+    #   - CI Ventures: portfolio scraper from conservation.org/ci-ventures
+    #     (Sanity/Next.js page with a clean <a href="...ci-ventures/<slug>">
+    #     anchor + nested <span class="button-text">NAME</span> structure;
+    #     name field uses zero-width Unicode obfuscation that we strip).
+    #   - Truvalu Business Booster Fund: portfolio scraper from truvalu-group.com
+    #     /portfolio/ (paginated WordPress, 30 entries across 3 pages — mix of
+    #     portcos and program/case-study posts as Truvalu groups them).
+    #   - CARE-SheTrades: small sponsor LP scraper (3 named anchors: ITC,
+    #     CARE Enterprises, Bamboo CP) from Bamboo's April 2020 ITC-joins PR.
+    #   - Oxfam SEIIF: small sponsor LP scraper (3 named launch partners:
+    #     Oxfam, City of London Corporation, Symbiotics) from Third Sector's
+    #     October 2012 launch article.
+    "ci-ventures",
+    "truvalu-business-booster-fund",
+    "care-shetrades",
+    "oxfam-seiif",
 }
 
 IMPACT_FUNDS_HEADERS = [
