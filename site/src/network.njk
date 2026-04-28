@@ -84,7 +84,7 @@ permalink: /network/
     <span class="preset-label">Quick views:</span>
     <button data-preset="lp">Who funds the INGO-backed funds</button>
     <button data-preset="invest">Where INGO-backed funds invest</button>
-    <button data-preset="coinvestors">Non-INGO-backed funds investing in the portfolio companies of INGO-backed funds</button>
+    <button data-preset="coinvestors">Where non-INGO VCs overlap with INGO-backed funds (via shared portcos)</button>
     <button data-preset="all" class="preset-reset">Show everything</button>
   </div>
 
@@ -345,29 +345,37 @@ permalink: /network/
 
   // ---- Presets ----
   // Each preset configures the filter checkboxes and re-runs applyFilters.
-  // INGO-only is forced on for the 3 stories; off for "Show everything".
+  // `itypes: null` means "all on"; an array restricts to those types only.
   const PRESETS = {
-    invest:      { edges: ['sponsors', 'investment'],                          ingoOnly: true  },
-    lp:          { edges: ['sponsors', 'lp'],                                   ingoOnly: true  },
-    coinvestors: { edges: ['sponsors', 'investment', 'co-investor'],            ingoOnly: true  },
-    all:         { edges: ['sponsors', 'lp', 'investment', 'co-investor'],      ingoOnly: false },
+    lp:          { edges: ['sponsors', 'lp'],                              itypes: null,   ingoOnly: true  },
+    invest:      { edges: ['sponsors', 'investment'],                      itypes: null,   ingoOnly: true  },
+    coinvestors: { edges: ['sponsors', 'investment', 'co-investor'],       itypes: ['vc'], ingoOnly: true  },
+    all:         { edges: ['sponsors', 'lp', 'investment', 'co-investor'], itypes: null,   ingoOnly: false },
   };
+
+  function setActivePresetButton(name) {
+    document.querySelectorAll('.story-presets button[data-preset]').forEach(b => {
+      b.classList.toggle('preset-active', b.dataset.preset === name);
+    });
+  }
+
+  function clearActivePreset() {
+    document.querySelectorAll('.story-presets button.preset-active').forEach(b => b.classList.remove('preset-active'));
+  }
 
   function applyPreset(name) {
     const p = PRESETS[name];
     if (!p) return;
-    // Edges
     document.querySelectorAll('input[type="checkbox"][data-edge]').forEach(el => {
       el.checked = p.edges.includes(el.dataset.edge);
     });
-    // Investor types: always all on
     document.querySelectorAll('input[type="checkbox"][data-itype]').forEach(el => {
-      el.checked = true;
+      el.checked = p.itypes === null || p.itypes.includes(el.dataset.itype);
     });
-    // INGO-only toggle
     const ingoOnly = document.getElementById('filter-ingo-only');
     ingoOnly.checked = p.ingoOnly;
     syncIngoOnly();
+    setActivePresetButton(name);
     applyFilters();
   }
   document.querySelectorAll('.story-presets button[data-preset]').forEach(btn => {
@@ -393,11 +401,16 @@ permalink: /network/
     applyFilters();
   });
 
-  // Wire filters
+  // Wire filters — manual changes clear any active preset (filter state
+  // diverges from preset, so the indicator would lie).
+  function onManualFilterChange() {
+    clearActivePreset();
+    applyFilters();
+  }
   document.querySelectorAll('.network-controls input[type="checkbox"]').forEach(el => {
-    el.addEventListener('change', applyFilters);
+    el.addEventListener('change', onManualFilterChange);
   });
-  document.getElementById('filter-search').addEventListener('input', applyFilters);
+  document.getElementById('filter-search').addEventListener('input', onManualFilterChange);
 
   // Layout buttons
   document.getElementById('layout-cose').addEventListener('click', () => {
@@ -482,6 +495,8 @@ permalink: /network/
   .preset-label { color: #aaa; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
   .story-presets button { background: #2a3a4a; color: #cfdbe6; border: 1px solid #3a4a5e; padding: 0.4rem 0.8rem; cursor: pointer; font-family: inherit; font-size: 0.9rem; border-radius: 3px; }
   .story-presets button:hover { background: #344a60; border-color: #5a7896; }
+  .story-presets button.preset-active { background: #fa3; color: #1a1a1a; border-color: #fa3; font-weight: 600; box-shadow: 0 0 0 2px rgba(255, 170, 51, 0.3); }
+  .story-presets button.preset-active:hover { background: #ffb84d; border-color: #ffb84d; }
   .story-presets button.preset-reset { background: #1a1a1a; color: #aaa; border-color: #333; }
   .story-presets button.preset-reset:hover { background: #222; border-color: #555; }
 
