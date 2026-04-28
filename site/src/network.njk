@@ -5,6 +5,80 @@ pageKey: network
 permalink: /network/
 ---
 
+<style>
+  /* Help / legend */
+  .network-help { margin: 1rem 0 1.5rem; background: #0e0f12; border: 1px solid #2c2c2c; padding: 0.5rem 1rem; }
+  .network-help summary { cursor: pointer; padding: 0.4rem 0; font-size: 1rem; }
+  .network-help-body { padding-top: 0.5rem; }
+  .network-thesis { max-width: 70rem; margin: 0 0 1rem 0; line-height: 1.5; }
+  .network-caveats { margin-top: 1rem; font-size: 0.85rem; }
+
+  .legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 1rem 0; }
+  .legend-col h4 { margin: 0 0 0.5rem 0; font-size: 0.9rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; }
+  .legend-list { list-style: none; padding: 0; margin: 0; }
+  .legend-list li { padding: 0.25rem 0; font-size: 0.9rem; line-height: 1.4; }
+  .legend-tips li { padding: 0.3rem 0; }
+
+  /* Legend node swatches */
+  .lg-shape { display: inline-block; vertical-align: middle; margin-right: 0.4rem; }
+  .lg-ingo  { width: 28px; height: 14px; background: #3a8c3a; border-radius: 4px; }
+  .lg-fund  { width: 32px; height: 14px; background: #3a78c4; border-radius: 4px; }
+  .lg-portco { width: 10px; height: 10px; border-radius: 50%; }
+  .lg-portco-mcv     { background: #e07b5a; }
+  .lg-portco-agdevco { background: #5ae0a5; }
+  .lg-portco-kiva    { background: #a05ae0; }
+  .lg-investor { width: 11px; height: 11px; transform: rotate(45deg); }
+  .lg-fund-cluster { width: 10px; height: 10px; border-radius: 50%; }
+  .lg-dfi        { background: #d04848; }
+  .lg-vc         { background: #3acaa8; }
+  .lg-foundation { background: #c4a83a; }
+  .lg-family     { background: #a85ad0; }
+  .lg-government { background: #3a8cc4; }
+  .lg-other      { background: #888; }
+
+  /* Legend edge samples */
+  .lg-edge { display: inline-block; width: 28px; height: 0; vertical-align: middle; margin-right: 0.5rem; border-top-width: 2px; border-top-style: solid; }
+  .lg-edge-sponsors    { border-color: #3a8c3a; }
+  .lg-edge-investment  { border-color: #3a3a3a; }
+  .lg-edge-lp          { border-color: #c4a83a; border-top-style: dashed; }
+  .lg-edge-co-investor { border-color: #9a5ad0; border-top-style: dotted; border-top-width: 3px; }
+
+  /* Story presets row */
+  .story-presets { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; flex-wrap: wrap; margin-bottom: 0.5rem; }
+  .preset-label { color: #aaa; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .story-presets button { background: #2a3a4a; color: #cfdbe6; border: 1px solid #3a4a5e; padding: 0.4rem 0.8rem; cursor: pointer; font-family: inherit; font-size: 0.9rem; border-radius: 3px; }
+  .story-presets button:hover { background: #344a60; border-color: #5a7896; }
+  .story-presets button.preset-active { background: #fa3; color: #1a1a1a; border-color: #fa3; font-weight: 600; box-shadow: 0 0 0 2px rgba(255, 170, 51, 0.3); }
+  .story-presets button.preset-active:hover { background: #ffb84d; border-color: #ffb84d; }
+  .story-presets button.preset-reset { background: #1a1a1a; color: #aaa; border-color: #333; }
+  .story-presets button.preset-reset:hover { background: #222; border-color: #555; }
+
+  /* Funds sub-list (per-fund toggles + INGO-only master) */
+  .ctrl-funds .ctrl-master { padding-bottom: 0.3rem; border-bottom: 1px dashed #333; margin-bottom: 0.3rem; font-weight: 600; }
+  .ctrl-fund-section { margin-top: 0.4rem; }
+  .ctrl-fund-section-title { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
+  .ctrl-fund-list { display: flex; flex-direction: column; gap: 0.2rem; }
+  .ctrl-fund-list label input:disabled + * , .ctrl-fund-list label:has(input:disabled) { opacity: 0.45; }
+
+  /* Controls */
+  .network-controls { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0; flex-wrap: wrap; }
+  .ctrl-group { border: 1px solid #2c2c2c; padding: 0.4rem 0.7rem 0.5rem; margin: 0; display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+  .ctrl-group legend { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; padding: 0 0.3rem; }
+  .ctrl-group label { display: inline-flex; gap: 0.4rem; align-items: center; cursor: pointer; font-size: 0.9rem; white-space: nowrap; }
+  .ctrl-group label .lg-shape, .ctrl-group label .lg-edge { flex: 0 0 auto; margin-right: 0; }
+  .ctrl-group label .lg-edge { width: 18px; }
+  .ctrl-group button { background: #1a1a1a; color: #ccc; border: 1px solid #333; padding: 0.3rem 0.7rem; cursor: pointer; font-family: inherit; font-size: 0.85rem; }
+  .ctrl-group button:hover { background: #222; border-color: #555; }
+  .ctrl-search input { background: #0e0f12; color: #d4d4d4; border: 1px solid #333; padding: 0.3rem 0.5rem; font-family: inherit; font-size: 0.9rem; min-width: 14rem; }
+  .ctrl-search input:focus { outline: none; border-color: #fa3; }
+
+  /* Selection / details */
+  #selection-info { display: block; padding: 0.4rem 0; font-size: 0.85rem; }
+  .network-details { padding: 1rem; margin-top: 1rem; background: #0e0f12; border: 1px solid #2c2c2c; }
+  .network-details h3 { margin: 0 0 0.3rem 0; }
+  .network-details ul { max-height: 260px; overflow-y: auto; padding-left: 1.2rem; }
+</style>
+
 <section class="doc-title">
   <div class="doc-title-tag">
     <span>Investor network · early preview</span>
@@ -452,77 +526,3 @@ permalink: /network/
     }
   });
 </script>
-
-<style>
-  /* Help / legend */
-  .network-help { margin: 1rem 0 1.5rem; background: #0e0f12; border: 1px solid #2c2c2c; padding: 0.5rem 1rem; }
-  .network-help summary { cursor: pointer; padding: 0.4rem 0; font-size: 1rem; }
-  .network-help-body { padding-top: 0.5rem; }
-  .network-thesis { max-width: 70rem; margin: 0 0 1rem 0; line-height: 1.5; }
-  .network-caveats { margin-top: 1rem; font-size: 0.85rem; }
-
-  .legend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin: 1rem 0; }
-  .legend-col h4 { margin: 0 0 0.5rem 0; font-size: 0.9rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; }
-  .legend-list { list-style: none; padding: 0; margin: 0; }
-  .legend-list li { padding: 0.25rem 0; font-size: 0.9rem; line-height: 1.4; }
-  .legend-tips li { padding: 0.3rem 0; }
-
-  /* Legend node swatches */
-  .lg-shape { display: inline-block; vertical-align: middle; margin-right: 0.4rem; }
-  .lg-ingo  { width: 28px; height: 14px; background: #3a8c3a; border-radius: 4px; }
-  .lg-fund  { width: 32px; height: 14px; background: #3a78c4; border-radius: 4px; }
-  .lg-portco { width: 10px; height: 10px; border-radius: 50%; }
-  .lg-portco-mcv     { background: #e07b5a; }
-  .lg-portco-agdevco { background: #5ae0a5; }
-  .lg-portco-kiva    { background: #a05ae0; }
-  .lg-investor { width: 11px; height: 11px; transform: rotate(45deg); }
-  .lg-fund-cluster { width: 10px; height: 10px; border-radius: 50%; }
-  .lg-dfi        { background: #d04848; }
-  .lg-vc         { background: #3acaa8; }
-  .lg-foundation { background: #c4a83a; }
-  .lg-family     { background: #a85ad0; }
-  .lg-government { background: #3a8cc4; }
-  .lg-other      { background: #888; }
-
-  /* Legend edge samples */
-  .lg-edge { display: inline-block; width: 28px; height: 0; vertical-align: middle; margin-right: 0.5rem; border-top-width: 2px; border-top-style: solid; }
-  .lg-edge-sponsors    { border-color: #3a8c3a; }
-  .lg-edge-investment  { border-color: #3a3a3a; }
-  .lg-edge-lp          { border-color: #c4a83a; border-top-style: dashed; }
-  .lg-edge-co-investor { border-color: #9a5ad0; border-top-style: dotted; border-top-width: 3px; }
-
-  /* Story presets row */
-  .story-presets { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; flex-wrap: wrap; margin-bottom: 0.5rem; }
-  .preset-label { color: #aaa; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
-  .story-presets button { background: #2a3a4a; color: #cfdbe6; border: 1px solid #3a4a5e; padding: 0.4rem 0.8rem; cursor: pointer; font-family: inherit; font-size: 0.9rem; border-radius: 3px; }
-  .story-presets button:hover { background: #344a60; border-color: #5a7896; }
-  .story-presets button.preset-active { background: #fa3; color: #1a1a1a; border-color: #fa3; font-weight: 600; box-shadow: 0 0 0 2px rgba(255, 170, 51, 0.3); }
-  .story-presets button.preset-active:hover { background: #ffb84d; border-color: #ffb84d; }
-  .story-presets button.preset-reset { background: #1a1a1a; color: #aaa; border-color: #333; }
-  .story-presets button.preset-reset:hover { background: #222; border-color: #555; }
-
-  /* Funds sub-list (per-fund toggles + INGO-only master) */
-  .ctrl-funds .ctrl-master { padding-bottom: 0.3rem; border-bottom: 1px dashed #333; margin-bottom: 0.3rem; font-weight: 600; }
-  .ctrl-fund-section { margin-top: 0.4rem; }
-  .ctrl-fund-section-title { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
-  .ctrl-fund-list { display: flex; flex-direction: column; gap: 0.2rem; }
-  .ctrl-fund-list label input:disabled + * , .ctrl-fund-list label:has(input:disabled) { opacity: 0.45; }
-
-  /* Controls */
-  .network-controls { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0; flex-wrap: wrap; }
-  .ctrl-group { border: 1px solid #2c2c2c; padding: 0.4rem 0.7rem 0.5rem; margin: 0; display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
-  .ctrl-group legend { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; padding: 0 0.3rem; }
-  .ctrl-group label { display: inline-flex; gap: 0.4rem; align-items: center; cursor: pointer; font-size: 0.9rem; white-space: nowrap; }
-  .ctrl-group label .lg-shape, .ctrl-group label .lg-edge { flex: 0 0 auto; margin-right: 0; }
-  .ctrl-group label .lg-edge { width: 18px; }
-  .ctrl-group button { background: #1a1a1a; color: #ccc; border: 1px solid #333; padding: 0.3rem 0.7rem; cursor: pointer; font-family: inherit; font-size: 0.85rem; }
-  .ctrl-group button:hover { background: #222; border-color: #555; }
-  .ctrl-search input { background: #0e0f12; color: #d4d4d4; border: 1px solid #333; padding: 0.3rem 0.5rem; font-family: inherit; font-size: 0.9rem; min-width: 14rem; }
-  .ctrl-search input:focus { outline: none; border-color: #fa3; }
-
-  /* Selection / details */
-  #selection-info { display: block; padding: 0.4rem 0; font-size: 0.85rem; }
-  .network-details { padding: 1rem; margin-top: 1rem; background: #0e0f12; border: 1px solid #2c2c2c; }
-  .network-details h3 { margin: 0 0 0.3rem 0; }
-  .network-details ul { max-height: 260px; overflow-y: auto; padding-left: 1.2rem; }
-</style>
