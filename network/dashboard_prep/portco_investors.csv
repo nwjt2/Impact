@@ -1,4 +1,11 @@
 Company Slug,Investor Slug,Round,Round Date,Lead,Source URL,Source Date,Scraping Method Used
+epoch,burnt-island-ventures,unknown,,unknown,https://epoch.blue/about,2026-04-28,portco_investor_scraper_Epoch
+epoch,sand-river-ventures,unknown,,unknown,https://epoch.blue/about,2026-04-28,portco_investor_scraper_Epoch
+epoch,amadeus-capital-partners,unknown,,unknown,https://epoch.blue/about,2026-04-28,portco_investor_scraper_Epoch
+epoch,ripple,unknown,,unknown,https://epoch.blue/about,2026-04-28,portco_investor_scraper_Epoch
+epoch,cerulean,unknown,,unknown,https://epoch.blue/about,2026-04-28,portco_investor_scraper_Epoch
+epoch,blizzard,unknown,,unknown,https://epoch.blue/about,2026-04-28,portco_investor_scraper_Epoch
+epoch,mercy-corps-ventures,unknown,,unknown,https://epoch.blue/about,2026-04-28,portco_investor_scraper_Epoch
 floodbase,floating-point,unknown,,unknown,https://www.floodbase.com/about,2026-04-28,portco_investor_scraper_Floodbase
 floodbase,google,unknown,,unknown,https://www.floodbase.com/about,2026-04-28,portco_investor_scraper_Floodbase
 floodbase,lowercarbon-capital,unknown,,unknown,https://www.floodbase.com/about,2026-04-28,portco_investor_scraper_Floodbase
@@ -9,6 +16,13 @@ goldfinch,coinbase-ventures,unknown,,unknown,https://goldfinch.finance/,2026-04-
 goldfinch,sv-angel,unknown,,unknown,https://goldfinch.finance/,2026-04-28,portco_investor_scraper_Goldfinch
 goldfinch,variant,unknown,,unknown,https://goldfinch.finance/,2026-04-28,portco_investor_scraper_Goldfinch
 goldfinch,access-ventures,unknown,,unknown,https://goldfinch.finance/,2026-04-28,portco_investor_scraper_Goldfinch
+meridia,ice,unknown,,unknown,https://www.meridia.land/team,2026-04-28,portco_investor_scraper_Meridia
+meridia,edaphon,unknown,,unknown,https://www.meridia.land/team,2026-04-28,portco_investor_scraper_Meridia
+meridia,regeneration,unknown,,unknown,https://www.meridia.land/team,2026-04-28,portco_investor_scraper_Meridia
+meridia,cerulean,unknown,,unknown,https://www.meridia.land/team,2026-04-28,portco_investor_scraper_Meridia
+meridia,mercy,unknown,,unknown,https://www.meridia.land/team,2026-04-28,portco_investor_scraper_Meridia
+meridia,finca,unknown,,unknown,https://www.meridia.land/team,2026-04-28,portco_investor_scraper_Meridia
+meridia,sabi,unknown,,unknown,https://www.meridia.land/team,2026-04-28,portco_investor_scraper_Meridia
 one-acre-fund,audacious-project,grant,,unknown,https://oneacrefund.org/about-us/accolades/grants,2026-04-28,portco_investor_scraper_OneAcreFund
 one-acre-fund,bill-melinda-gates-foundation,grant,,unknown,https://oneacrefund.org/about-us/accolades/grants,2026-04-28,portco_investor_scraper_OneAcreFund
 one-acre-fund,bezos-earth-fund,grant,,unknown,https://oneacrefund.org/about-us/accolades/grants,2026-04-28,portco_investor_scraper_OneAcreFund
@@ -37,3 +51,7 @@ one-acre-fund,pershing-square,grant,,unknown,https://oneacrefund.org/about-us/ac
 one-acre-fund,usaid,grant,,unknown,https://oneacrefund.org/about-us/accolades/grants,2026-04-28,portco_investor_scraper_OneAcreFund
 one-acre-fund,virgin-unite,grant,,unknown,https://oneacrefund.org/about-us/accolades/grants,2026-04-28,portco_investor_scraper_OneAcreFund
 one-acre-fund,whole-planet-foundation,grant,,unknown,https://oneacrefund.org/about-us/accolades/grants,2026-04-28,portco_investor_scraper_OneAcreFund
+payhippo,y-combinator,unknown,,unknown,https://payhippo.ng/,2026-04-28,portco_investor_scraper_Rivy
+payhippo,echo-vc,unknown,,unknown,https://payhippo.ng/,2026-04-28,portco_investor_scraper_Rivy
+payhippo,mercy-corps-ventures,unknown,,unknown,https://payhippo.ng/,2026-04-28,portco_investor_scraper_Rivy
+payhippo,allon,unknown,,unknown,https://payhippo.ng/,2026-04-28,portco_investor_scraper_Rivy
