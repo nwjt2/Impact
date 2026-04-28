@@ -56,7 +56,7 @@ permalink: /network/
             <li><span class="lg-edge lg-edge-sponsors"></span> <b>NGO runs this fund</b> (the fund is the NGO's impact-investment arm)</li>
             <li><span class="lg-edge lg-edge-investment"></span> <b>Fund invested in a company</b></li>
             <li><span class="lg-edge lg-edge-lp"></span> <b>Investor put money into a fund</b> (committed as an LP)</li>
-            <li><span class="lg-edge lg-edge-co"></span> <b>Investor or funder of a company</b> (alongside or separate from an impact fund)</li>
+            <li><span class="lg-edge lg-edge-co-investor"></span> <b>Investor or funder of a company</b> (alongside or separate from an impact fund)</li>
           </ul>
         </div>
         <div class="legend-col">
@@ -91,20 +91,20 @@ permalink: /network/
   <div class="network-controls">
     <fieldset class="ctrl-group">
       <legend>Which relationships</legend>
-      <label><input type="checkbox" data-edge="sponsors" checked> NGO runs a fund</label>
-      <label><input type="checkbox" data-edge="lp" checked> Investor put money into a fund</label>
-      <label><input type="checkbox" data-edge="investment" checked> Fund invested in a company</label>
-      <label><input type="checkbox" data-edge="co-investor" checked> Other investor / funder of a company</label>
+      <label><input type="checkbox" data-edge="sponsors" checked> <span class="lg-edge lg-edge-sponsors"></span> NGO runs a fund</label>
+      <label><input type="checkbox" data-edge="lp" checked> <span class="lg-edge lg-edge-lp"></span> Investor put money into a fund</label>
+      <label><input type="checkbox" data-edge="investment" checked> <span class="lg-edge lg-edge-investment"></span> Fund invested in a company</label>
+      <label><input type="checkbox" data-edge="co-investor" checked> <span class="lg-edge lg-edge-co-investor"></span> Other investor / funder of a company</label>
     </fieldset>
 
     <fieldset class="ctrl-group">
       <legend>Investor / funder kinds</legend>
-      <label><input type="checkbox" data-itype="dfi" checked> Development finance institutions (DFIs)</label>
-      <label><input type="checkbox" data-itype="vc" checked> VC / private funds</label>
-      <label><input type="checkbox" data-itype="foundation" checked> Foundations</label>
-      <label><input type="checkbox" data-itype="family-office" checked> Family offices</label>
-      <label><input type="checkbox" data-itype="government" checked> Government agencies</label>
-      <label><input type="checkbox" data-itype="other" checked> Other</label>
+      <label><input type="checkbox" data-itype="dfi" checked> <span class="lg-shape lg-investor lg-dfi"></span> Development finance institutions (DFIs)</label>
+      <label><input type="checkbox" data-itype="vc" checked> <span class="lg-shape lg-investor lg-vc"></span> VC / private funds</label>
+      <label><input type="checkbox" data-itype="foundation" checked> <span class="lg-shape lg-investor lg-foundation"></span> Foundations</label>
+      <label><input type="checkbox" data-itype="family-office" checked> <span class="lg-shape lg-investor lg-family"></span> Family offices</label>
+      <label><input type="checkbox" data-itype="government" checked> <span class="lg-shape lg-investor lg-government"></span> Government agencies</label>
+      <label><input type="checkbox" data-itype="other" checked> <span class="lg-shape lg-investor lg-other"></span> Other</label>
     </fieldset>
 
     <fieldset class="ctrl-group ctrl-funds">
@@ -116,7 +116,7 @@ permalink: /network/
         <div class="ctrl-fund-list">
           {% for node in network.nodes %}
             {% if node.type == 'fund' and node.ingo_slug %}
-              <label><input type="checkbox" data-fund="{{ node.id | replace('fund:', '') }}" data-ingo-backed="true" checked> {{ node.name }}</label>
+              <label><input type="checkbox" data-fund="{{ node.id | replace('fund:', '') }}" data-ingo-backed="true" checked> <span class="lg-shape lg-fund-cluster" style="background:{% if 'mercy-corps' in node.id %}#e07b5a{% elif 'kiva' in node.id %}#a05ae0{% elif 'agdevco' in node.id %}#5ae0a5{% else %}#777{% endif %}"></span> {{ node.name }}</label>
             {% endif %}
           {% endfor %}
         </div>
@@ -127,7 +127,7 @@ permalink: /network/
         <div class="ctrl-fund-list">
           {% for node in network.nodes %}
             {% if node.type == 'fund' and not node.ingo_slug %}
-              <label><input type="checkbox" data-fund="{{ node.id | replace('fund:', '') }}" data-ingo-backed="false" checked> {{ node.name }}</label>
+              <label><input type="checkbox" data-fund="{{ node.id | replace('fund:', '') }}" data-ingo-backed="false" checked> <span class="lg-shape lg-fund-cluster" style="background:{% if 'mercy-corps' in node.id %}#e07b5a{% elif 'kiva' in node.id %}#a05ae0{% elif 'agdevco' in node.id %}#5ae0a5{% else %}#777{% endif %}"></span> {{ node.name }}</label>
             {% endif %}
           {% endfor %}
         </div>
@@ -475,7 +475,8 @@ permalink: /network/
   .lg-portco-mcv     { background: #e07b5a; }
   .lg-portco-agdevco { background: #5ae0a5; }
   .lg-portco-kiva    { background: #a05ae0; }
-  .lg-investor { width: 12px; height: 12px; transform: rotate(45deg); }
+  .lg-investor { width: 11px; height: 11px; transform: rotate(45deg); }
+  .lg-fund-cluster { width: 10px; height: 10px; border-radius: 50%; }
   .lg-dfi        { background: #d04848; }
   .lg-vc         { background: #3acaa8; }
   .lg-foundation { background: #c4a83a; }
@@ -488,7 +489,7 @@ permalink: /network/
   .lg-edge-sponsors    { border-color: #3a8c3a; }
   .lg-edge-investment  { border-color: #3a3a3a; }
   .lg-edge-lp          { border-color: #c4a83a; border-top-style: dashed; }
-  .lg-edge-co          { border-color: #9a5ad0; border-top-style: dotted; border-top-width: 3px; }
+  .lg-edge-co-investor { border-color: #9a5ad0; border-top-style: dotted; border-top-width: 3px; }
 
   /* Story presets row */
   .story-presets { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; flex-wrap: wrap; margin-bottom: 0.5rem; }
@@ -512,6 +513,8 @@ permalink: /network/
   .ctrl-group { border: 1px solid #2c2c2c; padding: 0.4rem 0.7rem 0.5rem; margin: 0; display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
   .ctrl-group legend { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; padding: 0 0.3rem; }
   .ctrl-group label { display: inline-flex; gap: 0.4rem; align-items: center; cursor: pointer; font-size: 0.9rem; white-space: nowrap; }
+  .ctrl-group label .lg-shape, .ctrl-group label .lg-edge { flex: 0 0 auto; margin-right: 0; }
+  .ctrl-group label .lg-edge { width: 18px; }
   .ctrl-group button { background: #1a1a1a; color: #ccc; border: 1px solid #333; padding: 0.3rem 0.7rem; cursor: pointer; font-family: inherit; font-size: 0.85rem; }
   .ctrl-group button:hover { background: #222; border-color: #555; }
   .ctrl-search input { background: #0e0f12; color: #d4d4d4; border: 1px solid #333; padding: 0.3rem 0.5rem; font-family: inherit; font-size: 0.9rem; min-width: 14rem; }
