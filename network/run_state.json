@@ -1,0 +1,6 @@
+{
+  "current_run": 0,
+  "last_run_started_at": null,
+  "last_run_ended_at": null,
+  "notes": "Run 0 = pre-scrape; run 1 begins with first /scrape-run invocation."
+}

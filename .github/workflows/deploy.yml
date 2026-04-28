@@ -76,6 +76,9 @@ jobs:
           INGO_FIXTURE_MODE: "1"
         run: /opt/venv/bin/python -m pipeline.build_slots
 
+      - name: Build network-view JSON (cytoscape graph for /network/)
+        run: /opt/venv/bin/python -m network.dashboard_prep.prep_scripts.build_network_json
+
       - name: Build site (public only — never PRIVATE=1)
         env:
           SITE_PATH_PREFIX: ${{ github.event.repository.name }}

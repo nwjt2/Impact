@@ -1,0 +1,199 @@
+---
+layout: base.njk
+title: Network View
+pageKey: network
+permalink: /network/
+---
+
+<section class="doc-title">
+  <div class="doc-title-tag">
+    <span>Investor network · early preview</span>
+  </div>
+  <h1 class="doc-title-h1">The network of money flowing through INGO impact funds <span class="accent">— who funds whom.</span></h1>
+  <p class="doc-title-sub">
+    {{ network.stats.ingo_count }} INGO sponsors,
+    {{ network.stats.investor_count }} investors,
+    {{ network.stats.fund_count }} funds,
+    {{ network.stats.portco_count }} portfolio companies,
+    {{ network.stats.edge_count }} edges.
+    Drag to pan, scroll to zoom. Click a node for details.
+    Coverage is currently from public-source scrapes of Mercy Corps Ventures, AgDevCo, and Kiva.
+  </p>
+</section>
+
+<section class="sec">
+  <div class="network-controls">
+    <label><input type="checkbox" id="filter-ingo" checked> INGOs</label>
+    <label><input type="checkbox" id="filter-investor" checked> Investors (LPs)</label>
+    <label><input type="checkbox" id="filter-fund" checked> Funds</label>
+    <label><input type="checkbox" id="filter-portco" checked> Portcos</label>
+    <button id="layout-cose">Force layout</button>
+    <button id="layout-concentric">Concentric (by type)</button>
+    <button id="reset-view">Reset view</button>
+    <span id="selection-info" class="muted"></span>
+  </div>
+  <div id="cy" style="width:100%; height:75vh; min-height:600px; border:1px solid #2c2c2c; background:#0e0f12;"></div>
+  <div id="node-details" class="network-details" hidden></div>
+</section>
+
+<script src="https://unpkg.com/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+<script src="{{ '/assets/js/network-data.js' | url }}"></script>
+
+<script>
+  const NETWORK = window.NETWORK;
+  if (!NETWORK) {
+    document.getElementById('cy').innerHTML = '<p style="color:#fa3;padding:1rem;">network-data.js failed to load. Run <code>python -m network.dashboard_prep.prep_scripts.build_network_json</code> and rebuild.</p>';
+    throw new Error('NETWORK data not loaded');
+  }
+
+  const elements = [
+    ...NETWORK.nodes.map(n => ({ data: { id: n.id, label: n.name, ...n } })),
+    ...NETWORK.edges.map(e => ({ data: { source: e.source, target: e.target, kind: e.kind } }))
+  ];
+
+  const cy = cytoscape({
+    container: document.getElementById('cy'),
+    elements,
+    style: [
+      {
+        selector: 'node',
+        style: {
+          'label': 'data(label)',
+          'color': '#d4d4d4',
+          'font-size': '11px',
+          'text-valign': 'center',
+          'text-halign': 'center',
+          'text-wrap': 'wrap',
+          'text-max-width': '120px',
+          'border-width': 1,
+          'border-color': '#1a1a1a',
+        }
+      },
+      { selector: 'node[type="ingo"]', style: { 'background-color': '#3a8c3a', 'shape': 'round-rectangle', 'width': 70, 'height': 30, 'font-weight': 'bold' } },
+      { selector: 'node[type="fund"]', style: { 'background-color': '#3a78c4', 'shape': 'round-rectangle', 'width': 90, 'height': 34, 'font-weight': 'bold' } },
+      // Investors: distinct shape (diamond) and color per investor_type so DFI/foundation/family-office read at a glance
+      { selector: 'node[type="investor"]', style: { 'background-color': '#c4a83a', 'shape': 'diamond', 'width': 36, 'height': 36, 'font-size': '10px', 'font-weight': 'bold' } },
+      { selector: 'node[type="investor"][investor_type="dfi"]',           style: { 'background-color': '#d04848' } },
+      { selector: 'node[type="investor"][investor_type="foundation"]',    style: { 'background-color': '#c4a83a' } },
+      { selector: 'node[type="investor"][investor_type="family-office"]', style: { 'background-color': '#a85ad0' } },
+      { selector: 'node[type="investor"][investor_type="other"]',         style: { 'background-color': '#888888' } },
+      { selector: 'node[type="investor"][investor_type="government"]',    style: { 'background-color': '#3a8cc4' } },
+      // Portcos: hidden labels by default, colored by parent fund.
+      { selector: 'node[type="portco"]', style: { 'shape': 'ellipse', 'width': 14, 'height': 14, 'background-color': '#777', 'label': '', 'border-width': 0 } },
+      { selector: 'node[type="portco"][parent_fund_slug="mercy-corps-ventures"]',          style: { 'background-color': '#e07b5a' } }, // warm orange
+      { selector: 'node[type="portco"][parent_fund_slug="agdevco-smallholder-development-unit"]', style: { 'background-color': '#5ae0a5' } }, // teal
+      { selector: 'node[type="portco"][parent_fund_slug="kiva-refugee-investment-fund"]',  style: { 'background-color': '#a05ae0' } }, // purple
+      // Show labels on portcos when hovered or selected.
+      { selector: 'node[type="portco"].labelled', style: { 'label': 'data(label)', 'font-size': '10px', 'color': '#d4d4d4', 'text-background-color': '#0e0f12', 'text-background-opacity': 0.9, 'text-background-padding': '2px', 'z-index': 10 } },
+      { selector: 'node:selected', style: { 'border-color': '#fa3', 'border-width': 3 } },
+      {
+        selector: 'edge',
+        style: {
+          'width': 0.8,
+          'line-color': '#3a3a3a',
+          'curve-style': 'bezier',
+          'target-arrow-shape': 'triangle',
+          'target-arrow-color': '#3a3a3a',
+          'arrow-scale': 0.6,
+        }
+      },
+      { selector: 'edge[kind="sponsors"]',    style: { 'line-color': '#3a8c3a', 'target-arrow-color': '#3a8c3a', 'width': 1.5 } },
+      { selector: 'edge[kind="investment"]',  style: { 'line-color': '#3a3a3a' } },
+      { selector: 'edge[kind="lp"]',          style: { 'line-color': '#c4a83a', 'target-arrow-color': '#c4a83a', 'width': 1.5, 'line-style': 'dashed' } },
+      { selector: 'edge[kind="co-investor"]', style: { 'line-color': '#9a5ad0', 'target-arrow-color': '#9a5ad0', 'width': 1.2, 'line-style': 'dotted' } },
+    ],
+    layout: { name: 'cose', padding: 30, nodeRepulsion: 8000, idealEdgeLength: 80, animate: false }
+  });
+
+  // Zoom-conditional portco labels: above this threshold, show all.
+  const ZOOM_LABEL_THRESHOLD = 1.4;
+  function syncPortcoLabels() {
+    const showAll = cy.zoom() >= ZOOM_LABEL_THRESHOLD;
+    cy.batch(() => {
+      cy.nodes('[type="portco"]').forEach(n => {
+        if (showAll || n.hasClass('hovered') || n.selected()) {
+          n.addClass('labelled');
+        } else {
+          n.removeClass('labelled');
+        }
+      });
+    });
+  }
+  cy.on('zoom', syncPortcoLabels);
+  cy.on('mouseover', 'node[type="portco"]', evt => { evt.target.addClass('hovered'); syncPortcoLabels(); });
+  cy.on('mouseout',  'node[type="portco"]', evt => { evt.target.removeClass('hovered'); syncPortcoLabels(); });
+
+  // Fit-to-view once layout settles.
+  cy.ready(() => { cy.fit(null, 30); });
+
+  // Filter checkboxes
+  function applyFilters() {
+    const showIngo = document.getElementById('filter-ingo').checked;
+    const showInvestor = document.getElementById('filter-investor').checked;
+    const showFund = document.getElementById('filter-fund').checked;
+    const showPortco = document.getElementById('filter-portco').checked;
+    cy.batch(() => {
+      cy.nodes().forEach(n => {
+        const t = n.data('type');
+        const show = (t === 'ingo' && showIngo) || (t === 'investor' && showInvestor) ||
+                     (t === 'fund' && showFund) || (t === 'portco' && showPortco);
+        n.style('display', show ? 'element' : 'none');
+      });
+    });
+  }
+  ['filter-ingo', 'filter-investor', 'filter-fund', 'filter-portco'].forEach(id => {
+    document.getElementById(id).addEventListener('change', applyFilters);
+  });
+
+  // Layout buttons
+  document.getElementById('layout-cose').addEventListener('click', () => {
+    cy.layout({ name: 'cose', padding: 30, nodeRepulsion: 8000, idealEdgeLength: 80, animate: false }).run();
+  });
+  document.getElementById('layout-concentric').addEventListener('click', () => {
+    cy.layout({
+      name: 'concentric',
+      concentric: n => ({ ingo: 4, investor: 3, fund: 2, portco: 1 }[n.data('type')] ?? 0),
+      levelWidth: () => 1,
+      padding: 30,
+      animate: false,
+    }).run();
+  });
+  document.getElementById('reset-view').addEventListener('click', () => cy.fit(null, 30));
+
+  // Click handler
+  const details = document.getElementById('node-details');
+  const selectionInfo = document.getElementById('selection-info');
+  cy.on('tap', 'node', evt => {
+    const d = evt.target.data();
+    selectionInfo.textContent = `Selected: ${d.name}`;
+    let html = `<h3>${d.name}</h3><p class="muted">${d.type}</p>`;
+    if (d.country) html += `<p>Country: ${d.country}</p>`;
+    if (d.website) html += `<p>Website: <a href="${d.website}" target="_blank" rel="noopener">${d.website}</a></p>`;
+    if (d.thesis_tags) html += `<p>Thesis: ${d.thesis_tags}</p>`;
+    if (d.fund_type) html += `<p>Fund type: ${d.fund_type}</p>`;
+    const neighbors = evt.target.neighborhood('node');
+    if (neighbors.length) {
+      html += `<p>Connected to ${neighbors.length} entities:</p><ul>`;
+      neighbors.forEach(n => { html += `<li>${n.data('name')} <span class="muted">(${n.data('type')})</span></li>`; });
+      html += `</ul>`;
+    }
+    details.innerHTML = html;
+    details.hidden = false;
+  });
+  cy.on('tap', evt => {
+    if (evt.target === cy) {
+      details.hidden = true;
+      selectionInfo.textContent = '';
+    }
+  });
+</script>
+
+<style>
+  .network-controls { display: flex; gap: 1rem; align-items: center; padding: 0.5rem 0; flex-wrap: wrap; }
+  .network-controls label { display: inline-flex; gap: 0.4rem; align-items: center; cursor: pointer; }
+  .network-controls button { background: #1a1a1a; color: #ccc; border: 1px solid #333; padding: 0.3rem 0.7rem; cursor: pointer; font-family: inherit; font-size: 0.9rem; }
+  .network-controls button:hover { background: #222; border-color: #555; }
+  .network-details { padding: 1rem; margin-top: 1rem; background: #0e0f12; border: 1px solid #2c2c2c; }
+  .network-details h3 { margin: 0 0 0.3rem 0; }
+  .network-details ul { max-height: 200px; overflow-y: auto; }
+</style>
