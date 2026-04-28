@@ -66,6 +66,19 @@ ACTIVE_FUND_SLUGS = {
     "wwb-capital-partners-fund-ii",
     # Activated 2026-04-28. Portfolio scraped from /portfolio/ archive page.
     "andgreen-fund",
+    # Activated 2026-04-28 (second batch). All four scrapers follow already-
+    # established patterns:
+    #   - Kampani: portfolio + LP scrapers from kampani.org (Webflow site
+    #     with clean <h3> portcos and a named-href shareholder grid).
+    #   - WWB Fund I: portfolio scraper sharing the same multi-fund WWB
+    #     asset-management page that also serves Fund II portcos.
+    #   - WCIF3: LP scraper from WaterEquity's PR Newswire first-close release.
+    #   - ALEG: LP scraper from LAVCA's coverage of the August 2020 final
+    #     close (acumen.org itself is Cloudflare-walled).
+    "kampani",
+    "wwb-capital-partners-fund",
+    "watercredit-investment-fund-3",
+    "aleg-acumen-latam-early-growth",
 }
 
 IMPACT_FUNDS_HEADERS = [

@@ -1,4 +1,12 @@
 Fund Slug,LP Slug,Commitment Year,Source URL,Source Date,Confidence,Scraping Method Used
+aleg-acumen-latam-early-growth,idb-lab,2020,https://www.lavca.org/alive-ventures-reaches-final-close-for-us28m-latin-america-impact-fund/,2026-04-28,confirmed,fund_lp_scraper_ALEG
+aleg-acumen-latam-early-growth,dutch-good-growth-fund-dggf,2020,https://www.lavca.org/alive-ventures-reaches-final-close-for-us28m-latin-america-impact-fund/,2026-04-28,confirmed,fund_lp_scraper_ALEG
+aleg-acumen-latam-early-growth,john-d-and-catherine-t-macarthur-foundation,2020,https://www.lavca.org/alive-ventures-reaches-final-close-for-us28m-latin-america-impact-fund/,2026-04-28,confirmed,fund_lp_scraper_ALEG
+aleg-acumen-latam-early-growth,bancoldex,2020,https://www.lavca.org/alive-ventures-reaches-final-close-for-us28m-latin-america-impact-fund/,2026-04-28,confirmed,fund_lp_scraper_ALEG
+aleg-acumen-latam-early-growth,mercantil-colpatria,2020,https://www.lavca.org/alive-ventures-reaches-final-close-for-us28m-latin-america-impact-fund/,2026-04-28,confirmed,fund_lp_scraper_ALEG
+aleg-acumen-latam-early-growth,fundacion-bancolombia,2020,https://www.lavca.org/alive-ventures-reaches-final-close-for-us28m-latin-america-impact-fund/,2026-04-28,confirmed,fund_lp_scraper_ALEG
+aleg-acumen-latam-early-growth,fundacion-sura,2020,https://www.lavca.org/alive-ventures-reaches-final-close-for-us28m-latin-america-impact-fund/,2026-04-28,confirmed,fund_lp_scraper_ALEG
+aleg-acumen-latam-early-growth,fundacion-wwb-colombia,2020,https://www.lavca.org/alive-ventures-reaches-final-close-for-us28m-latin-america-impact-fund/,2026-04-28,confirmed,fund_lp_scraper_ALEG
 fefisol-ii,european-investment-bank,2022,https://www.eib.org/en/press/all/2022-254-launch-of-the-new-european-solidarity-financing-fund-for-africa-fefisol-ii-with-a-first-closing-of-eur2-5-million-and-a-technical-support-envelope-of-1-million-euros,2026-04-28,confirmed,fund_lp_scraper_FEFISOLII
 fefisol-ii,proparco,2022,https://www.eib.org/en/press/all/2022-254-launch-of-the-new-european-solidarity-financing-fund-for-africa-fefisol-ii-with-a-first-closing-of-eur2-5-million-and-a-technical-support-envelope-of-1-million-euros,2026-04-28,confirmed,fund_lp_scraper_FEFISOLII
 fefisol-ii,bio-belgian-investment-company-for-developing-countries,2022,https://www.eib.org/en/press/all/2022-254-launch-of-the-new-european-solidarity-financing-fund-for-africa-fefisol-ii-with-a-first-closing-of-eur2-5-million-and-a-technical-support-envelope-of-1-million-euros,2026-04-28,confirmed,fund_lp_scraper_FEFISOLII
@@ -7,6 +15,19 @@ fefisol-ii,credit-cooperatif,2022,https://www.eib.org/en/press/all/2022-254-laun
 fefisol-ii,sos-faim-luxembourg,2022,https://www.eib.org/en/press/all/2022-254-launch-of-the-new-european-solidarity-financing-fund-for-africa-fefisol-ii-with-a-first-closing-of-eur2-5-million-and-a-technical-support-envelope-of-1-million-euros,2026-04-28,confirmed,fund_lp_scraper_FEFISOLII
 fefisol-ii,sidi-solidarite-internationale-pour-le-developpement-et-l-investissement,2022,https://www.eib.org/en/press/all/2022-254-launch-of-the-new-european-solidarity-financing-fund-for-africa-fefisol-ii-with-a-first-closing-of-eur2-5-million-and-a-technical-support-envelope-of-1-million-euros,2026-04-28,confirmed,fund_lp_scraper_FEFISOLII
 fefisol-ii,alterfin,2022,https://www.eib.org/en/press/all/2022-254-launch-of-the-new-european-solidarity-financing-fund-for-africa-fefisol-ii-with-a-first-closing-of-eur2-5-million-and-a-technical-support-envelope-of-1-million-euros,2026-04-28,confirmed,fund_lp_scraper_FEFISOLII
+kampani,king-baudouin-foundation,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
+kampani,rikolto,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
+kampani,boerenbond,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
+kampani,alterfin,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
+kampani,louvain-cooperation,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
+kampani,trias,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
+kampani,sidi-solidarite-internationale-pour-le-developpement-et-l-investissement,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
+kampani,broederlijk-delen,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
+kampani,clac-coordinadora-latinoamericana-y-del-caribe-de-pequenos-productores,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
+kampani,oxfam-solidarite-belgium,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
+kampani,ku-leuven,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
+kampani,solidaridad,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
+kampani,bio-belgian-investment-company-for-developing-countries,2015,https://www.kampani.org/about-us,2026-04-28,confirmed,fund_lp_scraper_Kampani
 kiva-refugee-investment-fund,u-s-international-development-finance-corporation,2021,https://www.prnewswire.com/news-releases/kiva-capital-management-announces-final-close-of-kiva-refugee-investment-fund-to-scale-lending-to-fragile-communities-globally-301264464.html,2026-04-28,confirmed,fund_lp_scraper_KRIF
 kiva-refugee-investment-fund,soros-economic-development-fund,2021,https://www.prnewswire.com/news-releases/kiva-capital-management-announces-final-close-of-kiva-refugee-investment-fund-to-scale-lending-to-fragile-communities-globally-301264464.html,2026-04-28,confirmed,fund_lp_scraper_KRIF
 kiva-refugee-investment-fund,sobrato-philanthropies,2021,https://www.prnewswire.com/news-releases/kiva-capital-management-announces-final-close-of-kiva-refugee-investment-fund-to-scale-lending-to-fragile-communities-globally-301264464.html,2026-04-28,confirmed,fund_lp_scraper_KRIF
@@ -22,6 +43,13 @@ kiva-refugee-investment-fund,vanguard-charitable,2021,https://www.prnewswire.com
 kiva-refugee-investment-fund,capshift,2021,https://www.prnewswire.com/news-releases/kiva-capital-management-announces-final-close-of-kiva-refugee-investment-fund-to-scale-lending-to-fragile-communities-globally-301264464.html,2026-04-28,confirmed,fund_lp_scraper_KRIF
 kiva-refugee-investment-fund,the-jmb-charitable-fund,2021,https://www.prnewswire.com/news-releases/kiva-capital-management-announces-final-close-of-kiva-refugee-investment-fund-to-scale-lending-to-fragile-communities-globally-301264464.html,2026-04-28,confirmed,fund_lp_scraper_KRIF
 kiva-refugee-investment-fund,the-todd-and-anne-mccormack-fund,2021,https://www.prnewswire.com/news-releases/kiva-capital-management-announces-final-close-of-kiva-refugee-investment-fund-to-scale-lending-to-fragile-communities-globally-301264464.html,2026-04-28,confirmed,fund_lp_scraper_KRIF
+watercredit-investment-fund-3,bank-of-america,2018,https://www.prnewswire.com/news-releases/waterequity-announces-the-first-closing-of-its-us-50-million-impact-investment-fund-300716450.html,2026-04-28,confirmed,fund_lp_scraper_WCIF3
+watercredit-investment-fund-3,overseas-private-investment-corporation-opic,2018,https://www.prnewswire.com/news-releases/waterequity-announces-the-first-closing-of-its-us-50-million-impact-investment-fund-300716450.html,2026-04-28,confirmed,fund_lp_scraper_WCIF3
+watercredit-investment-fund-3,ceniarth-llc,2018,https://www.prnewswire.com/news-releases/waterequity-announces-the-first-closing-of-its-us-50-million-impact-investment-fund-300716450.html,2026-04-28,confirmed,fund_lp_scraper_WCIF3
+watercredit-investment-fund-3,niagara-bottling,2018,https://www.prnewswire.com/news-releases/waterequity-announces-the-first-closing-of-its-us-50-million-impact-investment-fund-300716450.html,2026-04-28,confirmed,fund_lp_scraper_WCIF3
+watercredit-investment-fund-3,conrad-n-hilton-foundation,2018,https://www.prnewswire.com/news-releases/waterequity-announces-the-first-closing-of-its-us-50-million-impact-investment-fund-300716450.html,2026-04-28,confirmed,fund_lp_scraper_WCIF3
+watercredit-investment-fund-3,skoll-foundation,2018,https://www.prnewswire.com/news-releases/waterequity-announces-the-first-closing-of-its-us-50-million-impact-investment-fund-300716450.html,2026-04-28,confirmed,fund_lp_scraper_WCIF3
+watercredit-investment-fund-3,osprey-foundation,2018,https://www.prnewswire.com/news-releases/waterequity-announces-the-first-closing-of-its-us-50-million-impact-investment-fund-300716450.html,2026-04-28,confirmed,fund_lp_scraper_WCIF3
 waterequity-waci4,starbucks,2023,https://www.newswire.com/news/waterequity-announces-final-close-of-150-million-global-access-fund-iv-22128210,2026-04-28,confirmed,fund_lp_scraper_WaterEquityGAF4
 waterequity-waci4,ecolab,2023,https://www.newswire.com/news/waterequity-announces-final-close-of-150-million-global-access-fund-iv-22128210,2026-04-28,confirmed,fund_lp_scraper_WaterEquityGAF4
 waterequity-waci4,gap-inc,2023,https://www.newswire.com/news/waterequity-announces-final-close-of-150-million-global-access-fund-iv-22128210,2026-04-28,confirmed,fund_lp_scraper_WaterEquityGAF4
