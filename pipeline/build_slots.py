@@ -362,6 +362,13 @@ def load_dfi_commitments(
 
         lp_type: str = "multilateral" if policy_remit else "dfi"
 
+        status_raw = (profile.get("status") or "active").strip().lower()
+        if status_raw not in ("active", "defunct"):
+            raise HandshakeError(
+                f"dfi_ingo_commitments.yml: dfi_slug `{slug}` has invalid status "
+                f"`{status_raw}` (expected active|defunct)"
+            )
+
         cards.append(DfiIngoCommit(
             slug=slug,
             name=dfi_name_by_slug.get(slug, slug),
@@ -384,6 +391,9 @@ def load_dfi_commitments(
             last_known_activity_url=last_act_url,
             public_newsroom_url=profile.get("public_newsroom_url"),
             last_seen_at=_today(),
+            status=status_raw,  # type: ignore[arg-type]
+            defunct_since=_parse_date(profile.get("defunct_since")),
+            defunct_note=_trim(profile.get("defunct_note")),
         ))
 
         # Attach stated-ticket passthrough as extras on the model for UI

@@ -965,6 +965,24 @@ a.commit-fund:hover { color: var(--amber); }
 .badge-status-wound_down { color: var(--fg-3); }
 
 .badge-unverified { color: var(--orange); border-color: var(--orange); }
+.badge-defunct    { color: var(--red); border-color: var(--red-dim); font-weight: 600; letter-spacing: 0.04em; }
+
+/* Defunct DFI cards: dimmed, with a prominent red-tinted note up top.
+ * Track-record (commitments list) stays readable so the historical
+ * context is preserved; the LP just isn't writing checks anymore. */
+.card-defunct { opacity: 0.62; }
+.card-defunct:hover { opacity: 0.85; }
+.card-defunct .dfi-name { color: var(--fg-2); }
+.dfi-defunct-note {
+  margin: 8px 0 12px;
+  padding: 8px 10px;
+  border-left: 2px solid var(--red-dim);
+  background: rgba(255,90,90,0.04);
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--fg-2);
+}
+.dfi-defunct-note strong { color: var(--red); font-weight: 600; }
 
 .badge-kind-rfp,
 .badge-kind-open_call            { color: var(--amber); border-color: var(--amber-dim); }

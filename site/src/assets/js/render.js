@@ -201,11 +201,18 @@
 
   function renderDfiCard(d, meta) {
     var parts = [];
+    var defunct = d.status === "defunct";
     parts.push('<h3 class="dfi-name">' + esc(d.name) + '</h3>');
     var hdrBits = [];
+    if (defunct) hdrBits.push(badge("DEFUNCT", "badge-defunct"));
     if (d.country) hdrBits.push(badge(countryName(meta, d.country), "badge-country"));
     if (d.policy_remit) hdrBits.push(badge(d.policy_remit, "badge-remit"));
     parts.push('<div class="dfi-sub">' + hdrBits.join(" ") + '</div>');
+
+    if (defunct && d.defunct_note) {
+      var sinceTxt = d.defunct_since ? " (since " + esc(fmtDate(d.defunct_since)) + ")" : "";
+      parts.push('<div class="dfi-defunct-note"><strong>No longer an active LP' + sinceTxt + '.</strong> ' + esc(d.defunct_note) + '</div>');
+    }
 
     var stats = [];
     var commits = d.ingo_gp_commits || [];
@@ -218,19 +225,21 @@
     if (d.ingo_gp_commit_count_10y != null && d.ingo_gp_commit_count_10y > 0) {
       stats.push('<span class="stat"><span class="stat-num">' + d.ingo_gp_commit_count_10y + '</span><span class="stat-label">last 10 years</span></span>');
     }
-    var tr = d.typical_ticket_usd_m_range;
-    if (tr && tr.n != null && tr.n >= 2) {
-      stats.push('<span class="stat"><span class="stat-num">' + fmtUSDm(tr.min) + '–' + fmtUSDm(tr.max) + '</span><span class="stat-label">observed ticket (n=' + tr.n + ')</span></span>');
-    } else if (d.stated_ticket_usd_m_min != null || d.stated_ticket_usd_m_max != null) {
-      var rangeStr = "";
-      if (d.stated_ticket_usd_m_min != null && d.stated_ticket_usd_m_max != null) {
-        rangeStr = fmtUSDm(d.stated_ticket_usd_m_min) + "–" + fmtUSDm(d.stated_ticket_usd_m_max);
-      } else if (d.stated_ticket_usd_m_min != null) {
-        rangeStr = "from " + fmtUSDm(d.stated_ticket_usd_m_min);
-      } else {
-        rangeStr = "up to " + fmtUSDm(d.stated_ticket_usd_m_max);
+    if (!defunct) {
+      var tr = d.typical_ticket_usd_m_range;
+      if (tr && tr.n != null && tr.n >= 2) {
+        stats.push('<span class="stat"><span class="stat-num">' + fmtUSDm(tr.min) + '–' + fmtUSDm(tr.max) + '</span><span class="stat-label">observed ticket (n=' + tr.n + ')</span></span>');
+      } else if (d.stated_ticket_usd_m_min != null || d.stated_ticket_usd_m_max != null) {
+        var rangeStr = "";
+        if (d.stated_ticket_usd_m_min != null && d.stated_ticket_usd_m_max != null) {
+          rangeStr = fmtUSDm(d.stated_ticket_usd_m_min) + "–" + fmtUSDm(d.stated_ticket_usd_m_max);
+        } else if (d.stated_ticket_usd_m_min != null) {
+          rangeStr = "from " + fmtUSDm(d.stated_ticket_usd_m_min);
+        } else {
+          rangeStr = "up to " + fmtUSDm(d.stated_ticket_usd_m_max);
+        }
+        stats.push('<span class="stat"><span class="stat-num">' + esc(rangeStr) + '</span><span class="stat-label">stated ticket preference</span></span>');
       }
-      stats.push('<span class="stat"><span class="stat-num">' + esc(rangeStr) + '</span><span class="stat-label">stated ticket preference</span></span>');
     }
     if (stats.length) parts.push('<div class="dfi-stats">' + stats.join("") + '</div>');
 
@@ -268,7 +277,7 @@
     if (prefBits.length) parts.push('<div class="dfi-prefs">' + prefBits.join("") + '</div>');
 
     var emf = d.emerging_manager_facility;
-    if (emf && emf.exists) {
+    if (emf && emf.exists && !defunct) {
       var emfParts = ['<span class="emf-label">Emerging-manager facility:</span>'];
       if (emf.program_name) emfParts.push('<strong>' + esc(emf.program_name) + '</strong>');
       if (emf.application_url) emfParts.push(sourceLink(emf.application_url, "apply"));
@@ -292,9 +301,10 @@
 
     var dfiUrl = d.stated_thesis_url || d.public_newsroom_url || d.last_known_activity_url;
     var clickCls = dfiUrl ? " card-clickable" : "";
+    var defunctCls = defunct ? " card-defunct" : "";
     var dataAttr = dfiUrl ? ' data-source-url="' + escAttr(dfiUrl) + '"' : "";
     var idAttr = d.slug ? ' id="dfi-' + escAttr(d.slug) + '"' : "";
-    return '<article class="card dfi-card' + clickCls + '"' + idAttr + dataAttr + '>' + parts.join("") + '</article>';
+    return '<article class="card dfi-card' + clickCls + defunctCls + '"' + idAttr + dataAttr + '>' + parts.join("") + '</article>';
   }
 
   function renderDeadlineRow(d, meta) {

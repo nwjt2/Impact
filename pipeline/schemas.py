@@ -244,6 +244,9 @@ class DfiIngoCommit(BaseModel):
     last_known_activity_url: Optional[str] = None
     public_newsroom_url: Optional[str] = None
     last_seen_at: Optional[date] = None
+    status: Literal["active", "defunct"] = "active"
+    defunct_since: Optional[date] = None
+    defunct_note: Optional[str] = None
 
 
 # ---- Foundation LPs (separate page, parallel to slot 2) ------------------
