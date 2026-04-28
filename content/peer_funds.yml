@@ -576,7 +576,7 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     status: deployed
-    public_source_url: https://corusinternational.org/what-we-do/impact-investing/
+    public_source_url: null
     last_seen_at: 2026-04-25
     # status: unverified — page resolves but specific launch date,
     # capitalization, and fund vehicle formalization not stated publicly.
@@ -824,7 +824,7 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     status: deployed
-    public_source_url: https://www.visionfund.org/history
+    public_source_url: null
     last_seen_at: 2026-04-25
     notes: >
       Founded 2003 as a wholly-owned subsidiary of World Vision
@@ -887,7 +887,7 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     status: raising
-    public_source_url: https://www.britishasiantrust.org/our-work/social-finance/100m-outcomes-fund/
+    public_source_url: null
     last_seen_at: 2026-04-25
     validation_status: unverified
     # validation_status: unverified — exact close date and current
@@ -1906,7 +1906,7 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     status: deployed
-    public_source_url: https://www.alive-ventures.com/post/alive-ventures-announces-final-close-of-usd-55m-fund-to-scale-inclusive-growth-and-climate-resilience-in-latin-america
+    public_source_url: null
     last_seen_at: 2026-04-28
     notes: >
       Final close at $55m announced 2024; brings ALIVE AUM above $80m.
@@ -2098,7 +2098,7 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     status: deployed
-    public_source_url: https://www.responsability.com/en/news
+    public_source_url: null
     last_seen_at: 2026-04-24
     notes: >
       One of the largest microfinance debt managers; benchmark for ticket
@@ -2183,7 +2183,7 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     status: deployed
-    public_source_url: https://www.triodos-im.com/press-releases
+    public_source_url: null
     last_seen_at: 2026-04-24
     notes: >
       Dutch Luxembourg-SICAV microfinance fund; often cited benchmark
@@ -2240,7 +2240,7 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     status: deployed
-    public_source_url: https://www.zevin.com/insights/
+    public_source_url: null
     last_seen_at: 2026-04-24
     notes: >
       Boston-based SRI manager; relevant to INGOs evaluating
@@ -2435,7 +2435,7 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     status: deployed
-    public_source_url: https://www.gbfund.org/news
+    public_source_url: null
     last_seen_at: 2026-04-24
     notes: >
       Spun out of IFC in 2008; hybrid debt/equity investor in high-impact
@@ -2463,7 +2463,7 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     status: deployed
-    public_source_url: https://iixglobal.com/news-insights/
+    public_source_url: null
     last_seen_at: 2026-04-24
     notes: >
       Series of listed bonds (WLB1-WLB6+) financing women-owned SMEs.
@@ -2631,7 +2631,7 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     status: deployed
-    public_source_url: https://www.ecoenterprisesfund.com/news/
+    public_source_url: null
     last_seen_at: 2026-04-24
     notes: >
       Women-led Latin American sustainable-business fund; precedent
@@ -2659,7 +2659,7 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     status: deployed
-    public_source_url: https://www.agdevco.com/our-news
+    public_source_url: null
     last_seen_at: 2026-04-24
     notes: >
       UK FCDO-seeded African agri specialist. Good benchmark for

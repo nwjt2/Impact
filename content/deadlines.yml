@@ -74,22 +74,13 @@ deadlines:
     public_source_url: https://www.ifcamc.org/
     last_verified_at: 2026-04-25
 
-  - deadline_id: dfc-2x-women-rolling
-    issuing_body: U.S. International Development Finance Corporation
-    country: US
-    kind: rolling_application
-    title: DFC 2X Women's Initiative — gender-lens fund commitments (rolling)
-    deadline_date: null
-    recurring: rolling
-    why_it_matters: |
-      DFC's most-accessible pathway for INGO-sponsored gender-lens funds.
-      Not a traditional RFP — engage DFC deal team directly. URL form is
-      /2x-womens-initiative (possessive). DFC was reauthorised through
-      2031 in the FY2026 NDAA (signed 18 Dec 2025) with contingent-
-      liability ceiling raised $60bn → $205bn — political-risk concern
-      from yesterday's pass is now reduced but not eliminated.
-    public_source_url: https://www.dfc.gov/our-work/2x-womens-initiative
-    last_verified_at: 2026-04-25
+  # 2026-04-28: dfc-2x-women-rolling removed. The public 2X page
+  # (dfc.gov/our-work/2x-womens-initiative) now returns 403 / "not
+  # authorized" and the 2X menu link is gone from dfc.gov. Program
+  # itself is still Congressionally authorized (FY26 NDAA, 18 Dec 2025)
+  # but no public application surface remains, so listing it as a
+  # rolling open application would be misleading. Engagement is direct
+  # deal-team only — captured on the DFC card in dfi_ingo_commitments.yml.
 
   - deadline_id: dfc-climate-funds-rolling
     issuing_body: U.S. International Development Finance Corporation

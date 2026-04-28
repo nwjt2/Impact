@@ -65,7 +65,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://www.porticus.com/en/news-stories
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: temasek-trust
@@ -208,7 +208,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://www.wespath.com/news
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: adrian-dominican-sisters
@@ -246,7 +246,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://www.cbisonline.com/news/
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   # ---- Public-charity asset managers (often classified alongside faith-based) ----
@@ -267,7 +267,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://calvertimpactcapital.org/media
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   # ---- Single- and multi-family offices (impact-active branches only) ----
@@ -307,7 +307,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://tarahealthfoundation.org/news/
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: builders-initiative
@@ -413,7 +413,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://sorensonimpact.com/news/
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: kl-felicitas-foundation
@@ -451,7 +451,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://www.cordesfoundation.org/news
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: russell-family-foundation
@@ -546,7 +546,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://www.thehowardgbuffettfoundation.org/news/
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: helmsley-charitable-trust
@@ -660,7 +660,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://tsffoundation.org/our-work/
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: inherent-group
@@ -679,7 +679,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://www.inherentgroup.com/news
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: rockefeller-brothers-fund
@@ -719,7 +719,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://www.pivotalventures.org/newsroom
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: schmidt-futures
@@ -783,7 +783,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://www.thecaprockgroup.com/news/
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: tiedemann-advisors
@@ -863,7 +863,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://www.tatatrusts.org/our-news/news
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: wadhwani-foundation
@@ -939,7 +939,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://esmeefairbairn.org.uk/news/
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: lankelly-chase
@@ -977,7 +977,7 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://ellerman.org.uk/news/
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: argidius-foundation

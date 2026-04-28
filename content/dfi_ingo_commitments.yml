@@ -641,13 +641,19 @@ dfi_profiles:
     emerging_manager_facility:
       exists: true
       program_name: 2X Women's Initiative
-      application_url: https://www.dfc.gov/our-work/2x-womens-initiative
+      application_url: null
       notes: |
         DFC offers two products to fund managers: debt support and
         equity support for private equity funds. Categorized under
         "Platforms and Funds." 2X facility is the most accessible DFC
         pathway for INGO-sponsored gender-lens funds; typically requires
-        commercial-anchor co-investment.
+        commercial-anchor co-investment. Status update 2026-04-28: the
+        public 2X page (dfc.gov/our-work/2x-womens-initiative) returns
+        403 / "not authorized" and the 2X menu link has been removed
+        from dfc.gov navigation — public marketing of the program has
+        been pulled. Program itself remains Congressionally authorized
+        via FY26 NDAA (signed 18 Dec 2025); engagement is now strictly
+        direct DFC deal-team contact, no public application URL.
 
   - dfi_slug: proparco
     dfi_name: Proparco
@@ -662,7 +668,7 @@ dfi_profiles:
     emerging_manager_facility:
       exists: true
       program_name: FISEA+ / Choose Africa
-      application_url: https://www.proparco.fr/en/carte-des-projets
+      application_url: null
       notes: |
         FISEA / FISEA+ is AFD/Proparco's early-stage Africa equity
         facility, historically accessible to emerging managers with
@@ -714,7 +720,7 @@ dfi_profiles:
     dfi_name: International Finance Corporation
     stated_sector_preferences: [generalist, fi, climate, agri]
     stated_geo_focus: [global]
-    stated_thesis_url: https://www.ifc.org/en/about/strategy
+    stated_thesis_url: null
     stated_thesis_excerpt: null
     known_contacts_public: []
     typical_ticket_usd_m_min: 15
@@ -874,7 +880,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 3
     typical_ticket_usd_m_max: 15
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.aecid.es/EN/press-room
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: afd
@@ -1109,11 +1115,21 @@ dfi_profiles:
     stated_thesis_url: null
     stated_thesis_excerpt: null
     known_contacts_public: []
-    typical_ticket_usd_m_min: 5
-    typical_ticket_usd_m_max: 50
-    last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.usaid.gov/powerafrica/newsroom
+    typical_ticket_usd_m_min: null
+    typical_ticket_usd_m_max: null
+    last_seen_at: 2026-04-28
+    public_newsroom_url: null
     emerging_manager_facility: null
+    status: defunct
+    defunct_since: 2025-07-01
+    defunct_note: |
+      Power Africa was a USAID-led initiative. USAID officially ceased
+      operations on 1 July 2025 after the Trump administration's
+      dismantling of the agency (94% of staff laid off by mid-2025;
+      remaining functions absorbed into State Department). Power Africa
+      programmes have been terminated and usaid.gov/powerafrica/newsroom
+      now returns 404. Retained on this page as a historical track-
+      record reference for INGO funds that were anchored by Power Africa.
 
   - dfi_slug: usaid-div
     dfi_name: USAID Development Innovation Ventures
@@ -1123,11 +1139,20 @@ dfi_profiles:
     stated_thesis_url: null
     stated_thesis_excerpt: null
     known_contacts_public: []
-    typical_ticket_usd_m_min: 1
-    typical_ticket_usd_m_max: 5
-    last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.usaid.gov/div
+    typical_ticket_usd_m_min: null
+    typical_ticket_usd_m_max: null
+    last_seen_at: 2026-04-28
+    public_newsroom_url: null
     emerging_manager_facility: null
+    status: defunct
+    defunct_since: 2025-07-01
+    defunct_note: |
+      USAID Development Innovation Ventures (DIV) was a tiered grant
+      programme (Stages 1–3, $200k–$15m) that funded innovation pilots.
+      USAID was dismantled by the Trump administration and ceased
+      operations on 1 July 2025; DIV's funding was cut and usaid.gov/div
+      now returns 404. Retained as a historical track-record reference
+      only.
 
   - dfi_slug: ukfcdo
     dfi_name: UK FCDO
@@ -1154,7 +1179,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 3
     typical_ticket_usd_m_max: 15
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.sida.se/en/news
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: norad
@@ -1238,7 +1263,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 10
     typical_ticket_usd_m_max: 50
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.dbsa.org/news
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: tdb
@@ -1266,7 +1291,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 5
     typical_ticket_usd_m_max: 30
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.boad.org/en/category/news/
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: afc
@@ -1280,7 +1305,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 10
     typical_ticket_usd_m_max: 100
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.africafc.org/news-and-insights
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: nib
@@ -1294,7 +1319,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 20
     typical_ticket_usd_m_max: 100
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.nib.int/news
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: cofides
@@ -1322,7 +1347,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 5
     typical_ticket_usd_m_max: 30
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.simest.it/en/news
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: sofid
@@ -1336,7 +1361,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 1
     typical_ticket_usd_m_max: 10
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.sofid.pt/en/news/
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: oeeb
@@ -1350,7 +1375,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 3
     typical_ticket_usd_m_max: 15
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.oe-eb.at/en/News-and-Events/News.html
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: jbic
@@ -1490,7 +1515,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 50
     typical_ticket_usd_m_max: 300
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.ndb.int/news_landing/
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: bndes
@@ -1504,7 +1529,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 20
     typical_ticket_usd_m_max: 200
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.bndes.gov.br/SiteBNDES/bndes/bndes_en/Hotsites/Press_Office/news.html
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: cabei
@@ -1518,7 +1543,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 10
     typical_ticket_usd_m_max: 100
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.bcie.org/en/communications-room/news
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: nadbank
@@ -1560,7 +1585,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 3
     typical_ticket_usd_m_max: 20
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.eadb.org/news/
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: atidi
@@ -1602,7 +1627,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 1
     typical_ticket_usd_m_max: 10
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.adaptation-fund.org/category/news/
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: efsd-plus
@@ -1616,7 +1641,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 10
     typical_ticket_usd_m_max: 100
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://international-partnerships.ec.europa.eu/policies/european-fund-sustainable-development-plus-efsd_en
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: dbn-nigeria
@@ -1630,7 +1655,7 @@ dfi_profiles:
     typical_ticket_usd_m_min: 5
     typical_ticket_usd_m_max: 30
     last_seen_at: 2026-04-27
-    public_newsroom_url: https://www.devbankng.com/news/
+    public_newsroom_url: null
     emerging_manager_facility: null
 
   - dfi_slug: bstdb

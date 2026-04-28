@@ -70,7 +70,7 @@ foundations:
     typical_check_usd_m_max: 100
     pri_program: null
     mri_program: null
-    public_newsroom_url: https://www.gatesfoundation.org/ideas/media-center/press-releases
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: macarthur-foundation
@@ -124,7 +124,7 @@ foundations:
     typical_check_usd_m_max: 15
     pri_program: null
     mri_program: null
-    public_newsroom_url: https://www.packard.org/news-insights/
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: hilton-foundation
@@ -214,7 +214,7 @@ foundations:
     typical_check_usd_m_max: 15
     pri_program: null
     mri_program: null
-    public_newsroom_url: https://www.rwjf.org/en/news-and-insights.html
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: mcknight-foundation
@@ -378,7 +378,7 @@ foundations:
     typical_check_usd_m_max: 15
     pri_program: null
     mri_program: null
-    public_newsroom_url: https://www.emersoncollective.com/news/
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   # ---- Mastercard Foundation, CIFF, Wellcome — large global private ----
@@ -398,7 +398,7 @@ foundations:
     typical_check_usd_m_max: 100
     pri_program: null
     mri_program: null
-    public_newsroom_url: https://mastercardfdn.org/news/
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: ciff
@@ -708,7 +708,7 @@ foundations:
     typical_check_usd_m_max: 5
     pri_program: null
     mri_program: null
-    public_newsroom_url: https://www.pfizer.com/about/responsibility/pfizer-foundation
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: autodesk-foundation
@@ -726,7 +726,7 @@ foundations:
     typical_check_usd_m_max: 5
     pri_program: null
     mri_program: null
-    public_newsroom_url: https://www.autodesk.org/newsroom
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: patagonia-holdfast
@@ -798,7 +798,7 @@ foundations:
     typical_check_usd_m_max: 10
     pri_program: null
     mri_program: null
-    public_newsroom_url: https://www.ubs.com/microsites/optimus-foundation/en/news.html
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   # ---- Multilateral / pooled health & education trust funds ----
@@ -818,7 +818,7 @@ foundations:
     typical_check_usd_m_max: 100
     pri_program: null
     mri_program: null
-    public_newsroom_url: https://www.gavi.org/news
+    public_newsroom_url: null
     last_seen_at: 2026-04-27
 
   - slug: global-fund
