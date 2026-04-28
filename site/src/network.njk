@@ -17,88 +17,111 @@ permalink: /network/
   .legend-col h4 { margin: 0 0 0.5rem 0; font-size: 0.9rem; color: #aaa; text-transform: uppercase; letter-spacing: 0.06em; }
   .legend-list { list-style: none; padding: 0; margin: 0; }
   .legend-list li { padding: 0.25rem 0; font-size: 0.9rem; line-height: 1.4; }
-  .legend-tips li { padding: 0.3rem 0; }
 
-  /* Legend node swatches */
   .lg-shape { display: inline-block; vertical-align: middle; margin-right: 0.4rem; }
-  .lg-ingo  { width: 28px; height: 14px; background: #3a8c3a; border-radius: 4px; }
-  .lg-fund  { width: 32px; height: 14px; background: #3a78c4; border-radius: 4px; }
-  .lg-portco { width: 10px; height: 10px; border-radius: 50%; }
-  .lg-portco-mcv     { background: #e07b5a; }
-  .lg-portco-agdevco { background: #5ae0a5; }
-  .lg-portco-kiva    { background: #a05ae0; }
   .lg-investor { width: 11px; height: 11px; transform: rotate(45deg); }
-  .lg-fund-cluster { width: 10px; height: 10px; border-radius: 50%; }
-  .lg-dfi        { background: #d04848; }
-  .lg-vc         { background: #3acaa8; }
-  .lg-foundation { background: #c4a83a; }
-  .lg-family     { background: #a85ad0; }
-  .lg-government { background: #3a8cc4; }
-  .lg-other      { background: #888; }
+  .lg-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .lg-cell { width: 14px; height: 14px; border-radius: 2px; }
+  .lg-cell-lp        { background: #c4a83a; }
+  .lg-cell-coinvest  { background: transparent; box-sizing: border-box; position: relative; }
+  .lg-cell-coinvest::after { content: ''; position: absolute; left: 50%; top: 50%; width: 6px; height: 6px;
+                             background: #c4a83a; border-radius: 50%; transform: translate(-50%, -50%); }
+  .lg-cell-both      { background: #c4a83a; position: relative; }
+  .lg-cell-both::after { content: ''; position: absolute; left: 50%; top: 50%; width: 4px; height: 4px;
+                         background: #0e0f12; border-radius: 50%; transform: translate(-50%, -50%); }
+  .lg-dfi        { background: #e25c5c; }
+  .lg-vc         { background: #3ed7b3; }
+  .lg-foundation { background: #d6b94a; }
+  .lg-family     { background: #b86bdf; }
+  .lg-government { background: #4a9cd6; }
+  .lg-other      { background: #6c8aac; }
 
-  /* Legend edge samples */
-  .lg-edge { display: inline-block; width: 28px; height: 0; vertical-align: middle; margin-right: 0.5rem; border-top-width: 2px; border-top-style: solid; }
-  .lg-edge-sponsors    { border-color: #3a8c3a; }
-  .lg-edge-investment  { border-color: #3a3a3a; }
-  .lg-edge-lp          { border-color: #c4a83a; border-top-style: dashed; }
-  .lg-edge-co-investor { border-color: #9a5ad0; border-top-style: dotted; border-top-width: 3px; }
-
-  /* Story presets row */
-  .story-presets { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; flex-wrap: wrap; margin-bottom: 0.5rem; }
-  .preset-label { color: #aaa; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.06em; }
-  .story-presets button { background: #2a3a4a; color: #cfdbe6; border: 1px solid #3a4a5e; padding: 0.4rem 0.8rem; cursor: pointer; font-family: inherit; font-size: 0.9rem; border-radius: 3px; }
-  .story-presets button:hover { background: #344a60; border-color: #5a7896; }
-  .story-presets button.preset-active { background: #fa3; color: #1a1a1a; border-color: #fa3; font-weight: 600; box-shadow: 0 0 0 2px rgba(255, 170, 51, 0.3); }
-  .story-presets button.preset-active:hover { background: #ffb84d; border-color: #ffb84d; }
-  .story-presets button.preset-reset { background: #1a1a1a; color: #aaa; border-color: #333; }
-  .story-presets button.preset-reset:hover { background: #222; border-color: #555; }
-
-  /* Funds sub-list (per-fund toggles + INGO-only master) */
-  .ctrl-funds .ctrl-master { padding-bottom: 0.3rem; border-bottom: 1px dashed #333; margin-bottom: 0.3rem; font-weight: 600; }
-  .ctrl-fund-section { margin-top: 0.4rem; }
-  .ctrl-fund-section-title { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
-  .ctrl-fund-list { display: flex; flex-direction: column; gap: 0.2rem; }
-  .ctrl-fund-list label input:disabled + * , .ctrl-fund-list label:has(input:disabled) { opacity: 0.45; }
+  /* View tabs */
+  .view-tabs { display: flex; gap: 0; margin: 1rem 0 0.5rem; border-bottom: 1px solid #2c2c2c; }
+  .view-tab { background: transparent; color: #aaa; border: 1px solid transparent; border-bottom: none;
+              padding: 0.5rem 1.1rem; cursor: pointer; font-family: inherit; font-size: 0.9rem;
+              text-transform: uppercase; letter-spacing: 0.06em; }
+  .view-tab:hover { color: #ddd; }
+  .view-tab.active { color: #fa3; border-color: #2c2c2c; border-bottom-color: #0e0f12; background: #0e0f12;
+                     position: relative; top: 1px; font-weight: 600; }
 
   /* Controls */
-  .network-controls { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0; flex-wrap: wrap; }
-  .ctrl-group { border: 1px solid #2c2c2c; padding: 0.4rem 0.7rem 0.5rem; margin: 0; display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
-  .ctrl-group legend { font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; padding: 0 0.3rem; }
-  .ctrl-group label { display: inline-flex; gap: 0.4rem; align-items: center; cursor: pointer; font-size: 0.9rem; white-space: nowrap; }
-  .ctrl-group label .lg-shape, .ctrl-group label .lg-edge { flex: 0 0 auto; margin-right: 0; }
-  .ctrl-group label .lg-edge { width: 18px; }
-  .ctrl-group button { background: #1a1a1a; color: #ccc; border: 1px solid #333; padding: 0.3rem 0.7rem; cursor: pointer; font-family: inherit; font-size: 0.85rem; }
-  .ctrl-group button:hover { background: #222; border-color: #555; }
-  .ctrl-search input { background: #0e0f12; color: #d4d4d4; border: 1px solid #333; padding: 0.3rem 0.5rem; font-family: inherit; font-size: 0.9rem; min-width: 14rem; }
+  .network-controls { display: flex; gap: 0.75rem; align-items: flex-start; padding: 0.5rem 0;
+                      flex-wrap: wrap; }
+  .ctrl-group { border: 1px solid #2c2c2c; padding: 0.4rem 0.7rem 0.5rem; margin: 0;
+                display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+  .ctrl-group legend { font-size: 0.75rem; color: #888; text-transform: uppercase;
+                       letter-spacing: 0.06em; padding: 0 0.3rem; }
+  .ctrl-group label { display: inline-flex; gap: 0.4rem; align-items: center; cursor: pointer;
+                      font-size: 0.9rem; white-space: nowrap; }
+  .ctrl-group label .lg-shape { flex: 0 0 auto; margin-right: 0; }
+  .ctrl-group .ctrl-master { padding-bottom: 0.3rem; border-bottom: 1px dashed #333;
+                             margin-bottom: 0.3rem; font-weight: 600; }
+  .ctrl-search input { background: #0e0f12; color: #d4d4d4; border: 1px solid #333;
+                       padding: 0.3rem 0.5rem; font-family: inherit; font-size: 0.9rem; min-width: 14rem; }
   .ctrl-search input:focus { outline: none; border-color: #fa3; }
+  .ctrl-radio label { display: flex; align-items: center; gap: 0.4rem; }
 
   /* Selection / details */
-  #selection-info { display: block; padding: 0.4rem 0; font-size: 0.85rem; }
+  #selection-info { display: block; padding: 0.4rem 0; font-size: 0.85rem; min-height: 1.4em; }
   .network-details { padding: 1rem; margin-top: 1rem; background: #0e0f12; border: 1px solid #2c2c2c; }
   .network-details h3 { margin: 0 0 0.3rem 0; }
   .network-details ul { max-height: 260px; overflow-y: auto; padding-left: 1.2rem; }
 
-  /* Loading overlay — covers #cy until the cose layout finishes its first run.
-     ~520 nodes + 521 edges + a 700KB cytoscape bundle take a few seconds on
-     a cold load; a silent canvas reads as broken. */
-  .cy-wrap { position: relative; }
-  #cy-loading {
-    position: absolute; inset: 0; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 0.75rem;
-    background: #0e0f12; color: #aaa; font-size: 0.95rem;
-    pointer-events: none; z-index: 5;
-  }
-  #cy-loading.hidden { display: none; }
-  .cy-loading-spinner {
-    width: 28px; height: 28px; border-radius: 50%;
-    border: 3px solid #2c2c2c; border-top-color: #fa3;
-    animation: cy-spin 0.9s linear infinite;
-  }
-  .cy-loading-sub { font-size: 0.8rem; color: #777; }
-  @keyframes cy-spin { to { transform: rotate(360deg); } }
-  @media (prefers-reduced-motion: reduce) {
-    .cy-loading-spinner { animation: none; border-top-color: #aaa; }
-  }
+  /* Visualization wrapper */
+  .vis-wrap { position: relative; border: 1px solid #2c2c2c; background: #0e0f12;
+              min-height: 600px; overflow: auto; }
+  #vis-svg { display: block; }
+
+  /* Matrix-specific */
+  .matrix-cell { stroke: rgba(255,255,255,0.08); stroke-width: 0.5px; }
+  .matrix-cell-group { transition: opacity 0.12s ease; }
+  .matrix-cell-group.dim { opacity: 0.16; }
+  .matrix-cell-group.hot .matrix-cell { stroke: #fa3; stroke-width: 1.5px; }
+  .matrix-cell-group.hot .matrix-cell-codot { stroke: #fa3; stroke-width: 1px; }
+  .matrix-row-label { font-size: 12px; fill: #cfcfcf; text-anchor: end; cursor: pointer;
+                      transition: fill 0.12s ease; }
+  .matrix-row-label.dim { fill: #555; }
+  .matrix-row-label.hot { fill: #fa3; font-weight: 600; }
+  .matrix-col-label { font-size: 12px; fill: #cfcfcf; transition: fill 0.12s ease; }
+  .matrix-col-label.dim { fill: #555; }
+  .matrix-col-label.hot { fill: #fa3; font-weight: 600; }
+  .matrix-col-label.non-ingo { font-style: italic; opacity: 0.85; }
+  .matrix-row-bg.hot { fill: rgba(255, 170, 51, 0.07); }
+  .matrix-row-bg { fill: transparent; }
+  .matrix-archetype-dot { stroke: #0e0f12; stroke-width: 1.5px; }
+  .matrix-section-divider { stroke: #2c2c2c; stroke-width: 1px; stroke-dasharray: 3 3; }
+  .matrix-section-label { font-size: 10px; fill: #888; text-transform: uppercase;
+                          letter-spacing: 0.08em; }
+
+  /* Chord-specific */
+  .chord-arc { stroke: #0e0f12; stroke-width: 1.5px; cursor: pointer; }
+  .chord-arc.dim { opacity: 0.2; }
+  .chord-arc.hot { stroke: #fa3; stroke-width: 2px; }
+  .chord-ribbon { fill-opacity: 0.55; stroke-width: 0.5px; cursor: pointer; }
+  .chord-ribbon.dim { fill-opacity: 0.05; }
+  .chord-ribbon.hot { fill-opacity: 0.85; stroke: #fa3; stroke-width: 1.5px; }
+  .chord-label { font-size: 11px; fill: #cfcfcf; cursor: pointer; }
+  .chord-label.dim { fill: #555; }
+  .chord-label.hot { fill: #fa3; font-weight: 600; }
+  .chord-empty-note { fill: #888; font-size: 13px; text-anchor: middle; }
+
+  /* Tooltip */
+  #vis-tooltip { position: absolute; pointer-events: none; background: #1a1a1a; color: #d4d4d4;
+                 border: 1px solid #444; padding: 0.4rem 0.6rem; font-size: 0.85rem; max-width: 280px;
+                 z-index: 20; display: none; line-height: 1.4; }
+  #vis-tooltip strong { color: #fa3; }
+
+  /* Loading overlay */
+  #vis-loading { position: absolute; inset: 0; display: flex; flex-direction: column;
+                 align-items: center; justify-content: center; gap: 0.75rem;
+                 background: #0e0f12; color: #aaa; pointer-events: none; z-index: 5; }
+  #vis-loading.hidden { display: none; }
+  .vis-loading-spinner { width: 28px; height: 28px; border-radius: 50%;
+                         border: 3px solid #2c2c2c; border-top-color: #fa3;
+                         animation: vis-spin 0.9s linear infinite; }
+  @keyframes vis-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .vis-loading-spinner { animation: none; } }
 </style>
 
 <section class="doc-title">
@@ -110,9 +133,7 @@ permalink: /network/
     Public-source map of {{ network.stats.ingo_count }} INGO sponsors,
     {{ network.stats.fund_count }} funds,
     {{ network.stats.investor_count }} investors,
-    and {{ network.stats.portco_count }} portfolio companies
-    ({{ network.stats.edge_count }} edges).
-    Coverage so far: Mercy Corps Ventures, AgDevCo, Kiva Refugee Investment Fund.
+    and {{ network.stats.portco_count }} portfolio companies.
   </p>
 </section>
 
@@ -127,43 +148,36 @@ permalink: /network/
         The bigger lead-gen opportunity is <em>generalist investors who already touch impact via co-investments</em>
         — they look like outsiders on a list of impact funders, but they have already deployed capital alongside
         impact funds at the portfolio level. This view maps that network: who funds whom, and where the same
-        investor entity shows up in more than one position. The richer the graph, the easier it is to surface
-        warm leads.
+        investor entity shows up in more than one position.
       </p>
 
       <div class="legend-grid">
         <div class="legend-col">
-          <h4>What you're looking at</h4>
+          <h4>Cell encoding (matrix)</h4>
           <ul class="legend-list">
-            <li><span class="lg-shape lg-ingo"></span> <b>Parent NGO</b> that runs an impact fund</li>
-            <li><span class="lg-shape lg-fund"></span> <b>An impact fund</b></li>
-            <li><span class="lg-shape lg-portco lg-portco-mcv"></span><span class="lg-shape lg-portco lg-portco-agdevco"></span><span class="lg-shape lg-portco lg-portco-kiva"></span> <b>A company a fund invested in.</b> Colour shows which fund.</li>
-            <li><span class="lg-shape lg-investor lg-dfi"></span> <b>Development finance institution (DFI)</b> (e.g. BII, IFC, US DFC, Norfund)</li>
-            <li><span class="lg-shape lg-investor lg-vc"></span> <b>VC / private fund</b> (e.g. Andreessen Horowitz, Coinbase Ventures, LowerCarbon Capital)</li>
-            <li><span class="lg-shape lg-investor lg-foundation"></span> <b>Foundation</b> (e.g. Gates Foundation)</li>
-            <li><span class="lg-shape lg-investor lg-family"></span> <b>Family office</b> (private wealth)</li>
-            <li><span class="lg-shape lg-investor lg-government"></span> <b>Government agency</b> (e.g. USAID)</li>
-            <li><span class="lg-shape lg-investor lg-other"></span> <b>Other</b> (donor-advised funds, wealth advisors, mixed)</li>
+            <li><span class="lg-shape lg-cell lg-cell-lp"></span> <b>LP</b> — investor put money into the fund</li>
+            <li><span class="lg-shape lg-cell lg-cell-coinvest"></span> <b>Co-investor</b> — investor backed a portfolio company of the fund (number = how many)</li>
+            <li><span class="lg-shape lg-cell lg-cell-both"></span> <b>Both</b> — LP <em>and</em> co-investor</li>
           </ul>
         </div>
         <div class="legend-col">
-          <h4>Lines between them</h4>
+          <h4>Investor archetypes (row dot colour)</h4>
           <ul class="legend-list">
-            <li><span class="lg-edge lg-edge-sponsors"></span> <b>NGO runs this fund</b> (the fund is the NGO's impact-investment arm)</li>
-            <li><span class="lg-edge lg-edge-investment"></span> <b>Fund invested in a company</b></li>
-            <li><span class="lg-edge lg-edge-lp"></span> <b>Investor put money into a fund</b> (committed as an LP)</li>
-            <li><span class="lg-edge lg-edge-co-investor"></span> <b>Investor or funder of a company</b> (alongside or separate from an impact fund)</li>
+            <li><span class="lg-shape lg-dot lg-dfi"></span> <b>DFI</b> — development finance institution (BII, IFC, US DFC, Norfund …)</li>
+            <li><span class="lg-shape lg-dot lg-vc"></span> <b>VC / private fund</b> (Andreessen Horowitz, Coinbase Ventures …)</li>
+            <li><span class="lg-shape lg-dot lg-foundation"></span> <b>Foundation</b> (Gates, Skoll …)</li>
+            <li><span class="lg-shape lg-dot lg-family"></span> <b>Family office</b> (private wealth)</li>
+            <li><span class="lg-shape lg-dot lg-government"></span> <b>Government agency</b> (USAID …)</li>
+            <li><span class="lg-shape lg-dot lg-other"></span> <b>Other</b> (donor-advised, mixed, unclassified)</li>
           </ul>
         </div>
         <div class="legend-col">
           <h4>Try this</h4>
-          <ul class="legend-list legend-tips">
-            <li>Drag to pan, scroll to zoom. <b>Past 1.4× zoom</b>, all company names appear.</li>
-            <li><b>Click anything</b> to see who it connects to.</li>
-            <li><b>Search "BII", "Gates", "Soros"</b> to find a specific investor.</li>
-            <li>Untick a fund under <b>"Which funds"</b> to isolate the others.</li>
-            <li>Untick <b>"Fund invested in a company"</b> to focus on who funds the funds.</li>
-            <li>Untick all but <b>"Family offices"</b> to see only family-office investors.</li>
+          <ul class="legend-list">
+            <li>Hover any row or column to highlight its connections.</li>
+            <li>Switch to <b>Chord</b> to see funds that share investors with each other.</li>
+            <li>Filter by <b>investor type</b> to spotlight VCs, DFIs, foundations …</li>
+            <li>Search "BII", "Gates", "Soros" to jump to a specific row.</li>
           </ul>
         </div>
       </div>
@@ -171,397 +185,958 @@ permalink: /network/
       <p class="muted network-caveats">
         Caveats: portfolio attribution for Kiva is umbrella-level (KRIF is one of several Kiva vehicles).
         Acumen funds are temporarily blocked behind a Cloudflare bot challenge.
-        Most portcos don't yet have country/sector populated — operator review pending.
+        LP coverage is sparse across most funds — it fills in as new fund pages get scraped.
       </p>
     </div>
   </details>
 
-  <div class="story-presets">
-    <span class="preset-label">Quick views:</span>
-    <button data-preset="lp">Who funds the INGO-backed funds</button>
-    <button data-preset="invest">Where INGO-backed funds invest</button>
-    <button data-preset="coinvestors">Where non-INGO VCs overlap with INGO-backed funds (via shared portcos)</button>
-    <button data-preset="all" class="preset-reset">Show everything</button>
+  <div class="view-tabs">
+    <button class="view-tab active" data-view="matrix">Matrix · who funds whom</button>
+    <button class="view-tab" data-view="chord">Chord · funds that share investors</button>
   </div>
 
   <div class="network-controls">
     <fieldset class="ctrl-group">
-      <legend>Which relationships</legend>
-      <label><input type="checkbox" data-edge="sponsors" checked> <span class="lg-edge lg-edge-sponsors"></span> NGO runs a fund</label>
-      <label><input type="checkbox" data-edge="lp" checked> <span class="lg-edge lg-edge-lp"></span> Investor put money into a fund</label>
-      <label><input type="checkbox" data-edge="investment" checked> <span class="lg-edge lg-edge-investment"></span> Fund invested in a company</label>
-      <label><input type="checkbox" data-edge="co-investor" checked> <span class="lg-edge lg-edge-co-investor"></span> Other investor / funder of a company</label>
+      <legend>Investor / funder kinds</legend>
+      <label><input type="checkbox" data-itype="dfi" checked> <span class="lg-shape lg-dot lg-dfi"></span> DFIs</label>
+      <label><input type="checkbox" data-itype="vc" checked> <span class="lg-shape lg-dot lg-vc"></span> VC / private funds</label>
+      <label><input type="checkbox" data-itype="foundation" checked> <span class="lg-shape lg-dot lg-foundation"></span> Foundations</label>
+      <label><input type="checkbox" data-itype="family-office" checked> <span class="lg-shape lg-dot lg-family"></span> Family offices</label>
+      <label><input type="checkbox" data-itype="government" checked> <span class="lg-shape lg-dot lg-government"></span> Government</label>
+      <label><input type="checkbox" data-itype="other" checked> <span class="lg-shape lg-dot lg-other"></span> Other</label>
     </fieldset>
 
     <fieldset class="ctrl-group">
-      <legend>Investor / funder kinds</legend>
-      <label><input type="checkbox" data-itype="dfi" checked> <span class="lg-shape lg-investor lg-dfi"></span> Development finance institutions (DFIs)</label>
-      <label><input type="checkbox" data-itype="vc" checked> <span class="lg-shape lg-investor lg-vc"></span> VC / private funds</label>
-      <label><input type="checkbox" data-itype="foundation" checked> <span class="lg-shape lg-investor lg-foundation"></span> Foundations</label>
-      <label><input type="checkbox" data-itype="family-office" checked> <span class="lg-shape lg-investor lg-family"></span> Family offices</label>
-      <label><input type="checkbox" data-itype="government" checked> <span class="lg-shape lg-investor lg-government"></span> Government agencies</label>
-      <label><input type="checkbox" data-itype="other" checked> <span class="lg-shape lg-investor lg-other"></span> Other</label>
+      <legend>Relationship</legend>
+      <label><input type="checkbox" data-rel="lp" checked> <span class="lg-shape lg-cell lg-cell-lp"></span> LP commitments</label>
+      <label><input type="checkbox" data-rel="coinvest" checked> <span class="lg-shape lg-cell lg-cell-coinvest"></span> Co-investments via portcos</label>
     </fieldset>
 
-    <fieldset class="ctrl-group ctrl-funds">
-      <legend>Which funds</legend>
+    <fieldset class="ctrl-group">
+      <legend>Funds</legend>
       <label class="ctrl-master"><input type="checkbox" id="filter-ingo-only"> Only INGO-backed</label>
-
-      <div class="ctrl-fund-section">
-        <div class="ctrl-fund-section-title">INGO-backed</div>
-        <div class="ctrl-fund-list">
-          {% for node in network.nodes %}
-            {% if node.type == 'fund' and node.ingo_slug %}
-              <label><input type="checkbox" data-fund="{{ node.id | replace('fund:', '') }}" data-ingo-backed="true" checked> <span class="lg-shape lg-fund-cluster" style="background:{% if 'mercy-corps' in node.id %}#e07b5a{% elif 'kiva' in node.id %}#a05ae0{% elif 'agdevco' in node.id %}#5ae0a5{% else %}#777{% endif %}"></span> {{ node.name }}</label>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-
-      <div class="ctrl-fund-section">
-        <div class="ctrl-fund-section-title">Non-INGO-backed</div>
-        <div class="ctrl-fund-list">
-          {% for node in network.nodes %}
-            {% if node.type == 'fund' and not node.ingo_slug %}
-              <label><input type="checkbox" data-fund="{{ node.id | replace('fund:', '') }}" data-ingo-backed="false" checked> <span class="lg-shape lg-fund-cluster" style="background:{% if 'mercy-corps' in node.id %}#e07b5a{% elif 'kiva' in node.id %}#a05ae0{% elif 'agdevco' in node.id %}#5ae0a5{% else %}#777{% endif %}"></span> {{ node.name }}</label>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
+      <label><input type="checkbox" id="filter-only-with-data" checked> Only funds with investor data</label>
     </fieldset>
 
     <fieldset class="ctrl-group ctrl-search">
       <legend>Find by name</legend>
-      <input type="search" id="filter-search" placeholder="e.g. Gates, BII, Wasoko" />
+      <input type="search" id="filter-search" placeholder="e.g. Gates, BII, Soros" />
     </fieldset>
 
-    <fieldset class="ctrl-group">
-      <legend>Layout</legend>
-      <button id="layout-cose">Spread out</button>
-      <button id="layout-concentric">Layer by role</button>
-      <button id="reset-view">Reset zoom</button>
+    <fieldset class="ctrl-group ctrl-radio" id="ctrl-row-filter">
+      <legend>Show investors</legend>
+      <label><input type="radio" name="rowfilter" value="all" checked> All</label>
+      <label><input type="radio" name="rowfilter" value="multi"> In 2+ funds</label>
     </fieldset>
   </div>
 
   <div id="selection-info" class="muted"></div>
-  <div class="cy-wrap" style="height:75vh; min-height:600px; border:1px solid #2c2c2c;">
-    <div id="cy" style="width:100%; height:100%; background:#0e0f12;"></div>
-    <div id="cy-loading" role="status" aria-live="polite">
-      <div class="cy-loading-spinner" aria-hidden="true"></div>
+
+  <div class="vis-wrap" style="height:75vh; min-height:600px;">
+    <svg id="vis-svg" width="100%" height="100%"></svg>
+    <div id="vis-tooltip"></div>
+    <div id="vis-loading" role="status" aria-live="polite">
+      <div class="vis-loading-spinner" aria-hidden="true"></div>
       <div>Drawing the network…</div>
-      <div class="cy-loading-sub">{{ network.stats.fund_count }} funds · {{ network.stats.investor_count }} investors · {{ network.stats.portco_count }} portfolio companies</div>
     </div>
   </div>
+
   <div id="node-details" class="network-details" hidden></div>
 </section>
 
-<script src="https://unpkg.com/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+<script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>
 <script src="{{ '/assets/js/network-data.js' | url }}"></script>
 
 <script>
+  // -----------------------------------------------------------
+  // Data prep — collapse the cytoscape-shaped graph into the
+  // shape the matrix and chord views actually want.
+  //
+  // Source: window.NETWORK = { nodes, edges, stats }.
+  // We build:
+  //   - investors: [{id, name, archetype, lp_funds:Set, coinvest_funds:Map(fund -> portco_count)}]
+  //   - funds:     [{id, name, ingo_backed, lp_count, coinvest_count}]
+  //   - cells[fundId][investorId] = { lp:bool, coinvest:Number }
+  // -----------------------------------------------------------
+
   const NETWORK = window.NETWORK;
   if (!NETWORK) {
-    document.getElementById('cy-loading')?.classList.add('hidden');
-    document.getElementById('cy').innerHTML = '<p style="color:#fa3;padding:1rem;">network-data.js failed to load. Run <code>python -m network.dashboard_prep.prep_scripts.build_network_json</code> and rebuild.</p>';
+    document.getElementById('vis-loading')?.classList.add('hidden');
+    document.getElementById('vis-svg').innerHTML =
+      '<text x="20" y="40" fill="#fa3" font-size="14">network-data.js failed to load. Run python -m network.dashboard_prep.prep_scripts.build_network_json and rebuild.</text>';
     throw new Error('NETWORK data not loaded');
   }
 
-  const elements = [
-    ...NETWORK.nodes.map(n => ({ data: { id: n.id, label: n.name, ...n } })),
-    ...NETWORK.edges.map(e => ({ data: { source: e.source, target: e.target, kind: e.kind } }))
-  ];
-
-  const cy = cytoscape({
-    container: document.getElementById('cy'),
-    elements,
-    style: [
-      {
-        selector: 'node',
-        style: {
-          'label': 'data(label)',
-          'color': '#d4d4d4',
-          'font-size': '11px',
-          'text-valign': 'center',
-          'text-halign': 'center',
-          'text-wrap': 'wrap',
-          'text-max-width': '120px',
-          'border-width': 1,
-          'border-color': '#1a1a1a',
-        }
-      },
-      { selector: 'node[type="ingo"]', style: { 'background-color': '#3a8c3a', 'shape': 'round-rectangle', 'width': 70, 'height': 30, 'font-weight': 'bold' } },
-      { selector: 'node[type="fund"]', style: { 'background-color': '#3a78c4', 'shape': 'round-rectangle', 'width': 90, 'height': 34, 'font-weight': 'bold' } },
-      { selector: 'node[type="investor"]', style: { 'background-color': '#c4a83a', 'shape': 'diamond', 'width': 36, 'height': 36, 'font-size': '10px', 'font-weight': 'bold' } },
-      { selector: 'node[type="investor"][investor_type="dfi"]',           style: { 'background-color': '#d04848' } },
-      { selector: 'node[type="investor"][investor_type="vc"]',            style: { 'background-color': '#3acaa8' } },
-      { selector: 'node[type="investor"][investor_type="foundation"]',    style: { 'background-color': '#c4a83a' } },
-      { selector: 'node[type="investor"][investor_type="family-office"]', style: { 'background-color': '#a85ad0' } },
-      { selector: 'node[type="investor"][investor_type="other"]',         style: { 'background-color': '#888888' } },
-      { selector: 'node[type="investor"][investor_type="government"]',    style: { 'background-color': '#3a8cc4' } },
-      { selector: 'node[type="portco"]', style: { 'shape': 'ellipse', 'width': 14, 'height': 14, 'background-color': '#777', 'label': '', 'border-width': 0 } },
-      { selector: 'node[type="portco"][parent_fund_slug="mercy-corps-ventures"]',          style: { 'background-color': '#e07b5a' } },
-      { selector: 'node[type="portco"][parent_fund_slug="agdevco-smallholder-development-unit"]', style: { 'background-color': '#5ae0a5' } },
-      { selector: 'node[type="portco"][parent_fund_slug="kiva-refugee-investment-fund"]',  style: { 'background-color': '#a05ae0' } },
-      { selector: 'node[type="portco"].labelled', style: { 'label': 'data(label)', 'font-size': '10px', 'color': '#d4d4d4', 'text-background-color': '#0e0f12', 'text-background-opacity': 0.9, 'text-background-padding': '2px', 'z-index': 10 } },
-      { selector: 'node.searched', style: { 'border-color': '#fa3', 'border-width': 3 } },
-      { selector: 'node:selected', style: { 'border-color': '#fa3', 'border-width': 3 } },
-      {
-        selector: 'edge',
-        style: {
-          'width': 0.8,
-          'line-color': '#3a3a3a',
-          'curve-style': 'bezier',
-          'target-arrow-shape': 'triangle',
-          'target-arrow-color': '#3a3a3a',
-          'arrow-scale': 0.6,
-        }
-      },
-      { selector: 'edge[kind="sponsors"]',    style: { 'line-color': '#3a8c3a', 'target-arrow-color': '#3a8c3a', 'width': 1.5 } },
-      { selector: 'edge[kind="investment"]',  style: { 'line-color': '#3a3a3a' } },
-      { selector: 'edge[kind="lp"]',          style: { 'line-color': '#c4a83a', 'target-arrow-color': '#c4a83a', 'width': 1.5, 'line-style': 'dashed' } },
-      { selector: 'edge[kind="co-investor"]', style: { 'line-color': '#9a5ad0', 'target-arrow-color': '#9a5ad0', 'width': 1.2, 'line-style': 'dotted' } },
-    ],
-    layout: { name: 'cose', padding: 30, nodeRepulsion: 8000, idealEdgeLength: 80, animate: false }
-  });
-
-  // Zoom-conditional portco labels: above this threshold, show all.
-  const ZOOM_LABEL_THRESHOLD = 1.4;
-  function syncPortcoLabels() {
-    const showAll = cy.zoom() >= ZOOM_LABEL_THRESHOLD;
-    cy.batch(() => {
-      cy.nodes('[type="portco"]').forEach(n => {
-        if (showAll || n.hasClass('hovered') || n.selected()) {
-          n.addClass('labelled');
-        } else {
-          n.removeClass('labelled');
-        }
-      });
-    });
-  }
-  cy.on('zoom', syncPortcoLabels);
-  cy.on('mouseover', 'node[type="portco"]', evt => { evt.target.addClass('hovered'); syncPortcoLabels(); });
-  cy.on('mouseout',  'node[type="portco"]', evt => { evt.target.removeClass('hovered'); syncPortcoLabels(); });
-
-  cy.ready(() => { cy.fit(null, 30); });
-
-  // Hide the loading overlay once the initial cose layout finishes. We listen
-  // for layoutstop (fires after every layout — initial + the manual buttons —
-  // but the overlay only exists once so subsequent fires are no-ops).
-  const cyLoading = document.getElementById('cy-loading');
-  cy.one('layoutstop', () => { if (cyLoading) cyLoading.classList.add('hidden'); });
-  // Belt-and-braces: even if layoutstop never fires (e.g. an empty graph), the
-  // canvas is interactive after `ready`, so don't leave the spinner forever.
-  cy.ready(() => { setTimeout(() => cyLoading && cyLoading.classList.add('hidden'), 200); });
-
-  // ---- Filtering ----
-  //
-  // Mental model: the user picks relationships (edges) they care about. A
-  // node shows iff it has at least one visible relationship touching it. A
-  // fund also shows even with no edges if its fund-filter is on (so the
-  // catalogue presence is visible). Search hides anything that doesn't match.
-
-  function readBoxes(attr) {
-    const out = new Set();
-    document.querySelectorAll(`input[type="checkbox"][data-${attr}]`).forEach(el => {
-      if (el.checked) out.add(el.dataset[attr]);
-    });
-    return out;
-  }
-
-  function fundSlugForEdge(e) {
-    const k = e.data('kind');
-    const s = e.source(), t = e.target();
-    if (k === 'sponsors')   return t.id().replace(/^fund:/, '');
-    if (k === 'lp')         return t.id().replace(/^fund:/, '');
-    if (k === 'investment') return s.id().replace(/^fund:/, '');
-    if (k === 'co-investor') return t.data('parent_fund_slug') || null;
-    return null;
-  }
-
-  function investorEndpointItype(e) {
-    const k = e.data('kind');
-    if (k === 'lp' || k === 'co-investor') {
-      const inv = (e.source().data('type') === 'investor') ? e.source() : e.target();
-      return inv.data('investor_type') || 'other';
-    }
-    return null;
-  }
-
-  function applyFilters() {
-    const enabledEdges  = readBoxes('edge');
-    const enabledItypes = readBoxes('itype');
-    const enabledFunds  = readBoxes('fund');
-    const search = (document.getElementById('filter-search').value || '').trim().toLowerCase();
-
-    // Pass 1: which edges pass all filters (kind + investor-type + fund)
-    const visibleEdges = new Set();
-    cy.edges().forEach(e => {
-      if (!enabledEdges.has(e.data('kind'))) return;
-
-      const itype = investorEndpointItype(e);
-      if (itype && !enabledItypes.has(itype)) return;
-
-      const fundSlug = fundSlugForEdge(e);
-      if (fundSlug && !enabledFunds.has(fundSlug)) return;
-
-      visibleEdges.add(e.id());
-    });
-
-    cy.batch(() => {
-      // Pass 2: node visibility
-      cy.nodes().forEach(n => {
-        const t = n.data('type');
-
-        // Has at least one visible edge?
-        let touchesVisible = n.connectedEdges().some(e => visibleEdges.has(e.id()));
-
-        // Funds always render when their per-fund toggle is on, even with no edges.
-        if (t === 'fund') {
-          const slug = n.id().replace(/^fund:/, '');
-          if (enabledFunds.has(slug)) touchesVisible = true;
-        }
-
-        // Search filter overrides everything.
-        let show = touchesVisible;
-        const name = (n.data('name') || '').toLowerCase();
-        if (search) {
-          if (!name.includes(search)) show = false;
-        }
-
-        n.style('display', show ? 'element' : 'none');
-
-        if (search && name.includes(search)) {
-          n.addClass('searched');
-        } else {
-          n.removeClass('searched');
-        }
-      });
-
-      // Pass 3: apply edge visibility (and re-hide edges whose endpoints got hidden by search)
-      cy.edges().forEach(e => {
-        let show = visibleEdges.has(e.id());
-        if (show && search) {
-          if (e.source().style('display') === 'none' || e.target().style('display') === 'none') {
-            show = false;
-          }
-        }
-        e.style('display', show ? 'element' : 'none');
-      });
-    });
-
-    // Visible-count indicator.
-    const visibleCount = cy.nodes().filter(n => n.style('display') !== 'none').length;
-    const totalCount = cy.nodes().length;
-    document.getElementById('selection-info').textContent =
-      visibleCount === totalCount ? '' : `Showing ${visibleCount} of ${totalCount} entities`;
-  }
-
-  // ---- Presets ----
-  // Each preset configures the filter checkboxes and re-runs applyFilters.
-  // `itypes: null` means "all on"; an array restricts to those types only.
-  const PRESETS = {
-    lp:          { edges: ['sponsors', 'lp'],                              itypes: null,   ingoOnly: true  },
-    invest:      { edges: ['sponsors', 'investment'],                      itypes: null,   ingoOnly: true  },
-    coinvestors: { edges: ['sponsors', 'investment', 'co-investor'],       itypes: ['vc'], ingoOnly: true  },
-    all:         { edges: ['sponsors', 'lp', 'investment', 'co-investor'], itypes: null,   ingoOnly: false },
+  // Archetype palette — distinct enough that "other" doesn't read as
+  // an empty cell. Empty cells are NOT drawn (the matrix background is
+  // the empty state) so any visible square is signal.
+  const ARCHETYPE_COLOR = {
+    'dfi':           '#e25c5c',
+    'vc':            '#3ed7b3',
+    'foundation':    '#d6b94a',
+    'family-office': '#b86bdf',
+    'government':    '#4a9cd6',
+    'other':         '#6c8aac',
   };
 
-  function setActivePresetButton(name) {
-    document.querySelectorAll('.story-presets button[data-preset]').forEach(b => {
-      b.classList.toggle('preset-active', b.dataset.preset === name);
+  function prep() {
+    const nodesById = new Map(NETWORK.nodes.map(n => [n.id, n]));
+
+    const allFunds = NETWORK.nodes
+      .filter(n => n.type === 'fund')
+      .map(n => ({
+        id: n.id,
+        name: n.name,
+        ingo_backed: !!n.ingo_slug,
+      }));
+
+    // portco -> set(fund) (a portco may belong to multiple funds in theory; usually 1)
+    const portcoToFunds = new Map();
+    for (const e of NETWORK.edges) {
+      if (e.kind === 'investment') {
+        if (!portcoToFunds.has(e.target)) portcoToFunds.set(e.target, new Set());
+        portcoToFunds.get(e.target).add(e.source);
+      }
+    }
+
+    // For each investor, build LP set and co-invest map (fund -> # portcos)
+    const investorLpFunds = new Map();
+    const investorCoinvestFunds = new Map();
+    for (const e of NETWORK.edges) {
+      if (e.kind === 'lp') {
+        if (!investorLpFunds.has(e.source)) investorLpFunds.set(e.source, new Set());
+        investorLpFunds.get(e.source).add(e.target);
+      } else if (e.kind === 'co-investor') {
+        const funds = portcoToFunds.get(e.target);
+        if (!funds) continue;
+        if (!investorCoinvestFunds.has(e.source)) investorCoinvestFunds.set(e.source, new Map());
+        const m = investorCoinvestFunds.get(e.source);
+        for (const fundId of funds) {
+          m.set(fundId, (m.get(fundId) || 0) + 1);
+        }
+      }
+    }
+
+    const investorIds = new Set([...investorLpFunds.keys(), ...investorCoinvestFunds.keys()]);
+    const investors = [...investorIds].map(id => {
+      const node = nodesById.get(id);
+      const lpFunds = investorLpFunds.get(id) || new Set();
+      const coFunds = investorCoinvestFunds.get(id) || new Map();
+      const allFundIds = new Set([...lpFunds, ...coFunds.keys()]);
+      return {
+        id,
+        name: node?.name || id,
+        archetype: node?.investor_type || 'other',
+        lp_funds: lpFunds,
+        coinvest_funds: coFunds,
+        all_funds: allFundIds,
+        total_count: allFundIds.size,
+      };
+    });
+
+    // Per-fund summary counts
+    const fundLpCount = new Map();
+    const fundCoinvestCount = new Map();
+    for (const inv of investors) {
+      for (const f of inv.lp_funds) {
+        fundLpCount.set(f, (fundLpCount.get(f) || 0) + 1);
+      }
+      for (const f of inv.coinvest_funds.keys()) {
+        fundCoinvestCount.set(f, (fundCoinvestCount.get(f) || 0) + 1);
+      }
+    }
+    for (const f of allFunds) {
+      f.lp_count = fundLpCount.get(f.id) || 0;
+      f.coinvest_count = fundCoinvestCount.get(f.id) || 0;
+      f.total_count = f.lp_count + f.coinvest_count;
+    }
+
+    return { funds: allFunds, investors };
+  }
+
+  const DATA = prep();
+
+  // -----------------------------------------------------------
+  // UI state
+  // -----------------------------------------------------------
+  const STATE = {
+    view: 'matrix',
+    enabledTypes: new Set(['dfi', 'vc', 'foundation', 'family-office', 'government', 'other']),
+    enabledRel: { lp: true, coinvest: true },
+    ingoOnly: false,
+    onlyWithData: true,
+    rowFilter: 'all',
+    search: '',
+    hot: { investorId: null, fundId: null }, // hover/click highlight
+  };
+
+  // Compute filtered fund/investor lists per current state.
+  function computeFilteredLists() {
+    let funds = DATA.funds.slice();
+    if (STATE.ingoOnly) funds = funds.filter(f => f.ingo_backed);
+    if (STATE.onlyWithData) funds = funds.filter(f => f.total_count > 0);
+
+    let investors = DATA.investors.filter(inv => STATE.enabledTypes.has(inv.archetype));
+
+    if (!STATE.enabledRel.lp && !STATE.enabledRel.coinvest) {
+      investors = [];
+    }
+
+    // Investor must touch at least one of the visible funds via an enabled relationship.
+    const fundIds = new Set(funds.map(f => f.id));
+    investors = investors.filter(inv => {
+      let touch = false;
+      if (STATE.enabledRel.lp) {
+        for (const f of inv.lp_funds) if (fundIds.has(f)) { touch = true; break; }
+      }
+      if (!touch && STATE.enabledRel.coinvest) {
+        for (const f of inv.coinvest_funds.keys()) if (fundIds.has(f)) { touch = true; break; }
+      }
+      return touch;
+    });
+
+    if (STATE.rowFilter === 'multi') {
+      investors = investors.filter(inv => {
+        let count = 0;
+        if (STATE.enabledRel.lp) {
+          for (const f of inv.lp_funds) if (fundIds.has(f)) count++;
+        }
+        if (STATE.enabledRel.coinvest) {
+          for (const f of inv.coinvest_funds.keys()) {
+            if (fundIds.has(f) && (!STATE.enabledRel.lp || !inv.lp_funds.has(f))) count++;
+          }
+        }
+        return count >= 2;
+      });
+    }
+
+    if (STATE.search) {
+      const q = STATE.search.toLowerCase();
+      investors = investors.filter(inv => inv.name.toLowerCase().includes(q));
+    }
+
+    // Sort funds: INGO first, then by total_count desc, then alphabetical.
+    funds.sort((a, b) => {
+      if (a.ingo_backed !== b.ingo_backed) return a.ingo_backed ? -1 : 1;
+      if (a.total_count !== b.total_count) return b.total_count - a.total_count;
+      return a.name.localeCompare(b.name);
+    });
+
+    // Sort investors: by # of cells they fill in the *visible* fund set, desc.
+    investors.forEach(inv => {
+      let visCount = 0;
+      for (const f of inv.lp_funds) if (fundIds.has(f) && STATE.enabledRel.lp) visCount++;
+      for (const f of inv.coinvest_funds.keys()) {
+        if (fundIds.has(f) && STATE.enabledRel.coinvest && (!STATE.enabledRel.lp || !inv.lp_funds.has(f))) visCount++;
+      }
+      inv._visCount = visCount;
+    });
+    investors.sort((a, b) => {
+      if (b._visCount !== a._visCount) return b._visCount - a._visCount;
+      return a.name.localeCompare(b.name);
+    });
+
+    return { funds, investors };
+  }
+
+  // -----------------------------------------------------------
+  // Tooltip helpers
+  // -----------------------------------------------------------
+  const tooltip = document.getElementById('vis-tooltip');
+  function showTooltip(html, evt) {
+    tooltip.innerHTML = html;
+    tooltip.style.display = 'block';
+    moveTooltip(evt);
+  }
+  function moveTooltip(evt) {
+    const wrap = document.querySelector('.vis-wrap').getBoundingClientRect();
+    const x = Math.min(evt.clientX - wrap.left + 12, wrap.width - 300);
+    const y = Math.min(evt.clientY - wrap.top + 12, wrap.height - 80);
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = y + 'px';
+  }
+  function hideTooltip() { tooltip.style.display = 'none'; }
+
+  // -----------------------------------------------------------
+  // Matrix view
+  // -----------------------------------------------------------
+  function renderMatrix() {
+    const { funds, investors } = computeFilteredLists();
+    const svg = d3.select('#vis-svg');
+    svg.selectAll('*').remove();
+
+    if (funds.length === 0 || investors.length === 0) {
+      svg.append('text')
+        .attr('class', 'chord-empty-note')
+        .attr('x', '50%').attr('y', '50%')
+        .text('No data — relax a filter.');
+      updateSelectionInfo(funds, investors);
+      return;
+    }
+
+    const cellSize = 26;
+    const rowLabelW = 260;
+    const colLabelH = 180;
+    const archetypeDotW = 16;
+    const padLeft = 24, padTop = 24;
+
+    const matrixW = funds.length * cellSize;
+    const matrixH = investors.length * cellSize;
+    const totalW = padLeft + rowLabelW + archetypeDotW + matrixW + 20;
+    const totalH = padTop + colLabelH + matrixH + 30;
+
+    svg.attr('viewBox', `0 0 ${totalW} ${totalH}`)
+       .attr('preserveAspectRatio', 'xMinYMin meet')
+       .style('min-width', totalW + 'px')
+       .style('min-height', totalH + 'px');
+
+    const matrixOriginX = padLeft + rowLabelW + archetypeDotW;
+    const matrixOriginY = padTop + colLabelH;
+
+    const fundIndex = new Map(funds.map((f, i) => [f.id, i]));
+    const investorIndex = new Map(investors.map((inv, i) => [inv.id, i]));
+
+    // INGO / non-INGO divider
+    const firstNonIngoIdx = funds.findIndex(f => !f.ingo_backed);
+    if (firstNonIngoIdx > 0 && firstNonIngoIdx < funds.length) {
+      const x = matrixOriginX + firstNonIngoIdx * cellSize - 1;
+      svg.append('line')
+        .attr('class', 'matrix-section-divider')
+        .attr('x1', x).attr('x2', x)
+        .attr('y1', padTop + 4).attr('y2', matrixOriginY + matrixH);
+    }
+
+    // Column labels (rotated). Counts moved to tooltip — they fight with
+    // the rotated names visually when stacked underneath.
+    const colG = svg.append('g').attr('class', 'matrix-col-labels');
+    funds.forEach((f, i) => {
+      const x = matrixOriginX + i * cellSize + cellSize / 2;
+      const y = matrixOriginY - 10;
+      const g = colG.append('g')
+        .attr('transform', `translate(${x},${y}) rotate(-50)`)
+        .style('cursor', 'pointer')
+        .on('mouseenter', evt => onColEnter(f, evt))
+        .on('mouseleave', onColLeave)
+        .on('mousemove', moveTooltip)
+        .on('click', () => showDetailsForFund(f));
+      g.append('text')
+        .attr('class', 'matrix-col-label' + (f.ingo_backed ? '' : ' non-ingo'))
+        .attr('data-fund-id', f.id)
+        .attr('text-anchor', 'start')
+        .attr('dy', '0.35em')
+        .text(truncate(f.name, 30));
+    });
+
+    // Row labels and archetype dots
+    const rowG = svg.append('g').attr('class', 'matrix-row-labels');
+    investors.forEach((inv, i) => {
+      const y = matrixOriginY + i * cellSize + cellSize / 2;
+      const g = rowG.append('g')
+        .style('cursor', 'pointer')
+        .on('mouseenter', evt => onRowEnter(inv, evt))
+        .on('mouseleave', onRowLeave)
+        .on('mousemove', moveTooltip)
+        .on('click', evt => onRowClick(inv, evt));
+
+      g.append('rect')
+        .attr('class', 'matrix-row-bg')
+        .attr('data-investor-id', inv.id)
+        .attr('x', padLeft)
+        .attr('y', y - cellSize / 2)
+        .attr('width', rowLabelW + archetypeDotW + matrixW)
+        .attr('height', cellSize);
+
+      g.append('text')
+        .attr('class', 'matrix-row-label')
+        .attr('data-investor-id', inv.id)
+        .attr('x', padLeft + rowLabelW)
+        .attr('y', y)
+        .attr('dy', '0.35em')
+        .text(truncate(inv.name, 32));
+
+      g.append('circle')
+        .attr('class', 'matrix-archetype-dot')
+        .attr('cx', padLeft + rowLabelW + archetypeDotW / 2)
+        .attr('cy', y)
+        .attr('r', 4)
+        .attr('fill', ARCHETYPE_COLOR[inv.archetype] || ARCHETYPE_COLOR.other);
+    });
+
+    // Subtle row banding — alternating hairline backgrounds so the eye
+    // can track a row across 10+ columns of mostly-empty space.
+    const bandG = svg.append('g').attr('class', 'matrix-bands');
+    investors.forEach((inv, i) => {
+      if (i % 2 === 1) return;
+      bandG.append('rect')
+        .attr('x', matrixOriginX)
+        .attr('y', matrixOriginY + i * cellSize)
+        .attr('width', matrixW)
+        .attr('height', cellSize)
+        .attr('fill', '#15171c');
+    });
+
+    // Cells. Empty cells are NOT drawn — the dark band IS the empty
+    // state. Encoding:
+    //   LP only:        filled rect, archetype colour
+    //   Co-invest only: filled dot, archetype colour, sized by # portcos
+    //   Both:           filled rect + small inner dot in bg colour
+    const cellsG = svg.append('g').attr('class', 'matrix-cells');
+    investors.forEach(inv => {
+      const r = investorIndex.get(inv.id);
+      const archColor = ARCHETYPE_COLOR[inv.archetype] || ARCHETYPE_COLOR.other;
+      funds.forEach(f => {
+        const c = fundIndex.get(f.id);
+        const isLp = STATE.enabledRel.lp && inv.lp_funds.has(f.id);
+        const coCount = STATE.enabledRel.coinvest ? (inv.coinvest_funds.get(f.id) || 0) : 0;
+        if (!isLp && !coCount) return;
+
+        const x = matrixOriginX + c * cellSize;
+        const y = matrixOriginY + r * cellSize;
+
+        const cell = cellsG.append('g')
+          .attr('class', 'matrix-cell-group')
+          .attr('data-fund-id', f.id)
+          .attr('data-investor-id', inv.id)
+          .style('cursor', 'pointer')
+          .on('mouseenter', evt => onCellEnter(inv, f, isLp, coCount, evt))
+          .on('mouseleave', onCellLeave)
+          .on('mousemove', moveTooltip);
+
+        if (isLp) {
+          cell.append('rect')
+            .attr('class', 'matrix-cell')
+            .attr('x', x + 2).attr('y', y + 2)
+            .attr('width', cellSize - 4).attr('height', cellSize - 4)
+            .attr('rx', 3)
+            .attr('fill', archColor);
+          if (coCount) {
+            cell.append('circle')
+              .attr('class', 'matrix-cell-codot')
+              .attr('cx', x + cellSize / 2)
+              .attr('cy', y + cellSize / 2)
+              .attr('r', 3)
+              .attr('fill', '#0e0f12');
+            if (coCount > 1) {
+              cell.append('text')
+                .attr('class', 'matrix-cell-conum')
+                .attr('x', x + cellSize / 2)
+                .attr('y', y + cellSize / 2)
+                .attr('text-anchor', 'middle')
+                .attr('dominant-baseline', 'central')
+                .attr('font-size', '8px')
+                .attr('font-weight', '700')
+                .attr('fill', archColor)
+                .text(coCount);
+            }
+          }
+        } else {
+          // Co-invest only: filled dot, sized by count (capped).
+          const dotR = 4 + Math.min(coCount - 1, 4);
+          cell.append('circle')
+            .attr('class', 'matrix-cell-codot')
+            .attr('cx', x + cellSize / 2)
+            .attr('cy', y + cellSize / 2)
+            .attr('r', dotR)
+            .attr('fill', archColor);
+          if (coCount > 1) {
+            cell.append('text')
+              .attr('class', 'matrix-cell-conum')
+              .attr('x', x + cellSize / 2)
+              .attr('y', y + cellSize / 2)
+              .attr('text-anchor', 'middle')
+              .attr('dominant-baseline', 'central')
+              .attr('font-size', '9px')
+              .attr('font-weight', '700')
+              .attr('fill', '#0e0f12')
+              .text(coCount);
+          }
+        }
+      });
+    });
+
+    // INGO / non-INGO header label
+    if (firstNonIngoIdx > 0) {
+      svg.append('text')
+        .attr('class', 'matrix-section-label')
+        .attr('x', matrixOriginX)
+        .attr('y', padTop)
+        .text('INGO-backed');
+      svg.append('text')
+        .attr('class', 'matrix-section-label')
+        .attr('x', matrixOriginX + firstNonIngoIdx * cellSize + 6)
+        .attr('y', padTop)
+        .text('Non-INGO');
+    }
+
+    updateSelectionInfo(funds, investors);
+  }
+
+  function onRowEnter(inv, evt) {
+    STATE.hot.investorId = inv.id;
+    STATE.hot.fundId = null;
+    applyHighlight();
+    const lpNames = [...inv.lp_funds].map(id => DATA.funds.find(f => f.id === id)?.name).filter(Boolean);
+    const coEntries = [...inv.coinvest_funds.entries()].map(([id, n]) => {
+      const fname = DATA.funds.find(f => f.id === id)?.name;
+      return fname ? `${fname} (${n} portco${n > 1 ? 's' : ''})` : null;
+    }).filter(Boolean);
+    let html = `<strong>${inv.name}</strong><br><span style="color:#888">${inv.archetype}</span><br>`;
+    if (lpNames.length) html += `<br><b>LP in:</b><br>${lpNames.map(n => '· ' + n).join('<br>')}`;
+    if (coEntries.length) html += `<br><br><b>Co-investor in:</b><br>${coEntries.map(n => '· ' + n).join('<br>')}`;
+    showTooltip(html, evt);
+  }
+  function onRowLeave() {
+    STATE.hot.investorId = null;
+    applyHighlight();
+    hideTooltip();
+  }
+  function onColEnter(fund, evt) {
+    STATE.hot.fundId = fund.id;
+    STATE.hot.investorId = null;
+    applyHighlight();
+    const html = `<strong>${fund.name}</strong><br><span style="color:#888">${fund.ingo_backed ? 'INGO-backed' : 'non-INGO'}</span><br><br>`
+      + `<b>${fund.lp_count}</b> LP${fund.lp_count === 1 ? '' : 's'}<br>`
+      + `<b>${fund.coinvest_count}</b> co-investor entit${fund.coinvest_count === 1 ? 'y' : 'ies'} (via portcos)`;
+    showTooltip(html, evt);
+  }
+  function onColLeave() {
+    STATE.hot.fundId = null;
+    applyHighlight();
+    hideTooltip();
+  }
+  function onCellEnter(inv, fund, isLp, coCount, evt) {
+    STATE.hot.investorId = inv.id;
+    STATE.hot.fundId = fund.id;
+    applyHighlight();
+    let html = `<strong>${inv.name}</strong> &times; <strong>${fund.name}</strong><br><br>`;
+    if (isLp) html += `Direct LP commitment.<br>`;
+    if (coCount) html += `Co-invested in <b>${coCount}</b> portco${coCount > 1 ? 's' : ''} of this fund.`;
+    showTooltip(html, evt);
+  }
+  function onCellLeave() {
+    STATE.hot.investorId = null;
+    STATE.hot.fundId = null;
+    applyHighlight();
+    hideTooltip();
+  }
+  function onRowClick(inv, evt) {
+    showDetailsForInvestor(inv);
+  }
+
+  function applyHighlight() {
+    if (STATE.view !== 'matrix') return applyChordHighlight();
+
+    const { investorId, fundId } = STATE.hot;
+    const svg = d3.select('#vis-svg');
+
+    // Row labels
+    svg.selectAll('.matrix-row-label').each(function () {
+      const el = d3.select(this);
+      const id = el.attr('data-investor-id');
+      el.classed('hot', id === investorId);
+      el.classed('dim', !!investorId && id !== investorId);
+    });
+    svg.selectAll('.matrix-row-bg').each(function () {
+      const el = d3.select(this);
+      const id = el.attr('data-investor-id');
+      el.classed('hot', id === investorId);
+    });
+    // Col labels
+    svg.selectAll('.matrix-col-label').each(function () {
+      const el = d3.select(this);
+      const id = el.attr('data-fund-id');
+      el.classed('hot', id === fundId);
+      el.classed('dim', !!fundId && id !== fundId);
+    });
+    // Cells
+    svg.selectAll('.matrix-cell-group').each(function () {
+      const el = d3.select(this);
+      const fId = el.attr('data-fund-id');
+      const iId = el.attr('data-investor-id');
+      let dim = false, hot = false;
+      if (investorId && iId !== investorId) dim = true;
+      if (fundId && fId !== fundId) dim = true;
+      if (investorId && fundId && iId === investorId && fId === fundId) hot = true;
+      else if (investorId && !fundId && iId === investorId) hot = true;
+      else if (fundId && !investorId && fId === fundId) hot = true;
+      el.classed('dim', dim).classed('hot', hot);
     });
   }
 
-  function clearActivePreset() {
-    document.querySelectorAll('.story-presets button.preset-active').forEach(b => b.classList.remove('preset-active'));
+  function showDetailsForInvestor(inv) {
+    const det = document.getElementById('node-details');
+    const lpFunds = [...inv.lp_funds].map(id => DATA.funds.find(f => f.id === id)).filter(Boolean);
+    const coEntries = [...inv.coinvest_funds.entries()].map(([id, n]) => ({
+      fund: DATA.funds.find(f => f.id === id), n
+    })).filter(x => x.fund);
+    let html = `<h3>${inv.name}</h3><p class="muted">${inv.archetype}</p>`;
+    html += `<p>Touches ${inv.total_count} fund${inv.total_count === 1 ? '' : 's'}.</p>`;
+    if (lpFunds.length) {
+      html += `<p><b>LP in:</b></p><ul>` + lpFunds.map(f => `<li>${f.name}</li>`).join('') + `</ul>`;
+    }
+    if (coEntries.length) {
+      html += `<p><b>Co-investor in portcos of:</b></p><ul>`
+        + coEntries.map(x => `<li>${x.fund.name} (${x.n} portco${x.n > 1 ? 's' : ''})</li>`).join('')
+        + `</ul>`;
+    }
+    det.innerHTML = html;
+    det.hidden = false;
   }
 
-  function applyPreset(name) {
-    const p = PRESETS[name];
-    if (!p) return;
-    document.querySelectorAll('input[type="checkbox"][data-edge]').forEach(el => {
-      el.checked = p.edges.includes(el.dataset.edge);
-    });
-    document.querySelectorAll('input[type="checkbox"][data-itype]').forEach(el => {
-      el.checked = p.itypes === null || p.itypes.includes(el.dataset.itype);
-    });
-    const ingoOnly = document.getElementById('filter-ingo-only');
-    ingoOnly.checked = p.ingoOnly;
-    syncIngoOnly();
-    setActivePresetButton(name);
-    applyFilters();
+  function showDetailsForFund(fund) {
+    const det = document.getElementById('node-details');
+    const lps = DATA.investors.filter(inv => inv.lp_funds.has(fund.id));
+    const cos = DATA.investors
+      .filter(inv => inv.coinvest_funds.has(fund.id))
+      .map(inv => ({ inv, n: inv.coinvest_funds.get(fund.id) }))
+      .sort((a, b) => b.n - a.n);
+    let html = `<h3>${fund.name}</h3><p class="muted">${fund.ingo_backed ? 'INGO-backed' : 'non-INGO'}</p>`;
+    html += `<p>${fund.lp_count} LP${fund.lp_count === 1 ? '' : 's'}, `
+          + `${fund.coinvest_count} co-investor entit${fund.coinvest_count === 1 ? 'y' : 'ies'}.</p>`;
+    if (lps.length) {
+      html += `<p><b>LPs:</b></p><ul>` + lps.map(i => `<li>${i.name} <span class="muted">(${i.archetype})</span></li>`).join('') + `</ul>`;
+    }
+    if (cos.length) {
+      html += `<p><b>Co-investors (via portcos):</b></p><ul>`
+        + cos.map(x => `<li>${x.inv.name} <span class="muted">(${x.inv.archetype}, ${x.n} portco${x.n > 1 ? 's' : ''})</span></li>`).join('')
+        + `</ul>`;
+    }
+    det.innerHTML = html;
+    det.hidden = false;
   }
-  document.querySelectorAll('.story-presets button[data-preset]').forEach(btn => {
-    btn.addEventListener('click', () => applyPreset(btn.dataset.preset));
-  });
 
-  // ---- INGO-backed only master toggle ----
-  function syncIngoOnly() {
-    const ingoOnly = document.getElementById('filter-ingo-only').checked;
-    document.querySelectorAll('input[type="checkbox"][data-fund]').forEach(box => {
-      const isIngo = box.dataset.ingoBacked === 'true';
-      if (ingoOnly) {
-        box.checked = isIngo;
-        box.disabled = !isIngo;
-      } else {
-        box.disabled = false;
-        box.checked = true;
+  // -----------------------------------------------------------
+  // Chord view — fund <-> fund arcs weighted by shared investors
+  // -----------------------------------------------------------
+  function renderChord() {
+    let { funds, investors } = computeFilteredLists();
+    const svg = d3.select('#vis-svg');
+    svg.selectAll('*').remove();
+
+    // Build N x N matrix where M[i][j] = count of investors that touch BOTH fund i and fund j
+    // (for i != j), and M[i][i] = count touching only fund i (so the arc has a "self" weight too,
+    // making the ring visible even for solo funds).
+    if (funds.length === 0) {
+      const w = document.querySelector('.vis-wrap').clientWidth;
+      const h = document.querySelector('.vis-wrap').clientHeight;
+      svg.attr('viewBox', `0 0 ${w} ${h}`);
+      svg.append('text').attr('class', 'chord-empty-note').attr('x', w / 2).attr('y', h / 2)
+        .text('No funds to chart — relax a filter.');
+      updateSelectionInfo(funds, investors);
+      return;
+    }
+
+    // First pass: compute cross-fund sharing only (no self-weights).
+    // The chord chart's only job is to show overlap; single-fund
+    // investors would inflate one arc into a ring-eating monster
+    // (looking at you, Kiva with 43 single-touch investors).
+    const fundIndex0 = new Map(funds.map((f, i) => [f.id, i]));
+    const fullMatrix = Array.from({ length: funds.length }, () => Array(funds.length).fill(0));
+    const fullShared = Array.from({ length: funds.length }, () =>
+      Array.from({ length: funds.length }, () => []));
+
+    investors.forEach(inv => {
+      const visibleFunds = [];
+      if (STATE.enabledRel.lp) {
+        for (const fid of inv.lp_funds) if (fundIndex0.has(fid)) visibleFunds.push(fid);
+      }
+      if (STATE.enabledRel.coinvest) {
+        for (const fid of inv.coinvest_funds.keys()) {
+          if (fundIndex0.has(fid) && !visibleFunds.includes(fid)) visibleFunds.push(fid);
+        }
+      }
+      if (visibleFunds.length < 2) return;
+      for (let a = 0; a < visibleFunds.length; a++) {
+        for (let b = a + 1; b < visibleFunds.length; b++) {
+          const ia = fundIndex0.get(visibleFunds[a]);
+          const ib = fundIndex0.get(visibleFunds[b]);
+          fullMatrix[ia][ib] += 1;
+          fullMatrix[ib][ia] += 1;
+          fullShared[ia][ib].push(inv);
+          fullShared[ib][ia].push(inv);
+        }
+      }
+    });
+
+    // Trim funds to those that participate in at least one cross-fund
+    // edge — funds with zero shared investors don't belong on the ring.
+    const participating = funds.filter((f, i) => fullMatrix[i].some(v => v > 0));
+
+    const wrap = document.querySelector('.vis-wrap');
+    const w = wrap.clientWidth || 900;
+    const h = wrap.clientHeight || 600;
+    svg.attr('viewBox', `0 0 ${w} ${h}`);
+
+    if (participating.length < 2) {
+      const g0 = svg.append('g').attr('transform', `translate(${w / 2},${h / 2})`);
+      g0.append('text').attr('class', 'chord-empty-note').attr('y', -10)
+        .text('No fund pairs share an investor yet.');
+      g0.append('text').attr('class', 'chord-empty-note').attr('y', 14).style('font-size', '11px')
+        .text('Switch to the Matrix tab — that view works on sparse data.');
+      updateSelectionInfo(funds, investors);
+      return;
+    }
+
+    // Rebuild the matrix on the trimmed fund set so D3 doesn't reserve
+    // arc space for funds with zero ribbons.
+    const N = participating.length;
+    const fundIndex = new Map(participating.map((f, i) => [f.id, i]));
+    const matrix = Array.from({ length: N }, () => Array(N).fill(0));
+    const sharedDetails = Array.from({ length: N }, () =>
+      Array.from({ length: N }, () => []));
+    funds.forEach((fa, i0) => {
+      const ia = fundIndex.get(fa.id);
+      if (ia === undefined) return;
+      funds.forEach((fb, j0) => {
+        const ib = fundIndex.get(fb.id);
+        if (ib === undefined) return;
+        matrix[ia][ib] = fullMatrix[i0][j0];
+        sharedDetails[ia][ib] = fullShared[i0][j0];
+      });
+    });
+
+    const size = Math.min(w, h);
+    const innerR = size * 0.28;
+    const outerR = size * 0.33;
+    const g = svg.append('g').attr('transform', `translate(${w / 2},${h / 2})`);
+
+    const chord = d3.chord().padAngle(0.06).sortSubgroups(d3.descending);
+    const chords = chord(matrix);
+
+    // Re-bind the local `funds` variable used by the rest of the chord
+    // renderer (label/arc/ribbon code) to the trimmed set. Naming kept
+    // for legibility against the matrix code above.
+    funds = participating;
+
+    const colorScale = d3.scaleOrdinal()
+      .domain(funds.map(f => f.id))
+      .range(d3.quantize(d3.interpolateRainbow, Math.max(N, 6)));
+
+    const arc = d3.arc().innerRadius(innerR).outerRadius(outerR);
+    const ribbon = d3.ribbon().radius(innerR);
+
+    // Arcs
+    const arcG = g.append('g').attr('class', 'chord-arcs');
+    chords.groups.forEach(grp => {
+      const f = funds[grp.index];
+      arcG.append('path')
+        .attr('class', 'chord-arc')
+        .attr('data-fund-id', f.id)
+        .attr('d', arc(grp))
+        .attr('fill', colorScale(f.id))
+        .attr('opacity', f.ingo_backed ? 1 : 0.55)
+        .on('mouseenter', evt => {
+          STATE.hot.fundId = f.id;
+          applyChordHighlight();
+          const html = `<strong>${f.name}</strong><br><span style="color:#888">${f.ingo_backed ? 'INGO-backed' : 'non-INGO'}</span><br><br>`
+            + `${f.lp_count} LP${f.lp_count === 1 ? '' : 's'}<br>`
+            + `${f.coinvest_count} co-investor entit${f.coinvest_count === 1 ? 'y' : 'ies'}`;
+          showTooltip(html, evt);
+        })
+        .on('mouseleave', () => { STATE.hot.fundId = null; applyChordHighlight(); hideTooltip(); })
+        .on('mousemove', moveTooltip)
+        .on('click', () => showDetailsForFund(f));
+    });
+
+    // Ribbons (cross-fund only — skip self-loops which are only there to bulk the ring)
+    const ribbonG = g.append('g').attr('class', 'chord-ribbons');
+    chords.forEach(c => {
+      if (c.source.index === c.target.index) return;
+      const i = c.source.index, j = c.target.index;
+      const fA = funds[i], fB = funds[j];
+      ribbonG.append('path')
+        .attr('class', 'chord-ribbon')
+        .attr('data-pair', `${fA.id}|${fB.id}`)
+        .attr('d', ribbon(c))
+        .attr('fill', colorScale(fA.id))
+        .attr('stroke', d3.rgb(colorScale(fA.id)).darker())
+        .on('mouseenter', evt => {
+          STATE.hot.pair = `${fA.id}|${fB.id}`;
+          applyChordHighlight();
+          const shared = sharedDetails[i][j];
+          let html = `<strong>${fA.name}</strong> ↔ <strong>${fB.name}</strong><br>`
+            + `<span style="color:#888">${shared.length} shared investor${shared.length === 1 ? '' : 's'}</span><br><br>`
+            + shared.map(inv => {
+              const lpA = inv.lp_funds.has(fA.id), lpB = inv.lp_funds.has(fB.id);
+              const coA = inv.coinvest_funds.get(fA.id) || 0, coB = inv.coinvest_funds.get(fB.id) || 0;
+              const labelA = lpA ? 'LP' : `co-inv ${coA}`;
+              const labelB = lpB ? 'LP' : `co-inv ${coB}`;
+              return `· ${inv.name} <span style="color:#888">(${labelA} / ${labelB})</span>`;
+            }).join('<br>');
+          showTooltip(html, evt);
+        })
+        .on('mouseleave', () => { STATE.hot.pair = null; applyChordHighlight(); hideTooltip(); })
+        .on('mousemove', moveTooltip);
+    });
+
+    // Labels — radial, flipped on the left half so they always read
+    // left-to-right. A small tick line connects each label to its arc.
+    const labelG = g.append('g').attr('class', 'chord-labels');
+    chords.groups.forEach(grp => {
+      const f = funds[grp.index];
+      const angle = (grp.startAngle + grp.endAngle) / 2;
+      const flip = angle > Math.PI;
+      const labelR = outerR + 14;
+      const tickEndR = outerR + 10;
+
+      // Tick line
+      labelG.append('line')
+        .attr('x1', Math.sin(angle) * (outerR + 1))
+        .attr('y1', -Math.cos(angle) * (outerR + 1))
+        .attr('x2', Math.sin(angle) * tickEndR)
+        .attr('y2', -Math.cos(angle) * tickEndR)
+        .attr('stroke', '#444')
+        .attr('stroke-width', 1);
+
+      const lx = Math.sin(angle) * labelR;
+      const ly = -Math.cos(angle) * labelR;
+      const rotateDeg = (angle * 180 / Math.PI) - 90 + (flip ? 180 : 0);
+
+      labelG.append('text')
+        .attr('class', 'chord-label')
+        .attr('data-fund-id', f.id)
+        .attr('transform', `translate(${lx},${ly}) rotate(${rotateDeg})`)
+        .attr('text-anchor', flip ? 'end' : 'start')
+        .attr('dx', flip ? -4 : 4)
+        .attr('dy', '0.35em')
+        .style('cursor', 'pointer')
+        .text(truncate(f.name, 28))
+        .on('mouseenter', evt => {
+          STATE.hot.fundId = f.id;
+          applyChordHighlight();
+        })
+        .on('mouseleave', () => { STATE.hot.fundId = null; applyChordHighlight(); })
+        .on('click', () => showDetailsForFund(f));
+    });
+
+    updateSelectionInfo(funds, investors);
+  }
+
+  function applyChordHighlight() {
+    const { fundId, pair } = STATE.hot;
+    const svg = d3.select('#vis-svg');
+    svg.selectAll('.chord-arc').each(function () {
+      const el = d3.select(this);
+      const id = el.attr('data-fund-id');
+      el.classed('hot', id === fundId);
+      el.classed('dim', !!fundId && id !== fundId);
+    });
+    svg.selectAll('.chord-label').each(function () {
+      const el = d3.select(this);
+      const id = el.attr('data-fund-id');
+      el.classed('hot', id === fundId);
+      el.classed('dim', !!fundId && id !== fundId);
+    });
+    svg.selectAll('.chord-ribbon').each(function () {
+      const el = d3.select(this);
+      const p = el.attr('data-pair');
+      const [a, b] = p.split('|');
+      let hot = false, dim = false;
+      if (pair) { hot = (p === pair); dim = !hot; }
+      else if (fundId) { hot = (a === fundId || b === fundId); dim = !hot; }
+      el.classed('hot', hot).classed('dim', dim);
+    });
+  }
+
+  // -----------------------------------------------------------
+  // Selection-info banner
+  // -----------------------------------------------------------
+  function updateSelectionInfo(funds, investors) {
+    const el = document.getElementById('selection-info');
+    if (!funds.length || !investors.length) {
+      el.textContent = 'No relationships visible — try relaxing a filter.';
+      return;
+    }
+    const totalCells = investors.reduce((acc, inv) => acc + inv._visCount, 0);
+    el.textContent = `${investors.length} investors × ${funds.length} funds · ${totalCells} relationships`
+      + (STATE.search ? ` · search: "${STATE.search}"` : '');
+  }
+
+  // -----------------------------------------------------------
+  // Render dispatcher + filter wiring
+  // -----------------------------------------------------------
+  function truncate(s, n) {
+    if (!s) return '';
+    return s.length > n ? s.slice(0, n - 1) + '…' : s;
+  }
+
+  function render() {
+    document.getElementById('vis-loading')?.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      try {
+        if (STATE.view === 'matrix') renderMatrix();
+        else renderChord();
+      } finally {
+        document.getElementById('vis-loading')?.classList.add('hidden');
       }
     });
   }
-  document.getElementById('filter-ingo-only').addEventListener('change', () => {
-    syncIngoOnly();
-    applyFilters();
+
+  // View tabs
+  document.querySelectorAll('.view-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.view-tab').forEach(b => b.classList.toggle('active', b === btn));
+      STATE.view = btn.dataset.view;
+      // The "row filter" control only makes sense for the matrix.
+      document.getElementById('ctrl-row-filter').style.display =
+        STATE.view === 'matrix' ? '' : 'none';
+      render();
+    });
   });
 
-  // Wire filters — manual changes clear any active preset (filter state
-  // diverges from preset, so the indicator would lie).
-  function onManualFilterChange() {
-    clearActivePreset();
-    applyFilters();
-  }
-  document.querySelectorAll('.network-controls input[type="checkbox"]').forEach(el => {
-    el.addEventListener('change', onManualFilterChange);
+  // Investor type filters
+  document.querySelectorAll('input[type="checkbox"][data-itype]').forEach(box => {
+    box.addEventListener('change', () => {
+      STATE.enabledTypes.clear();
+      document.querySelectorAll('input[type="checkbox"][data-itype]').forEach(b => {
+        if (b.checked) STATE.enabledTypes.add(b.dataset.itype);
+      });
+      render();
+    });
   });
-  document.getElementById('filter-search').addEventListener('input', onManualFilterChange);
 
-  // Layout buttons
-  document.getElementById('layout-cose').addEventListener('click', () => {
-    cy.layout({ name: 'cose', padding: 30, nodeRepulsion: 8000, idealEdgeLength: 80, animate: false }).run();
+  // Relationship filters
+  document.querySelectorAll('input[type="checkbox"][data-rel]').forEach(box => {
+    box.addEventListener('change', () => {
+      STATE.enabledRel.lp = document.querySelector('input[data-rel="lp"]').checked;
+      STATE.enabledRel.coinvest = document.querySelector('input[data-rel="coinvest"]').checked;
+      render();
+    });
   });
-  document.getElementById('layout-concentric').addEventListener('click', () => {
-    cy.layout({
-      name: 'concentric',
-      concentric: n => ({ ingo: 4, investor: 3, fund: 2, portco: 1 }[n.data('type')] ?? 0),
-      levelWidth: () => 1,
-      padding: 30,
-      animate: false,
-    }).run();
-  });
-  document.getElementById('reset-view').addEventListener('click', () => cy.fit(null, 30));
 
-  // Click handler — node details panel
-  const details = document.getElementById('node-details');
-  cy.on('tap', 'node', evt => {
-    const d = evt.target.data();
-    let html = `<h3>${d.name}</h3><p class="muted">${d.type}${d.investor_type ? ' · ' + d.investor_type : ''}</p>`;
-    if (d.country) html += `<p>Country: ${d.country}</p>`;
-    if (d.website) html += `<p>Website: <a href="${d.website}" target="_blank" rel="noopener">${d.website}</a></p>`;
-    if (d.thesis_tags) html += `<p>Thesis: ${d.thesis_tags}</p>`;
-    if (d.fund_type) html += `<p>Fund type: ${d.fund_type}</p>`;
-    if (d.impact_focus) html += `<p>Impact focus: ${d.impact_focus}</p>`;
-    const neighbors = evt.target.neighborhood('node');
-    if (neighbors.length) {
-      html += `<p>Connected to ${neighbors.length} entities:</p><ul>`;
-      neighbors.forEach(n => { html += `<li>${n.data('name')} <span class="muted">(${n.data('type')})</span></li>`; });
-      html += `</ul>`;
+  // INGO-only toggle
+  document.getElementById('filter-ingo-only').addEventListener('change', e => {
+    STATE.ingoOnly = e.target.checked;
+    render();
+  });
+  // Only-with-data toggle
+  document.getElementById('filter-only-with-data').addEventListener('change', e => {
+    STATE.onlyWithData = e.target.checked;
+    render();
+  });
+
+  // Search
+  document.getElementById('filter-search').addEventListener('input', e => {
+    STATE.search = e.target.value.trim();
+    render();
+  });
+
+  // Row filter (matrix only)
+  document.querySelectorAll('input[name="rowfilter"]').forEach(r => {
+    r.addEventListener('change', () => {
+      const v = document.querySelector('input[name="rowfilter"]:checked').value;
+      STATE.rowFilter = v;
+      render();
+    });
+  });
+
+  // Click outside cells/rows to close details panel
+  document.getElementById('vis-svg').addEventListener('click', e => {
+    if (e.target.tagName === 'svg') {
+      document.getElementById('node-details').hidden = true;
     }
-    details.innerHTML = html;
-    details.hidden = false;
   });
-  cy.on('tap', evt => {
-    if (evt.target === cy) {
-      details.hidden = true;
-    }
-  });
+
+  // First render
+  render();
 </script>
