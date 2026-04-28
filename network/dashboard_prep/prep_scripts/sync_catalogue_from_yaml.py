@@ -58,6 +58,14 @@ ACTIVE_FUND_SLUGS = {
     "av-ventures-ink-kenya",
     "av-ventures-ghana",
     "av-frontiers-caif",
+    # Activated 2026-04-28. LP rosters scraped from primary press releases.
+    # FEFISOL II from EIB launch PR; WaterEquity GAF IV from Newswire final
+    # close; WWB Fund II from Women's World Banking insights post.
+    "fefisol-ii",
+    "waterequity-waci4",
+    "wwb-capital-partners-fund-ii",
+    # Activated 2026-04-28. Portfolio scraped from /portfolio/ archive page.
+    "andgreen-fund",
 }
 
 IMPACT_FUNDS_HEADERS = [

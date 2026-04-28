@@ -18,3 +18,14 @@ finca-ventures,impact_fund,"programmatic, not a fund vehicle",,2026-04-28
 acumen-capital-partners-i,impact_fund,"programmatic, not a fund vehicle",,2026-04-28
 acumen-h2r-amplify,impact_fund,acumen.org behind Cloudflare bot challenge — needs playwright,Phase 5,2026-04-28
 acumen-kawisafi,impact_fund,acumen.org behind Cloudflare bot challenge — needs playwright,Phase 5,2026-04-28
+accion-impact-management-digital-transformation-fund,impact_fund,accion.org press release returns 403 — UA-blocked or Cloudflare-walled,Phase 5,2026-04-28
+acumen-araf,impact_fund,acumen.org behind Cloudflare bot challenge — needs playwright,Phase 5,2026-04-28
+ci-ventures,impact_fund,no structurally clean portfolio anchors on conservation.org programmatic page,,2026-04-28
+idh-farmfit-fund,impact_fund,no structurally clean portfolio anchors on idhsustainabletrade.com fund page,,2026-04-28
+hivos-food-lifestyle-fund,impact_fund,prose-only portcos on hivosimpactinvestments.com — no consistent markup pattern,,2026-04-28
+waterequity-everspring,impact_fund,no portfolio companies publicly named yet (fund still raising),,2026-04-28
+brac-impact-ventures,impact_fund,no portfolio listing on brac.net page,,2026-04-28
+cordaid-investment-management,impact_fund,cordaidinvestment.com returns ~1KB — likely SPA or redirect; no static portfolio,,2026-04-28
+heifer-impact-capital,impact_fund,heifer.org press release announces SEAF partnership only — no LP roster,,2026-04-28
+waterequity-gaf3,impact_fund,GAF3 press release names DFC debt only; equity LPs not individually disclosed,,2026-04-28
+irc-airbel-ventures,impact_fund,IRC press release names only one investee (Signalytic) — too thin to scrape yet,,2026-04-28
