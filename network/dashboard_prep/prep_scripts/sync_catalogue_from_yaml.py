@@ -53,6 +53,11 @@ ACTIVE_FUND_SLUGS = {
     # hits Kiva's umbrella /partners page (225 MFIs). KRIF is one of several
     # Kiva vehicles; per-fund attribution is a future enrichment.
     "kiva-refugee-investment-fund",
+    # ACDI/VOCA's AV Ventures family — three funds with per-fund attribution
+    # on av-ventures.com/our_funds/. Single bespoke scraper, three CSVs.
+    "av-ventures-ink-kenya",
+    "av-ventures-ghana",
+    "av-frontiers-caif",
 }
 
 IMPACT_FUNDS_HEADERS = [

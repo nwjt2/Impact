@@ -171,6 +171,29 @@ Vanguard Charitable,vanguard-charitable,foundation,unknown,,,unknown,active,Disc
 CapShift,capshift,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 The JMB Charitable Fund,the-jmb-charitable-fund,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 The Todd and Anne McCormack Fund,the-todd-and-anne-mccormack-fund,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Burnt Island Ventures,burnt-island-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Sand River Ventures,sand-river-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Amadeus Capital Partners,amadeus-capital-partners,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Ripple,ripple,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Cerulean,cerulean,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Blizzard,blizzard,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Mercy Corps Ventures,mercy-corps-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Floating Point,floating-point,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Google,google,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+LowerCarbon Capital,lowercarbon-capital,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Collab Fund,collab-fund,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Andreessen Horowitz,andreessen-horowitz,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Kindred Ventures,kindred-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Coinbase Ventures,coinbase-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+SV Angel,sv-angel,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Variant,variant,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Access Ventures,access-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+ICE,ice,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Edaphon,edaphon,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Regeneration,regeneration,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Mercy,mercy,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Finca,finca,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Sabi,sabi,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Audacious Project,audacious-project,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Cartier Philanthrophy,cartier-philanthrophy,foundation,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 CF Industries,cf-industries,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
@@ -193,29 +216,6 @@ Pershing Square,pershing-square,other,unknown,,,unknown,active,Discovered via po
 USAID,usaid,government,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Virgin Unite,virgin-unite,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Whole Planet Foundation,whole-planet-foundation,foundation,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Floating Point,floating-point,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Google,google,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-LowerCarbon Capital,lowercarbon-capital,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Collab Fund,collab-fund,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Andreessen Horowitz,andreessen-horowitz,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Kindred Ventures,kindred-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Coinbase Ventures,coinbase-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-SV Angel,sv-angel,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Variant,variant,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Access Ventures,access-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Burnt Island Ventures,burnt-island-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Sand River Ventures,sand-river-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Amadeus Capital Partners,amadeus-capital-partners,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Ripple,ripple,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Cerulean,cerulean,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Blizzard,blizzard,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Mercy Corps Ventures,mercy-corps-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-ICE,ice,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Edaphon,edaphon,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Regeneration,regeneration,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Mercy,mercy,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Finca,finca,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-Sabi,sabi,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Y Combinator,y-combinator,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Echo VC,echo-vc,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Allon,allon,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
