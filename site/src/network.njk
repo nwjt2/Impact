@@ -77,6 +77,28 @@ permalink: /network/
   .network-details { padding: 1rem; margin-top: 1rem; background: #0e0f12; border: 1px solid #2c2c2c; }
   .network-details h3 { margin: 0 0 0.3rem 0; }
   .network-details ul { max-height: 260px; overflow-y: auto; padding-left: 1.2rem; }
+
+  /* Loading overlay — covers #cy until the cose layout finishes its first run.
+     ~520 nodes + 521 edges + a 700KB cytoscape bundle take a few seconds on
+     a cold load; a silent canvas reads as broken. */
+  .cy-wrap { position: relative; }
+  #cy-loading {
+    position: absolute; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 0.75rem;
+    background: #0e0f12; color: #aaa; font-size: 0.95rem;
+    pointer-events: none; z-index: 5;
+  }
+  #cy-loading.hidden { display: none; }
+  .cy-loading-spinner {
+    width: 28px; height: 28px; border-radius: 50%;
+    border: 3px solid #2c2c2c; border-top-color: #fa3;
+    animation: cy-spin 0.9s linear infinite;
+  }
+  .cy-loading-sub { font-size: 0.8rem; color: #777; }
+  @keyframes cy-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) {
+    .cy-loading-spinner { animation: none; border-top-color: #aaa; }
+  }
 </style>
 
 <section class="doc-title">
@@ -222,7 +244,14 @@ permalink: /network/
   </div>
 
   <div id="selection-info" class="muted"></div>
-  <div id="cy" style="width:100%; height:75vh; min-height:600px; border:1px solid #2c2c2c; background:#0e0f12;"></div>
+  <div class="cy-wrap" style="height:75vh; min-height:600px; border:1px solid #2c2c2c;">
+    <div id="cy" style="width:100%; height:100%; background:#0e0f12;"></div>
+    <div id="cy-loading" role="status" aria-live="polite">
+      <div class="cy-loading-spinner" aria-hidden="true"></div>
+      <div>Drawing the network…</div>
+      <div class="cy-loading-sub">{{ network.stats.fund_count }} funds · {{ network.stats.investor_count }} investors · {{ network.stats.portco_count }} portfolio companies</div>
+    </div>
+  </div>
   <div id="node-details" class="network-details" hidden></div>
 </section>
 
@@ -232,6 +261,7 @@ permalink: /network/
 <script>
   const NETWORK = window.NETWORK;
   if (!NETWORK) {
+    document.getElementById('cy-loading')?.classList.add('hidden');
     document.getElementById('cy').innerHTML = '<p style="color:#fa3;padding:1rem;">network-data.js failed to load. Run <code>python -m network.dashboard_prep.prep_scripts.build_network_json</code> and rebuild.</p>';
     throw new Error('NETWORK data not loaded');
   }
@@ -313,6 +343,15 @@ permalink: /network/
   cy.on('mouseout',  'node[type="portco"]', evt => { evt.target.removeClass('hovered'); syncPortcoLabels(); });
 
   cy.ready(() => { cy.fit(null, 30); });
+
+  // Hide the loading overlay once the initial cose layout finishes. We listen
+  // for layoutstop (fires after every layout — initial + the manual buttons —
+  // but the overlay only exists once so subsequent fires are no-ops).
+  const cyLoading = document.getElementById('cy-loading');
+  cy.one('layoutstop', () => { if (cyLoading) cyLoading.classList.add('hidden'); });
+  // Belt-and-braces: even if layoutstop never fires (e.g. an empty graph), the
+  // canvas is interactive after `ready`, so don't leave the spinner forever.
+  cy.ready(() => { setTimeout(() => cyLoading && cyLoading.classList.add('hidden'), 200); });
 
   // ---- Filtering ----
   //
