@@ -1,4 +1,14 @@
 Company Slug,Investor Slug,Round,Round Date,Lead,Source URL,Source Date,Scraping Method Used
+floodbase,floating-point,unknown,,unknown,https://www.floodbase.com/about,2026-04-28,portco_investor_scraper_Floodbase
+floodbase,google,unknown,,unknown,https://www.floodbase.com/about,2026-04-28,portco_investor_scraper_Floodbase
+floodbase,lowercarbon-capital,unknown,,unknown,https://www.floodbase.com/about,2026-04-28,portco_investor_scraper_Floodbase
+floodbase,collab-fund,unknown,,unknown,https://www.floodbase.com/about,2026-04-28,portco_investor_scraper_Floodbase
+goldfinch,andreessen-horowitz,unknown,,unknown,https://goldfinch.finance/,2026-04-28,portco_investor_scraper_Goldfinch
+goldfinch,kindred-ventures,unknown,,unknown,https://goldfinch.finance/,2026-04-28,portco_investor_scraper_Goldfinch
+goldfinch,coinbase-ventures,unknown,,unknown,https://goldfinch.finance/,2026-04-28,portco_investor_scraper_Goldfinch
+goldfinch,sv-angel,unknown,,unknown,https://goldfinch.finance/,2026-04-28,portco_investor_scraper_Goldfinch
+goldfinch,variant,unknown,,unknown,https://goldfinch.finance/,2026-04-28,portco_investor_scraper_Goldfinch
+goldfinch,access-ventures,unknown,,unknown,https://goldfinch.finance/,2026-04-28,portco_investor_scraper_Goldfinch
 one-acre-fund,audacious-project,grant,,unknown,https://oneacrefund.org/about-us/accolades/grants,2026-04-28,portco_investor_scraper_OneAcreFund
 one-acre-fund,bill-melinda-gates-foundation,grant,,unknown,https://oneacrefund.org/about-us/accolades/grants,2026-04-28,portco_investor_scraper_OneAcreFund
 one-acre-fund,bezos-earth-fund,grant,,unknown,https://oneacrefund.org/about-us/accolades/grants,2026-04-28,portco_investor_scraper_OneAcreFund

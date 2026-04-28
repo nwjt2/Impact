@@ -85,14 +85,30 @@ def _read_run_number() -> int:
 
 
 def _classify_investor_type(name: str) -> str:
-    """Best-guess investor type for newly discovered LPs.
+    """Best-guess investor type. Same heuristic as combine_portco_investors.
 
-    Operator review can refine. Heuristic only.
+    Operator review can refine.
     """
     n = name.lower()
-    if "family" in n and ("foundation" in n or "fund" in n):
+    if "family" in n and ("foundation" in n or "fund" in n or "office" in n):
         return "family-office"
-    if "foundation" in n:
+    if any(w in n for w in ["usaid", "fcdo", "norad", "sida", "ministry", "department of"]):
+        return "government"
+    if n.startswith("government of"):
+        return "government"
+    if "development finance" in n or " dfi " in f" {n} ":
+        return "dfi"
+    vc_suffixes = (" ventures", " capital", " partners", " angel", " holdings")
+    if any(n.endswith(s) for s in vc_suffixes):
+        return "vc"
+    well_known_vc = (
+        "andreessen horowitz", "a16z", "sequoia", "tiger global",
+        "y combinator", "kindred", "variant", "sv angel", "coinbase",
+        "lowercarbon", "floating point",
+    )
+    if any(w in n for w in well_known_vc):
+        return "vc"
+    if "foundation" in n or "philanthropy" in n or "philanthrophy" in n:
         return "foundation"
     if "missionary" in n or "sister" in n or "religious" in n:
         return "foundation"
@@ -100,8 +116,6 @@ def _classify_investor_type(name: str) -> str:
         return "foundation"
     if "advisors" in n or "advisor" in n:
         return "other"
-    if "development finance" in n or "dfi" in n:
-        return "dfi"
     return "other"
 
 
