@@ -313,11 +313,24 @@ def load_yaml(path: Path) -> dict:
 
 def build_impact_funds_and_skip_list(
     peer_funds_doc: dict,
+    existing_rows: list[dict] | None = None,
 ) -> tuple[list[dict], list[dict]]:
+    """Build impact_funds.csv rows from peer_funds.yml, preserving operator edits.
+
+    Per network/CLAUDE.md, four columns are operator-editable and must survive
+    re-runs: `Portfolio Page URL`, `LP Page URL`, `Fund Type`, `Pipeline Status`.
+    For each existing slug we keep the operator's value where present.
+
+    `Pipeline Status` has a wrinkle: YAML / skip-list truth wins for terminal
+    or operational states (`wound_down`, `blocked`); operator's CSV value
+    wins for `active` / `pending_onboard` (so demoting a fund in the CSV to
+    pause scraping doesn't get reverted on every sync).
+    """
     rows = []
     skip = []
     today = date.today().isoformat()
     blocked = load_blocked_slugs()
+    by_slug = {r.get("Fund Slug"): r for r in (existing_rows or []) if r.get("Fund Slug")}
     for fund in peer_funds_doc.get("peer_funds", []):
         pipeline_status, skip_reason = derive_pipeline_status(fund, blocked)
         if pipeline_status is None:
@@ -331,6 +344,13 @@ def build_impact_funds_and_skip_list(
                 }
             )
             continue
+
+        existing = by_slug.get(fund["slug"], {})
+
+        if pipeline_status not in ("wound_down", "blocked"):
+            existing_status = (existing.get("Pipeline Status") or "").strip()
+            if existing_status:
+                pipeline_status = existing_status
 
         ingo = fund.get("parent_ingo")
         ingo_slug = slugify(ingo) if ingo else ""
@@ -348,9 +368,9 @@ def build_impact_funds_and_skip_list(
                 "AUM (USD M)": _format_aum(fund.get("size_usd_m")),
                 "Thesis Tags": thesis_tags,
                 "Status": fund.get("status") or "unknown",
-                "Portfolio Page URL": "",  # to be filled by /scrape-add-fund
-                "LP Page URL": "",  # to be filled by /scrape-add-fund
-                "Fund Type": classify_fund_type(fund.get("notes")),
+                "Portfolio Page URL": existing.get("Portfolio Page URL") or "",
+                "LP Page URL": existing.get("LP Page URL") or "",
+                "Fund Type": existing.get("Fund Type") or classify_fund_type(fund.get("notes")),
                 "Pipeline Status": pipeline_status,
                 "Notes": _short_notes(fund.get("notes")),
             }
@@ -511,7 +531,8 @@ def main() -> None:
         load_yaml(FAMILY_OFFICE_LPS_YML) if FAMILY_OFFICE_LPS_YML.exists() else {}
     )
 
-    impact_funds, skip = build_impact_funds_and_skip_list(peer_funds_doc)
+    existing_funds = read_rows(CATALOGUE_DIR / "impact_funds.csv")
+    impact_funds, skip = build_impact_funds_and_skip_list(peer_funds_doc, existing_funds)
     ingos = build_ingos(peer_funds_doc)
     existing_investors = read_rows(INVESTORS_CSV)
     investors, inv_counts = build_investors(
