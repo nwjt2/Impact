@@ -2680,6 +2680,41 @@ peer_funds:
       Women-led Latin American sustainable-business fund; precedent
       for gender-lens GP team composition.
 
+  - slug: ecoenterprises-iv
+    name: EcoEnterprises Fund IV
+    manager: EcoEnterprises Partners
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2025
+    size_usd_m: 150
+    sector_tags: [agri, climate]
+    geo_tags: [latam]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: raising
+    public_source_url: https://www.soroseconomicdevelopmentfund.org/newsroom/soros-economic-development-fund-backs-women-led-ecoenterprises-fund-iv-to-drive-climate-action-and-inclusive-development-in-latin-america
+    last_seen_at: 2026-04-29
+    notes: >
+      Successor vintage to EcoEnterprises Fund III (already tracked).
+      Target $150m for non-timber forest products, circular economy,
+      regenerative agriculture, and nature-based climate solutions
+      across Brazil, Colombia, Costa Rica, Dominican Republic, Ecuador,
+      Guatemala, Honduras, Mexico, and Peru. SEDF (Open Society's
+      impact-investment arm) committed $7.5m on 2025-12-08. Other
+      named LPs in the same coalition: FinDev Canada, FMO, IDB Invest,
+      IFC, Proparco, JICA, SIFEM, Visa Foundation, and Wire Group.
+      Surfaces Open Society Foundations as a foundation LP on /network/.
+
   - slug: agdevco-smallholder-development-unit
     name: AgDevCo Smallholder Development Unit
     manager: AgDevCo
@@ -3125,3 +3160,74 @@ peer_funds:
       TripleJump-managed Energy Entrepreneur Growth Fund (EEGF) — energy
       access growth-stage debt/equity. Fund-side profile pending
       dedicated research.
+
+  - slug: good-fashion-fund
+    name: Good Fashion Fund
+    manager: FOUNT
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2019
+    size_usd_m: 19
+    sector_tags: [smb, climate]
+    geo_tags: [asia]
+    vehicle_type: closed_end_fund
+    first_close_date: 2019-09-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Laudes Foundation
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Fashion for Good
+    placement_agent: null
+    status: deployed
+    public_source_url: https://goodfashionfund.com/
+    last_seen_at: 2026-04-30
+    validation_status: unverified
+    notes: >
+      Blended-finance debt + equity vehicle (10-yr term, 2:1 equity:debt)
+      financing sustainable textile/apparel manufacturing, dyeing &
+      finishing tech, and circular recycling in India and Bangladesh.
+      Sub-advised by Fashion for Good (Laudes-funded innovation
+      platform). Anchor investor: Laudes Foundation; co-anchor: The
+      Mills Fabrica; senior debt: Rabobank. Surfaces Laudes Foundation
+      as a foundation LP on /network/.
+
+  - slug: impact-linked-fund-education
+    name: Impact-Linked Fund for Education (ILFE)
+    manager: iGravity
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2021
+    size_usd_m: 7
+    sector_tags: [edu]
+    geo_tags: [africa, mena]
+    vehicle_type: evergreen
+    first_close_date: 2021-12-01
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Jacobs Foundation
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Roots of Impact
+    placement_agent: null
+    status: deployed
+    public_source_url: https://ilf-fund.org/programs-and-facilities/impact-linked-fund-education/
+    last_seen_at: 2026-04-30
+    validation_status: unverified
+    notes: >
+      Open-ended impact-linked finance vehicle deploying Social Impact
+      Incentives (SIINC) and Impact-Linked Loans to EdTech and inclusive
+      education enterprises in West Africa (Côte d'Ivoire, Ghana, Benin,
+      Burkina Faso, Chad, Mali, Niger) and MENA (Egypt, Jordan, Lebanon,
+      Tunisia, OPT). First close December 2021 with CHF 6m joint anchor
+      commitment from Jacobs Foundation and the Swiss Agency for
+      Development and Cooperation (SDC). Sits under the Impact-Linked
+      Finance Fund (ILFF) Stichting umbrella, co-managed by iGravity
+      and Roots of Impact. Surfaces Jacobs Foundation as a foundation
+      LP on /network/.
