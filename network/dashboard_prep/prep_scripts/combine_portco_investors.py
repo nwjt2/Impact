@@ -1,9 +1,14 @@
 """Combine per-portco investor scraper output into investors.csv + portco_investors.csv.
 
-Reads:  network/portco_investor_scraping/individual_portco_investors/run_<N>/*.csv
+Reads:
+  - network/portco_investor_scraping/individual_portco_investors/run_<N>/*.csv  (primary)
+  - network/lp_portfolio_scraping/individual_lp_portfolios/run_<N>/*.csv
+    (secondary; rows with Investee Type=company are folded in as
+     investor→company co-investor edges)
 Writes:
   network/portco_investor_scraping/combined_portco_investors/run_<N>/all.csv  (audit, gitignored)
   network/catalogue/investors.csv                                              (find-or-create)
+  network/catalogue/portfolio_companies.csv                                    (find-or-create — for companies discovered via LP-portfolio scrapers only)
   network/dashboard_prep/portco_investors.csv                                  (rebuilt each run)
 
 Symmetric to combine_fund_lps.py.
@@ -22,7 +27,9 @@ from network.utils.csv_io import read_rows, write_rows  # noqa: E402
 
 INDIVIDUAL_DIR = REPO_ROOT / "network" / "portco_investor_scraping" / "individual_portco_investors"
 COMBINED_DIR = REPO_ROOT / "network" / "portco_investor_scraping" / "combined_portco_investors"
+LP_PORTFOLIO_DIR = REPO_ROOT / "network" / "lp_portfolio_scraping" / "individual_lp_portfolios"
 INVESTORS_CSV = REPO_ROOT / "network" / "catalogue" / "investors.csv"
+PORTFOLIO_COMPANIES_CSV = REPO_ROOT / "network" / "catalogue" / "portfolio_companies.csv"
 PORTCO_INVESTORS_CSV = REPO_ROOT / "network" / "dashboard_prep" / "portco_investors.csv"
 RUN_STATE_JSON = REPO_ROOT / "network" / "run_state.json"
 
@@ -35,6 +42,18 @@ INVESTORS_HEADERS = [
     "HQ Country",
     "AUM Bucket",
     "Status",
+    "Notes",
+]
+
+PORTFOLIO_COMPANIES_HEADERS = [
+    "Company Name",
+    "Company Slug",
+    "Website",
+    "HQ Country",
+    "Sector",
+    "Stage",
+    "Status",
+    "Pipeline Status",
     "Notes",
 ]
 
@@ -120,39 +139,93 @@ def _classify_investor_type(name: str) -> str:
     return "other"
 
 
-def combine(run_number: int) -> dict:
+def _read_primary_rows(run_number: int) -> tuple[list[dict], int, int]:
     run_dir = INDIVIDUAL_DIR / f"run_{run_number}"
-    if not run_dir.exists():
-        raise FileNotFoundError(f"No portco-investor scraper output at {run_dir}")
-
-    all_rows: list[dict] = []
-    invalid_count = 0
+    rows: list[dict] = []
+    invalid = 0
     files_seen = 0
-
+    if not run_dir.exists():
+        return rows, files_seen, invalid
     for csv_path in sorted(run_dir.glob("*.csv")):
         files_seen += 1
-        rows = read_rows(csv_path)
-        valid = [r for r in rows if r.get("Scraping Method Used")]
-        dropped = len(rows) - len(valid)
+        these = read_rows(csv_path)
+        valid = [r for r in these if r.get("Scraping Method Used")]
+        dropped = len(these) - len(valid)
         if dropped > 0:
             print(f"  WARN  {csv_path.name}: {dropped} rows missing 'Scraping Method Used' — DROPPED")
-            invalid_count += dropped
-        all_rows.extend(valid)
+            invalid += dropped
+        rows.extend(valid)
+    return rows, files_seen, invalid
 
-    if not all_rows:
+
+def _read_secondary_rows(run_number: int) -> tuple[list[dict], int, int]:
+    """Read LP-portfolio scraper rows, filter to Investee Type=company,
+    map to portco-investor shape. Returns (rows, files_seen, dropped)."""
+    run_dir = LP_PORTFOLIO_DIR / f"run_{run_number}"
+    rows: list[dict] = []
+    invalid = 0
+    files_seen = 0
+    if not run_dir.exists():
+        return rows, files_seen, invalid
+    for csv_path in sorted(run_dir.glob("*.csv")):
+        files_seen += 1
+        these = read_rows(csv_path)
+        valid = [r for r in these if r.get("Scraping Method Used")]
+        dropped = len(these) - len(valid)
+        if dropped > 0:
+            print(f"  WARN  {csv_path.name} (lp_portfolio): {dropped} rows missing 'Scraping Method Used' — DROPPED")
+            invalid += dropped
+        for r in valid:
+            if (r.get("Investee Type") or "").strip().lower() != "company":
+                continue
+            rows.append(
+                {
+                    "Company Slug": r.get("Investee Slug") or "",
+                    # Investor Name: stash for find-or-create. Combine doesn't
+                    # always have an investor-name column; we fall back to slug.
+                    "Investor Name": "",
+                    "Investor Slug": r.get("LP Slug") or "",
+                    "Round": "unknown",
+                    "Round Date": r.get("Commitment Year") or "",
+                    "Lead": "unknown",
+                    "Source URL": r.get("Source URL") or "",
+                    "Source Date": r.get("Source Date") or "",
+                    "Scraping Method Used": r.get("Scraping Method Used") or "",
+                    "_Investee Name": r.get("Investee Name") or "",
+                }
+            )
+    return rows, files_seen, invalid
+
+
+def combine(run_number: int) -> dict:
+    primary_rows, primary_files, primary_dropped = _read_primary_rows(run_number)
+    secondary_rows, secondary_files, secondary_dropped = _read_secondary_rows(run_number)
+
+    if not primary_rows and not secondary_rows:
         print(f"  No rows to combine for run {run_number}.")
-        return {"files": files_seen, "rows": 0}
+        return {
+            "primary_files": primary_files,
+            "secondary_files": secondary_files,
+            "rows": 0,
+        }
 
-    write_rows(COMBINED_DIR / f"run_{run_number}" / "all.csv", COMBINED_HEADERS, all_rows)
+    audit_rows = primary_rows + [
+        {h: r.get(h, "") for h in COMBINED_HEADERS} for r in secondary_rows
+    ]
+    write_rows(COMBINED_DIR / f"run_{run_number}" / "all.csv", COMBINED_HEADERS, audit_rows)
 
-    inv_added = _update_investors(all_rows)
-    edges_written = _rebuild_portco_investors(all_rows)
+    inv_added = _update_investors(primary_rows + secondary_rows)
+    cos_added = _update_companies(secondary_rows)
+    edges_written = _rebuild_portco_investors(primary_rows + secondary_rows)
 
     return {
-        "files": files_seen,
-        "rows": len(all_rows),
-        "rows_dropped": invalid_count,
+        "primary_files": primary_files,
+        "secondary_files": secondary_files,
+        "primary_rows": len(primary_rows),
+        "secondary_rows": len(secondary_rows),
+        "rows_dropped": primary_dropped + secondary_dropped,
         "investors_added": inv_added,
+        "companies_added": cos_added,
         "portco_investors_edges": edges_written,
     }
 
@@ -192,7 +265,44 @@ def _update_investors(all_rows: list[dict]) -> int:
     return added
 
 
+def _update_companies(secondary_rows: list[dict]) -> int:
+    """Find-or-create company rows in portfolio_companies.csv for companies
+    discovered via LP-portfolio scrapers. New companies land with
+    Pipeline Status = pending_onboard for operator review (Lesson 32)."""
+    existing = {r["Company Slug"]: r for r in read_rows(PORTFOLIO_COMPANIES_CSV)}
+
+    discovered: dict[str, dict] = {}
+    for row in secondary_rows:
+        slug = row.get("Company Slug")
+        if not slug or slug in existing or slug in discovered:
+            continue
+        discovered[slug] = row
+
+    output = [{h: existing[s].get(h, "") for h in PORTFOLIO_COMPANIES_HEADERS} for s in existing]
+    added = 0
+    for slug, row in discovered.items():
+        name = row.get("_Investee Name") or slug
+        output.append(
+            {
+                "Company Name": name,
+                "Company Slug": slug,
+                "Website": "",
+                "HQ Country": "",
+                "Sector": "",
+                "Stage": "",
+                "Status": "active",
+                "Pipeline Status": "pending_onboard",
+                "Notes": "Discovered via LP-portfolio scraper; awaiting operator review.",
+            }
+        )
+        added += 1
+
+    write_rows(PORTFOLIO_COMPANIES_CSV, PORTFOLIO_COMPANIES_HEADERS, output)
+    return added
+
+
 def _rebuild_portco_investors(all_rows: list[dict]) -> int:
+    """Rebuild portco_investors.csv. Dedup on (Company Slug, Investor Slug)."""
     seen: set[tuple[str, str]] = set()
     edges: list[dict] = []
     for row in all_rows:
@@ -225,7 +335,7 @@ def main() -> None:
     parser.add_argument("--run", type=int, default=None)
     args = parser.parse_args()
     run_number = args.run if args.run is not None else _read_run_number()
-    print(f"Combining portco-investor run {run_number} from {INDIVIDUAL_DIR}")
+    print(f"Combining portco-investor run {run_number} from {INDIVIDUAL_DIR} + {LP_PORTFOLIO_DIR}")
     stats = combine(run_number)
     for k, v in stats.items():
         print(f"  {k}: {v}")

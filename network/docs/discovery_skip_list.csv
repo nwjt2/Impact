@@ -57,3 +57,17 @@ goodenergies-glassgate,impact_fund,goodenergies.com redirects to porticus.com/wh
 omnivore-iii,impact_fund,omnivore.vc serves a 2.4KB 404 page on every path including the homepage; site appears broken,,2026-04-29
 tpg-rise-ii,impact_fund,therisefund.com /news/ pages 301 redirect to tpg.com/news-and-insights/news?cat=Impact (generic listing); no specific Rise II close PR; portfolio is JS-rendered,,2026-04-29
 adobe-capital-mexico,impact_fund,adobecapital.com fails DNS resolution (getaddrinfo failed); domain appears defunct,,2026-04-29
+british-international-investment,lp_portfolio,bii.co.uk returns 403 for our identifying UA across /our-impact/* paths — UA-blocked / Cloudflare-walled,Phase 5,2026-04-29
+norfund,lp_portfolio,norfund.no returns 403 for our identifying UA — UA-blocked,Phase 5,2026-04-29
+fmo,lp_portfolio,fmo.nl/worldmap is a JS-rendered SPA (componentType=ProjectOverview) with no static project list; /clients-overview /projects all 404,Phase 5,2026-04-29
+proparco,lp_portfolio,proparco.fr has no public portfolio page — every /portfolio /projects /find-project URL returns 404,,2026-04-29
+u-s-international-development-finance-corporation,lp_portfolio,dfc.gov has no listed transactions page — /transactions /our-work /investment-story all 404; only press releases,,2026-04-29
+findev-canada,lp_portfolio,findevcanada.ca returns 403 (560 bytes) for our identifying UA across /portfolio /investments — UA-blocked,Phase 5,2026-04-29
+swedfund,lp_portfolio,swedfund.se /investments page is a Tailwind-styled SPA with no static investment cards in HTML,,2026-04-29
+deg,lp_portfolio,deginvest.de Our-investments page returns HTTP 404 body despite 200 status — internal redirect to error page,,2026-04-29
+finnfund,lp_portfolio,finnfund.fi /portfolio /our-investments /our-investees /investments-portfolio all return 404,,2026-04-29
+bio-belgian-investment-company-for-developing-countries,lp_portfolio_static_listing,bio-invest.be/en/investments only renders 9 entries in static HTML (page=N param ignored server-side); rest is JS-paginated. Use prose-press-release pattern instead (already wired as lp_portfolio_scraper_BIOInvest),,2026-04-29
+shell-foundation-static-listing,lp_portfolio_static_listing,shellfoundation.org/our-portfolio renders only 9 partners in static HTML; rest paginated client-side. wp-json/wp/v2/portfolio exposes all 62 (now used by lp_portfolio_scraper_ShellFoundation),,2026-04-29
+calvert-impact-capital,lp_portfolio,calvertimpactcapital.org /portfolio /where-we-invest paths return 403 or 10-byte stubs — site UA-blocks our bot,Phase 5,2026-04-29
+ceniarth-portfolio,lp_portfolio,ceniarth.com returns 114-byte stubs for /portfolio /our-portfolio /investments — site has no static content for these paths,,2026-04-29
+soros-economic-development-fund-portfolio,lp_portfolio_static_listing,opensocietyfoundations.org/programs/soros-economic-development-fund redirects to a generic OSF themes page with no SEDF-specific portfolio content. Use prose-press-release pattern (lp_portfolio_scraper_SEDF),,2026-04-29

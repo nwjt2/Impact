@@ -27,10 +27,16 @@ SCRAPER_DIRS = [
      REPO_ROOT / "network" / "fund_lp_scraping" / "lp_scrapers" / "custom_minimal_lp_scrapers"),
     ("portco-investor",
      REPO_ROOT / "network" / "portco_investor_scraping" / "investor_scrapers" / "custom_minimal_investor_scrapers"),
+    # LP-portfolio scrapers must run BEFORE combine_fund_lps and
+    # combine_portco_investors so those combines pick up the secondary input.
+    ("lp-portfolio",
+     REPO_ROOT / "network" / "lp_portfolio_scraping" / "lp_portfolio_scrapers" / "custom_minimal_lp_portfolio_scrapers"),
 ]
 
 COMBINE_MODULES = [
     "network.dashboard_prep.prep_scripts.combine_fund_portfolios",
+    # combine_fund_lps and combine_portco_investors fold in LP-portfolio output
+    # via secondary read paths (filtered by Investee Type).
     "network.dashboard_prep.prep_scripts.combine_fund_lps",
     "network.dashboard_prep.prep_scripts.combine_portco_investors",
 ]
