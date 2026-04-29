@@ -62,6 +62,27 @@ permalink: /network/
   .ctrl-search input:focus { outline: none; border-color: #fa3; }
   .ctrl-radio label { display: flex; align-items: center; gap: 0.4rem; }
 
+  /* Per-fund picker */
+  .ctrl-funds { min-width: 17rem; max-width: 22rem; }
+  .ctrl-fund-section { margin-top: 0.4rem; border-top: 1px dashed #2c2c2c; padding-top: 0.3rem; }
+  .ctrl-fund-section summary { cursor: pointer; display: flex; justify-content: space-between;
+                               align-items: center; gap: 0.5rem; padding: 0.15rem 0; }
+  .ctrl-fund-section summary::marker { color: #666; }
+  .ctrl-fund-section-title { font-size: 0.78rem; color: #aaa; text-transform: uppercase;
+                             letter-spacing: 0.06em; }
+  .ctrl-fund-count { font-size: 0.78rem; color: #888;
+                     font-variant-numeric: tabular-nums; }
+  .ctrl-fund-shortcuts { display: flex; gap: 0.3rem; padding: 0.25rem 0 0.4rem; }
+  .ctrl-fund-shortcuts button { font-size: 0.75rem; padding: 0.15rem 0.55rem;
+                                background: #1a1a1a; color: #aaa; border: 1px solid #333;
+                                cursor: pointer; font-family: inherit; }
+  .ctrl-fund-shortcuts button:hover { background: #222; color: #d4d4d4; border-color: #555; }
+  .ctrl-fund-list { display: flex; flex-direction: column; gap: 0.15rem;
+                    max-height: 240px; overflow-y: auto; padding-right: 0.4rem; }
+  .ctrl-fund-list label { font-size: 0.85rem; line-height: 1.25; padding: 0.1rem 0;
+                          white-space: normal; }
+  .ctrl-fund-list label.empty-data { opacity: 0.55; }
+
   /* Selection / details */
   #selection-info { display: block; padding: 0.4rem 0; font-size: 0.85rem; min-height: 1.4em; }
   .network-details { padding: 1rem; margin-top: 1rem; background: #0e0f12; border: 1px solid #2c2c2c; }
@@ -231,10 +252,34 @@ permalink: /network/
       <label><input type="checkbox" data-rel="coinvest" checked> <span class="lg-shape lg-cell lg-cell-coinvest"></span> Co-investments via portcos</label>
     </fieldset>
 
-    <fieldset class="ctrl-group">
+    <fieldset class="ctrl-group ctrl-funds">
       <legend>Funds</legend>
       <label class="ctrl-master"><input type="checkbox" id="filter-ingo-only"> Only INGO-backed</label>
       <label><input type="checkbox" id="filter-only-with-data" checked> Only funds with investor data</label>
+
+      <details class="ctrl-fund-section" open>
+        <summary>
+          <span class="ctrl-fund-section-title">INGO-backed funds</span>
+          <span class="ctrl-fund-count" id="ctrl-fund-ingo-count"></span>
+        </summary>
+        <div class="ctrl-fund-shortcuts">
+          <button type="button" data-fund-bulk="ingo:all">All</button>
+          <button type="button" data-fund-bulk="ingo:none">None</button>
+        </div>
+        <div class="ctrl-fund-list" id="ctrl-fund-list-ingo"></div>
+      </details>
+
+      <details class="ctrl-fund-section">
+        <summary>
+          <span class="ctrl-fund-section-title">Non-INGO funds</span>
+          <span class="ctrl-fund-count" id="ctrl-fund-non-count"></span>
+        </summary>
+        <div class="ctrl-fund-shortcuts">
+          <button type="button" data-fund-bulk="non:all">All</button>
+          <button type="button" data-fund-bulk="non:none">None</button>
+        </div>
+        <div class="ctrl-fund-list" id="ctrl-fund-list-non"></div>
+      </details>
     </fieldset>
 
     <fieldset class="ctrl-group ctrl-search">
@@ -387,12 +432,14 @@ permalink: /network/
     onlyWithData: true,
     rowFilter: 'all',
     search: '',
+    enabledFunds: new Set(DATA.funds.map(f => f.id)),  // all on by default
     hot: { investorId: null, fundId: null, pair: null, nodeIdx: null, linkIdx: null },
   };
 
   // Compute filtered fund/investor lists per current state.
   function computeFilteredLists() {
     let funds = DATA.funds.slice();
+    funds = funds.filter(f => STATE.enabledFunds.has(f.id));
     if (STATE.ingoOnly) funds = funds.filter(f => f.ingo_backed);
     if (STATE.onlyWithData) funds = funds.filter(f => f.total_count > 0);
 
@@ -1450,6 +1497,62 @@ permalink: /network/
     if (e.target.tagName === 'svg') {
       document.getElementById('node-details').hidden = true;
     }
+  });
+
+  // ---- Per-fund picker -----------------------------------------------
+  // Populate the two checkbox lists once (funds don't change at runtime),
+  // then wire up the change handlers and bulk shortcut buttons. The
+  // existing "Only INGO-backed" master and "Only funds with investor data"
+  // toggles still work; they layer on top of the per-fund set.
+  function populateFundPickers() {
+    const ingoList = document.getElementById('ctrl-fund-list-ingo');
+    const nonList = document.getElementById('ctrl-fund-list-non');
+    const ingoFunds = DATA.funds.filter(f => f.ingo_backed)
+                                .sort((a, b) => a.name.localeCompare(b.name));
+    const nonFunds = DATA.funds.filter(f => !f.ingo_backed)
+                               .sort((a, b) => a.name.localeCompare(b.name));
+
+    function row(f) {
+      const wrap = document.createElement('label');
+      if (f.total_count === 0) wrap.classList.add('empty-data');
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.dataset.fundId = f.id;
+      cb.checked = STATE.enabledFunds.has(f.id);
+      cb.addEventListener('change', () => {
+        if (cb.checked) STATE.enabledFunds.add(f.id);
+        else STATE.enabledFunds.delete(f.id);
+        render();
+      });
+      wrap.appendChild(cb);
+      wrap.appendChild(document.createTextNode(' ' + f.name + (f.total_count === 0 ? ' (no data)' : '')));
+      return wrap;
+    }
+
+    ingoFunds.forEach(f => ingoList.appendChild(row(f)));
+    nonFunds.forEach(f => nonList.appendChild(row(f)));
+
+    document.getElementById('ctrl-fund-ingo-count').textContent =
+      `${ingoFunds.length}`;
+    document.getElementById('ctrl-fund-non-count').textContent =
+      `${nonFunds.length}`;
+  }
+  populateFundPickers();
+
+  document.querySelectorAll('button[data-fund-bulk]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const [grp, action] = btn.dataset.fundBulk.split(':');
+      const targetIngo = grp === 'ingo';
+      DATA.funds.filter(f => f.ingo_backed === targetIngo).forEach(f => {
+        if (action === 'all') STATE.enabledFunds.add(f.id);
+        else STATE.enabledFunds.delete(f.id);
+      });
+      // Sync checkbox UI.
+      document.querySelectorAll('#ctrl-fund-list-ingo input, #ctrl-fund-list-non input').forEach(cb => {
+        cb.checked = STATE.enabledFunds.has(cb.dataset.fundId);
+      });
+      render();
+    });
   });
 
   // First render

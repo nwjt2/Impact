@@ -66,6 +66,27 @@ permalink: /catalysts/
   .catalyst-archcount { font-size: 0.75rem; color: #888;
                         font-variant-numeric: tabular-nums; }
 
+  /* Fund filter */
+  .catalyst-filter { display: flex; gap: 0.75rem; align-items: flex-start; margin: 1rem 0;
+                     padding: 0.5rem 0.7rem; background: #0e0f12; border: 1px solid #2c2c2c;
+                     flex-wrap: wrap; }
+  .catalyst-filter-label { font-size: 0.78rem; color: #888; text-transform: uppercase;
+                           letter-spacing: 0.06em; padding-top: 0.4rem; min-width: 11rem; }
+  .catalyst-filter details { flex: 1 1 28rem; }
+  .catalyst-filter summary { cursor: pointer; font-size: 0.85rem; color: #cfcfcf;
+                             padding: 0.3rem 0; }
+  .catalyst-filter-shortcuts { display: flex; gap: 0.3rem; margin: 0.3rem 0; }
+  .catalyst-filter-shortcuts button { font-size: 0.75rem; padding: 0.15rem 0.55rem;
+                                      background: #1a1a1a; color: #aaa; border: 1px solid #333;
+                                      cursor: pointer; font-family: inherit; }
+  .catalyst-filter-shortcuts button:hover { background: #222; color: #d4d4d4; border-color: #555; }
+  .catalyst-filter-list { display: grid;
+                          grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+                          gap: 0.15rem 0.6rem; padding-top: 0.3rem; }
+  .catalyst-filter-list label { font-size: 0.85rem; color: #cfcfcf; cursor: pointer;
+                                display: flex; align-items: center; gap: 0.4rem;
+                                padding: 0.1rem 0; }
+
   .catalyst-empty { padding: 2rem; text-align: center; color: #888;
                     border: 1px dashed #333; }
 
@@ -100,8 +121,8 @@ permalink: /catalysts/
 
   <div class="catalyst-stats">
     <div class="catalyst-stat">
-      <span class="catalyst-stat-num">{{ network.stats.catalyst_count }}</span>
-      <span class="catalyst-stat-lbl">Catalyst portcos</span>
+      <span class="catalyst-stat-num" id="cat-visible-count">{{ network.stats.catalyst_count }}</span>
+      <span class="catalyst-stat-lbl">Catalyst portcos shown</span>
     </div>
     <div class="catalyst-stat">
       <span class="catalyst-stat-num muted">{{ network.stats.ingo_backed_portco_count }}</span>
@@ -113,10 +134,29 @@ permalink: /catalysts/
     </div>
   </div>
 
+  {# Filter by INGO fund — collect unique INGO funds that back at least one catalyst. #}
+  {% set ingo_funds_in_catalysts = [] %}
+  {% for c in network.catalysts %}
+    {% for f in c.ingo_funds %}
+      {# Note: njk doesn't have a clean dedup; we rely on JS to render once per unique id. #}
+    {% endfor %}
+  {% endfor %}
+  <div class="catalyst-filter">
+    <span class="catalyst-filter-label">Filter by INGO fund</span>
+    <details open>
+      <summary id="cat-filter-summary">All INGO funds shown</summary>
+      <div class="catalyst-filter-shortcuts">
+        <button type="button" data-cat-bulk="all">All</button>
+        <button type="button" data-cat-bulk="none">None</button>
+      </div>
+      <div class="catalyst-filter-list" id="cat-filter-list"></div>
+    </details>
+  </div>
+
   {% if network.catalysts and network.catalysts | length > 0 %}
     <div class="catalyst-list">
       {% for c in network.catalysts %}
-        <article class="catalyst-card">
+        <article class="catalyst-card" data-ingo-funds="{% for f in c.ingo_funds %}{{ f.id }}{% if not loop.last %} {% endif %}{% endfor %}">
           <div class="catalyst-rank{% if loop.index <= 3 %} top{% endif %}">{{ loop.index }}</div>
 
           <div>
@@ -178,6 +218,81 @@ permalink: /catalysts/
       scraped (Pipeline 4 — currently sparse), the leaderboard will fill in.
     </div>
   {% endif %}
+
+  <script>
+  (function () {
+    const cards = Array.from(document.querySelectorAll('.catalyst-card'));
+    const list = document.getElementById('cat-filter-list');
+    const summary = document.getElementById('cat-filter-summary');
+    const visCountEl = document.getElementById('cat-visible-count');
+
+    // Collect unique INGO funds across all catalysts (id -> name).
+    const byId = new Map();
+    cards.forEach(card => {
+      const ids = (card.dataset.ingoFunds || '').split(/\s+/).filter(Boolean);
+      ids.forEach(id => {
+        if (!byId.has(id)) {
+          // Pull the human-readable name from the green tag inside the card.
+          const tag = card.querySelector('.catalyst-tag-ingo');
+          byId.set(id, tag ? tag.textContent.trim() : id);
+        }
+      });
+    });
+    const ingoFunds = [...byId.entries()]
+      .map(([id, name]) => ({ id, name }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    // Render checkboxes (all checked initially).
+    const enabled = new Set(ingoFunds.map(f => f.id));
+    ingoFunds.forEach(f => {
+      const lbl = document.createElement('label');
+      const cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = true;
+      cb.dataset.fundId = f.id;
+      cb.addEventListener('change', () => {
+        if (cb.checked) enabled.add(f.id); else enabled.delete(f.id);
+        applyFilter();
+      });
+      lbl.appendChild(cb);
+      lbl.appendChild(document.createTextNode(' ' + f.name));
+      list.appendChild(lbl);
+    });
+
+    function applyFilter() {
+      let visible = 0;
+      cards.forEach(card => {
+        const ids = (card.dataset.ingoFunds || '').split(/\s+/).filter(Boolean);
+        const show = ids.some(id => enabled.has(id));
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      visCountEl.textContent = visible;
+      // Update summary
+      if (enabled.size === ingoFunds.length) {
+        summary.textContent = 'All INGO funds shown';
+      } else if (enabled.size === 0) {
+        summary.textContent = 'No INGO funds selected';
+      } else {
+        summary.textContent = `${enabled.size} of ${ingoFunds.length} INGO funds shown`;
+      }
+    }
+
+    document.querySelectorAll('button[data-cat-bulk]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const action = btn.dataset.catBulk;
+        list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+          cb.checked = (action === 'all');
+          if (cb.checked) enabled.add(cb.dataset.fundId);
+          else enabled.delete(cb.dataset.fundId);
+        });
+        applyFilter();
+      });
+    });
+
+    applyFilter();
+  })();
+  </script>
 
   <div class="catalyst-caveat">
     <strong>Coverage caveat.</strong>
