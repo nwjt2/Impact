@@ -46,3 +46,14 @@ global-partnerships-sif-6,impact_fund,maturity press release names only 3 portco
 kcd-mikrofinanzfonds-iii,impact_fund,bib-fairbanking.de page is German marketing copy; named MFIs only in PDF reports (no pdfplumber dep),,2026-04-28
 av-ventures-avas,impact_fund,AVAS still raising — av-ventures.com lists only an About h4 with no portcos,,2026-04-28
 britishasiantrust-sdg-outcomes-fund,impact_fund,no public Website URL in catalogue; britishasiantrust.org /social-finance/ paths return 404,,2026-04-28
+responsability-microfinance,impact_fund,responsability.com strategy/news subpaths return 404; no public per-fund portfolio or LP listing,,2026-04-29
+blueorchard-microfinance-fund,impact_fund,blueorchard.com /funds/microfinance-fund/ is a legal disclaimer page; no portfolio holdings or LP roster public,,2026-04-29
+symbiotics-sgb-fund,impact_fund,symbioticsgroup.com /news/ returns 403 (wp-admin redirect); fund-specific pages all redirect to homepage,,2026-04-29
+triodos-microfinance-fund,impact_fund,triodos-im.com fund pages gated behind disclosure-filter wall; no public portfolio or LP roster,,2026-04-29
+calvert-impact-community-note,impact_fund,calvertimpact.org returns 403 (118 bytes) for our identifying UA — UA-blocked / Cloudflare-walled,Phase 5,2026-04-29
+zevin-impact-portfolios,impact_fund,zevin.com is single-page marketing only; about/team paths 404; no fund-specific data,,2026-04-29
+leapfrog-emerging-consumer-iii,impact_fund,leapfroginvest.com returns 403 (UA-blocked); businesswire press release ReadTimeout; EIB project sheet names only EIB,Phase 5,2026-04-29
+goodenergies-glassgate,impact_fund,goodenergies.com redirects to porticus.com/what-we-do/earth/good-energies-foundation/; not a fund vehicle,,2026-04-29
+omnivore-iii,impact_fund,omnivore.vc serves a 2.4KB 404 page on every path including the homepage; site appears broken,,2026-04-29
+tpg-rise-ii,impact_fund,therisefund.com /news/ pages 301 redirect to tpg.com/news-and-insights/news?cat=Impact (generic listing); no specific Rise II close PR; portfolio is JS-rendered,,2026-04-29
+adobe-capital-mexico,impact_fund,adobecapital.com fails DNS resolution (getaddrinfo failed); domain appears defunct,,2026-04-29

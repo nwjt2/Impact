@@ -96,6 +96,44 @@ ACTIVE_FUND_SLUGS = {
     "truvalu-business-booster-fund",
     "care-shetrades",
     "oxfam-seiif",
+    # Activated 2026-04-29 (non-INGO batch — all 9 are non-INGO peer funds).
+    # 4 portfolio scrapers + 5 LP scrapers.
+    #   - goodwell-umunthu-ii: portfolio scraper from goodwell.nl/portfolio/
+    #     (16 portcos; per-portco detail-page <title> resolves curated names
+    #     including the ABC/Oradian rebrand). Umbrella attribution.
+    #   - creation-investments-iv: portfolio scraper from creationinvestments
+    #     .com/portfolio/ (23 portcos; anchor-text label "<Country> | <Sector>"
+    #     filters; company names derived from outbound hostname). Umbrella.
+    #   - ifc-aip: portfolio scraper from ifcamc.org/portfolio?page=0..8
+    #     (135 entries across 9 paginated pages; Tailwind <article> blocks
+    #     with <h3>NAME + GEOGRAPHY/INDUSTRY spans; outbound URLs in
+    #     commented-out <a href> wrappers).
+    #   - grassroots-business-fund: portfolio scraper from gbfund.org/impact
+    #     case-study section (7 portcos in <h4> headings).
+    #   - bamboo-bloc-smart-africa: LP scraper from TWO Bamboo PRs
+    #     (Feb 2021 launch + Sep 2019 DRC/Tunisia commitment); 4 named
+    #     government LPs. Multi-source LP scraper (deviation from FEFISOL
+    #     single-source pattern; per-row Source URL is schema-supported).
+    #   - iix-wlb-series: LP scraper from WLB6 launch PR on wlb.iixglobal.com
+    #     (15 named LPs; corporate/DFI/foundation mix).
+    #   - aavishkaar-india-vi: LP scraper from PR Newswire 2017 first-close
+    #     PR (4 named anchor LPs: SIDBI, CDC, Munjal Family Office, TIAA).
+    #   - incofin-agrif: LP scraper from TWO Incofin PRs (Apr 2017 + Jan 2020);
+    #     17 named LPs (DFIs, pension funds, Belgian retail co-ops, family
+    #     offices). Multi-source LP scraper. Largest non-INGO LP roster.
+    #   - ecoenterprises-iii: LP scraper from THREE primary DFI/MDB project
+    #     pages (EIB + Common Fund for Commodities + 2X Challenge); 3 named
+    #     LPs. Multi-source LP scraper — required because the fund itself
+    #     publishes no LP roster, so each LP's own institution discloses.
+    "goodwell-umunthu-ii",
+    "creation-investments-iv",
+    "ifc-aip",
+    "grassroots-business-fund",
+    "bamboo-bloc-smart-africa",
+    "iix-wlb-series",
+    "aavishkaar-india-vi",
+    "incofin-agrif",
+    "ecoenterprises-iii",
 }
 
 IMPACT_FUNDS_HEADERS = [
