@@ -94,6 +94,24 @@ permalink: /network/
   .matrix-section-label { font-size: 10px; fill: #888; text-transform: uppercase;
                           letter-spacing: 0.08em; }
 
+  /* Sankey-specific */
+  .sankey-node rect { stroke: #0e0f12; stroke-width: 1.5px; cursor: pointer;
+                      transition: opacity 0.12s ease; }
+  .sankey-node text { font-size: 12px; fill: #cfcfcf; pointer-events: none;
+                      transition: fill 0.12s ease; }
+  .sankey-node.dim rect { opacity: 0.2; }
+  .sankey-node.dim text { fill: #555; }
+  .sankey-node.hot rect { stroke: #fa3; stroke-width: 2px; }
+  .sankey-node.hot text { fill: #fa3; font-weight: 600; }
+  .sankey-link { fill: none; stroke-opacity: 0.4; cursor: pointer;
+                 transition: stroke-opacity 0.12s ease; }
+  .sankey-link:hover { stroke-opacity: 0.75; }
+  .sankey-link.dim { stroke-opacity: 0.08; }
+  .sankey-link.hot { stroke-opacity: 0.85; }
+  .sankey-col-label { font-size: 11px; fill: #888; text-transform: uppercase;
+                      letter-spacing: 0.08em; text-anchor: middle; }
+  .sankey-empty-note { fill: #888; font-size: 13px; text-anchor: middle; }
+
   /* Chord-specific */
   .chord-arc { stroke: #0e0f12; stroke-width: 1.5px; cursor: pointer; }
   .chord-arc.dim { opacity: 0.2; }
@@ -193,6 +211,7 @@ permalink: /network/
   <div class="view-tabs">
     <button class="view-tab active" data-view="matrix">Matrix · who funds whom</button>
     <button class="view-tab" data-view="chord">Chord · funds that share investors</button>
+    <button class="view-tab" data-view="sankey">Bridge · INGO ↔ non-INGO</button>
   </div>
 
   <div class="network-controls">
@@ -245,6 +264,7 @@ permalink: /network/
 </section>
 
 <script src="https://unpkg.com/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://unpkg.com/d3-sankey@0.12.3/dist/d3-sankey.min.js"></script>
 <script src="{{ '/assets/js/network-data.js' | url }}"></script>
 
 <script>
@@ -367,7 +387,7 @@ permalink: /network/
     onlyWithData: true,
     rowFilter: 'all',
     search: '',
-    hot: { investorId: null, fundId: null }, // hover/click highlight
+    hot: { investorId: null, fundId: null, pair: null, nodeIdx: null, linkIdx: null },
   };
 
   // Compute filtered fund/investor lists per current state.
@@ -1012,6 +1032,293 @@ permalink: /network/
     updateSelectionInfo(funds, investors);
   }
 
+  // -----------------------------------------------------------
+  // Sankey view — bridging investors between INGO and non-INGO funds.
+  // 3 columns: INGO funds (left) → bridging investors (middle) → non-INGO funds (right).
+  // Only investors that touch at least one fund on each side appear.
+  // -----------------------------------------------------------
+  function renderSankey() {
+    const { funds, investors } = computeFilteredLists();
+    const svg = d3.select('#vis-svg');
+    svg.selectAll('*').remove();
+
+    const wrap = document.querySelector('.vis-wrap');
+    const w = wrap.clientWidth || 900;
+    const h = wrap.clientHeight || 600;
+    svg.attr('viewBox', `0 0 ${w} ${h}`);
+
+    // Pull each investor's fund-ties (LP and/or co-invest, gated by
+    // STATE.enabledRel) restricted to the currently-visible fund set.
+    const fundIdSet = new Set(funds.map(f => f.id));
+    const fundIngo = new Map(funds.map(f => [f.id, f.ingo_backed]));
+
+    const bridges = [];
+    investors.forEach(inv => {
+      const touched = new Set();
+      if (STATE.enabledRel.lp) {
+        for (const fid of inv.lp_funds) if (fundIdSet.has(fid)) touched.add(fid);
+      }
+      if (STATE.enabledRel.coinvest) {
+        for (const fid of inv.coinvest_funds.keys()) if (fundIdSet.has(fid)) touched.add(fid);
+      }
+      const ingoIds = [...touched].filter(id => fundIngo.get(id));
+      const nonIngoIds = [...touched].filter(id => !fundIngo.get(id));
+      if (ingoIds.length === 0 || nonIngoIds.length === 0) return;
+      bridges.push({ investor: inv, ingoIds, nonIngoIds });
+    });
+
+    if (bridges.length === 0) {
+      const g0 = svg.append('g').attr('transform', `translate(${w / 2},${h / 2})`);
+      g0.append('text').attr('class', 'sankey-empty-note').attr('y', -10)
+        .text('No investors yet bridge an INGO fund and a non-INGO fund.');
+      g0.append('text').attr('class', 'sankey-empty-note').attr('y', 14).style('font-size', '11px')
+        .text('Adjust the relationship/archetype filters above, or check back as more funds get scraped.');
+      updateSelectionInfo(funds, investors);
+      return;
+    }
+
+    // Build sankey nodes/links. Three node kinds, prefixed so IDs don't
+    // collide with the underlying fund IDs (a fund can only be on one side).
+    const ingoFundIds = new Set();
+    const nonIngoFundIds = new Set();
+    bridges.forEach(b => {
+      b.ingoIds.forEach(id => ingoFundIds.add(id));
+      b.nonIngoIds.forEach(id => nonIngoFundIds.add(id));
+    });
+
+    const nodes = [];
+    const nodeIndex = new Map();
+
+    // INGO funds (col 0)
+    [...ingoFundIds]
+      .map(id => funds.find(f => f.id === id))
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .forEach(f => {
+        nodeIndex.set('I:' + f.id, nodes.length);
+        nodes.push({ kind: 'ingo-fund', id: f.id, name: f.name, fund: f });
+      });
+    // Investors (col 1) — sorted by total connections desc.
+    bridges
+      .map(b => ({ inv: b.investor, score: b.ingoIds.length + b.nonIngoIds.length }))
+      .sort((a, b) => b.score - a.score)
+      .forEach(({ inv }) => {
+        nodeIndex.set('V:' + inv.id, nodes.length);
+        nodes.push({ kind: 'investor', id: inv.id, name: inv.name, archetype: inv.archetype });
+      });
+    // Non-INGO funds (col 2)
+    [...nonIngoFundIds]
+      .map(id => funds.find(f => f.id === id))
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .forEach(f => {
+        nodeIndex.set('N:' + f.id, nodes.length);
+        nodes.push({ kind: 'non-ingo-fund', id: f.id, name: f.name, fund: f });
+      });
+
+    const links = [];
+    bridges.forEach(b => {
+      const invIdx = nodeIndex.get('V:' + b.investor.id);
+      b.ingoIds.forEach(fid => {
+        // Direction: INGO fund → investor (so capital "flows" left to right).
+        links.push({
+          source: nodeIndex.get('I:' + fid),
+          target: invIdx,
+          value: 1,
+          investor: b.investor,
+          fund: funds.find(f => f.id === fid),
+          relKind: relationKindFor(b.investor, fid),
+        });
+      });
+      b.nonIngoIds.forEach(fid => {
+        links.push({
+          source: invIdx,
+          target: nodeIndex.get('N:' + fid),
+          value: 1,
+          investor: b.investor,
+          fund: funds.find(f => f.id === fid),
+          relKind: relationKindFor(b.investor, fid),
+        });
+      });
+    });
+
+    // Layout
+    const sankey = d3.sankey()
+      .nodeId(d => d.index)
+      .nodeAlign(d3.sankeyJustify)
+      .nodeWidth(18)
+      .nodePadding(14)
+      .extent([[160, 50], [w - 160, h - 30]]);
+
+    sankey({ nodes, links });
+
+    // Column headers
+    const colsG = svg.append('g').attr('class', 'sankey-cols');
+    const ingoNodes = nodes.filter(n => n.kind === 'ingo-fund');
+    const invNodes = nodes.filter(n => n.kind === 'investor');
+    const nonNodes = nodes.filter(n => n.kind === 'non-ingo-fund');
+    const colCx = kind => {
+      const arr = nodes.filter(n => n.kind === kind);
+      if (!arr.length) return 0;
+      return d3.mean(arr, n => (n.x0 + n.x1) / 2);
+    };
+    colsG.append('text').attr('class', 'sankey-col-label')
+      .attr('x', colCx('ingo-fund')).attr('y', 30)
+      .text(`INGO-backed funds (${ingoNodes.length})`);
+    colsG.append('text').attr('class', 'sankey-col-label')
+      .attr('x', colCx('investor')).attr('y', 30)
+      .text(`Bridging investors (${invNodes.length})`);
+    colsG.append('text').attr('class', 'sankey-col-label')
+      .attr('x', colCx('non-ingo-fund')).attr('y', 30)
+      .text(`Non-INGO funds (${nonNodes.length})`);
+
+    // Links
+    const FUND_COLOR_INGO = '#3a8c3a';   // matches the brief's INGO swatch
+    const FUND_COLOR_NON  = '#6c8aac';   // slate, distinct from INGO green
+    function nodeFill(n) {
+      if (n.kind === 'investor') return ARCHETYPE_COLOR[n.archetype] || ARCHETYPE_COLOR.other;
+      return n.kind === 'ingo-fund' ? FUND_COLOR_INGO : FUND_COLOR_NON;
+    }
+
+    const linkG = svg.append('g').attr('class', 'sankey-links');
+    links.forEach((l, i) => {
+      const sNode = nodes[l.source.index ?? l.source];
+      const path = linkG.append('path')
+        .datum(l)
+        .attr('class', 'sankey-link')
+        .attr('data-link-idx', i)
+        .attr('d', d3.sankeyLinkHorizontal()(l))
+        .attr('stroke', nodeFill(l.investor ? { kind: 'investor', archetype: l.investor.archetype } : sNode))
+        .attr('stroke-width', Math.max(1, l.width))
+        .on('mouseenter', evt => {
+          STATE.hot.linkIdx = i;
+          applySankeyHighlight();
+          const html = `<strong>${l.investor.name}</strong> &nbsp;${l.relKind}&nbsp; <strong>${l.fund.name}</strong>`
+            + `<br><span style="color:#888">${l.fund.ingo_backed ? 'INGO-backed' : 'non-INGO'}</span>`;
+          showTooltip(html, evt);
+        })
+        .on('mouseleave', () => { STATE.hot.linkIdx = null; applySankeyHighlight(); hideTooltip(); })
+        .on('mousemove', moveTooltip);
+    });
+
+    // Nodes
+    const nodeG = svg.append('g').attr('class', 'sankey-nodes');
+    nodes.forEach((n, i) => {
+      const g = nodeG.append('g')
+        .datum(n)
+        .attr('class', 'sankey-node')
+        .attr('data-node-idx', i)
+        .style('cursor', 'pointer')
+        .on('mouseenter', evt => {
+          STATE.hot.nodeIdx = i;
+          applySankeyHighlight();
+          let html = `<strong>${n.name}</strong>`;
+          if (n.kind === 'investor') {
+            html += `<br><span style="color:#888">${n.archetype}</span>`;
+            const links_in  = links.filter(l => l.target.index === i);
+            const links_out = links.filter(l => l.source.index === i);
+            html += `<br><br>Bridges <b>${links_in.length}</b> INGO fund(s) and <b>${links_out.length}</b> non-INGO fund(s).`;
+          } else {
+            html += `<br><span style="color:#888">${n.kind === 'ingo-fund' ? 'INGO-backed' : 'non-INGO'}</span>`;
+            const myLinks = links.filter(l => l.source.index === i || l.target.index === i);
+            html += `<br><br><b>${myLinks.length}</b> bridging investor connection(s).`;
+          }
+          showTooltip(html, evt);
+        })
+        .on('mouseleave', () => { STATE.hot.nodeIdx = null; applySankeyHighlight(); hideTooltip(); })
+        .on('mousemove', moveTooltip)
+        .on('click', () => {
+          if (n.kind === 'investor') {
+            const inv = DATA.investors.find(x => x.id === n.id);
+            if (inv) showDetailsForInvestor(inv);
+          } else {
+            showDetailsForFund(n.fund);
+          }
+        });
+
+      g.append('rect')
+        .attr('x', n.x0).attr('y', n.y0)
+        .attr('width', Math.max(1, n.x1 - n.x0))
+        .attr('height', Math.max(1, n.y1 - n.y0))
+        .attr('fill', nodeFill(n))
+        .attr('rx', 2);
+
+      // Labels: outside the column for the leftmost (right-aligned) and
+      // rightmost (left-aligned) columns, inside-right for the middle.
+      const labelOnLeft = n.kind === 'ingo-fund';
+      const labelOnRight = n.kind === 'non-ingo-fund';
+      const labelInside = n.kind === 'investor';
+
+      const labelX = labelOnLeft ? n.x0 - 6
+                  : labelOnRight ? n.x1 + 6
+                  : n.x1 + 6;
+      const anchor = labelOnLeft ? 'end' : 'start';
+
+      g.append('text')
+        .attr('x', labelX)
+        .attr('y', (n.y0 + n.y1) / 2)
+        .attr('dy', '0.35em')
+        .attr('text-anchor', anchor)
+        .text(truncate(n.name, 28));
+    });
+
+    updateSelectionInfo(funds, investors);
+  }
+
+  // Helper for sankey: which kind of relationship connects investor & fund?
+  function relationKindFor(inv, fundId) {
+    const isLp = inv.lp_funds.has(fundId);
+    const co = inv.coinvest_funds.get(fundId) || 0;
+    if (isLp && co) return `LP + co-invest (${co})`;
+    if (isLp) return 'LP';
+    if (co) return `co-invest (${co})`;
+    return '?';
+  }
+
+  function applySankeyHighlight() {
+    const { nodeIdx, linkIdx } = STATE.hot;
+    const svg = d3.select('#vis-svg');
+
+    // Read the bound `__data__` (set via .datum() at render time) so we
+    // know which nodes/links to highlight without keeping a closure
+    // reference to the full data arrays.
+    svg.selectAll('.sankey-link').each(function () {
+      const el = d3.select(this);
+      const idx = +el.attr('data-link-idx');
+      let hot = false, dim = false;
+      if (linkIdx != null) {
+        hot = (idx === linkIdx);
+        dim = !hot;
+      } else if (nodeIdx != null) {
+        // Need to know whether this link touches nodeIdx.
+        // d3-sankey leaves source/target as objects on the link datum; read via __data__.
+        const d = el.node().__data__;
+        if (d) {
+          hot = (d.source.index === nodeIdx || d.target.index === nodeIdx);
+          dim = !hot;
+        }
+      }
+      el.classed('hot', hot).classed('dim', dim);
+    });
+
+    svg.selectAll('.sankey-node').each(function () {
+      const el = d3.select(this);
+      const idx = +el.attr('data-node-idx');
+      let hot = false, dim = false;
+      if (nodeIdx != null) {
+        hot = (idx === nodeIdx);
+        dim = !hot;
+      } else if (linkIdx != null) {
+        // Hot if it's an endpoint of the hot link.
+        const link = svg.select(`.sankey-link[data-link-idx="${linkIdx}"]`).node();
+        const d = link?.__data__;
+        if (d) {
+          hot = (d.source.index === idx || d.target.index === idx);
+          dim = !hot;
+        }
+      }
+      el.classed('hot', hot).classed('dim', dim);
+    });
+  }
+
   function applyChordHighlight() {
     const { fundId, pair } = STATE.hot;
     const svg = d3.select('#vis-svg');
@@ -1065,7 +1372,8 @@ permalink: /network/
     requestAnimationFrame(() => {
       try {
         if (STATE.view === 'matrix') renderMatrix();
-        else renderChord();
+        else if (STATE.view === 'chord') renderChord();
+        else renderSankey();
       } finally {
         document.getElementById('vis-loading')?.classList.add('hidden');
       }
@@ -1080,6 +1388,13 @@ permalink: /network/
       // The "row filter" control only makes sense for the matrix.
       document.getElementById('ctrl-row-filter').style.display =
         STATE.view === 'matrix' ? '' : 'none';
+      // Sankey is unfiltered by 'only-with-data' (always relevant) and
+      // 'INGO-only' (which would empty the right column). Hint to the user.
+      const ingoBox = document.getElementById('filter-ingo-only');
+      const onlyDataBox = document.getElementById('filter-only-with-data');
+      if (STATE.view === 'sankey') {
+        if (ingoBox.checked) { ingoBox.checked = false; STATE.ingoOnly = false; }
+      }
       render();
     });
   });
