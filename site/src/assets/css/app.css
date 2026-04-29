@@ -1524,22 +1524,15 @@ a.commit-fund:hover { color: var(--amber); }
   margin-bottom: 8px;
 }
 .lp-chip {
+  --lp-chip-size: min(calc(12px + 2px * (var(--c, 1) - 1)), 28px);
   display: inline-block;
-  width: 12px;
-  height: 12px;
+  width: var(--lp-chip-size);
+  height: var(--lp-chip-size);
   background: var(--arch, var(--fg-mute));
   border-radius: 1px;
   cursor: help;
   transition: transform 0.08s ease, outline 0.08s ease;
 }
-.lp-chip[data-count="2"] { width: 16px; height: 16px; }
-.lp-chip[data-count="3"] { width: 18px; height: 18px; }
-.lp-chip[data-count="4"] { width: 20px; height: 20px; }
-.lp-chip[data-count="5"],
-.lp-chip[data-count="6"],
-.lp-chip[data-count="7"],
-.lp-chip[data-count="8"],
-.lp-chip[data-count="9"] { width: 22px; height: 22px; }
 .lp-chip:not([data-count="1"]) { outline: 1px solid rgba(255,255,255,0.15); outline-offset: -1px; }
 .lp-chip:hover { transform: scale(1.4); outline: 1px solid var(--amber); }
 .lp-legend {
