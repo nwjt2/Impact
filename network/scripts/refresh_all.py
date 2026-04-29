@@ -39,6 +39,14 @@ COMBINE_MODULES = [
     # via secondary read paths (filtered by Investee Type).
     "network.dashboard_prep.prep_scripts.combine_fund_lps",
     "network.dashboard_prep.prep_scripts.combine_portco_investors",
+    # Bridge editorially-curated DFI commitments from
+    # content/dfi_ingo_commitments.yml into fund_lps.csv. Must run AFTER
+    # combine_fund_lps (which rebuilds fund_lps.csv from scrapers).
+    "network.dashboard_prep.prep_scripts.inject_yaml_dfi_commitments",
+    # Same pattern for family-office / faith-based / philanthropy-LLC
+    # commitments curated in content/family_office_lps.yml. Same quality
+    # gate: every emitted edge carries a public_source_url.
+    "network.dashboard_prep.prep_scripts.inject_yaml_family_office_commits",
 ]
 
 BUILD_JSON_MODULE = "network.dashboard_prep.prep_scripts.build_network_json"
