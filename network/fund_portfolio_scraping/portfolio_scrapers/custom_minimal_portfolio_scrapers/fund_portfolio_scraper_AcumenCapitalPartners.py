@@ -1,24 +1,24 @@
-"""lp_portfolio_scraper_Acumen.py
+"""fund_portfolio_scraper_AcumenCapitalPartners.py
 
-LP-portfolio scraper for Acumen Capital Partners.
+Scrapes Acumen's full published portfolio (160 entries) via WP REST API,
+attributed to `acumen-capital-partners` — the umbrella fund row that
+roll-ups all Acumen-managed direct investments (pre-fund Patient Capital
+plus the Kawisafi / ARAF / ALEG / H2R vehicles).
 
 Source: https://acumen.org/companies/
 WP REST: https://acumen.org/wp-json/wp/v2/company
 
-Approach: Acumen exposes their full portfolio as a `company` post type via
-the WordPress REST API. Each entry is a company Acumen has invested in
-(across their direct funds plus successor vehicles like KawiSafi and ALEG).
-Status taxonomy distinguishes Active (148) and Exited (149); we keep both.
+Why fund-portfolio rather than LP-portfolio: Acumen Capital Partners LLC is
+the SEC-registered fund manager for the four Acumen INGO-Backed Funds, not
+itself an outside investor. Treating it as a fund means companies in
+Acumen's portfolio that overlap with other INGO funds (Kiva-RIF etc.) are
+correctly counted as INGO-co-funded rather than externally co-invested,
+matching the catalysts page framing.
 
-LP attribution: emit rows under `acumen-capital-partners` (the existing
-investor-catalogue slug for Acumen's investing arm, since the parent
-Acumen entry sits in ingos.csv rather than investors.csv).
-
-Slug discipline: title is kebab-cased into Investee Slug. For the handful
-of companies that already exist in our catalogue under a different slug
+Slug discipline: title is kebab-cased into Company Slug. For the handful
+of companies that already exist in the catalogue under a different slug
 (e.g. Acumen's feed has `soluna-energia-2`; catalogue has `soluna-energia`),
-override to the catalogue slug so the cross-reference works without
-creating a duplicate portfolio_companies entry.
+override to the catalogue slug so cross-references work.
 """
 from __future__ import annotations
 
@@ -37,15 +37,14 @@ from network.utils.csv_io import write_rows  # noqa: E402
 from network.utils.http import USER_AGENT  # noqa: E402
 from network.utils.slugify import slugify  # noqa: E402
 
-SCRAPER_NAME = "lp_portfolio_scraper_Acumen"
-LP_NAME = "Acumen Capital Partners"
-LP_SLUG = "acumen-capital-partners"
+SCRAPER_NAME = "fund_portfolio_scraper_AcumenCapitalPartners"
+FUND_SLUG = "acumen-capital-partners"
+INGO_SLUG = "acumen"
 SOURCE_URL = "https://acumen.org/companies/"
 WPJSON_URL = "https://acumen.org/wp-json/wp/v2/company?per_page=100"
 
-# Acumen's feed sometimes appends `-2`/`-N` when a slug collides with another
-# WP post type (status pages, etc.). Map these to their catalogue-canonical
-# slugs so cross-references work.
+# Acumen's WP feed appends `-N` when a slug collides with another post type;
+# normalise to the catalogue's canonical slugs.
 _SLUG_OVERRIDES: dict[str, str] = {
     "soluna-energia-2": "soluna-energia",
     "pagatech": "paga",
@@ -60,14 +59,16 @@ _NAME_OVERRIDES: dict[str, str] = {
 }
 
 OUTPUT_HEADERS = [
-    "LP Slug",
-    "Investee Name",
-    "Investee Slug",
-    "Investee Type",
-    "Commitment Year",
+    "Fund Slug",
+    "INGO Slug",
+    "Company Name",
+    "Company Slug",
+    "Company Website",
+    "Round",
+    "Round Date",
+    "Lead",
     "Source URL",
     "Source Date",
-    "Confidence",
     "Scraping Method Used",
 ]
 
@@ -114,14 +115,16 @@ def scrape(run_number: int, output_dir: Path | str) -> int:
         canonical_name = _NAME_OVERRIDES.get(canonical_slug, title)
         rows.append(
             {
-                "LP Slug": LP_SLUG,
-                "Investee Name": canonical_name,
-                "Investee Slug": canonical_slug,
-                "Investee Type": "company",
-                "Commitment Year": "",
+                "Fund Slug": FUND_SLUG,
+                "INGO Slug": INGO_SLUG,
+                "Company Name": canonical_name,
+                "Company Slug": canonical_slug,
+                "Company Website": "",
+                "Round": "unknown",
+                "Round Date": "",
+                "Lead": "unknown",
                 "Source URL": SOURCE_URL,
                 "Source Date": today,
-                "Confidence": "confirmed",
                 "Scraping Method Used": SCRAPER_NAME,
             }
         )
@@ -132,7 +135,7 @@ def scrape(run_number: int, output_dir: Path | str) -> int:
             f"Feed structure may have changed."
         )
 
-    out_path = Path(output_dir) / f"run_{run_number}" / f"{LP_SLUG}.csv"
+    out_path = Path(output_dir) / f"run_{run_number}" / f"{FUND_SLUG}.csv"
     write_rows(out_path, OUTPUT_HEADERS, rows)
     return len(rows)
 
@@ -144,11 +147,11 @@ def main() -> None:
     parser.add_argument("--run", type=int, default=1)
     parser.add_argument(
         "--output-dir",
-        default=str(REPO_ROOT / "network" / "lp_portfolio_scraping" / "individual_lp_portfolios"),
+        default=str(REPO_ROOT / "network" / "fund_portfolio_scraping" / "individual_fund_portfolios"),
     )
     args = parser.parse_args()
     n = scrape(args.run, args.output_dir)
-    print(f"{SCRAPER_NAME}: wrote {n} rows to {args.output_dir}/run_{args.run}/{LP_SLUG}.csv")
+    print(f"{SCRAPER_NAME}: wrote {n} rows to {args.output_dir}/run_{args.run}/{FUND_SLUG}.csv")
 
 
 if __name__ == "__main__":
