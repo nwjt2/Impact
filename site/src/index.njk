@@ -170,35 +170,54 @@ pageKey: index
       return d.deadline_date && d.deadline_date >= TODAY;
     }).sort(function (a, b) { return a.deadline_date.localeCompare(b.deadline_date); });
 
-    if (hard.length === 0) {
+    var rolling = DEADS.filter(function (d) {
+      if (d.deadline_date) return false;
+      if (d.recurring === "one_off" && !d.next_occurrence) return false;
+      return true;
+    }).sort(function (a, b) {
+      var ar = a.recurring || "zzz", br = b.recurring || "zzz";
+      if (ar !== br) return ar.localeCompare(br);
+      return (a.title || "").localeCompare(b.title || "");
+    });
+
+    var items = hard.concat(rolling);
+
+    if (items.length === 0) {
       return {
-        html: '<p class="muted" style="padding:18px 0;">No fixed-date deadlines coming up. See <a href="{{ "/deadlines/" | url }}">all {{ slot_meta.slot_counts.deadlines }} records</a> for rolling and recurring programs.</p>',
+        html: '<p class="muted" style="padding:18px 0;">No deadlines on file. See <a href="{{ "/deadlines/" | url }}">all {{ slot_meta.slot_counts.deadlines }} records</a>.</p>',
         sources: [], pageCount: 0,
       };
     }
 
-    var pageCount = Math.ceil(hard.length / AGENDA_PAGE_SIZE);
+    var pageCount = Math.ceil(items.length / AGENDA_PAGE_SIZE);
     if (agendaPage >= pageCount) agendaPage = 0;
     var start = agendaPage * AGENDA_PAGE_SIZE;
-    var page = hard.slice(start, start + AGENDA_PAGE_SIZE);
+    var page = items.slice(start, start + AGENDA_PAGE_SIZE);
 
     var rows = page.map(function (d) {
-      var days = daysBetween(TODAY, d.deadline_date);
-      var rel = days === 0 ? "today"
-        : days < 60 ? days + "d"
-        : Math.round(days / 30) + "mo";
-      var relCls = "dl-rel" + (days <= 7 ? " is-critical" : days <= 14 ? " is-imminent" : "");
-      var dStr = I.fmtDate(d.deadline_date);
-      var verb = I.dateVerb(d.kind);
-      var dateCell = verb
-        ? '<span class="dl-date-verb">' + I.esc(verb) + '</span> <span class="dl-date-value">' + dStr + '</span>'
-        : dStr;
       var n = srcNum(d.public_source_url);
+      var dateCell, relCell;
+      if (d.deadline_date) {
+        var days = daysBetween(TODAY, d.deadline_date);
+        var rel = days === 0 ? "today"
+          : days < 60 ? days + "d"
+          : Math.round(days / 30) + "mo";
+        var relCls = "dl-rel" + (days <= 7 ? " is-critical" : days <= 14 ? " is-imminent" : "");
+        var dStr = I.fmtDate(d.deadline_date);
+        var verb = I.dateVerb(d.kind);
+        dateCell = verb
+          ? '<span class="dl-date-verb">' + I.esc(verb) + '</span> <span class="dl-date-value">' + dStr + '</span>'
+          : dStr;
+        relCell = '<span class="' + relCls + '">' + rel + '</span>';
+      } else {
+        dateCell = '<span class="dl-date-rolling">' + I.esc(I.deadlineStatus(d)) + '</span>';
+        relCell = '<span class="dl-rel-empty">—</span>';
+      }
 
       return '<tr class="dl-kind-' + I.esc(d.kind) + (d.public_source_url ? ' card-clickable' : '') +
         '" data-source-url="' + I.escAttr(d.public_source_url || "") + '">'
         + '<td class="col-date">' + dateCell + '</td>'
-        + '<td class="col-rel"><span class="' + relCls + '">' + rel + '</span></td>'
+        + '<td class="col-rel">' + relCell + '</td>'
         + '<td><span class="dl-title">' + I.esc(d.title) + '</span>' + (n ? '<sup class="dl-source-num">' + n + '</sup>' : '') + '</td>'
         + '<td class="col-issuer">' + I.esc(d.issuing_body || "") + '</td>'
         + '<td class="col-kind"><span class="dl-kind"><span class="dl-kind-dot"></span>' + I.esc(KIND_LABELS[d.kind] || d.kind) + '</span></td>'
@@ -216,7 +235,7 @@ pageKey: index
         + '</tr></thead><tbody>' + rows + '</tbody></table>',
       sources: sources,
       pageCount: pageCount,
-      total: hard.length,
+      total: items.length,
       pageStart: start + 1,
       pageEnd: start + page.length,
     };
