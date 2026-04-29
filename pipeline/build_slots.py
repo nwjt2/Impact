@@ -687,16 +687,28 @@ def build(verbose: bool = True) -> dict[str, int]:
         print(f"[famof]  family_office_lps: {len(family_office_models)} entries")
 
     # --- emit ---
-    # Slot 1 title is "INGOs like you that closed a fund" — filter emit to
-    # rows that (a) actually have a parent INGO and (b) are a real fund
-    # vehicle, not a programmatic investment activity. Non-INGO comparables
-    # (BlueOrchard, Symbiotics, etc.) and `programmatic_not_fund` entries
-    # (e.g. AKFED, Christian Aid PCIF, World Vision investing program) stay
-    # in peer_funds.yml as the superset so slot-2 commitment cross-lookups
-    # still resolve.
+    # Slot 1 / /peer-funds/ is the **complete catalogue** of peer impact-fund
+    # vehicles tracked by the project: INGO-sponsored vehicles plus non-INGO
+    # comparables (BlueOrchard, Symbiotics, Aavishkaar, etc.). It mirrors
+    # `network/catalogue/impact_funds.csv` so every fund node visible in
+    # /network/ also appears in /peer-funds/.
+    #
+    # Excluded:
+    #   - vehicle_type == programmatic_not_fund   (INGO investing programs
+    #     like AKFED, Christian Aid PCIF, World Vision — not discrete funds)
+    #
+    # Exception: a small allowlist of programmatic_not_fund slugs that the
+    # network-side catalogue force-allows (e.g. acumen-capital-partners as
+    # an Acumen-managed direct-investment umbrella). Mirrored here so the
+    # two views stay aligned. Keep in sync with ACTIVE_FUND_SLUGS in
+    # network/dashboard_prep/prep_scripts/sync_catalogue_from_yaml.py.
+    PROGRAMMATIC_FORCE_ALLOW = {"acumen-capital-partners"}
     slot1_models = [
         m for m in peer_models
-        if m.parent_ingo and getattr(m, "vehicle_type", None) != "programmatic_not_fund"
+        if (
+            getattr(m, "vehicle_type", None) != "programmatic_not_fund"
+            or m.slug in PROGRAMMATIC_FORCE_ALLOW
+        )
     ]
     peer_payload = [_dump(m) for m in slot1_models]
     dfi_payload = [_dump(m) for m in dfi_cards]
