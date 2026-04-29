@@ -134,6 +134,16 @@ ACTIVE_FUND_SLUGS = {
     "aavishkaar-india-vi",
     "incofin-agrif",
     "ecoenterprises-iii",
+    # Activated 2026-04-29 (Acumen umbrella reroute).
+    #   - acumen-capital-partners: cross-fund roll-up of Acumen-managed
+    #     direct investments (160 companies at acumen.org/companies). The
+    #     YAML marks this `vehicle_type: programmatic_not_fund` because it's
+    #     not a discrete LPA-fund — the discrete Acumen funds (Kawisafi,
+    #     ARAF, ALEG, H2R) live under their own slugs. We force-allow it
+    #     into impact_funds.csv so catalyst attribution counts Acumen-
+    #     overlapping portcos as INGO-funded rather than externally
+    #     co-invested. See `derive_pipeline_status` below for the override.
+    "acumen-capital-partners",
 }
 
 IMPACT_FUNDS_HEADERS = [
@@ -217,6 +227,13 @@ def derive_pipeline_status(
     status = (fund.get("status") or "").lower()
     slug = fund["slug"]
 
+    # ACTIVE_FUND_SLUGS overrides programmatic_not_fund exclusion. A handful
+    # of YAML entries (e.g. Acumen's umbrella roll-up) are correctly tagged
+    # as programmatic for the brief's comparable-fund framing, but we still
+    # want them in the network catalogue so their portfolios attribute as
+    # INGO-fund investments.
+    if slug in ACTIVE_FUND_SLUGS and vtype == "programmatic_not_fund":
+        return "active", None
     if vtype == "programmatic_not_fund":
         return None, "programmatic, not a fund vehicle"
     if status == "defunct":

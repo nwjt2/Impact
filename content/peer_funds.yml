@@ -1981,15 +1981,15 @@ peer_funds:
   # The `parent_ingo` field being null marks these as comparables. Slot 1
   # and slot 4 MUST filter on parent_ingo != null.
 
-  - slug: acumen-capital-partners-i
-    name: Acumen (founding patient-capital vehicle)
-    manager: Acumen
+  - slug: acumen-capital-partners
+    name: Acumen (umbrella portfolio)
+    manager: Acumen Capital Partners LLC
     parent_ingo: Acumen
     parent_ingo_country: US
     vintage: 2001
     size_usd_m: null
     sector_tags: [energy, agri, health]
-    geo_tags: [africa, asia]
+    geo_tags: [africa, asia, latam]
     vehicle_type: programmatic_not_fund
     first_close_date: null
     final_close_date: null
@@ -2003,15 +2003,19 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     status: deployed
-    public_source_url: https://acumen.org/
-    last_seen_at: 2026-04-25
+    public_source_url: https://acumen.org/companies/
+    last_seen_at: 2026-04-29
     notes: >
-      Acumen founded 2001 by Jacqueline Novogratz with Rockefeller,
-      Cisco, Sterling Stamos seed funding. Operates as a 501(c)(3) +
-      affiliated investing entities; the org has cumulatively impacted
-      700M+ lives per its own claim. Not a traditional fund. The
-      KawiSafi (FP005) and ARAF (FP078) entries are Acumen's discrete
-      LP-GP structures.
+      Cross-fund roll-up of Acumen-managed direct investments published
+      at acumen.org/companies (160 companies). Spans Acumen's pre-fund
+      Patient Capital era (founded 2001 by Jacqueline Novogratz with
+      Rockefeller, Cisco, Sterling Stamos seed funding) plus the
+      discrete Kawisafi/ARAF/ALEG/H2R vehicles that operate as
+      conventional LP-GP funds. Acumen is a 501(c)(3); the manager,
+      Acumen Capital Partners LLC, is an SEC-registered investment
+      adviser (CRD 285564). Treated as INGO-Backed Fund umbrella in
+      the network so catalyst attribution counts overlapping portcos
+      as INGO-funded rather than externally co-invested.
 
   - slug: acumen-kawisafi
     name: Acumen KawiSafi Ventures Fund
