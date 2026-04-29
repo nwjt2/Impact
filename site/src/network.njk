@@ -232,7 +232,7 @@ permalink: /network/
   <div class="view-tabs">
     <button class="view-tab active" data-view="matrix">Matrix · who funds whom</button>
     <button class="view-tab" data-view="chord">Chord · funds that share investors</button>
-    <button class="view-tab" data-view="sankey">Bridge · INGO ↔ non-INGO</button>
+    <button class="view-tab" data-view="sankey">Bridge · INGO-Backed ↔ Non-INGO-Backed</button>
   </div>
 
   <div class="network-controls">
@@ -254,12 +254,12 @@ permalink: /network/
 
     <fieldset class="ctrl-group ctrl-funds">
       <legend>Funds</legend>
-      <label class="ctrl-master"><input type="checkbox" id="filter-ingo-only"> Only INGO-backed</label>
+      <label class="ctrl-master"><input type="checkbox" id="filter-ingo-only"> Only INGO-Backed Funds</label>
       <label><input type="checkbox" id="filter-only-with-data" checked> Only funds with investor data</label>
 
       <details class="ctrl-fund-section" open>
         <summary>
-          <span class="ctrl-fund-section-title">INGO-backed funds</span>
+          <span class="ctrl-fund-section-title">INGO-Backed Funds</span>
           <span class="ctrl-fund-count" id="ctrl-fund-ingo-count"></span>
         </summary>
         <div class="ctrl-fund-shortcuts">
@@ -271,7 +271,7 @@ permalink: /network/
 
       <details class="ctrl-fund-section">
         <summary>
-          <span class="ctrl-fund-section-title">Non-INGO funds</span>
+          <span class="ctrl-fund-section-title">Non-INGO-Backed Funds</span>
           <span class="ctrl-fund-count" id="ctrl-fund-non-count"></span>
         </summary>
         <div class="ctrl-fund-shortcuts">
@@ -727,12 +727,12 @@ permalink: /network/
         .attr('class', 'matrix-section-label')
         .attr('x', matrixOriginX)
         .attr('y', padTop)
-        .text('INGO-backed');
+        .text('INGO-Backed Funds');
       svg.append('text')
         .attr('class', 'matrix-section-label')
         .attr('x', matrixOriginX + firstNonIngoIdx * cellSize + 6)
         .attr('y', padTop)
-        .text('Non-INGO');
+        .text('Non-INGO-Backed Funds');
     }
 
     updateSelectionInfo(funds, investors);
@@ -761,7 +761,7 @@ permalink: /network/
     STATE.hot.fundId = fund.id;
     STATE.hot.investorId = null;
     applyHighlight();
-    const html = `<strong>${fund.name}</strong><br><span style="color:#888">${fund.ingo_backed ? 'INGO-backed' : 'non-INGO'}</span><br><br>`
+    const html = `<strong>${fund.name}</strong><br><span style="color:#888">${fund.ingo_backed ? 'INGO-Backed Fund' : 'Non-INGO-Backed Fund'}</span><br><br>`
       + `<b>${fund.lp_count}</b> LP${fund.lp_count === 1 ? '' : 's'}<br>`
       + `<b>${fund.coinvest_count}</b> co-investor entit${fund.coinvest_count === 1 ? 'y' : 'ies'} (via portcos)`;
     showTooltip(html, evt);
@@ -857,7 +857,7 @@ permalink: /network/
       .filter(inv => inv.coinvest_funds.has(fund.id))
       .map(inv => ({ inv, n: inv.coinvest_funds.get(fund.id) }))
       .sort((a, b) => b.n - a.n);
-    let html = `<h3>${fund.name}</h3><p class="muted">${fund.ingo_backed ? 'INGO-backed' : 'non-INGO'}</p>`;
+    let html = `<h3>${fund.name}</h3><p class="muted">${fund.ingo_backed ? 'INGO-Backed Fund' : 'Non-INGO-Backed Fund'}</p>`;
     html += `<p>${fund.lp_count} LP${fund.lp_count === 1 ? '' : 's'}, `
           + `${fund.coinvest_count} co-investor entit${fund.coinvest_count === 1 ? 'y' : 'ies'}.</p>`;
     if (lps.length) {
@@ -995,7 +995,7 @@ permalink: /network/
         .on('mouseenter', evt => {
           STATE.hot.fundId = f.id;
           applyChordHighlight();
-          const html = `<strong>${f.name}</strong><br><span style="color:#888">${f.ingo_backed ? 'INGO-backed' : 'non-INGO'}</span><br><br>`
+          const html = `<strong>${f.name}</strong><br><span style="color:#888">${f.ingo_backed ? 'INGO-Backed Fund' : 'Non-INGO-Backed Fund'}</span><br><br>`
             + `${f.lp_count} LP${f.lp_count === 1 ? '' : 's'}<br>`
             + `${f.coinvest_count} co-investor entit${f.coinvest_count === 1 ? 'y' : 'ies'}`;
           showTooltip(html, evt);
@@ -1117,7 +1117,7 @@ permalink: /network/
     if (bridges.length === 0) {
       const g0 = svg.append('g').attr('transform', `translate(${w / 2},${h / 2})`);
       g0.append('text').attr('class', 'sankey-empty-note').attr('y', -10)
-        .text('No investors yet bridge an INGO fund and a non-INGO fund.');
+        .text('No investors yet bridge an INGO-Backed Fund and a Non-INGO-Backed Fund.');
       g0.append('text').attr('class', 'sankey-empty-note').attr('y', 14).style('font-size', '11px')
         .text('Adjust the relationship/archetype filters above, or check back as more funds get scraped.');
       updateSelectionInfo(funds, investors);
@@ -1209,13 +1209,13 @@ permalink: /network/
     };
     colsG.append('text').attr('class', 'sankey-col-label')
       .attr('x', colCx('ingo-fund')).attr('y', 30)
-      .text(`INGO-backed funds (${ingoNodes.length})`);
+      .text(`INGO-Backed Funds (${ingoNodes.length})`);
     colsG.append('text').attr('class', 'sankey-col-label')
       .attr('x', colCx('investor')).attr('y', 30)
       .text(`Bridging investors (${invNodes.length})`);
     colsG.append('text').attr('class', 'sankey-col-label')
       .attr('x', colCx('non-ingo-fund')).attr('y', 30)
-      .text(`Non-INGO funds (${nonNodes.length})`);
+      .text(`Non-INGO-Backed Funds (${nonNodes.length})`);
 
     // Links
     const FUND_COLOR_INGO = '#3a8c3a';   // matches the brief's INGO swatch
@@ -1239,7 +1239,7 @@ permalink: /network/
           STATE.hot.linkIdx = i;
           applySankeyHighlight();
           const html = `<strong>${l.investor.name}</strong> &nbsp;${l.relKind}&nbsp; <strong>${l.fund.name}</strong>`
-            + `<br><span style="color:#888">${l.fund.ingo_backed ? 'INGO-backed' : 'non-INGO'}</span>`;
+            + `<br><span style="color:#888">${l.fund.ingo_backed ? 'INGO-Backed Fund' : 'Non-INGO-Backed Fund'}</span>`;
           showTooltip(html, evt);
         })
         .on('mouseleave', () => { STATE.hot.linkIdx = null; applySankeyHighlight(); hideTooltip(); })
@@ -1262,9 +1262,9 @@ permalink: /network/
             html += `<br><span style="color:#888">${n.archetype}</span>`;
             const links_in  = links.filter(l => l.target.index === i);
             const links_out = links.filter(l => l.source.index === i);
-            html += `<br><br>Bridges <b>${links_in.length}</b> INGO fund(s) and <b>${links_out.length}</b> non-INGO fund(s).`;
+            html += `<br><br>Bridges <b>${links_in.length}</b> INGO-Backed Fund(s) and <b>${links_out.length}</b> Non-INGO-Backed Fund(s).`;
           } else {
-            html += `<br><span style="color:#888">${n.kind === 'ingo-fund' ? 'INGO-backed' : 'non-INGO'}</span>`;
+            html += `<br><span style="color:#888">${n.kind === 'ingo-fund' ? 'INGO-Backed Fund' : 'Non-INGO-Backed Fund'}</span>`;
             const myLinks = links.filter(l => l.source.index === i || l.target.index === i);
             html += `<br><br><b>${myLinks.length}</b> bridging investor connection(s).`;
           }

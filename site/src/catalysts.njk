@@ -106,9 +106,9 @@ permalink: /catalysts/
   <p class="back-link"><a href="{{ '/network/' | url }}">← Back to network</a></p>
   <header class="catalyst-hero">
     <div class="doc-title-tag"><span>Network · catalyst leaderboard</span></div>
-    <h1>Portfolio companies of INGO-backed funds that drew the most non-INGO capital.</h1>
+    <h1>Portfolio companies of INGO-Backed Funds that drew the most non-INGO capital.</h1>
     <p>
-      Each card below is a <strong>portfolio company</strong> that an INGO-backed impact fund
+      Each card below is a <strong>portfolio company</strong> that an INGO-Backed Fund
       invested in (e.g. Mercy Corps Ventures, Kiva Refugee Investment Fund), and which then
       went on to attract capital from <em>outside</em> the INGO ecosystem — DFIs, VCs,
       foundations, family offices, government agencies. Companies are ranked by how many
@@ -128,7 +128,7 @@ permalink: /catalysts/
     </div>
     <div class="catalyst-stat">
       <span class="catalyst-stat-num muted">{{ network.stats.ingo_backed_portco_count }}</span>
-      <span class="catalyst-stat-lbl">INGO-backed portcos (total)</span>
+      <span class="catalyst-stat-lbl">Portcos of INGO-Backed Funds (total)</span>
     </div>
     <div class="catalyst-stat">
       <span class="catalyst-stat-num muted">{{ network.stats.edge_kinds["co-investor"] or 0 }}</span>
@@ -144,9 +144,9 @@ permalink: /catalysts/
     {% endfor %}
   {% endfor %}
   <div class="catalyst-filter">
-    <span class="catalyst-filter-label">Filter by INGO fund</span>
+    <span class="catalyst-filter-label">Filter by INGO-Backed Fund</span>
     <details open>
-      <summary id="cat-filter-summary">All INGO funds shown</summary>
+      <summary id="cat-filter-summary">All INGO-Backed Funds shown</summary>
       <div class="catalyst-filter-shortcuts">
         <button type="button" data-cat-bulk="all">All</button>
         <button type="button" data-cat-bulk="none">None</button>
@@ -174,7 +174,7 @@ permalink: /catalysts/
             {% endif %}
 
             <div class="catalyst-row">
-              <span class="catalyst-row-label">Backed by INGO fund</span>
+              <span class="catalyst-row-label">Funded by INGO-Backed Fund</span>
               {% for f in c.ingo_funds %}
                 <span class="catalyst-tag catalyst-tag-ingo">{{ f.name }}</span>
               {% endfor %}
@@ -182,9 +182,9 @@ permalink: /catalysts/
 
             {% if c.non_ingo_funds | length > 0 %}
               <div class="catalyst-row">
-                <span class="catalyst-row-label">Also backed by</span>
+                <span class="catalyst-row-label">Also funded by</span>
                 {% for f in c.non_ingo_funds %}
-                  <span class="catalyst-tag catalyst-tag-fund-non">{{ f.name }} (non-INGO fund)</span>
+                  <span class="catalyst-tag catalyst-tag-fund-non">{{ f.name }} (Non-INGO-Backed Fund)</span>
                 {% endfor %}
               </div>
             {% endif %}
@@ -272,11 +272,11 @@ permalink: /catalysts/
       visCountEl.textContent = visible;
       // Update summary
       if (enabled.size === ingoFunds.length) {
-        summary.textContent = 'All INGO funds shown';
+        summary.textContent = 'All INGO-Backed Funds shown';
       } else if (enabled.size === 0) {
-        summary.textContent = 'No INGO funds selected';
+        summary.textContent = 'No INGO-Backed Funds selected';
       } else {
-        summary.textContent = `${enabled.size} of ${ingoFunds.length} INGO funds shown`;
+        summary.textContent = `${enabled.size} of ${ingoFunds.length} INGO-Backed Funds shown`;
       }
     }
 
@@ -300,7 +300,7 @@ permalink: /catalysts/
     <strong>Coverage caveat.</strong>
     Only portcos whose co-investor list has been scraped show up here.
     {{ network.stats.catalyst_count }} of {{ network.stats.ingo_backed_portco_count }}
-    INGO-backed portcos
+    portcos of INGO-Backed Funds
     ({{ ((network.stats.catalyst_count / network.stats.ingo_backed_portco_count) * 100) | round(1) }}%)
     have any known non-INGO funder. The leaderboard density grows with each new
     portco-investor scraper. The empty-bottom of this list isn't an absence of catalysis —
