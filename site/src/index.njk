@@ -14,6 +14,69 @@ pageKey: index
 
 <section class="data-ribbon" id="data-ribbon"></section>
 
+<section class="sec home-split home-split-network">
+  <div class="home-col home-col-network">
+    <header class="sec-head">
+      <h2 class="sec-title">Capital sources behind peer INGO funds <em>// already wrote a check</em></h2>
+      <a class="sec-link" href="{{ '/network/' | url }}">Map of all {{ network.stats.edge_count }} ties →</a>
+    </header>
+    <p class="lp-headline">
+      <strong class="lp-headline-num">{{ home_summary.lpDistinctCount }}</strong>
+      <span class="lp-headline-tail">named investors have already LP'd into a peer INGO-Backed Fund — primary-source confirmed.</span>
+    </p>
+    <p class="lp-callouts">
+      Includes
+      {% for f in home_summary.lpFeatured %}<span class="lp-callout-name" data-arch="{{ f.archetype }}">{{ f.name }}</span>{% if not loop.last %} · {% endif %}{% endfor %}
+      <span class="muted">— and {{ home_summary.lpDistinctCount - (home_summary.lpFeatured | length) }} more.</span>
+    </p>
+    <div class="lp-wall" aria-label="All known LPs into peer INGO-Backed Funds, colored by archetype">
+      {% for l in home_summary.lpWall %}<span class="lp-chip" data-arch="{{ l.archetype }}" data-count="{{ l.count }}" title="{{ l.name }} — {{ l.count }} INGO-Backed Fund{% if l.count != 1 %}s{% endif %}"></span>{% endfor %}
+    </div>
+    <ul class="lp-legend">
+      {% for r in home_summary.lpArchetypeRollup %}<li><span class="lp-legend-dot" data-arch="{{ r.archetype }}"></span> {{ r.archetype | replace('-', ' ') }} <span class="muted">{{ r.count }}</span></li>{% endfor %}
+    </ul>
+    <p class="lp-coverage muted">Drawn from {{ home_summary.lpFundsCoveredCount }} of {{ home_summary.lpFundsTotal }} peer INGO-Backed Funds with disclosed LP rolls.</p>
+  </div>
+
+  <div class="home-col home-col-catalysts">
+    <header class="sec-head">
+      <h2 class="sec-title">Catalysts <em>// portcos that drew non-INGO capital</em></h2>
+      <a class="sec-link" href="{{ '/catalysts/' | url }}">All {{ network.stats.catalyst_count }} →</a>
+    </header>
+    <p class="cat-mini-headline muted">
+      Portfolio companies of INGO-Backed Funds that have attracted capital from <em>outside</em>
+      the INGO ecosystem. Templates for where to invest next if catalysing third-party capital is the goal.
+    </p>
+    <ol class="cat-mini-list">
+      {% for c in home_summary.topCatalysts %}
+        <li class="cat-mini-card">
+          <span class="cat-mini-rank top">{{ loop.index }}</span>
+          <div class="cat-mini-body">
+            <div class="cat-mini-name">
+              {% if c.website %}<a href="{{ c.website }}" target="_blank" rel="noopener">{{ c.name }}</a>{% else %}{{ c.name }}{% endif %}
+            </div>
+            <div class="cat-mini-meta">
+              {% if c.country %}{{ c.country }} · {% endif %}via {% for f in c.ingo_funds %}{{ f.name }}{% if not loop.last %}, {% endif %}{% endfor %}
+            </div>
+            {% if c.archetype_counts | length > 0 %}
+              <div class="cat-mini-archroll">
+                {% for ac in c.archetype_counts %}<span class="cat-mini-archdot" data-arch="{{ ac.archetype }}" title="{{ ac.archetype }}: {{ ac.count }}"></span><span class="cat-mini-archcount">{{ ac.count }}</span>{% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          <div class="cat-mini-summary">
+            <span class="cat-mini-bigcount">{{ c.non_ingo_total }}</span>
+            <span class="cat-mini-bigcount-lbl">non-INGO funders</span>
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
+    <p class="cat-mini-coverage muted">
+      Coverage: {{ network.stats.catalyst_count }} of {{ network.stats.ingo_backed_portco_count }} INGO-fund portcos have co-investor data scraped so far.
+    </p>
+  </div>
+</section>
+
 <section class="sec home-split">
   <div class="home-col home-col-impact">
     <header class="sec-head">
