@@ -495,5 +495,23 @@ pageKey: index
     if (btn.classList.contains("agenda-pg-next")) agendaPage = agendaPage + 1;
     mountAgenda();
   });
+
+  // Whole-column click → section landing page (skip inner links).
+  function makeColClickable(col) {
+    if (!col) return;
+    var link = col.querySelector(".sec-link");
+    if (!link) return;
+    col.classList.add("home-col-clickable");
+    col.addEventListener("click", function (evt) {
+      if (evt.target.closest("a")) return;
+      if (evt.metaKey || evt.ctrlKey || evt.shiftKey || evt.button === 1) {
+        window.open(link.href, "_blank", "noopener,noreferrer");
+      } else {
+        window.location.href = link.href;
+      }
+    });
+  }
+  makeColClickable(document.querySelector(".home-col-network"));
+  makeColClickable(document.querySelector(".home-col-catalysts"));
 })();
 </script>

@@ -1479,6 +1479,11 @@ a.commit-fund:hover { color: var(--amber); }
 
 .home-split-network { margin-top: 18px; }
 
+.home-col-clickable { cursor: pointer; }
+.home-col-clickable .sec-link { pointer-events: auto; }
+.home-col-clickable:hover .sec-title,
+.home-col-clickable:hover .sec-link { color: var(--amber); }
+
 /* Archetype palette — kept in sync with /network/ and /catalysts/. */
 .home-split-network [data-arch="dfi"]           { --arch: #e25c5c; }
 .home-split-network [data-arch="vc"]            { --arch: #3ed7b3; }
