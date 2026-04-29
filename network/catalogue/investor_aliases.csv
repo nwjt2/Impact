@@ -1,0 +1,16 @@
+Deprecated Slug,Canonical Slug,Note
+cdc-group-plc,british-international-investment,CDC renamed to BII in 2022.
+u-s-international-development-finance-corporation-dfc,u-s-international-development-finance-corporation,Long-form parens variant of seeded slug.
+small-industries-development-bank-of-india-sidbi,sidbi,Long-form parens variant of seeded slug.
+european-investment-bank-eib,european-investment-bank,Long-form parens variant of seeded slug.
+bio-belgian-investment-company-for-developing-countries,bio-invest,Same org; LP-scraped long-form name.
+swiss-investment-fund-for-emerging-markets-sifem,sifem,Long-form parens variant of seeded slug.
+oesterreichische-entwicklungsbank-oeeb,oeeb,Long-form parens variant of seeded slug.
+japan-international-cooperation-agency,jica,Long-form name; same org.
+swedish-international-development-cooperation-agency-sida,sida-sweden,Long-form name; same org.
+kfw,kfw-development-bank,KfW shortform refers to dev arm in this context.
+common-fund-for-commodities-cfc,common-fund-for-commodities,Parens variant; canonical drops the (CFC) suffix.
+john-d-and-catherine-t-macarthur-foundation,macarthur-foundation,Long-form name; same org.
+ceniarth-llc,ceniarth,Same family office; LLC suffix.
+howard-buffett-foundation,howard-g-buffett-foundation,Same foundation; missing middle initial.
+children-s-investment-fund,children-s-investment-fund-foundation,CIFF — truncated form on portco page.

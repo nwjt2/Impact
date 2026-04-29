@@ -24,6 +24,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT))
 
 from network.utils.csv_io import read_rows, write_rows  # noqa: E402
+from network.utils.aliases import canonicalize_investor_slug, is_deprecated_investor_slug  # noqa: E402
 
 INDIVIDUAL_DIR = REPO_ROOT / "network" / "portco_investor_scraping" / "individual_portco_investors"
 COMBINED_DIR = REPO_ROOT / "network" / "portco_investor_scraping" / "combined_portco_investors"
@@ -231,10 +232,11 @@ def combine(run_number: int) -> dict:
 
 
 def _update_investors(all_rows: list[dict]) -> int:
-    existing = {r["Investor Slug"]: r for r in read_rows(INVESTORS_CSV)}
+    raw_existing = {r["Investor Slug"]: r for r in read_rows(INVESTORS_CSV)}
+    existing = {s: r for s, r in raw_existing.items() if not is_deprecated_investor_slug(s)}
     discovered_by_slug: dict[str, dict] = {}
     for row in all_rows:
-        slug = row.get("Investor Slug")
+        slug = canonicalize_investor_slug(row.get("Investor Slug"))
         if not slug:
             continue
         discovered_by_slug.setdefault(slug, row)
@@ -307,7 +309,7 @@ def _rebuild_portco_investors(all_rows: list[dict]) -> int:
     edges: list[dict] = []
     for row in all_rows:
         company_slug = row.get("Company Slug")
-        investor_slug = row.get("Investor Slug")
+        investor_slug = canonicalize_investor_slug(row.get("Investor Slug"))
         if not company_slug or not investor_slug:
             continue
         key = (company_slug, investor_slug)

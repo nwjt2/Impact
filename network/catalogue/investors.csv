@@ -276,7 +276,7 @@ Coinbase Ventures,coinbase-ventures,vc,unknown,,,unknown,active,Discovered via p
 SV Angel,sv-angel,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Variant,variant,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Access Ventures,access-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-ICE,ice,other,unknown,,,unknown,active,Suspected scraper artifact (no clear impact-investor named just "ICE"). Verify before use.
+ICE,ice,other,unknown,,,unknown,active,"Suspected scraper artifact (no clear impact-investor named just ""ICE""). Verify before use."
 Edaphon,edaphon,family-office,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Regeneration,regeneration,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Mercy,mercy,other,unknown,,,unknown,active,"Suspected scraper artifact (likely truncated ""Mercy Corps Ventures""); verify before use."
@@ -306,3 +306,27 @@ Whole Planet Foundation,whole-planet-foundation,foundation,unknown,,,unknown,act
 Y Combinator,y-combinator,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Echo VC,echo-vc,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Allon,allon,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Cathay Innovation,cathay-innovation,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Openspace Ventures,openspace-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Partech,partech,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Linear Venture,linear-venture,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+ACA Investments,aca-investments,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Blueorchard,blueorchard,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Women's World Banking,women-s-world-banking,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+La Maison,la-maison,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Tekton Ventures,tekton-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Kolibra Capital,kolibra-capital,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Air Capital,air-capital,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Antom VC,antom-vc,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Embarca,embarca,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Reciprocal Ventures,reciprocal-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Avesta Fund,avesta-fund,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Savia Ventures,savia-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Zenani Capital,zenani-capital,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Draper Cygnus,draper-cygnus,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Mercy Corps,mercy-corps,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Vitamin C,vitamin-c,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Dalus Capital,dalus-capital,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Draper,draper,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Innventure,innventure,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
+Gain,gain,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.

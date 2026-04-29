@@ -29,6 +29,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO_ROOT))
 
 from network.utils.csv_io import read_rows, write_rows  # noqa: E402
+from network.utils.aliases import canonicalize_investor_slug, is_deprecated_investor_slug  # noqa: E402
 
 INDIVIDUAL_DIR = REPO_ROOT / "network" / "fund_lp_scraping" / "individual_fund_lps"
 COMBINED_DIR = REPO_ROOT / "network" / "fund_lp_scraping" / "combined_fund_lps"
@@ -257,10 +258,13 @@ def combine(run_number: int) -> dict:
 
 
 def _update_investors(all_rows: list[dict]) -> int:
-    existing = {r["Investor Slug"]: r for r in read_rows(INVESTORS_CSV)}
+    raw_existing = {r["Investor Slug"]: r for r in read_rows(INVESTORS_CSV)}
+    # Drop rows whose slug is now a deprecated alias — the canonical row
+    # (or one we're about to add) supersedes them.
+    existing = {s: r for s, r in raw_existing.items() if not is_deprecated_investor_slug(s)}
     discovered_by_slug: dict[str, dict] = {}
     for row in all_rows:
-        slug = row.get("LP Slug")
+        slug = canonicalize_investor_slug(row.get("LP Slug"))
         if not slug:
             continue
         discovered_by_slug.setdefault(slug, row)
@@ -348,7 +352,7 @@ def _rebuild_fund_lps(all_rows: list[dict]) -> int:
     best_by_key: dict[tuple[str, str], dict] = {}
     for row in all_rows:
         fund_slug = row.get("Fund Slug")
-        lp_slug = row.get("LP Slug")
+        lp_slug = canonicalize_investor_slug(row.get("LP Slug"))
         if not fund_slug or not lp_slug:
             continue
         key = (fund_slug, lp_slug)
@@ -367,7 +371,7 @@ def _rebuild_fund_lps(all_rows: list[dict]) -> int:
         edges.append(
             {
                 "Fund Slug": fund_slug,
-                "LP Slug": lp_slug,
+                "LP Slug": lp_slug,  # already canonicalized via alias map at key time
                 "Commitment Year": row.get("Commitment Year") or "",
                 "Source URL": row.get("Source URL") or "",
                 "Source Date": row.get("Source Date") or "",
