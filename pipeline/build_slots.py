@@ -76,7 +76,7 @@ DATA_DIR = REPO / "site" / "src" / "_data"
 COUNTRY_ENUM = [
     "GB", "US", "NL", "CH", "FR", "DE", "SE", "NO", "FI",
     "CA", "AU", "IN", "SG", "LU", "IE", "BE", "IT", "JP", "KR",
-    "ES", "AT", "PT", "PL", "DK",  # additional European
+    "ES", "AT", "PT", "PL", "DK", "MC",  # additional European
     "ZA", "NG",              # African DFI HQs
     "BR", "MX",              # LatAm DFI HQs
     "CN",                    # China DFI HQs
@@ -93,6 +93,7 @@ COUNTRY_DISPLAY_NAMES = {
     "IN": "India", "SG": "Singapore", "LU": "Luxembourg", "IE": "Ireland",
     "BE": "Belgium", "IT": "Italy", "JP": "Japan", "KR": "South Korea",
     "ES": "Spain", "AT": "Austria", "PT": "Portugal", "PL": "Poland", "DK": "Denmark",
+    "MC": "Monaco",
     "ZA": "South Africa", "NG": "Nigeria",
     "BR": "Brazil", "MX": "Mexico", "CN": "China",
     "SA": "Saudi Arabia", "KW": "Kuwait", "AE": "United Arab Emirates", "QA": "Qatar",
@@ -171,7 +172,7 @@ def _write_health_warning(kind: str, lines: list[str]) -> None:
 
 def load_peer_funds() -> tuple[list[PeerIngoFund], list[str]]:
     """Parse peer_funds.yml. Returns (models, slugs_unique_ordered)."""
-    raw = yaml.safe_load(PEER_FUNDS_YML.read_text()) or {}
+    raw = yaml.safe_load(PEER_FUNDS_YML.read_text(encoding="utf-8")) or {}
     rows = raw.get("peer_funds") or []
 
     seen: set[str] = set()
@@ -217,7 +218,7 @@ def load_dfi_commitments(
     Returns (dfi_cards, raw_commitments) so downstream callers can also
     inspect the flat commit list (e.g. for QA or v1.5 scraper write-back).
     """
-    raw = yaml.safe_load(DFI_COMMITS_YML.read_text()) or {}
+    raw = yaml.safe_load(DFI_COMMITS_YML.read_text(encoding="utf-8")) or {}
     commits_raw: list[dict] = [r for r in (raw.get("commitments") or []) if isinstance(r, dict)]
     profiles_raw: list[dict] = [r for r in (raw.get("dfi_profiles") or []) if isinstance(r, dict)]
     slug_mapping: dict = raw.get("_dfi_slug_mapping") or {}
@@ -447,7 +448,7 @@ def _trim(s: Any) -> str | None:
 
 
 def load_deadlines() -> list[Deadline]:
-    raw = yaml.safe_load(DEADLINES_YML.read_text()) or {}
+    raw = yaml.safe_load(DEADLINES_YML.read_text(encoding="utf-8")) or {}
     rows = raw.get("deadlines") or []
 
     today = _today()

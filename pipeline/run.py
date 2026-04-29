@@ -52,7 +52,7 @@ SOURCES_YML = REPO / "pipeline" / "sources.yml"
 
 
 def load_sources() -> list[dict]:
-    raw = yaml.safe_load(SOURCES_YML.read_text()) or {}
+    raw = yaml.safe_load(SOURCES_YML.read_text(encoding="utf-8")) or {}
     out: list[dict] = []
     for s in (raw.get("sources") or []):
         if (s.get("status") or "active") == "parked":
@@ -243,7 +243,7 @@ def emit_all(result: dict) -> None:
             pass
     meta["suspicious_silence_count"] = suspicious_silence_count
     meta["status"] = (
-        "red" if any("severity: crit" in (open_dir / p).read_text() for p in open_incs)
+        "red" if any("severity: crit" in (open_dir / p).read_text(encoding="utf-8") for p in open_incs)
         else ("amber" if open_incs else "green")
     )
     emit.write_json("meta", meta)
