@@ -1331,3 +1331,372 @@ foundations:
     public_newsroom_url: https://www.waltonfamilyfoundation.org/stories
     last_seen_at: 2026-04-27
 
+  # ---- Surfaced via network scrapers (LP / co-investor edges) ----
+  # Profiles added to reconcile the /foundations/ page with foundations
+  # appearing in the /network/ view. Sparse where primary sources are
+  # thin (small / faith-based / family trusts). Added 2026-04-29.
+
+  - slug: cartier-philanthrophy
+    name: Cartier Philanthropy
+    aliases: ["Cartier Philanthropy", "Fondation Cartier Philanthropie"]
+    country: "CH"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [gender, fi, generalist, health]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.cartierphilanthropy.org/
+    stated_thesis_excerpt: "We are committed to improving the lives of vulnerable communities worldwide."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: comon-foundation
+    name: COmON Foundation
+    aliases: ["COmON Foundation"]
+    country: "BE"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, agri]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.comon.earth/
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: dovetail-impact-foundation
+    name: Dovetail Impact Foundation
+    aliases: ["Dovetail Impact Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.dovetailimpact.org/
+    stated_thesis_excerpt: "The Dovetail Impact Foundation invests time, treasure, and talent in organizations that promote human flourishing."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: draper-richards-kaplan-foundation
+    name: Draper Richards Kaplan Foundation
+    aliases: ["Draper Richards Kaplan Foundation", "DRK Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.drkfoundation.org/
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: ezrah-charitable-trust
+    name: The Ezrah Charitable Trust
+    aliases: ["The Ezrah Charitable Trust", "Ezrah Charitable Trust"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist]
+    stated_geo_focus: [africa]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: focusing-philanthropy
+    name: Focusing Philanthropy
+    aliases: ["Focusing Philanthropy"]
+    country: "US"
+    foundation_type: public_charity
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health, edu, generalist]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.focusingphilanthropy.org/
+    stated_thesis_excerpt: "We apply an investment model to the nonprofit world to find and fund high-impact, scalable programs here and around the world."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: grieg-foundation
+    name: Grieg Foundation
+    aliases: ["Grieg Foundation", "Grieg Stiftelsen"]
+    country: "NO"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, health, edu]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.griegfoundation.com/en/
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: john-deere-foundation
+    name: John Deere Foundation
+    aliases: ["John Deere Foundation"]
+    country: "US"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [agri, edu, generalist]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: king-baudouin-foundation
+    name: King Baudouin Foundation
+    aliases: ["King Baudouin Foundation", "Koning Boudewijnstichting", "Fondation Roi Baudouin"]
+    country: "BE"
+    foundation_type: public_charity
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu, health, climate, generalist]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://kbs-frb.be/en
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: mercy-investment-services
+    name: Mercy Investment Services
+    aliases: ["Mercy Investment Services", "Mercy Investments"]
+    country: "US"
+    foundation_type: public_charity
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, housing, gender, agri, fi]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: https://mercyinvestmentservices.org/our-approach/impact-investing/mercy-partnership-fund/
+    stated_thesis_excerpt: "Mercy Partnership Fund provides below-market rate investments to mission-driven organizations and projects that provide high social and environmental impact."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program:
+      exists: true
+      program_name: Mercy Partnership Fund
+      application_url: https://mercyinvestmentservices.org/our-approach/impact-investing/mercy-partnership-fund/
+      notes: "30-year program; below-market loans/deposits to mission-driven orgs in 70+ countries. Sister funds: Environmental Solutions Fund, Inclusive Opportunities Fund."
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: osprey-foundation
+    name: Osprey Foundation
+    aliases: ["Osprey Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [wash, energy, generalist]
+    stated_geo_focus: [africa, latam, us]
+    stated_thesis_url: https://www.ospreyfdn.org/
+    stated_thesis_excerpt: "The Osprey Foundation is a catalyst for empowered, healthy, and fulfilled lives."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: sasakawa-peace-foundation
+    name: Sasakawa Peace Foundation
+    aliases: ["Sasakawa Peace Foundation", "SPF"]
+    country: "JP"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [gender, generalist]
+    stated_geo_focus: [asia, global]
+    stated_thesis_url: https://www.spf.org/en/
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: the-fairmount-foundation
+    name: The Fairmount Foundation
+    aliases: ["The Fairmount Foundation"]
+    country: "CA"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu]
+    stated_geo_focus: []
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: the-jmb-charitable-fund
+    name: The JMB Charitable Fund
+    aliases: ["The JMB Charitable Fund"]
+    country: null
+    foundation_type: null
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: []
+    stated_geo_focus: []
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: the-missionary-sisters-of-the-sacred-heart-of-jesus
+    name: The Missionary Sisters of the Sacred Heart of Jesus
+    aliases: ["The Missionary Sisters of the Sacred Heart of Jesus", "Cabrini Sisters", "Missionary Sisters of the Sacred Heart of Jesus"]
+    country: "US"
+    foundation_type: public_charity
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi, energy, housing, agri]
+    stated_geo_focus: [global, africa, latam]
+    stated_thesis_url: https://www.cabriniworld.org/what-we-do/impact-investing/
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: vanguard-charitable
+    name: Vanguard Charitable
+    aliases: ["Vanguard Charitable", "Vanguard Charitable Endowment Program"]
+    country: "US"
+    foundation_type: public_charity
+    aum_usd_m: 15200
+    aum_usd_m_year: 2022
+    stated_priority_themes: [generalist]
+    stated_geo_focus: [us]
+    stated_thesis_url: https://www.vanguardcharitable.org/
+    stated_thesis_excerpt: "To increase philanthropy and maximize its impact over time."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: whole-planet-foundation
+    name: Whole Planet Foundation
+    aliases: ["Whole Planet Foundation", "Whole Foods Market Foundation"]
+    country: "US"
+    foundation_type: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.wholefoodsmarketfoundation.org/welcome/
+    stated_thesis_excerpt: "We're on a mission to improve individual and community health by expanding access to fresh, healthy food and nutrition education."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: impactassets
+    name: ImpactAssets
+    aliases: ["ImpactAssets", "ImpactAssets Inc"]
+    country: "US"
+    foundation_type: public_charity
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: https://impactassets.org/
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://impactassets.org/news/
+    last_seen_at: 2026-04-29
+
+  - slug: the-dunn-family-charitable-foundation
+    name: The Dunn Family Charitable Foundation
+    aliases: ["The Dunn Family Charitable Foundation", "Dunn Family Charitable Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: []
+    stated_geo_focus: []
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: the-shapiro-family-foundation
+    name: The Shapiro Family Foundation
+    aliases: ["The Shapiro Family Foundation", "Shapiro Family Foundation"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: []
+    stated_geo_focus: []
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+

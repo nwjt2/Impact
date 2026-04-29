@@ -707,7 +707,43 @@ peer_funds:
     notes: >
       Accion's seed-stage fintech venture arm. Distinct from Quona,
       which spun out to independence in 2015. AUM not consistently
-      disclosed.
+      disclosed. Deploys via successor closed-end vehicles — see
+      accion-venture-lab-fund-ii ($61.6M, 2025 final close).
+
+  - slug: accion-venture-lab-fund-ii
+    name: Accion Venture Lab Fund II, LP
+    manager: Accion Impact Management
+    parent_ingo: Accion
+    parent_ingo_country: US
+    vintage: 2025
+    size_usd_m: 61.6
+    sector_tags: [fi, smb]
+    geo_tags: [africa, asia, latam]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: 2025-09-08
+    timeline_days_announce_to_first_close: null
+    anchor_lp: FMO
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.prnewswire.com/news-releases/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech-302548169.html
+    last_seen_at: 2026-04-29
+    validation_status: unverified
+    notes: >
+      $61.6M second Accion Venture Lab fund, final close September 8,
+      2025. Successor closed-end vehicle to the original evergreen
+      Venture Lab program (accion-venture-lab). Named LPs per the
+      Accion press release: FMO, Proparco, ImpactAssets, Ford
+      Foundation, MetLife, Mastercard. Same early-stage inclusive
+      fintech thesis (Africa / Asia / Latin America). Initial Fund II
+      portfolio companies disclosed include PaidHR (Nigeria), Foyer
+      (US), FinFra (Indonesia), Flowcart (Kenya).
 
   - slug: accion-impact-management-digital-transformation-fund
     name: Accion Digital Transformation Fund
@@ -1976,10 +2012,13 @@ peer_funds:
       in initial cohort; structured as balance-sheet programme rather
       than closed-end fund.
 
-  # ---------- Non-INGO impact funds (comparables; NOT included in slot 1 or slot 4) ----------
+  # ---------- Non-INGO impact funds (comparables) ----------
   #
-  # The `parent_ingo` field being null marks these as comparables. Slot 1
-  # and slot 4 MUST filter on parent_ingo != null.
+  # The `parent_ingo` field being null marks these as comparables. As of
+  # 2026-04-29 these ARE included in slot 1 / /peer-funds/ — the page
+  # presents the full peer catalogue (INGO + non-INGO comparables) so it
+  # mirrors the fund nodes in /network/. Slot 4 still filters on
+  # parent_ingo != null where INGO-only framing is required.
 
   - slug: acumen-capital-partners
     name: Acumen (umbrella portfolio)
@@ -2696,3 +2735,393 @@ peer_funds:
     notes: >
       IFC's emerging-manager commitment vehicle — directly relevant as a
       potential LP for an INGO debut fund.
+
+  - slug: bridges-sdg-outcomes-fund
+    name: SDG Outcomes Fund
+    manager: Bridges Outcomes Partnerships
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2025
+    size_usd_m: 100
+    sector_tags: [health, edu, gender, climate]
+    geo_tags: [africa, asia]
+    vehicle_type: blended
+    first_close_date: null
+    final_close_date: 2025-07-03
+    timeline_days_announce_to_first_close: null
+    anchor_lp: UBS Optimus Foundation (first-loss capital)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.ubs.com/global/en/media/display-page-ndp/en-20250703-sdg-outcomes-fund.html
+    last_seen_at: 2026-04-29
+    notes: >
+      $100m blended outcomes fund managed by Bridges Outcomes Partnerships;
+      final close July 3, 2025 at the 4th UN Financing for Development
+      conference in Sevilla. UBS Optimus Foundation provided first-loss
+      capital. Other named LPs: EIB, US DFC, BII, Legatum, Tsao Family
+      Office, Ferd, plus high-net-worth individuals. Non-INGO comparable;
+      relevant as the only fund with a primary-sourced UBS Optimus LP role
+      tied to themes (health, education, women's economic empowerment,
+      environment) overlapping the INGO impact-fund universe.
+
+  # ---------- Network-discovered (unverified — full profile pending) ----------
+  #
+  # Added 2026-04-29 to make /peer-funds/ a complete superset of /network/'s
+  # fund nodes. These slugs were created by `combine_fund_lps.py`'s
+  # find-or-create logic when scraping the Shell Foundation portfolio page
+  # — Shell Foundation backs each as an LP / grantee. They are real,
+  # publicly-known impact-fund vehicles, but no fund-side primary source has
+  # been captured yet (manager / vintage / size / anchor LP all pending).
+  # Carry validation_status: unverified so the UI flags them with the
+  # "Unverified — limited public detail" badge.
+
+  - slug: bix-capital
+    name: BIX Capital
+    manager: null
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: null
+    size_usd_m: null
+    sector_tags: []
+    geo_tags: []
+    vehicle_type: null
+    first_close_date: null
+    first_close_date_month_only: false
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://shellfoundation.org/our-portfolio/
+    last_seen_at: 2026-04-29
+    validation_status: unverified
+    notes: >
+      Discovered via Shell Foundation portfolio scrape (2026-04-29) as a
+      fund Shell Foundation backs. Fund-side profile (manager, vintage,
+      size, anchor LP, geography) pending dedicated research.
+
+  - slug: catalyst-fund-resilience
+    name: Catalyst Fund Resilience
+    manager: null
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: null
+    size_usd_m: null
+    sector_tags: []
+    geo_tags: []
+    vehicle_type: null
+    first_close_date: null
+    first_close_date_month_only: false
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://shellfoundation.org/our-portfolio/
+    last_seen_at: 2026-04-29
+    validation_status: unverified
+    notes: >
+      Discovered via Shell Foundation portfolio scrape (2026-04-29).
+      Climate-resilience early-stage thesis (BFA Global Catalyst Fund
+      family). Fund-side profile pending dedicated research.
+
+  - slug: echovc-echo-venture-capital-partners
+    name: EchoVC (Echo Venture Capital Partners)
+    manager: null
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: null
+    size_usd_m: null
+    sector_tags: []
+    geo_tags: []
+    vehicle_type: null
+    first_close_date: null
+    first_close_date_month_only: false
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://shellfoundation.org/our-portfolio/
+    last_seen_at: 2026-04-29
+    validation_status: unverified
+    notes: >
+      Discovered via Shell Foundation portfolio scrape (2026-04-29).
+      Lagos-based seed-stage VC backing African and emerging-market
+      founders. Fund-side profile pending dedicated research.
+
+  - slug: equator-africa-fund
+    name: Equator Africa Fund
+    manager: null
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: null
+    size_usd_m: null
+    sector_tags: []
+    geo_tags: []
+    vehicle_type: null
+    first_close_date: null
+    first_close_date_month_only: false
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://shellfoundation.org/our-portfolio/
+    last_seen_at: 2026-04-29
+    validation_status: unverified
+    notes: >
+      Discovered via Shell Foundation portfolio scrape (2026-04-29).
+      Africa-focused climate-tech venture fund. Fund-side profile pending
+      dedicated research.
+
+  - slug: factor-e-ventures
+    name: Factor[e] Ventures
+    manager: null
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: null
+    size_usd_m: null
+    sector_tags: []
+    geo_tags: []
+    vehicle_type: null
+    first_close_date: null
+    first_close_date_month_only: false
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://shellfoundation.org/our-portfolio/
+    last_seen_at: 2026-04-29
+    validation_status: unverified
+    notes: >
+      Discovered via Shell Foundation portfolio scrape (2026-04-29).
+      Climate-resilience early-stage venture fund (Factor[e] Ventures).
+      Fund-side profile pending dedicated research.
+
+  - slug: mirova-sunfunder
+    name: Mirova SunFunder
+    manager: null
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: null
+    size_usd_m: null
+    sector_tags: []
+    geo_tags: []
+    vehicle_type: null
+    first_close_date: null
+    first_close_date_month_only: false
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://shellfoundation.org/our-portfolio/
+    last_seen_at: 2026-04-29
+    validation_status: unverified
+    notes: >
+      Discovered via Shell Foundation portfolio scrape (2026-04-29).
+      Mirova-managed solar-finance debt fund family (SunFunder lineage).
+      Fund-side profile pending dedicated research.
+
+  - slug: nithio
+    name: Nithio
+    manager: null
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: null
+    size_usd_m: null
+    sector_tags: []
+    geo_tags: []
+    vehicle_type: null
+    first_close_date: null
+    first_close_date_month_only: false
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://shellfoundation.org/our-portfolio/
+    last_seen_at: 2026-04-29
+    validation_status: unverified
+    notes: >
+      Discovered via Shell Foundation portfolio scrape (2026-04-29).
+      Africa-focused climate-finance facility / fintech (Nithio FI).
+      Fund-side profile pending dedicated research.
+
+  - slug: persistent-energy-capital
+    name: Persistent Energy Capital
+    manager: null
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: null
+    size_usd_m: null
+    sector_tags: []
+    geo_tags: []
+    vehicle_type: null
+    first_close_date: null
+    first_close_date_month_only: false
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://shellfoundation.org/our-portfolio/
+    last_seen_at: 2026-04-29
+    validation_status: unverified
+    notes: >
+      Discovered via Shell Foundation portfolio scrape (2026-04-29).
+      Off-grid energy and climate-tech venture investor in sub-Saharan
+      Africa. Fund-side profile pending dedicated research.
+
+  - slug: responsability-investments
+    name: responsAbility Investments
+    manager: null
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: null
+    size_usd_m: null
+    sector_tags: []
+    geo_tags: []
+    vehicle_type: null
+    first_close_date: null
+    first_close_date_month_only: false
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://shellfoundation.org/our-portfolio/
+    last_seen_at: 2026-04-29
+    validation_status: unverified
+    notes: >
+      Discovered via Shell Foundation portfolio scrape (2026-04-29).
+      responsAbility Investments AG — Zurich-based emerging-markets
+      impact asset manager (umbrella; distinct from the responsAbility
+      Microfinance Fund profiled separately above). Fund-side profile
+      pending dedicated research.
+
+  - slug: sima-funds
+    name: SIMA Funds
+    manager: null
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: null
+    size_usd_m: null
+    sector_tags: []
+    geo_tags: []
+    vehicle_type: null
+    first_close_date: null
+    first_close_date_month_only: false
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://shellfoundation.org/our-portfolio/
+    last_seen_at: 2026-04-29
+    validation_status: unverified
+    notes: >
+      Discovered via Shell Foundation portfolio scrape (2026-04-29).
+      SIMA Funds (Social Investment Managers and Advisors) — solar-
+      finance debt fund family for off-grid Africa & Asia. Fund-side
+      profile pending dedicated research.
+
+  - slug: triplejump-energy-entrepreneur-growth-fund
+    name: TripleJump Energy Entrepreneur Growth Fund
+    manager: null
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: null
+    size_usd_m: null
+    sector_tags: []
+    geo_tags: []
+    vehicle_type: null
+    first_close_date: null
+    first_close_date_month_only: false
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://shellfoundation.org/our-portfolio/
+    last_seen_at: 2026-04-29
+    validation_status: unverified
+    notes: >
+      Discovered via Shell Foundation portfolio scrape (2026-04-29).
+      TripleJump-managed Energy Entrepreneur Growth Fund (EEGF) — energy
+      access growth-stage debt/equity. Fund-side profile pending
+      dedicated research.
