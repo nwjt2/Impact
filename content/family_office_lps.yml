@@ -443,6 +443,34 @@ family_offices:
     public_newsroom_url: null
     last_seen_at: 2026-04-29
 
+  - slug: tsao-family-office
+    name: Tsao Family Office
+    aliases: ["Tsao Family Office", "TFO", "Tsao Family Office Pte. Ltd."]
+    country: "SG"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, health, edu]
+    stated_geo_focus: [asia, africa, global]
+    stated_thesis_url: https://www.tsao.com/investments
+    stated_thesis_excerpt: "Investing to Make Things Better."
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: true
+    invests_via_direct: null
+    invests_via_grants: null
+    known_ingo_gp_commits:
+      - peer_fund_slug: bridges-sdg-outcomes-fund
+        peer_fund_name: SDG Outcomes Fund
+        parent_ingo: null
+        commit_date: 2025-07-03
+        amount_usd_m: null
+        role: participant
+        public_source_url: https://www.ubs.com/global/en/media/display-page-ndp/en-20250703-sdg-outcomes-fund.html
+        notes: Named LP at final close (3 July 2025) alongside EIB, US DFC, BII, Legatum, Ferd. UBS Optimus Foundation provided first-loss capital.
+    public_newsroom_url: https://www.tsao.com
+    last_seen_at: 2026-04-29
+
   # ---- Additional philanthropy LLCs ----
 
   - slug: pivotal-ventures
