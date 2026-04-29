@@ -165,6 +165,71 @@ def build() -> dict:
     edge_kinds = Counter(e["kind"] for e in edges)
     node_types = Counter(n["type"] for n in nodes)
 
+    # Catalysts: INGO-fund portcos that ALSO drew non-INGO capital.
+    # The "INGO showcase" question: which investments magnetised co-capital,
+    # and from which kinds of investors? Used by /catalysts/.
+    fund_is_ingo = {n["id"]: bool(n.get("ingo_slug")) for n in nodes if n["type"] == "fund"}
+    nodes_by_id = {n["id"]: n for n in nodes}
+
+    portco_funds: dict[str, set[str]] = {}
+    portco_coinvestors: dict[str, set[str]] = {}
+    for e in edges:
+        if e["kind"] == "investment":
+            portco_funds.setdefault(e["target"], set()).add(e["source"])
+        elif e["kind"] == "co-investor":
+            portco_coinvestors.setdefault(e["target"], set()).add(e["source"])
+
+    catalysts: list[dict] = []
+    ingo_backed_portco_count = 0
+    for portco_id, fund_ids in portco_funds.items():
+        ingo_funds = [f for f in fund_ids if fund_is_ingo.get(f)]
+        if not ingo_funds:
+            continue
+        ingo_backed_portco_count += 1
+        non_ingo_fund_ids = [f for f in fund_ids if not fund_is_ingo.get(f)]
+        coinv_ids = list(portco_coinvestors.get(portco_id, set()))
+        if not non_ingo_fund_ids and not coinv_ids:
+            continue
+        pc = nodes_by_id[portco_id]
+        ingo_fund_objs = [
+            {"id": fid, "name": nodes_by_id[fid]["name"]}
+            for fid in sorted(ingo_funds)
+        ]
+        non_ingo_fund_objs = [
+            {"id": fid, "name": nodes_by_id[fid]["name"]}
+            for fid in sorted(non_ingo_fund_ids)
+        ]
+        coinv_objs = [
+            {
+                "id": cid,
+                "name": nodes_by_id[cid]["name"],
+                "archetype": nodes_by_id[cid].get("investor_type", "other"),
+            }
+            for cid in coinv_ids
+        ]
+        coinv_objs.sort(key=lambda x: x["name"])
+        archetype_counts = Counter(c["archetype"] for c in coinv_objs)
+        # Emit as list-of-records (not a dict) — Nunjucks templates can't
+        # iterate dict items with key/value destructuring.
+        archetype_counts_list = [
+            {"archetype": a, "count": n}
+            for a, n in sorted(archetype_counts.items(), key=lambda kv: -kv[1])
+        ]
+        catalysts.append(
+            {
+                "id": portco_id,
+                "name": pc["name"],
+                "website": pc.get("website") or "",
+                "country": pc.get("country") or "",
+                "ingo_funds": ingo_fund_objs,
+                "non_ingo_funds": non_ingo_fund_objs,
+                "coinvestors": coinv_objs,
+                "non_ingo_total": len(non_ingo_fund_objs) + len(coinv_objs),
+                "archetype_counts": archetype_counts_list,
+            }
+        )
+    catalysts.sort(key=lambda c: (-c["non_ingo_total"], c["name"].lower()))
+
     return {
         "nodes": nodes,
         "edges": edges,
@@ -177,7 +242,10 @@ def build() -> dict:
             "ingo_count": node_types.get("ingo", 0),
             "portco_count": node_types.get("portco", 0),
             "investor_count": node_types.get("investor", 0),
+            "ingo_backed_portco_count": ingo_backed_portco_count,
+            "catalyst_count": len(catalysts),
         },
+        "catalysts": catalysts,
     }
 
 

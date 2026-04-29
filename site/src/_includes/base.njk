@@ -26,6 +26,7 @@
         <a href="{{ '/peer-funds/' | url }}"{% if pageKey == 'peer-funds' %} aria-current="page"{% endif %}>Peer funds</a>
         <a href="{{ '/impact-areas/' | url }}"{% if pageKey == 'impact-areas' %} aria-current="page"{% endif %}>Impact areas</a>
         <a href="{{ '/network/' | url }}"{% if pageKey == 'network' %} aria-current="page"{% endif %}>Network</a>
+        <a href="{{ '/catalysts/' | url }}"{% if pageKey == 'catalysts' %} aria-current="page"{% endif %}>Catalysts</a>
       </nav>
       <div class="masthead-meta">
         {% if meta and meta.last_run_timestamp %}Verified {{ meta.last_run_timestamp | dateISO }}{% endif %}

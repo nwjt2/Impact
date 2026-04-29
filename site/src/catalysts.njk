@@ -1,0 +1,192 @@
+---
+layout: base.njk
+title: Catalysts — INGO portcos that attracted other capital
+pageKey: catalysts
+permalink: /catalysts/
+---
+
+<style>
+  .catalyst-hero { margin: 1rem 0 2rem; max-width: 70rem; }
+  .catalyst-hero p { line-height: 1.55; }
+
+  .catalyst-stats { display: flex; gap: 2rem; flex-wrap: wrap; margin: 1rem 0;
+                    padding: 0.8rem 1rem; background: #0e0f12; border: 1px solid #2c2c2c; }
+  .catalyst-stat { display: flex; flex-direction: column; gap: 0.1rem; }
+  .catalyst-stat-num { font-size: 1.6rem; font-weight: 700; color: #fa3; }
+  .catalyst-stat-num.muted { color: #888; }
+  .catalyst-stat-lbl { font-size: 0.78rem; color: #888; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .catalyst-list { display: flex; flex-direction: column; gap: 1rem; margin: 1.5rem 0; }
+  .catalyst-card { display: grid; grid-template-columns: 3rem 1fr auto;
+                   gap: 0 1rem; align-items: start;
+                   padding: 1rem 1.2rem; background: #0e0f12; border: 1px solid #2c2c2c;
+                   transition: border-color 0.12s ease; }
+  .catalyst-card:hover { border-color: #444; }
+  .catalyst-rank { font-size: 1.4rem; font-weight: 700; color: #555;
+                   font-variant-numeric: tabular-nums; padding-top: 0.1rem; }
+  .catalyst-rank.top { color: #fa3; }
+  .catalyst-name { font-size: 1.15rem; font-weight: 600; margin: 0 0 0.4rem; }
+  .catalyst-name a { color: #d4d4d4; text-decoration: none; border-bottom: 1px dotted #555; }
+  .catalyst-name a:hover { color: #fa3; border-bottom-color: #fa3; }
+  .catalyst-meta { color: #888; font-size: 0.85rem; margin-bottom: 0.55rem; }
+  .catalyst-row { display: flex; gap: 0.4rem; flex-wrap: wrap; align-items: center; margin: 0.25rem 0; }
+  .catalyst-row-label { font-size: 0.78rem; color: #888; text-transform: uppercase;
+                        letter-spacing: 0.06em; min-width: 5.5rem; }
+  .catalyst-tag { display: inline-block; padding: 0.18rem 0.55rem; border-radius: 3px;
+                  font-size: 0.83rem; line-height: 1.3; }
+  .catalyst-tag-ingo { background: #1a3a1a; color: #9ed99e; border: 1px solid #2a5a2a; }
+  .catalyst-tag-fund-non { background: #1c2533; color: #b5c7e0; border: 1px solid #34465e; }
+
+  .catalyst-chip { display: inline-flex; align-items: center; gap: 0.35rem;
+                   padding: 0.18rem 0.55rem; border-radius: 3px;
+                   font-size: 0.83rem; line-height: 1.3;
+                   background: #16181d; border: 1px solid #2c2c2c; color: #cfcfcf; }
+  .catalyst-chip::before { content: ''; width: 8px; height: 8px; border-radius: 50%; flex: 0 0 auto; }
+  .catalyst-chip[data-arch="dfi"]::before          { background: #e25c5c; }
+  .catalyst-chip[data-arch="vc"]::before           { background: #3ed7b3; }
+  .catalyst-chip[data-arch="foundation"]::before   { background: #d6b94a; }
+  .catalyst-chip[data-arch="family-office"]::before{ background: #b86bdf; }
+  .catalyst-chip[data-arch="government"]::before   { background: #4a9cd6; }
+  .catalyst-chip[data-arch="other"]::before        { background: #6c8aac; }
+
+  .catalyst-summary { display: flex; flex-direction: column; gap: 0.25rem; align-items: flex-end;
+                      min-width: 8rem; padding-top: 0.1rem; }
+  .catalyst-bigcount { font-size: 1.6rem; font-weight: 700; color: #fa3;
+                       font-variant-numeric: tabular-nums; line-height: 1; }
+  .catalyst-bigcount-lbl { font-size: 0.72rem; color: #888; text-transform: uppercase;
+                           letter-spacing: 0.05em; text-align: right; }
+  .catalyst-archroll { display: flex; gap: 0.3rem; align-items: center; margin-top: 0.3rem; }
+  .catalyst-archdot { width: 10px; height: 10px; border-radius: 50%; }
+  .catalyst-archdot[data-arch="dfi"]          { background: #e25c5c; }
+  .catalyst-archdot[data-arch="vc"]           { background: #3ed7b3; }
+  .catalyst-archdot[data-arch="foundation"]   { background: #d6b94a; }
+  .catalyst-archdot[data-arch="family-office"]{ background: #b86bdf; }
+  .catalyst-archdot[data-arch="government"]   { background: #4a9cd6; }
+  .catalyst-archdot[data-arch="other"]        { background: #6c8aac; }
+  .catalyst-archcount { font-size: 0.75rem; color: #888;
+                        font-variant-numeric: tabular-nums; }
+
+  .catalyst-empty { padding: 2rem; text-align: center; color: #888;
+                    border: 1px dashed #333; }
+
+  .catalyst-caveat { margin-top: 2rem; padding: 1rem; background: #16181d;
+                     border-left: 3px solid #fa3; font-size: 0.9rem; color: #aaa; }
+  .catalyst-caveat strong { color: #d4d4d4; }
+
+  @media (max-width: 720px) {
+    .catalyst-card { grid-template-columns: 2.5rem 1fr; }
+    .catalyst-summary { grid-column: 1 / -1; align-items: flex-start;
+                        flex-direction: row; gap: 0.6rem; align-items: baseline; }
+    .catalyst-bigcount-lbl { text-align: left; }
+  }
+</style>
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/network/' | url }}">← Back to network</a></p>
+  <header class="catalyst-hero">
+    <div class="doc-title-tag"><span>Network · catalyst leaderboard</span></div>
+    <h1>INGO portcos that magnetised the most non-INGO capital.</h1>
+    <p>
+      An <em>INGO-fund portfolio company</em> is catalytic when it attracts capital from outside
+      the INGO ecosystem — DFIs, VCs, foundations, family offices, government agencies. This
+      page ranks every catalytic INGO portco by how many non-INGO funders backed it.
+    </p>
+    <p>
+      Use it to spot sectors and stages where INGO capital has the highest crowd-in effect:
+      these are templates for "where to invest next" if catalysing third-party capital is the
+      goal.
+    </p>
+  </header>
+
+  <div class="catalyst-stats">
+    <div class="catalyst-stat">
+      <span class="catalyst-stat-num">{{ network.stats.catalyst_count }}</span>
+      <span class="catalyst-stat-lbl">Catalyst portcos</span>
+    </div>
+    <div class="catalyst-stat">
+      <span class="catalyst-stat-num muted">{{ network.stats.ingo_backed_portco_count }}</span>
+      <span class="catalyst-stat-lbl">INGO-backed portcos (total)</span>
+    </div>
+    <div class="catalyst-stat">
+      <span class="catalyst-stat-num muted">{{ network.stats.edge_kinds["co-investor"] or 0 }}</span>
+      <span class="catalyst-stat-lbl">Known co-investor edges</span>
+    </div>
+  </div>
+
+  {% if network.catalysts and network.catalysts | length > 0 %}
+    <div class="catalyst-list">
+      {% for c in network.catalysts %}
+        <article class="catalyst-card">
+          <div class="catalyst-rank{% if loop.index <= 3 %} top{% endif %}">{{ loop.index }}</div>
+
+          <div>
+            <h2 class="catalyst-name">
+              {% if c.website %}
+                <a href="{{ c.website }}" target="_blank" rel="noopener">{{ c.name }}</a>
+              {% else %}
+                {{ c.name }}
+              {% endif %}
+            </h2>
+            {% if c.country %}
+              <div class="catalyst-meta">{{ c.country }}</div>
+            {% endif %}
+
+            <div class="catalyst-row">
+              <span class="catalyst-row-label">INGO-backed by</span>
+              {% for f in c.ingo_funds %}
+                <span class="catalyst-tag catalyst-tag-ingo">{{ f.name }}</span>
+              {% endfor %}
+            </div>
+
+            {% if c.non_ingo_funds | length > 0 %}
+              <div class="catalyst-row">
+                <span class="catalyst-row-label">Non-INGO funds</span>
+                {% for f in c.non_ingo_funds %}
+                  <span class="catalyst-tag catalyst-tag-fund-non">{{ f.name }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+
+            {% if c.coinvestors | length > 0 %}
+              <div class="catalyst-row">
+                <span class="catalyst-row-label">Co-investors</span>
+                {% for inv in c.coinvestors %}
+                  <span class="catalyst-chip" data-arch="{{ inv.archetype }}">{{ inv.name }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="catalyst-summary">
+            <span class="catalyst-bigcount">{{ c.non_ingo_total }}</span>
+            <span class="catalyst-bigcount-lbl">Non-INGO funders</span>
+            {% if c.archetype_counts | length > 0 %}
+              <div class="catalyst-archroll">
+                {% for ac in c.archetype_counts %}
+                  <span class="catalyst-archdot" data-arch="{{ ac.archetype }}" title="{{ ac.archetype }}: {{ ac.count }}"></span>
+                  <span class="catalyst-archcount">{{ ac.count }}</span>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="catalyst-empty">
+      No catalyst portcos yet. As more portfolio companies have their co-investor pages
+      scraped (Pipeline 4 — currently sparse), the leaderboard will fill in.
+    </div>
+  {% endif %}
+
+  <div class="catalyst-caveat">
+    <strong>Coverage caveat.</strong>
+    Only portcos whose co-investor list has been scraped show up here.
+    {{ network.stats.catalyst_count }} of {{ network.stats.ingo_backed_portco_count }}
+    INGO-backed portcos
+    ({{ ((network.stats.catalyst_count / network.stats.ingo_backed_portco_count) * 100) | round(1) }}%)
+    have any known non-INGO funder. The leaderboard density grows with each new
+    portco-investor scraper. The empty-bottom of this list isn't an absence of catalysis —
+    it's an absence of data.
+  </div>
+</section>
