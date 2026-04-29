@@ -8,22 +8,30 @@ module.exports = function () {
     if (n.type === "investor") investors.set(n.id, n);
   });
 
-  const lpFundCounts = new Map();
+  const fundNames = new Map();
+  network.nodes.forEach((n) => {
+    if (n.type === "fund") fundNames.set(n.id, n.name || n.id);
+  });
+
+  const lpFunds = new Map();
   const lpFundsCovered = new Set();
   network.edges.forEach((e) => {
     if (e.kind !== "lp") return;
-    lpFundCounts.set(e.source, (lpFundCounts.get(e.source) || 0) + 1);
+    if (!lpFunds.has(e.source)) lpFunds.set(e.source, []);
+    lpFunds.get(e.source).push(fundNames.get(e.target) || e.target);
     lpFundsCovered.add(e.target);
   });
 
-  const lpWall = [...lpFundCounts.entries()]
-    .map(([id, count]) => {
+  const lpWall = [...lpFunds.entries()]
+    .map(([id, funds]) => {
       const inv = investors.get(id) || {};
+      const sortedFunds = funds.slice().sort((a, b) => a.localeCompare(b));
       return {
         id,
         name: inv.name || id,
         archetype: inv.investor_type || "other",
-        count,
+        count: sortedFunds.length,
+        funds: sortedFunds,
       };
     })
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));

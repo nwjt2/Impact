@@ -30,7 +30,8 @@ pageKey: index
       <span class="muted">— and {{ home_summary.lpDistinctCount - (home_summary.lpFeatured | length) }} more.</span>
     </p>
     <div class="lp-wall" aria-label="All known LPs into peer INGO-Backed Funds, colored by archetype">
-      {% for l in home_summary.lpWall %}<span class="lp-chip" data-arch="{{ l.archetype }}" data-count="{{ l.count }}" style="--c: {{ l.count }}" title="{{ l.name }} — {{ l.count }} INGO-Backed Fund{% if l.count != 1 %}s{% endif %}"></span>{% endfor %}
+      {% for l in home_summary.lpWall %}<span class="lp-chip" data-arch="{{ l.archetype }}" data-count="{{ l.count }}" style="--c: {{ l.count }}" title="{{ l.name }} — {{ l.count }} INGO-Backed Fund{% if l.count != 1 %}s{% endif %}{% for f in l.funds %}
+· {{ f }}{% endfor %}"></span>{% endfor %}
     </div>
     <ul class="lp-legend">
       {% for r in home_summary.lpArchetypeRollup %}<li><span class="lp-legend-dot" data-arch="{{ r.archetype }}"></span> {{ r.archetype | replace('-', ' ') }} <span class="muted">{{ r.count }}</span></li>{% endfor %}

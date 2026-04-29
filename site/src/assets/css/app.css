@@ -1517,16 +1517,16 @@ a.commit-fund:hover { color: var(--amber); }
 .lp-wall {
   display: flex;
   flex-wrap: wrap;
-  align-content: flex-start;
-  gap: 3px;
-  padding: 8px;
+  align-content: space-between;
+  gap: 4px;
+  padding: 10px;
   background: var(--bg-1);
   border: 1px solid var(--rule);
   margin-bottom: 8px;
 }
 .home-col-network > .lp-wall { flex: 1 1 auto; }
 .lp-chip {
-  --lp-chip-size: min(calc(12px + 2px * (var(--c, 1) - 1)), 28px);
+  --lp-chip-size: min(calc(14px + 2px * (var(--c, 1) - 1)), 30px);
   display: inline-block;
   width: var(--lp-chip-size);
   height: var(--lp-chip-size);
