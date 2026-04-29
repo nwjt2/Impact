@@ -106,14 +106,16 @@ permalink: /catalysts/
   <p class="back-link"><a href="{{ '/network/' | url }}">← Back to network</a></p>
   <header class="catalyst-hero">
     <div class="doc-title-tag"><span>Network · catalyst leaderboard</span></div>
-    <h1>INGO portcos that magnetised the most non-INGO capital.</h1>
+    <h1>Portfolio companies of INGO-backed funds that drew the most non-INGO capital.</h1>
     <p>
-      An <em>INGO-fund portfolio company</em> is catalytic when it attracts capital from outside
-      the INGO ecosystem — DFIs, VCs, foundations, family offices, government agencies. This
-      page ranks every catalytic INGO portco by how many non-INGO funders backed it.
+      Each card below is a <strong>portfolio company</strong> that an INGO-backed impact fund
+      invested in (e.g. Mercy Corps Ventures, Kiva Refugee Investment Fund), and which then
+      went on to attract capital from <em>outside</em> the INGO ecosystem — DFIs, VCs,
+      foundations, family offices, government agencies. Companies are ranked by how many
+      non-INGO funders backed them.
     </p>
     <p>
-      Use it to spot sectors and stages where INGO capital has the highest crowd-in effect:
+      Use this to spot sectors and stages where INGO capital has the highest crowd-in effect:
       these are templates for "where to invest next" if catalysing third-party capital is the
       goal.
     </p>
@@ -172,7 +174,7 @@ permalink: /catalysts/
             {% endif %}
 
             <div class="catalyst-row">
-              <span class="catalyst-row-label">INGO-backed by</span>
+              <span class="catalyst-row-label">Backed by INGO fund</span>
               {% for f in c.ingo_funds %}
                 <span class="catalyst-tag catalyst-tag-ingo">{{ f.name }}</span>
               {% endfor %}
@@ -180,16 +182,16 @@ permalink: /catalysts/
 
             {% if c.non_ingo_funds | length > 0 %}
               <div class="catalyst-row">
-                <span class="catalyst-row-label">Non-INGO funds</span>
+                <span class="catalyst-row-label">Also backed by</span>
                 {% for f in c.non_ingo_funds %}
-                  <span class="catalyst-tag catalyst-tag-fund-non">{{ f.name }}</span>
+                  <span class="catalyst-tag catalyst-tag-fund-non">{{ f.name }} (non-INGO fund)</span>
                 {% endfor %}
               </div>
             {% endif %}
 
             {% if c.coinvestors | length > 0 %}
               <div class="catalyst-row">
-                <span class="catalyst-row-label">Co-investors</span>
+                <span class="catalyst-row-label">Other investors</span>
                 {% for inv in c.coinvestors %}
                   <span class="catalyst-chip" data-arch="{{ inv.archetype }}">{{ inv.name }}</span>
                 {% endfor %}

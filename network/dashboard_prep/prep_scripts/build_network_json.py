@@ -199,6 +199,12 @@ def build() -> dict:
             {"id": fid, "name": nodes_by_id[fid]["name"]}
             for fid in sorted(non_ingo_fund_ids)
         ]
+        # Drop coinvestors whose slug matches an INGO fund already credited
+        # for this portco. The same entity sometimes appears as both
+        # `fund:<slug>` (the fund-side investment edge) and
+        # `investor:<slug>` (when a portco's own investors page lists the
+        # fund). Showing both makes the fund look like its own co-investor.
+        ingo_fund_slugs = {fid.split(":", 1)[1] for fid in ingo_funds}
         coinv_objs = [
             {
                 "id": cid,
@@ -206,6 +212,7 @@ def build() -> dict:
                 "archetype": nodes_by_id[cid].get("investor_type", "other"),
             }
             for cid in coinv_ids
+            if cid.split(":", 1)[1] not in ingo_fund_slugs
         ]
         coinv_objs.sort(key=lambda x: x["name"])
         archetype_counts = Counter(c["archetype"] for c in coinv_objs)
