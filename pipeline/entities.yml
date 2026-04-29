@@ -962,7 +962,7 @@ target_lps:
     aliases: ["Howard G. Buffett Foundation", "HGBF"]
     sector_tags: [agri, smb, climate]
     geo_tags: [global, africa, latam]
-    lp_type: family_office
+    lp_type: foundation
     typical_ticket_usd_m: "3-25"
     public_newsroom_url: https://www.thehowardgbuffettfoundation.org/news/
     first_pass_cadence_days: 30

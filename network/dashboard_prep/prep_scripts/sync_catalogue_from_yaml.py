@@ -2,13 +2,33 @@
 
 Reads:
   content/peer_funds.yml          -> impact_funds.csv + ingos.csv
-  pipeline/entities.yml           -> investors.csv (target_lps section)
+  content/family_office_lps.yml   -> investors.csv (canonical for the 27 curated
+                                     family-office / faith-based / philanthropy-
+                                     LLC / DAF entries that drive the
+                                     /family-offices/ page).
+  pipeline/entities.yml           -> investors.csv (target_lps section, lower
+                                     priority than family_office_lps.yml).
 
 Writes:
   network/catalogue/impact_funds.csv
   network/catalogue/ingos.csv
   network/catalogue/investors.csv
   network/docs/discovery_skip_list.csv (appended for excluded vehicles)
+
+investors.csv merge rules (re-runnable, preserves scraper-discovered rows):
+  1. family_office_lps.yml entries seed first; their YAML category → CSV
+     investor_type via CATEGORY_TO_INVESTOR_TYPE.
+  2. entities.yml target_lps fill in the rest. Slugs canonicalized through
+     investor_aliases.csv so e.g. entities.yml's "Tides" (slug `tides`) does
+     not duplicate family_office_lps.yml's `tides-foundation`.
+  3. Existing rows in investors.csv whose canonical slug isn't seeded by
+     either YAML are preserved verbatim (these are scraper-discovered LPs
+     that came in via combine_fund_lps.py / combine_portco_investors.py).
+
+LP commitments curated in family_office_lps.yml's known_ingo_gp_commits are
+bridged into fund_lps.csv by a separate post-combine step,
+inject_yaml_family_office_commits.py — same pattern as
+inject_yaml_dfi_commitments.py for the DFI side.
 
 Seeding rules (decided 2026-04-28):
   - vehicle_type == 'programmatic_not_fund' -> EXCLUDE, skip-list reason
@@ -35,11 +55,14 @@ import yaml
 REPO_ROOT = Path(__file__).resolve().parents[3]
 PEER_FUNDS_YML = REPO_ROOT / "content" / "peer_funds.yml"
 ENTITIES_YML = REPO_ROOT / "pipeline" / "entities.yml"
+FAMILY_OFFICE_LPS_YML = REPO_ROOT / "content" / "family_office_lps.yml"
 CATALOGUE_DIR = REPO_ROOT / "network" / "catalogue"
+INVESTORS_CSV = CATALOGUE_DIR / "investors.csv"
 SKIP_LIST_CSV = REPO_ROOT / "network" / "docs" / "discovery_skip_list.csv"
 
 sys.path.insert(0, str(REPO_ROOT))
-from network.utils.csv_io import write_rows  # noqa: E402
+from network.utils.aliases import canonicalize_investor_slug  # noqa: E402
+from network.utils.csv_io import read_rows, write_rows  # noqa: E402
 from network.utils.slugify import slugify  # noqa: E402
 
 ACTIVE_FUND_SLUGS = {
@@ -188,6 +211,17 @@ LP_TYPE_TO_INVESTOR_TYPE = {
     "foundation": "foundation",
     "family_office": "family-office",
     "corp_impact": "other",
+}
+
+# family_office_lps.yml uses a finer-grained 4-way taxonomy than the network's
+# 6 archetypes. faith-based investors and DAF hosts function as charitable-
+# capital pools — both fold to `foundation` in the network view.
+CATEGORY_TO_INVESTOR_TYPE = {
+    "family_office": "family-office",
+    "philanthropy_llc": "family-office",
+    "faith_based": "foundation",
+    "daf": "foundation",
+    "hnwi_collective": "family-office",
 }
 
 _FOF_HINTS_RE = re.compile(
@@ -344,26 +378,91 @@ def build_ingos(peer_funds_doc: dict) -> list[dict]:
     return list(seen.values())
 
 
-def build_investors(entities_doc: dict) -> list[dict]:
-    rows = []
+def _row_from_family_office(row: dict) -> dict:
+    category = (row.get("category") or "").strip()
+    return {
+        "Investor Name": row.get("name") or row["slug"],
+        "Investor Slug": row["slug"],
+        "Investor Type": CATEGORY_TO_INVESTOR_TYPE.get(category, "other"),
+        "Impact Focus": "unknown",
+        "Website": row.get("public_newsroom_url") or "",
+        "HQ Country": row.get("country") or "",
+        "AUM Bucket": "unknown",
+        "Status": "active",
+        "Notes": "",
+    }
+
+
+def _row_from_target_lp(lp: dict) -> dict:
+    name = lp["name"]
+    return {
+        "Investor Name": name,
+        "Investor Slug": slugify(name),
+        "Investor Type": LP_TYPE_TO_INVESTOR_TYPE.get(lp.get("lp_type"), "other"),
+        "Impact Focus": "unknown",
+        "Website": lp.get("public_newsroom_url") or "",
+        "HQ Country": "",
+        "AUM Bucket": "unknown",
+        "Status": "active",
+        "Notes": "",
+    }
+
+
+def build_investors(
+    entities_doc: dict,
+    family_office_doc: dict,
+    existing_rows: list[dict],
+) -> tuple[list[dict], dict[str, int]]:
+    """Merge investors.csv from three sources, by canonical slug.
+
+    Priority (highest first):
+      1. family_office_lps.yml — explicit slug, category → investor_type.
+      2. entities.yml target_lps — slugify(name), canonicalized via aliases.
+      3. existing investors.csv rows for slugs not seeded by 1 or 2 (these
+         are scraper-discovered LPs we want to preserve across re-runs).
+
+    Returns (rows, counts) where counts breaks down by source.
+    """
+    by_slug: dict[str, dict] = {}
+    counts = {"family_office_yml": 0, "entities_yml": 0, "preserved": 0}
+
+    # Pass 1: family_office_lps.yml — canonical for the curated 27.
+    for fo in (family_office_doc.get("family_offices") or []):
+        slug = (fo.get("slug") or "").strip()
+        if not slug or slug in by_slug:
+            continue
+        by_slug[slug] = _row_from_family_office(fo)
+        counts["family_office_yml"] += 1
+
+    # Pass 2: entities.yml target_lps. Canonicalize slug so e.g. "Tides"
+    # (slug `tides`) collapses into `tides-foundation` if the alias map
+    # says so, preventing duplicate rows for the same entity.
     for lp in entities_doc.get("target_lps", []):
-        name = lp["name"]
-        rows.append(
-            {
-                "Investor Name": name,
-                "Investor Slug": slugify(name),
-                "Investor Type": LP_TYPE_TO_INVESTOR_TYPE.get(
-                    lp.get("lp_type"), "other"
-                ),
-                "Impact Focus": "unknown",
-                "Website": lp.get("public_newsroom_url") or "",
-                "HQ Country": "",
-                "AUM Bucket": "unknown",
-                "Status": "active",
-                "Notes": "",
-            }
-        )
-    return rows
+        raw_slug = slugify(lp["name"])
+        canonical = canonicalize_investor_slug(raw_slug)
+        if canonical in by_slug:
+            continue
+        row = _row_from_target_lp(lp)
+        row["Investor Slug"] = canonical
+        by_slug[canonical] = row
+        counts["entities_yml"] += 1
+
+    # Pass 3: preserve scraper-discovered rows whose slug is unknown to YAML.
+    # These came in via combine_fund_lps.py / combine_portco_investors.py;
+    # we don't want sync to wipe them.
+    for r in existing_rows:
+        slug = (r.get("Investor Slug") or "").strip()
+        if not slug or slug in by_slug:
+            continue
+        canonical = canonicalize_investor_slug(slug)
+        if canonical != slug:
+            # Existing row uses a deprecated slug; the canonical form is
+            # already (or about to be) seeded — drop the deprecated row.
+            continue
+        by_slug[canonical] = {h: r.get(h, "") for h in INVESTORS_HEADERS}
+        counts["preserved"] += 1
+
+    return list(by_slug.values()), counts
 
 
 def _format_aum(size_usd_m) -> str:
@@ -407,20 +506,32 @@ def main() -> None:
     peer_funds_doc = load_yaml(PEER_FUNDS_YML)
     print(f"Reading {ENTITIES_YML}")
     entities_doc = load_yaml(ENTITIES_YML)
+    print(f"Reading {FAMILY_OFFICE_LPS_YML}")
+    family_office_doc = (
+        load_yaml(FAMILY_OFFICE_LPS_YML) if FAMILY_OFFICE_LPS_YML.exists() else {}
+    )
 
     impact_funds, skip = build_impact_funds_and_skip_list(peer_funds_doc)
     ingos = build_ingos(peer_funds_doc)
-    investors = build_investors(entities_doc)
+    existing_investors = read_rows(INVESTORS_CSV)
+    investors, inv_counts = build_investors(
+        entities_doc, family_office_doc, existing_investors
+    )
 
     write_rows(CATALOGUE_DIR / "impact_funds.csv", IMPACT_FUNDS_HEADERS, impact_funds)
     write_rows(CATALOGUE_DIR / "ingos.csv", INGOS_HEADERS, ingos)
-    write_rows(CATALOGUE_DIR / "investors.csv", INVESTORS_HEADERS, investors)
+    write_rows(INVESTORS_CSV, INVESTORS_HEADERS, investors)
 
     new_skips = append_skip_list(skip) if skip else 0
 
     print(f"  impact_funds.csv: {len(impact_funds)} rows")
     print(f"  ingos.csv:        {len(ingos)} rows")
-    print(f"  investors.csv:    {len(investors)} rows")
+    print(
+        f"  investors.csv:    {len(investors)} rows "
+        f"({inv_counts['family_office_yml']} from family_office_lps.yml, "
+        f"{inv_counts['entities_yml']} from entities.yml, "
+        f"{inv_counts['preserved']} preserved discoveries)"
+    )
     print(f"  skip list:        +{new_skips} new (of {len(skip)} excluded)")
 
     by_status: dict[str, int] = {}

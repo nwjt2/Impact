@@ -415,6 +415,34 @@ family_offices:
     public_newsroom_url: https://www.rbf.org/news
     last_seen_at: 2026-04-27
 
+  - slug: munjal-family-office-hero-enterprises
+    name: Munjal Family Office (Hero Enterprises)
+    aliases: ["Munjal Family Office", "Hero Enterprises", "BML Munjal Family Office"]
+    country: "IN"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [fi, smb, generalist]
+    stated_geo_focus: [asia]
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: 1
+    typical_check_usd_m_max: 10
+    invests_via_fund_lp: true
+    invests_via_direct: null
+    invests_via_grants: null
+    known_ingo_gp_commits:
+      - peer_fund_slug: aavishkaar-india-vi
+        peer_fund_name: Aavishkaar India VI
+        parent_ingo: null
+        commit_date: 2017-04-26
+        amount_usd_m: null
+        role: anchor
+        public_source_url: https://www.prnewswire.com/in/news-releases/aavishkaar-announces-the-first-close-of-its-6th-fund-the-aavishkaar-bharat-fund-abf-at-inr-594-crore-us-92-million-658181123.html
+        notes: Named LP in first-close press release.
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
   # ---- Additional philanthropy LLCs ----
 
   - slug: pivotal-ventures

@@ -14,3 +14,6 @@ john-d-and-catherine-t-macarthur-foundation,macarthur-foundation,Long-form name;
 ceniarth-llc,ceniarth,Same family office; LLC suffix.
 howard-buffett-foundation,howard-g-buffett-foundation,Same foundation; missing middle initial.
 children-s-investment-fund,children-s-investment-fund-foundation,CIFF — truncated form on portco page.
+temasek-trust-philanthropy-asia,temasek-trust,Long-form name; family_office_lps.yml uses short slug.
+tides,tides-foundation,Tides DAF host; family_office_lps.yml uses tides-foundation slug.
+builders-vision,builders-initiative,Same family-led entity; family_office_lps.yml retains pre-2022 brand slug.
