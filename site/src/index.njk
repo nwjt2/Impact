@@ -9,7 +9,7 @@ pageKey: index
     <span>For INGO fund teams · pre-first-close</span>
   </div>
   <h1 class="doc-title-h1">Dated windows, donors, and peer-fund closes <span class="accent">— traced to a public source where one is published.</span></h1>
-  <p class="doc-title-sub">Reference desk for INGO-sponsored impact funds, covering deadlines, capital sources, and peer first-close precedents. Most records link back to a primary source; entries without a current public source — or that can't be re-verified — are flagged <strong>UNVERIFIED</strong>.</p>
+  <p class="doc-title-sub">Reference desk for INGO-sponsored impact funds, covering deadlines, capital sources, and peer first-close precedents. Most records link back to a primary source. Peer-fund entries that can't be re-verified are flagged <strong>UNVERIFIED</strong>; for DFI / foundation / family-office entries, the data ribbon below counts records with no source URL on file. UNVERIFIED is a peer-funds-only flag.</p>
 </section>
 
 <section class="data-ribbon" id="data-ribbon"></section>
@@ -23,6 +23,9 @@ pageKey: index
     <p class="lp-headline">
       <strong class="lp-headline-num">{{ home_summary.lpDistinctCount }}</strong>
       <span class="lp-headline-tail">named investors have already LP'd into a peer impact fund — public-source confirmed.</span>
+    </p>
+    <p class="lp-headline-split muted">
+      <strong>{{ home_summary.lpInvestorIngoCount }}</strong> have backed an INGO-sponsored vehicle so far · <strong>{{ home_summary.lpInvestorComparableOnlyCount }}</strong> are documented only on non-INGO comparables (still relevant prospects, but not yet on record as INGO-fund LPs).
     </p>
     <p class="lp-callouts">
       Includes
@@ -120,7 +123,7 @@ pageKey: index
     <span class="footnotes-meta">Last updated {{ meta.last_run_timestamp | dateISO }}</span>
   </div>
   <div class="footnotes-body">
-    <p>Most entries link to a public disclosure — DFI press release, INGO annual report, regulator filing, or fund-manager website. Entries without a current public source are flagged <strong>UNVERIFIED</strong>; the data ribbon at the top of this page splits the count. Where commitments exist but aren't yet public, they're omitted. The site is static; no user data is collected, stored, or transmitted.</p>
+    <p>Most entries link to a public disclosure — DFI press release, INGO annual report, regulator filing, or fund-manager website. Peer-fund entries that can't be re-verified are flagged <strong>UNVERIFIED</strong> (some still carry an original source URL but haven't been re-checked). For DFI / foundation / family-office entries, the data ribbon counts records with no source URL on file. Where commitments exist but aren't yet public, they're omitted. The site is static; no user data is collected, stored, or transmitted.</p>
   </div>
 </aside>
 
@@ -228,8 +231,9 @@ pageKey: index
       cell(
         "Public sourcing",
         '<strong>' + (totalRecords - totalUnv) + '</strong>/' + totalRecords,
-        'records have a public source · <strong class="warn">' + totalUnv
-          + '</strong> flagged or no source'
+        'sourced &amp; verified · <strong class="warn">' + totalUnv
+          + '</strong> flagged or no source URL'
+          + '<br><span class="muted">peer-funds use UNVERIFIED flag; others use URL presence</span>'
       ),
     ].join("");
   }
@@ -349,6 +353,13 @@ pageKey: index
 
   // ---------- Reference panels ----------
   function renderShelfDfis() {
+    var withRegistry = DFIS.filter(function (d) { return (d.ingo_gp_commits || []).length > 0; }).length;
+    var withNetworkOnly = DFIS.filter(function (d) {
+      var reg = (d.ingo_gp_commits || []).length;
+      var net = (d.slug && NET_LP[d.slug]) || 0;
+      return reg === 0 && net > 0;
+    }).length;
+
     var ranked = DFIS.slice().sort(function (a, b) {
       var ac = (a.ingo_gp_commits || []).length;
       var bc = (b.ingo_gp_commits || []).length;
@@ -373,9 +384,18 @@ pageKey: index
         + '</tr>';
     }).join("");
 
+    var foot = withRegistry + ' of ' + DFIS.length
+      + ' have a curated INGO-GP commitment on file';
+    if (withNetworkOnly > 0) {
+      foot += '; another ' + withNetworkOnly
+        + ' surface as LPs on tracked peer impact funds in scraped LP data only';
+    }
+    foot += '. Remaining rows are DFIs in the registry without a documented commit yet.';
+
     return '<div class="panel">'
       + '<div class="panel-head"><span class="label">DFIs by INGO-GP commitments</span><a class="tail" href="{{ "/dfis/" | url }}">All ' + DFIS.length + ' →</a></div>'
       + '<table class="ref-list"><tbody>' + rows + '</tbody></table>'
+      + '<p class="panel-foot muted">' + foot + '</p>'
       + '</div>';
   }
 

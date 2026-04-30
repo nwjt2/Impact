@@ -25,6 +25,13 @@ module.exports = function () {
   // and family-office shelves whose registry-side known_ingo_gp_commits is
   // sparse but whose entries appear in fund_lps.csv → network LP edges).
   const lpCountByInvestor = new Map();
+  // Per-investor sets of (a) INGO-sponsored funds they LP and (b) comparable
+  // funds they LP. Used to split the headline LP count: an INGO fund team
+  // reading the home page should know how many of the named LPs have
+  // actually committed to an INGO-sponsored vehicle vs. how many show up
+  // only via non-INGO comparable funds.
+  const lpInvestorIngoSet = new Set();
+  const lpInvestorComparableSet = new Set();
   network.edges.forEach((e) => {
     if (e.kind !== "lp") return;
     if (!lpFunds.has(e.source)) lpFunds.set(e.source, []);
@@ -34,6 +41,8 @@ module.exports = function () {
     });
     lpFundsCovered.add(e.target);
     lpCountByInvestor.set(e.source, (lpCountByInvestor.get(e.source) || 0) + 1);
+    if (fundIsIngo.get(e.target)) lpInvestorIngoSet.add(e.source);
+    else lpInvestorComparableSet.add(e.source);
   });
 
   let lpFundsCoveredIngo = 0;
@@ -42,6 +51,11 @@ module.exports = function () {
     if (fundIsIngo.get(id)) lpFundsCoveredIngo += 1;
     else lpFundsCoveredComparable += 1;
   });
+
+  const lpInvestorIngoCount = lpInvestorIngoSet.size;
+  const lpInvestorComparableOnlyCount = [...lpInvestorComparableSet].filter(
+    (id) => !lpInvestorIngoSet.has(id)
+  ).length;
 
   const lpWall = [...lpFunds.entries()]
     .map(([id, funds]) => {
@@ -74,6 +88,8 @@ module.exports = function () {
   return {
     lpWall,
     lpDistinctCount: lpWall.length,
+    lpInvestorIngoCount,
+    lpInvestorComparableOnlyCount,
     lpFundsCoveredCount: lpFundsCovered.size,
     lpFundsCoveredIngo,
     lpFundsCoveredComparable,
