@@ -625,6 +625,32 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
   color: var(--fg-3);
   font-weight: 500;
 }
+.filter-hint {
+  flex: 1 0 100%;
+  font-size: 11px;
+  color: var(--fg-3);
+  margin: 2px 0 0;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.fund-group-head {
+  font-family: var(--mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--fg-3);
+  font-weight: 600;
+  margin: 22px 0 4px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--rule);
+}
+.fund-group-head:first-child { margin-top: 4px; }
+.fund-group-empty {
+  padding: 14px 0;
+  font-size: 12.5px;
+  border-bottom: 1px solid var(--rule-soft);
+}
 
 .empty-state {
   border: 1px solid var(--rule);

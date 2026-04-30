@@ -105,26 +105,29 @@ permalink: /catalysts/
 <section class="detail-page">
   <p class="back-link"><a href="{{ '/network/' | url }}">← Back to network</a></p>
   <header class="catalyst-hero">
-    <div class="doc-title-tag"><span>Network · catalyst leaderboard</span></div>
-    <h1>Portfolio companies of INGO-Backed Funds that drew the most non-INGO capital.</h1>
+    <div class="doc-title-tag"><span>Network · co-capital leaderboard</span></div>
+    <h1>Portfolio companies of INGO-Backed Funds that share their cap table with non-INGO capital.</h1>
     <p>
       Each card below is a <strong>portfolio company</strong> that an INGO-Backed Fund
-      invested in (e.g. Mercy Corps Ventures, Kiva Refugee Investment Fund), and which then
-      went on to attract capital from <em>outside</em> the INGO ecosystem — DFIs, VCs,
+      invested in (e.g. Mercy Corps Ventures, Kiva Refugee Investment Fund), and which is
+      <em>also</em> backed by capital from outside the INGO ecosystem — DFIs, VCs,
       foundations, family offices, government agencies. Companies are ranked by how many
-      non-INGO funders backed them.
+      distinct non-INGO funders are on the cap table.
     </p>
-    <p>
-      Use this to spot sectors and stages where INGO capital has the highest crowd-in effect:
-      these are templates for "where to invest next" if catalysing third-party capital is the
-      goal.
+    <p class="muted" style="font-size: 0.88rem; line-height: 1.5;">
+      <strong>What this is not.</strong> This is a co-occurrence list, not a crowding-in claim.
+      Per-edge commit dates aren't on file yet, so the page can't tell you whether the INGO
+      fund came in before the non-INGO funders or after. For deals like One Acre Fund the
+      non-INGO capital pre-dates any INGO-fund commit by years; for others the ordering may
+      run the other way. Treat the list as "INGO-fund portcos that also drew third-party
+      capital", not "portcos catalysed by INGO funds."
     </p>
   </header>
 
   <div class="catalyst-stats">
     <div class="catalyst-stat">
       <span class="catalyst-stat-num" id="cat-visible-count">{{ network.stats.catalyst_count }}</span>
-      <span class="catalyst-stat-lbl">Catalyst portcos shown</span>
+      <span class="catalyst-stat-lbl">Co-capital portcos shown</span>
     </div>
     <div class="catalyst-stat">
       <span class="catalyst-stat-num muted">{{ network.stats.ingo_backed_portco_count }}</span>
@@ -302,8 +305,8 @@ permalink: /catalysts/
     {{ network.stats.catalyst_count }} of {{ network.stats.ingo_backed_portco_count }}
     portcos of INGO-Backed Funds
     ({{ ((network.stats.catalyst_count / network.stats.ingo_backed_portco_count) * 100) | round(1) }}%)
-    have any known non-INGO funder. The leaderboard density grows with each new
-    portco-investor scraper. The empty-bottom of this list isn't an absence of catalysis —
-    it's an absence of data.
+    have any known non-INGO funder on file. The leaderboard density grows with each
+    new portco-investor scraper. The empty bottom of this list reflects an absence of
+    scraped co-investor data, not an absence of co-capital relationships.
   </div>
 </section>

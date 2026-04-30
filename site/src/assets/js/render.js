@@ -225,7 +225,7 @@
 
     var footBits = [];
     if (f.public_source_url) footBits.push(sourceLink(f.public_source_url, "Public source"));
-    if (f.last_seen_at) footBits.push('<span class="verified muted">Last verified ' + esc(fmtDate(f.last_seen_at)) + '</span>');
+    if (f.last_seen_at) footBits.push('<span class="muted">Last seen ' + esc(fmtDate(f.last_seen_at)) + '</span>');
     if (footBits.length) parts.push('<div class="fund-foot">' + footBits.join('<span class="sep">·</span>') + '</div>');
 
     var clickCls = f.public_source_url ? " card-clickable" : "";
@@ -334,7 +334,7 @@
     if (d.public_newsroom_url) footBits.push(sourceLink(d.public_newsroom_url, "Newsroom"));
     else if (d.last_known_activity_url) footBits.push(sourceLink(d.last_known_activity_url, "Last activity"));
     if (d.last_known_activity_date) footBits.push('<span class="muted">Last activity ' + esc(fmtDate(d.last_known_activity_date)) + '</span>');
-    if (d.last_seen_at) footBits.push('<span class="verified muted">Last verified ' + esc(fmtDate(d.last_seen_at)) + '</span>');
+    if (d.last_seen_at) footBits.push('<span class="muted">Last seen ' + esc(fmtDate(d.last_seen_at)) + '</span>');
     if (footBits.length) parts.push('<div class="dfi-foot">' + footBits.join('<span class="sep">·</span>') + '</div>');
 
     var dfiUrl = d.stated_thesis_url || d.public_newsroom_url || d.last_known_activity_url;
@@ -808,7 +808,7 @@
     var footBits = [];
     if (d.stated_thesis_url) footBits.push(sourceLink(d.stated_thesis_url, "Stated thesis"));
     if (d.public_newsroom_url) footBits.push(sourceLink(d.public_newsroom_url, "Newsroom"));
-    if (d.last_seen_at) footBits.push('<span class="verified muted">Last verified ' + esc(fmtDate(d.last_seen_at)) + '</span>');
+    if (d.last_seen_at) footBits.push('<span class="muted">Last seen ' + esc(fmtDate(d.last_seen_at)) + '</span>');
     if (footBits.length) parts.push('<div class="dfi-foot">' + footBits.join('<span class="sep">·</span>') + '</div>');
 
     var url = d.stated_thesis_url || d.public_newsroom_url;
@@ -891,7 +891,7 @@
     var footBits = [];
     if (d.stated_thesis_url) footBits.push(sourceLink(d.stated_thesis_url, "Stated thesis"));
     if (d.public_newsroom_url) footBits.push(sourceLink(d.public_newsroom_url, "Newsroom"));
-    if (d.last_seen_at) footBits.push('<span class="verified muted">Last verified ' + esc(fmtDate(d.last_seen_at)) + '</span>');
+    if (d.last_seen_at) footBits.push('<span class="muted">Last seen ' + esc(fmtDate(d.last_seen_at)) + '</span>');
     if (footBits.length) parts.push('<div class="dfi-foot">' + footBits.join('<span class="sep">·</span>') + '</div>');
 
     var url = d.stated_thesis_url || d.public_newsroom_url;

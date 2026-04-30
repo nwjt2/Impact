@@ -16,8 +16,8 @@ pageKey: peer-funds
   </header>
 
   <div class="filter-bar">
-    <label class="filter-label" for="country-filter">Country</label>
-    <select id="country-filter" class="filter-select"></select>
+    <label class="filter-label" for="country-filter">INGO HQ country</label>
+    <select id="country-filter" class="filter-select" aria-describedby="country-filter-hint"></select>
     <label class="sort-label" for="slot-1-sort">Sort</label>
     <select id="slot-1-sort" class="sort-select">
       <option value="first_close_date" selected>First close (recent)</option>
@@ -28,6 +28,7 @@ pageKey: peer-funds
     <input id="slot-1-search" type="search" class="search-input"
       placeholder="Filter by name, INGO, or sector" aria-label="Search funds" />
     <span id="filter-summary" class="filter-summary"></span>
+    <span id="country-filter-hint" class="filter-hint muted">Country filter applies to INGO-sponsored funds only — non-INGO comparables don't have a parent INGO HQ on file.</span>
   </div>
 
   <div id="slot-1-list" class="fund-list" aria-live="polite"></div>
@@ -47,19 +48,17 @@ pageKey: peer-funds
 
   var state = { country: "ALL", search: "", sort: "first_close_date" };
 
-  function render() {
-    var list = PEER.filter(function (f) {
-      if (state.country !== "ALL" && f.parent_ingo_country !== state.country) return false;
-      var q = state.search.trim().toLowerCase();
-      if (!q) return true;
-      var hay = [f.name, f.manager, f.parent_ingo,
-        (f.sector_tags || []).join(" "), (f.geo_tags || []).join(" ")
-      ].join(" ").toLowerCase();
-      return hay.indexOf(q) !== -1;
-    });
+  function matchesSearch(f, q) {
+    if (!q) return true;
+    var hay = [f.name, f.manager, f.parent_ingo,
+      (f.sector_tags || []).join(" "), (f.geo_tags || []).join(" ")
+    ].join(" ").toLowerCase();
+    return hay.indexOf(q) !== -1;
+  }
 
+  function sortFunds(arr) {
     var s = state.sort;
-    list.sort(function (a, b) {
+    arr.sort(function (a, b) {
       if (s === "first_close_date") {
         var ad = a.first_close_date || "", bd = b.first_close_date || "";
         if (!ad && !bd) return 0; if (!ad) return 1; if (!bd) return -1;
@@ -74,22 +73,59 @@ pageKey: peer-funds
       if (s === "name") return (a.name || "").localeCompare(b.name || "");
       return 0;
     });
+    return arr;
+  }
+
+  function render() {
+    var q = state.search.trim().toLowerCase();
+    var ingoSponsored = [];
+    var comparables = [];
+    PEER.forEach(function (f) {
+      if (!matchesSearch(f, q)) return;
+      if (f.parent_ingo) ingoSponsored.push(f);
+      else comparables.push(f);
+    });
+
+    var ingoFiltered = state.country === "ALL"
+      ? ingoSponsored
+      : ingoSponsored.filter(function (f) { return f.parent_ingo_country === state.country; });
+
+    sortFunds(ingoFiltered);
+    sortFunds(comparables);
 
     var root = document.getElementById("slot-1-list");
     var empty = document.getElementById("slot-1-empty");
     var sum = document.getElementById("filter-summary");
 
-    if (list.length === 0) {
+    var totalShown = ingoFiltered.length + comparables.length;
+    if (totalShown === 0) {
       root.innerHTML = ""; empty.hidden = false;
-      empty.innerHTML = state.country === "ALL"
-        ? "<p>No funds match your search.</p>"
-        : "<p>No INGO-sponsored funds match <strong>" + I.esc(I.countryName(META, state.country)) + "</strong>. Try <em>All countries</em>.</p>";
+      empty.innerHTML = "<p>No funds match your search.</p>";
       sum.textContent = "Showing 0 of " + PEER.length;
       return;
     }
     empty.hidden = true; empty.innerHTML = "";
-    root.innerHTML = list.map(function (f) { return I.renderFundCard(f, META); }).join("");
-    sum.textContent = "Showing " + list.length + " of " + PEER.length;
+
+    var html = "";
+    if (state.country === "ALL") {
+      var merged = sortFunds(ingoFiltered.concat(comparables));
+      html = merged.map(function (f) { return I.renderFundCard(f, META); }).join("");
+    } else {
+      var countryName = I.countryName(META, state.country);
+      html += '<h3 class="fund-group-head">INGO-sponsored funds — ' + I.esc(countryName) +
+        ' <span class="muted">(' + ingoFiltered.length + ')</span></h3>';
+      if (ingoFiltered.length === 0) {
+        html += '<p class="fund-group-empty muted">No INGO-sponsored funds with a parent INGO in ' +
+          I.esc(countryName) + '.</p>';
+      } else {
+        html += ingoFiltered.map(function (f) { return I.renderFundCard(f, META); }).join("");
+      }
+      html += '<h3 class="fund-group-head">Non-INGO comparables ' +
+        '<span class="muted">(' + comparables.length + ' — country filter does not apply)</span></h3>';
+      html += comparables.map(function (f) { return I.renderFundCard(f, META); }).join("");
+    }
+    root.innerHTML = html;
+    sum.textContent = "Showing " + totalShown + " of " + PEER.length;
   }
 
   document.getElementById("country-filter").innerHTML =

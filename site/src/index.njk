@@ -44,12 +44,12 @@ pageKey: index
 
   <div class="home-col home-col-catalysts">
     <header class="sec-head">
-      <h2 class="sec-title">Catalysts <em>// portcos that drew non-INGO capital</em></h2>
+      <h2 class="sec-title">Co-capital <em>// portcos that share their cap table with non-INGO funders</em></h2>
       <a class="sec-link" href="{{ '/catalysts/' | url }}">All {{ network.stats.catalyst_count }} →</a>
     </header>
     <p class="cat-mini-headline muted">
-      Portfolio companies of INGO-Backed Funds that have attracted capital from <em>outside</em>
-      the INGO ecosystem. Templates for where to invest next if catalysing third-party capital is the goal.
+      Portfolio companies of INGO-Backed Funds that are <em>also</em> backed by capital from outside
+      the INGO ecosystem. Co-occurrence on the cap table — not a crowding-in claim; per-edge dates aren't on file.
     </p>
     <ol class="cat-mini-list">
       {% for c in home_summary.topCatalysts %}
@@ -76,7 +76,7 @@ pageKey: index
       {% endfor %}
     </ol>
     <p class="cat-mini-coverage muted">
-      Coverage: {{ network.stats.catalyst_count }} of {{ network.stats.ingo_backed_portco_count }} INGO-fund portcos have a known non-INGO funder so far. The empty bottom is an absence of scraped co-investor data, not an absence of catalysis.
+      Coverage: {{ network.stats.catalyst_count }} of {{ network.stats.ingo_backed_portco_count }} INGO-fund portcos have a known non-INGO funder so far. The empty bottom is an absence of scraped co-investor data, not an absence of co-capital relationships.
     </p>
   </div>
 </section>
