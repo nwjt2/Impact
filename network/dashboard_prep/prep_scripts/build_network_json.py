@@ -71,13 +71,16 @@ def build() -> dict:
         lp_slug = lp.get("LP Slug") or ""
         if not fund_slug or not lp_slug:
             continue
-        edges.append(
-            {
-                "source": f"investor:{lp_slug}",
-                "target": f"fund:{fund_slug}",
-                "kind": "lp",
-            }
-        )
+        edge: dict = {
+            "source": f"investor:{lp_slug}",
+            "target": f"fund:{fund_slug}",
+            "kind": "lp",
+        }
+        if lp.get("Source URL"):
+            edge["source_url"] = lp["Source URL"]
+        if lp.get("Commitment Year"):
+            edge["commitment_year"] = lp["Commitment Year"]
+        edges.append(edge)
         fund_slugs_with_edges.add(fund_slug)
         investor_slugs_with_edges.add(lp_slug)
 

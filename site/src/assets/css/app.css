@@ -493,6 +493,14 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
   text-align: right;
   letter-spacing: 0;
 }
+.panel-foot {
+  padding: 8px 14px 10px;
+  border-top: 1px solid var(--rule-soft);
+  margin: 0;
+  font-size: 11px;
+  color: var(--fg-3);
+  line-height: 1.45;
+}
 
 /* ---------------- Footnotes / colophon ---------------- */
 

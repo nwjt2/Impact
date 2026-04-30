@@ -1944,6 +1944,7 @@ peer_funds:
     status: deployed
     public_source_url: null
     last_seen_at: 2026-04-28
+    validation_status: unverified
     notes: >
       Final close at $55m announced 2024; brings ALIVE AUM above $80m.
       Targets 10-15 early-stage SMEs in Colombia and Peru with equity/
@@ -2143,6 +2144,7 @@ peer_funds:
     status: deployed
     public_source_url: null
     last_seen_at: 2026-04-24
+    validation_status: unverified
     notes: >
       One of the largest microfinance debt managers; benchmark for ticket
       sizing and deployment cadence.
@@ -2228,6 +2230,7 @@ peer_funds:
     status: deployed
     public_source_url: null
     last_seen_at: 2026-04-24
+    validation_status: unverified
     notes: >
       Dutch Luxembourg-SICAV microfinance fund; often cited benchmark
       for NAV mechanics on an open-ended INGO-adjacent structure.
@@ -2285,6 +2288,7 @@ peer_funds:
     status: deployed
     public_source_url: null
     last_seen_at: 2026-04-24
+    validation_status: unverified
     notes: >
       Boston-based SRI manager; relevant to INGOs evaluating
       outsourced-CIO arrangements for endowment + impact.
@@ -2480,6 +2484,7 @@ peer_funds:
     status: deployed
     public_source_url: null
     last_seen_at: 2026-04-24
+    validation_status: unverified
     notes: >
       Spun out of IFC in 2008; hybrid debt/equity investor in high-impact
       SMBs. Useful case study on IFC spin-out governance.
@@ -2508,6 +2513,7 @@ peer_funds:
     status: deployed
     public_source_url: null
     last_seen_at: 2026-04-24
+    validation_status: unverified
     notes: >
       Series of listed bonds (WLB1-WLB6+) financing women-owned SMEs.
       Structural precedent for listed-outcomes vehicles.
@@ -2676,6 +2682,7 @@ peer_funds:
     status: deployed
     public_source_url: null
     last_seen_at: 2026-04-24
+    validation_status: unverified
     notes: >
       Women-led Latin American sustainable-business fund; precedent
       for gender-lens GP team composition.
@@ -2739,6 +2746,7 @@ peer_funds:
     status: deployed
     public_source_url: null
     last_seen_at: 2026-04-24
+    validation_status: unverified
     notes: >
       UK FCDO-seeded African agri specialist. Good benchmark for
       blended-finance from a sovereign donor.

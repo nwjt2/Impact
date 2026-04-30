@@ -22,7 +22,10 @@ module.exports = function () {
   network.edges.forEach((e) => {
     if (e.kind !== "lp") return;
     if (!lpFunds.has(e.source)) lpFunds.set(e.source, []);
-    lpFunds.get(e.source).push(fundNames.get(e.target) || e.target);
+    lpFunds.get(e.source).push({
+      name: fundNames.get(e.target) || e.target,
+      source_url: e.source_url || null,
+    });
     lpFundsCovered.add(e.target);
   });
 
@@ -36,13 +39,14 @@ module.exports = function () {
   const lpWall = [...lpFunds.entries()]
     .map(([id, funds]) => {
       const inv = investors.get(id) || {};
-      const sortedFunds = funds.slice().sort((a, b) => a.localeCompare(b));
+      const sortedFunds = funds.slice().sort((a, b) => a.name.localeCompare(b.name));
       return {
         id,
         name: inv.name || id,
         archetype: inv.investor_type || "other",
         count: sortedFunds.length,
         funds: sortedFunds,
+        sourced: sortedFunds.every((f) => Boolean(f.source_url)),
       };
     })
     .sort((a, b) => b.count - a.count || a.name.localeCompare(b.name));

@@ -53,6 +53,14 @@ module.exports = function (eleventyConfig) {
     if (typeof v === "object") return Object.keys(v).length;
     return 0;
   });
+  eleventyConfig.addFilter("sourceHost", (url) => {
+    if (!url) return "";
+    try {
+      return new URL(url).host.replace(/^www\./, "");
+    } catch {
+      return String(url);
+    }
+  });
 
   return {
     dir: {
