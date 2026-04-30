@@ -231,9 +231,9 @@ pageKey: index
       cell(
         "Public sourcing",
         '<strong>' + (totalRecords - totalUnv) + '</strong>/' + totalRecords,
-        'sourced &amp; verified · <strong class="warn">' + totalUnv
+        'with a public source on file · <strong class="warn">' + totalUnv
           + '</strong> flagged or no source URL'
-          + '<br><span class="muted">peer-funds use UNVERIFIED flag; others use URL presence</span>'
+          + '<br><span class="muted">peer-funds use UNVERIFIED flag; others use URL presence — URL on file is not the same as re-verified</span>'
       ),
     ].join("");
   }
