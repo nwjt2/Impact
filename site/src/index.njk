@@ -8,8 +8,8 @@ pageKey: index
   <div class="doc-title-tag">
     <span>For INGO fund teams · pre-first-close</span>
   </div>
-  <h1 class="doc-title-h1">Every dated window, donor, and peer-fund close <span class="accent">— traced to a public source.</span></h1>
-  <p class="doc-title-sub">Reference desk for INGO-sponsored impact funds for deadlines, capital sources and peer first-close precedents. Records link back to a primary source where one is public; entries that can't be re-verified are flagged <strong>UNVERIFIED</strong>.</p>
+  <h1 class="doc-title-h1">Dated windows, donors, and peer-fund closes <span class="accent">— traced to a public source where one is published.</span></h1>
+  <p class="doc-title-sub">Reference desk for INGO-sponsored impact funds, covering deadlines, capital sources, and peer first-close precedents. Most records link back to a primary source; entries without a current public source — or that can't be re-verified — are flagged <strong>UNVERIFIED</strong>.</p>
 </section>
 
 <section class="data-ribbon" id="data-ribbon"></section>
@@ -22,7 +22,7 @@ pageKey: index
     </header>
     <p class="lp-headline">
       <strong class="lp-headline-num">{{ home_summary.lpDistinctCount }}</strong>
-      <span class="lp-headline-tail">named investors have already LP'd into a peer impact fund — primary-source confirmed.</span>
+      <span class="lp-headline-tail">named investors have already LP'd into a peer impact fund — public-source confirmed.</span>
     </p>
     <p class="lp-callouts">
       Includes
@@ -36,7 +36,7 @@ pageKey: index
     <ul class="lp-legend">
       {% for r in home_summary.lpArchetypeRollup %}<li><span class="lp-legend-dot" data-arch="{{ r.archetype }}"></span> {{ r.archetype | replace('-', ' ') }} <span class="muted">{{ r.count }}</span></li>{% endfor %}
     </ul>
-    <p class="lp-coverage muted">Drawn from {{ home_summary.lpFundsCoveredCount }} of {{ home_summary.lpFundsTotal }} peer impact funds with disclosed LP rolls — {{ home_summary.lpFundsCoveredIngo }} INGO-backed plus {{ home_summary.lpFundsCoveredComparable }} comparables.</p>
+    <p class="lp-coverage muted">Drawn from {{ home_summary.lpFundsCoveredCount }} of the {{ home_summary.lpFundsTotal }} funds in the graph with disclosed LP rolls — {{ home_summary.lpFundsCoveredIngo }} INGO-backed plus {{ home_summary.lpFundsCoveredComparable }} comparables.</p>
   </div>
 
   <div class="home-col home-col-catalysts">
@@ -73,7 +73,7 @@ pageKey: index
       {% endfor %}
     </ol>
     <p class="cat-mini-coverage muted">
-      Coverage: {{ network.stats.catalyst_count }} of {{ network.stats.ingo_backed_portco_count }} INGO-fund portcos have co-investor data scraped so far.
+      Coverage: {{ network.stats.catalyst_count }} of {{ network.stats.ingo_backed_portco_count }} INGO-fund portcos have a known non-INGO funder so far. The empty bottom is an absence of scraped co-investor data, not an absence of catalysis.
     </p>
   </div>
 </section>
@@ -120,7 +120,7 @@ pageKey: index
     <span class="footnotes-meta">Last updated {{ meta.last_run_timestamp | dateISO }}</span>
   </div>
   <div class="footnotes-body">
-    <p>Every entry links to a public disclosure — DFI press release, INGO annual report, regulator filing, or fund-manager website. Where a fact is not yet public, it is omitted; where a record cannot be re-verified, it is flagged <strong>UNVERIFIED</strong>. The site is static; no user data is collected, stored, or transmitted.</p>
+    <p>Most entries link to a public disclosure — DFI press release, INGO annual report, regulator filing, or fund-manager website. Entries without a current public source are flagged <strong>UNVERIFIED</strong>; the data ribbon at the top of this page splits the count. Where commitments exist but aren't yet public, they're omitted. The site is static; no user data is collected, stored, or transmitted.</p>
   </div>
 </aside>
 
@@ -132,6 +132,7 @@ pageKey: index
 <script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
 <script type="application/json" id="data-meta">{{ meta | dump | safe }}</script>
 <script type="application/json" id="data-impact-areas">{{ impact_areas | dump | safe }}</script>
+<script type="application/json" id="data-network-lp-counts">{{ home_summary.networkLpCountBySlug | dump | safe }}</script>
 
 <script src="{{ '/assets/js/render.js' | url }}"></script>
 <script>
@@ -146,6 +147,7 @@ pageKey: index
   var FAMOFS = I.loadJSON("data-family-offices") || [];
   var META   = I.loadJSON("data-slot-meta")      || {};
   var BUILD  = I.loadJSON("data-meta")           || {};
+  var NET_LP = I.loadJSON("data-network-lp-counts") || {};
 
   var TODAY = (BUILD.last_run_timestamp || BUILD.generated_at || new Date().toISOString()).slice(0, 10);
 
@@ -172,11 +174,29 @@ pageKey: index
       commitCount += n;
     });
 
-    var sized = PEER.filter(function (f) { return f.size_usd_m != null; });
-    var totalSized = sized.reduce(function (s, f) { return s + f.size_usd_m; }, 0);
+    // Peer-fund AUM split: verified records carry size figures we can stand
+    // behind; unverified records still have disclosed sizes from their public
+    // source but have not been re-verified, so we split the total.
+    var sizedVer = 0, sizedUnv = 0, sizedVerCount = 0, sizedUnvCount = 0;
+    PEER.forEach(function (f) {
+      if (f.size_usd_m == null) return;
+      if (f.validation_status === "unverified") { sizedUnv += f.size_usd_m; sizedUnvCount++; }
+      else { sizedVer += f.size_usd_m; sizedVerCount++; }
+    });
 
-    var totalRecords = DEADS.length + DFIS.length + PEER.length;
-    var unverifiedPeer = PEER.filter(function (f) { return f.validation_status === "unverified"; }).length;
+    // "Confirmed" = a record has a public source URL, or (for peer funds) is
+    // explicitly flagged validation_status: verified. Foundations and family
+    // offices are included because they're rendered on this page too.
+    function hasUrl(d, fields) {
+      for (var i = 0; i < fields.length; i++) if (d[fields[i]]) return true;
+      return false;
+    }
+    var dfiUnv  = DFIS.filter(function (d) { return !hasUrl(d, ["stated_thesis_url", "public_newsroom_url", "last_known_activity_url"]); }).length;
+    var fdnUnv  = FDNS.filter(function (d) { return !hasUrl(d, ["stated_thesis_url", "public_newsroom_url"]); }).length;
+    var famUnv  = FAMOFS.filter(function (d) { return !hasUrl(d, ["stated_thesis_url", "public_newsroom_url"]); }).length;
+    var peerUnv = PEER.filter(function (f) { return f.validation_status === "unverified"; }).length;
+    var totalRecords = DEADS.length + DFIS.length + PEER.length + FDNS.length + FAMOFS.length;
+    var totalUnv = dfiUnv + fdnUnv + famUnv + peerUnv;
 
     function cell(label, num, tail) {
       return '<div class="data-cell">'
@@ -201,14 +221,16 @@ pageKey: index
       ),
       cell(
         "Peer fund AUM",
-        '$' + Math.round(totalSized).toLocaleString() + 'M',
-        'disclosed across <strong>' + sized.length + ' of ' + PEER.length + '</strong> funds'
+        '$' + Math.round(sizedVer).toLocaleString() + 'M',
+        'verified · <strong class="warn">$' + Math.round(sizedUnv).toLocaleString() + 'M</strong> unverified'
+          + '<br>across ' + (sizedVerCount + sizedUnvCount) + ' of ' + PEER.length + ' funds'
       ),
       cell(
         "Last verified",
         I.fmtDate(TODAY),
-        '<strong>' + (totalRecords - unverifiedPeer) + '</strong> confirmed · '
-          + '<strong class="warn">' + unverifiedPeer + '</strong> flagged unverified'
+        '<strong>' + (totalRecords - totalUnv) + '</strong> of ' + totalRecords
+          + ' have a public source · <strong class="warn">' + totalUnv
+          + '</strong> flagged or no source'
       ),
     ].join("");
   }
@@ -364,11 +386,22 @@ pageKey: index
     supporting_org: "Supporting org", philanthropy: "Philanthropy LLC"
   };
 
+  // Effective LP-commit count for a registry entry: the larger of the
+  // registry's own known_ingo_gp_commits[] field and the count of LP edges
+  // in the network graph that resolve to this entry's slug. The registry
+  // field is sparse; the network LP edges come from the fund_lps.csv
+  // pipeline and every edge carries a public source URL.
+  function effectiveCommitCount(d) {
+    var registry = (d.known_ingo_gp_commits || []).length;
+    var network  = (d.slug && NET_LP[d.slug]) || 0;
+    return registry > network ? registry : network;
+  }
+
   function renderShelfFoundations() {
-    var withCommits = FDNS.filter(function (d) { return (d.known_ingo_gp_commits || []).length > 0; }).length;
+    var withCommits = FDNS.filter(function (d) { return effectiveCommitCount(d) > 0; }).length;
     var ranked = FDNS.slice().sort(function (a, b) {
-      var ac = (a.known_ingo_gp_commits || []).length;
-      var bc = (b.known_ingo_gp_commits || []).length;
+      var ac = effectiveCommitCount(a);
+      var bc = effectiveCommitCount(b);
       if (ac !== bc) return bc - ac;
       var atc = a.typical_check_usd_m_min || 0;
       var btc = b.typical_check_usd_m_min || 0;
@@ -377,13 +410,13 @@ pageKey: index
     }).slice(0, 7);
 
     var rows = ranked.map(function (d, i) {
-      var commits = (d.known_ingo_gp_commits || []).length;
+      var commits = effectiveCommitCount(d);
       var url = d.stated_thesis_url || d.public_newsroom_url || '{{ "/foundations/" | url }}';
       var typeLabel = FOUNDATION_TYPE_LABELS[d.foundation_type] || "";
       var figure, figLabel;
       if (commits > 0) {
         figure = commits;
-        figLabel = commits === 1 ? "confirmed commit" : "confirmed commits";
+        figLabel = commits === 1 ? "fund-LP commit" : "fund-LP commits";
       } else if (d.typical_check_usd_m_min != null) {
         var min = d.typical_check_usd_m_min;
         var max = d.typical_check_usd_m_max;
@@ -407,7 +440,7 @@ pageKey: index
     return '<div class="panel">'
       + '<div class="panel-head"><span class="label">Foundations &amp; corporate-impact arms</span><a class="tail" href="{{ "/foundations/" | url }}">All ' + FDNS.length + ' →</a></div>'
       + '<table class="ref-list"><tbody>' + rows + '</tbody></table>'
-      + '<p class="panel-foot muted">' + withCommits + ' of ' + FDNS.length + ' have a publicly-traceable fund-LP commit on file; remaining rows show stated typical-check size where disclosed.</p>'
+      + '<p class="panel-foot muted">' + withCommits + ' of ' + FDNS.length + ' have at least one publicly-traceable fund-LP commit (network LP edges + registry field); remaining rows show stated typical-check size where disclosed.</p>'
       + '</div>';
   }
 
@@ -417,10 +450,10 @@ pageKey: index
   };
 
   function renderShelfFamilyOffices() {
-    var withCommits = FAMOFS.filter(function (d) { return (d.known_ingo_gp_commits || []).length > 0; }).length;
+    var withCommits = FAMOFS.filter(function (d) { return effectiveCommitCount(d) > 0; }).length;
     var ranked = FAMOFS.slice().sort(function (a, b) {
-      var ac = (a.known_ingo_gp_commits || []).length;
-      var bc = (b.known_ingo_gp_commits || []).length;
+      var ac = effectiveCommitCount(a);
+      var bc = effectiveCommitCount(b);
       if (ac !== bc) return bc - ac;
       var atc = a.typical_check_usd_m_min || 0;
       var btc = b.typical_check_usd_m_min || 0;
@@ -429,13 +462,13 @@ pageKey: index
     }).slice(0, 7);
 
     var rows = ranked.map(function (d, i) {
-      var commits = (d.known_ingo_gp_commits || []).length;
+      var commits = effectiveCommitCount(d);
       var url = d.stated_thesis_url || d.public_newsroom_url || '{{ "/family-offices/" | url }}';
       var catLabel = FAMILY_OFFICE_CATEGORY_LABELS[d.category] || "";
       var figure, figLabel;
       if (commits > 0) {
         figure = commits;
-        figLabel = commits === 1 ? "confirmed commit" : "confirmed commits";
+        figLabel = commits === 1 ? "fund-LP commit" : "fund-LP commits";
       } else if (d.typical_check_usd_m_min != null) {
         var min = d.typical_check_usd_m_min;
         var max = d.typical_check_usd_m_max;
@@ -459,7 +492,7 @@ pageKey: index
     return '<div class="panel">'
       + '<div class="panel-head"><span class="label">Family offices, faith-based &amp; philanthropy LLCs</span><a class="tail" href="{{ "/family-offices/" | url }}">All ' + FAMOFS.length + ' →</a></div>'
       + '<table class="ref-list"><tbody>' + rows + '</tbody></table>'
-      + '<p class="panel-foot muted">' + withCommits + ' of ' + FAMOFS.length + ' have a publicly-traceable fund-LP commit on file; remaining rows show stated typical-check size where disclosed.</p>'
+      + '<p class="panel-foot muted">' + withCommits + ' of ' + FAMOFS.length + ' have at least one publicly-traceable fund-LP commit (network LP edges + registry field); remaining rows show stated typical-check size where disclosed.</p>'
       + '</div>';
   }
 

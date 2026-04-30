@@ -19,6 +19,10 @@ module.exports = function () {
 
   const lpFunds = new Map();
   const lpFundsCovered = new Set();
+  // investor-id -> count of distinct LP'd funds (used to enrich foundation
+  // and family-office shelves whose registry-side known_ingo_gp_commits is
+  // sparse but whose entries appear in fund_lps.csv → network LP edges).
+  const lpCountByInvestor = new Map();
   network.edges.forEach((e) => {
     if (e.kind !== "lp") return;
     if (!lpFunds.has(e.source)) lpFunds.set(e.source, []);
@@ -27,6 +31,7 @@ module.exports = function () {
       source_url: e.source_url || null,
     });
     lpFundsCovered.add(e.target);
+    lpCountByInvestor.set(e.source, (lpCountByInvestor.get(e.source) || 0) + 1);
   });
 
   let lpFundsCoveredIngo = 0;
@@ -64,6 +69,13 @@ module.exports = function () {
     featured.push(lpWall[featured.length]);
   }
 
+  // Slug -> network-LP-edge count, for the foundation & family-office shelves.
+  // Network ids look like 'investor:<slug>'; emit a plain slug map.
+  const networkLpCountBySlug = {};
+  lpCountByInvestor.forEach((count, id) => {
+    if (id.startsWith("investor:")) networkLpCountBySlug[id.slice(9)] = count;
+  });
+
   return {
     lpWall,
     lpDistinctCount: lpWall.length,
@@ -74,5 +86,6 @@ module.exports = function () {
     lpArchetypeRollup,
     lpFeatured: featured,
     topCatalysts: (network.catalysts || []).slice(0, 3),
+    networkLpCountBySlug,
   };
 };

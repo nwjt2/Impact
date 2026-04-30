@@ -28,7 +28,7 @@
         <a href="{{ '/impact-areas/' | url }}"{% if pageKey == 'impact-areas' %} aria-current="page"{% endif %}>Impact areas</a>
       </nav>
       <div class="masthead-meta">
-        {% if meta and meta.last_run_timestamp %}Verified {{ meta.last_run_timestamp | dateISO }}{% endif %}
+        {% if meta and meta.last_run_timestamp %}Last built {{ meta.last_run_timestamp | dateISO }}{% endif %}
       </div>
     </div>
   </header>
