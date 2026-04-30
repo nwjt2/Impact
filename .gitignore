@@ -90,3 +90,12 @@ network/scripts/run_check_*.md
 network/scripts/*_proposals.md
 network/logs/
 
+# Scrubbed-from-history docs (kept locally, never re-tracked)
+README.md
+docs/deploy.md
+network/README.md
+network/CLAUDE.md
+network/docs/RUNBOOK.md
+network/docs/discovery_learnings.md
+.history_scrub_backup/
+
