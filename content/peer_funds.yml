@@ -2805,6 +2805,43 @@ peer_funds:
       tied to themes (health, education, women's economic empowerment,
       environment) overlapping the INGO impact-fund universe.
 
+  - slug: aligned-climate-fund-2
+    name: Aligned Climate Fund 2 LP (ACF2)
+    manager: Aligned Climate Capital
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2024
+    size_usd_m: 70
+    sector_tags: [climate, energy]
+    geo_tags: [us]
+    vehicle_type: closed_end_fund
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: investing
+    public_source_url: https://www.rockefellerfoundation.org/news/nathan-cummings-rockefeller-and-schmidt-family-foundations-invest-in-aligned-climate-capitals-fund-2/
+    last_seen_at: 2026-04-30
+    validation_status: unverified
+    notes: >
+      Climate-mitigation fund (clean energy, efficient buildings, electric
+      transport, sustainable land use) managed by Aligned Climate Capital
+      (firm-wide AUM ~$2bn). Rockefeller Foundation press release
+      2024-08-01 disclosed Schmidt Family Foundation, Nathan Cummings
+      Foundation, and Rockefeller Foundation as LPs, bringing total
+      commitments to ~$70m. US-anchored mainstream-impact-VC; included as
+      comparable because the LP set is impact-foundation-led
+      (Schmidt/11th Hour Project is the foundation onboarded into
+      /network/ via this edge). Final close, target size, and full LP
+      roster pending — flagged validation_status: unverified.
+
   # ---------- Network-discovered (unverified — full profile pending) ----------
   #
   # Added 2026-04-29 to make /peer-funds/ a complete superset of /network/'s
