@@ -35,6 +35,7 @@ pageKey: foundations
 
 <script type="application/json" id="data-foundations">{{ foundation_lps | dump | safe }}</script>
 <script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
+<script type="application/json" id="data-net-lp-funds">{{ network_lp_summary.lpFundsBySlug | dump | safe }}</script>
 
 <script src="{{ '/assets/js/render.js' | url }}"></script>
 <script>
@@ -43,6 +44,21 @@ pageKey: foundations
   var I = window.IFC;
   var FDNS = I.loadJSON("data-foundations") || [];
   var META = I.loadJSON("data-slot-meta") || {};
+  var NET_LP = I.loadJSON("data-net-lp-funds") || {};
+
+  // Attach the network-LP edges (from fund_lps.csv) to each record so the
+  // card renderer can surface them. Registry-side known_ingo_gp_commits[]
+  // is sparse; the network LP edges cover both INGO-sponsored and non-INGO
+  // comparable peer impact funds, with a public source URL on every edge.
+  FDNS.forEach(function (d) {
+    if (d.slug && NET_LP[d.slug]) d._network_lp_funds = NET_LP[d.slug];
+  });
+
+  function effectiveCommitCount(d) {
+    var registry = (d.known_ingo_gp_commits || []).length;
+    var network  = (d._network_lp_funds || []).length;
+    return registry > network ? registry : network;
+  }
 
   var state = { country: "ALL", type: "ALL" };
 
@@ -53,8 +69,8 @@ pageKey: foundations
       return true;
     });
     list.sort(function (a, b) {
-      var ac = (a.known_ingo_gp_commits || []).length;
-      var bc = (b.known_ingo_gp_commits || []).length;
+      var ac = effectiveCommitCount(a);
+      var bc = effectiveCommitCount(b);
       if (ac !== bc) return bc - ac;
       return (a.name || "").localeCompare(b.name || "");
     });

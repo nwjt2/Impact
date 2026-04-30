@@ -226,10 +226,9 @@ pageKey: index
           + '<br>across ' + (sizedVerCount + sizedUnvCount) + ' of ' + PEER.length + ' funds'
       ),
       cell(
-        "Last verified",
-        I.fmtDate(TODAY),
-        '<strong>' + (totalRecords - totalUnv) + '</strong> of ' + totalRecords
-          + ' have a public source · <strong class="warn">' + totalUnv
+        "Public sourcing",
+        '<strong>' + (totalRecords - totalUnv) + '</strong>/' + totalRecords,
+        'records have a public source · <strong class="warn">' + totalUnv
           + '</strong> flagged or no source'
       ),
     ].join("");

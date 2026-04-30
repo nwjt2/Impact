@@ -27,6 +27,7 @@ pageKey: dfis
 
 <script type="application/json" id="data-dfi-commits">{{ dfi_ingo_commits | dump | safe }}</script>
 <script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
+<script type="application/json" id="data-net-lp-funds">{{ network_lp_summary.lpFundsBySlug | dump | safe }}</script>
 
 <script src="{{ '/assets/js/render.js' | url }}"></script>
 <script>
@@ -35,6 +36,17 @@ pageKey: dfis
   var I = window.IFC;
   var DFIS = I.loadJSON("data-dfi-commits") || [];
   var META = I.loadJSON("data-slot-meta") || {};
+  var NET_LP = I.loadJSON("data-net-lp-funds") || {};
+
+  DFIS.forEach(function (d) {
+    if (d.slug && NET_LP[d.slug]) d._network_lp_funds = NET_LP[d.slug];
+  });
+
+  function effectiveCommitCount(d) {
+    var registry = (d.ingo_gp_commits || []).length;
+    var network  = (d._network_lp_funds || []).length;
+    return registry > network ? registry : network;
+  }
 
   var state = { country: "ALL" };
 
@@ -43,7 +55,7 @@ pageKey: dfis
       return state.country === "ALL" || d.country === state.country;
     });
     list.sort(function (a, b) {
-      var ac = (a.ingo_gp_commits || []).length, bc = (b.ingo_gp_commits || []).length;
+      var ac = effectiveCommitCount(a), bc = effectiveCommitCount(b);
       if (ac !== bc) return bc - ac;
       var ad = a.last_known_activity_date || "", bd = b.last_known_activity_date || "";
       if (ad && bd) return bd.localeCompare(ad);

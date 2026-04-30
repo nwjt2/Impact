@@ -41,7 +41,7 @@
 
   <footer class="site-footer">
     <span>
-      {% if meta %}Last updated {{ meta.last_run_timestamp | dateISO }} · {{ meta.sources_polled }} sources checked · {{ slot_meta.slot_counts.peer_ingo_funds + slot_meta.slot_counts.dfi_ingo_commits + slot_meta.slot_counts.deadlines + slot_meta.slot_counts.foundation_lps + slot_meta.slot_counts.family_office_lps }} records{% else %}Not yet run. Execute <code>make daily</code>.{% endif %}
+      {% if meta %}Last built {{ meta.last_run_timestamp | dateISO }} · {{ slot_meta.slot_counts.peer_ingo_funds + slot_meta.slot_counts.dfi_ingo_commits + slot_meta.slot_counts.deadlines + slot_meta.slot_counts.foundation_lps + slot_meta.slot_counts.family_office_lps }} records{% else %}Not yet run. Execute <code>make daily</code>.{% endif %}
     </span>
     <span>Public source links only · no telemetry</span>
   </footer>

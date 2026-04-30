@@ -140,6 +140,40 @@
 
   // ---- Card renderers -----------------------------------------------------
 
+  // Render the per-card "network LP edges" disclosure block. The registry-side
+  // commit lists on DFI / foundation / family-office records only carry
+  // commitments to INGO-sponsored funds; the fund_lps.csv pipeline (network
+  // LP edges) covers both INGO-backed and non-INGO comparable peer impact
+  // funds, with a public source URL on every edge. Surface those here so an
+  // entity like Shell Foundation (0 registry commits, 11 network LP edges)
+  // is no longer rendered as "no commitments located."
+  //
+  // The detail page attaches d._network_lp_funds before calling the card
+  // renderer; each entry: {fund_slug, fund_name, ingo_backed, source_url}.
+  function renderNetworkLpBlock(d) {
+    var funds = d._network_lp_funds || [];
+    if (!funds.length) return "";
+    var prefix = (typeof window !== "undefined" && window.IFC_PATH_PREFIX) || "/";
+    var lis = funds.map(function (f) {
+      var href = prefix + "peer-funds/#fund-" + f.fund_slug;
+      var nameLink = '<a href="' + escAttr(href) + '" class="commit-fund">' +
+        esc(f.fund_name) + '</a>';
+      var bits = [nameLink];
+      bits.push('<span class="commit-ingo muted">' +
+        (f.ingo_backed ? "INGO-sponsored" : "non-INGO comparable") + '</span>');
+      if (f.source_url) bits.push(sourceLink(f.source_url, "source"));
+      return '<li class="commit-row">' + bits.join('<span class="sep">·</span>') + '</li>';
+    });
+    var summary = "Peer-fund LP commits traceable in scraped LP data (" + funds.length + ")";
+    return '<details class="dfi-commits"><summary>' + summary +
+      '</summary><ul class="commit-list">' + lis.join("") + '</ul>' +
+      '<p class="muted" style="font-size:0.78rem;margin-top:0.4rem;">' +
+      'Drawn from network LP edges (fund_lps.csv pipeline). Distinct from the ' +
+      'registry-side commitment list above, which is curated to INGO-sponsored funds only.' +
+      '</p></details>';
+  }
+
+
   function renderFundCard(f, meta) {
     var parts = [];
     parts.push('<h3 class="fund-name" id="fund-' + escAttr(f.slug) + '">' + esc(f.name) + '</h3>');
@@ -243,6 +277,7 @@
     }
     if (stats.length) parts.push('<div class="dfi-stats">' + stats.join("") + '</div>');
 
+    var netLp = d._network_lp_funds || [];
     if (commits.length > 0) {
       var lis = commits.map(function (c) {
         var prefix = (typeof window !== "undefined" && window.IFC_PATH_PREFIX) || "/";
@@ -258,9 +293,12 @@
         return '<li class="commit-row">' + bits.join('<span class="sep">·</span>') + '</li>';
       });
       parts.push('<details class="dfi-commits" open><summary>Disclosed INGO-GP commitments (' + commits.length + ')</summary><ul class="commit-list">' + lis.join("") + '</ul></details>');
+    } else if (netLp.length > 0) {
+      parts.push('<p class="dfi-commits-empty muted">No INGO-GP commitments curated to the registry yet, but this DFI is named as an LP on ' + netLp.length + ' peer impact fund' + (netLp.length === 1 ? "" : "s") + ' in scraped LP data — see below.</p>');
     } else {
       parts.push('<p class="dfi-commits-empty muted">No INGO-GP fund LP commitments located in public press materials at last verification. Stated sectors and geographies are sourced from this DFI’s own public profile.</p>');
     }
+    parts.push(renderNetworkLpBlock(d));
 
     var prefBits = [];
     if (d.stated_sector_priorities && d.stated_sector_priorities.length) {
@@ -720,6 +758,7 @@
     if (checkStat) stats.push(checkStat);
     if (stats.length) parts.push('<div class="dfi-stats">' + stats.join("") + '</div>');
 
+    var netLp = d._network_lp_funds || [];
     if (commits.length > 0) {
       var lis = commits.map(function (c) {
         var prefix = (typeof window !== "undefined" && window.IFC_PATH_PREFIX) || "/";
@@ -734,9 +773,12 @@
         return '<li class="commit-row">' + bits.join('<span class="sep">·</span>') + '</li>';
       });
       parts.push('<details class="dfi-commits" open><summary>Disclosed INGO-GP commitments (' + commits.length + ')</summary><ul class="commit-list">' + lis.join("") + '</ul></details>');
+    } else if (netLp.length > 0) {
+      parts.push('<p class="dfi-commits-empty muted">No INGO-GP commitments curated to the registry yet, but this foundation is named as an LP on ' + netLp.length + ' peer impact fund' + (netLp.length === 1 ? "" : "s") + ' in scraped LP data — see below.</p>');
     } else {
       parts.push('<p class="dfi-commits-empty muted">No INGO-GP fund LP commitments located in public materials at last verification. Foundation may operate via grants, PRI, or MRI rather than fund-LP commitments — verify via 990s and annual reports.</p>');
     }
+    parts.push(renderNetworkLpBlock(d));
 
     var prefBits = [];
     if (d.stated_priority_themes && d.stated_priority_themes.length) {
@@ -810,6 +852,7 @@
     if (checkStat) stats.push(checkStat);
     if (stats.length) parts.push('<div class="dfi-stats">' + stats.join("") + '</div>');
 
+    var netLp = d._network_lp_funds || [];
     if (commits.length > 0) {
       var lis = commits.map(function (c) {
         var prefix = (typeof window !== "undefined" && window.IFC_PATH_PREFIX) || "/";
@@ -824,9 +867,12 @@
         return '<li class="commit-row">' + bits.join('<span class="sep">·</span>') + '</li>';
       });
       parts.push('<details class="dfi-commits" open><summary>Disclosed INGO-GP commitments (' + commits.length + ')</summary><ul class="commit-list">' + lis.join("") + '</ul></details>');
+    } else if (netLp.length > 0) {
+      parts.push('<p class="dfi-commits-empty muted">No INGO-GP commitments curated to the registry yet, but this entity is named as an LP on ' + netLp.length + ' peer impact fund' + (netLp.length === 1 ? "" : "s") + ' in scraped LP data — see below.</p>');
     } else {
       parts.push('<p class="dfi-commits-empty muted">No INGO-GP fund LP commitments located in public materials at last verification. Family offices and faith-based investors typically disclose less than DFIs — direct outreach is the usual discovery path.</p>');
     }
+    parts.push(renderNetworkLpBlock(d));
 
     var prefBits = [];
     if (d.stated_priority_themes && d.stated_priority_themes.length) {

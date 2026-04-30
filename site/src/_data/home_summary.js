@@ -1,8 +1,10 @@
 const network = require("./network.json");
+const networkLpSummary = require("./network_lp_summary.js");
 
 const ARCHETYPE_ORDER = ["dfi", "foundation", "family-office", "vc", "government", "other"];
 
 module.exports = function () {
+  const { lpCountBySlug: networkLpCountBySlug } = networkLpSummary();
   const investors = new Map();
   network.nodes.forEach((n) => {
     if (n.type === "investor") investors.set(n.id, n);
@@ -68,13 +70,6 @@ module.exports = function () {
   while (featured.length < 6 && featured.length < lpWall.length) {
     featured.push(lpWall[featured.length]);
   }
-
-  // Slug -> network-LP-edge count, for the foundation & family-office shelves.
-  // Network ids look like 'investor:<slug>'; emit a plain slug map.
-  const networkLpCountBySlug = {};
-  lpCountByInvestor.forEach((count, id) => {
-    if (id.startsWith("investor:")) networkLpCountBySlug[id.slice(9)] = count;
-  });
 
   return {
     lpWall,
