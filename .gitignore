@@ -62,6 +62,9 @@ user/
 # Personal export bundles (Claude memory, history, configs)
 _transfer_*/
 
+# Personal scratch / human-only notes
+docs/(for human)*
+
 # Editor / OS
 .DS_Store
 .vscode/
