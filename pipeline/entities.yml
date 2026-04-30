@@ -899,7 +899,7 @@ target_lps:
     aliases: ["KL Felicitas Foundation", "KLF", "Kleissner Foundation", "Charly and Lisa Kleissner"]
     sector_tags: [generalist, gender, climate, smb]
     geo_tags: [global]
-    lp_type: family_office
+    lp_type: foundation
     typical_ticket_usd_m: "1-5"
     public_newsroom_url: https://klfelicitasfoundation.org/
     first_pass_cadence_days: 60
@@ -908,7 +908,7 @@ target_lps:
     aliases: ["Russell Family Foundation", "TRFF"]
     sector_tags: [climate, wash]
     geo_tags: [us, global]
-    lp_type: family_office
+    lp_type: foundation
     typical_ticket_usd_m: "1-5"
     public_newsroom_url: https://www.trff.org/news/
     first_pass_cadence_days: 45
@@ -1061,7 +1061,7 @@ target_lps:
     aliases: ["Prince Albert II of Monaco Foundation", "FPA2"]
     sector_tags: [climate]
     geo_tags: [global]
-    lp_type: family_office
+    lp_type: foundation
     typical_ticket_usd_m: "1-5"
     public_newsroom_url: https://www.fpa2.org/en/news.html
     first_pass_cadence_days: 45

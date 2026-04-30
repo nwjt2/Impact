@@ -3,7 +3,7 @@
 Scrapes named LPs of LeapFrog Investments' Emerging Consumer Fund III
 ($743M, vintage 2017-2019).
 
-Two sources are stitched together — neither alone names the full LP roster:
+Three sources are stitched together — none alone names the full LP roster:
 
 1. Rockefeller Foundation Zero Gap Fund portfolio summary (24 July 2025) —
    names Rockefeller Foundation as catalytic-capital LP via Zero Gap Fund.
@@ -18,11 +18,16 @@ Two sources are stitched together — neither alone names the full LP roster:
    Rockefeller Foundation)."
    https://www.impactinvest.org.uk/case-study/leapfrog-investments-leapfrog-emerging-consumer-fund-iii-lp-2/
 
+3. The Russell Family Foundation impact-investments portfolio disclosure —
+   names "Leapfrog Emerging Consumer Fund III" as a TRFF holding
+   (accessed via Global Impact Access Partnership wrapper).
+   https://trff.org/impact-investments/browse-investments/
+
 Each LP row carries the specific source URL it was sourced from, so the
 provenance of each edge is preserved.
 
 Per advice doc lesson 11: one custom scraper per fund. This file is
-bespoke to the two cited sources — it does not generalise.
+bespoke to the three cited sources — it does not generalise.
 """
 from __future__ import annotations
 
@@ -52,6 +57,7 @@ III_URL = (
     "https://www.impactinvest.org.uk/case-study/"
     "leapfrog-investments-leapfrog-emerging-consumer-fund-iii-lp-2/"
 )
+TRFF_URL = "https://trff.org/impact-investments/browse-investments/"
 
 # Each entry: (source_url, commitment_year, [(canonical, needle), ...],
 #              [extra verification needles to confirm provenance])
@@ -72,6 +78,14 @@ SOURCES: list[tuple[str, str, list[tuple[str, str]], list[str]]] = [
             ("Prudential Financial", "Prudential Financial"),
         ],
         ["LeapFrog", "Emerging Consumer Fund III", "limited partners"],
+    ),
+    (
+        TRFF_URL,
+        "",  # TRFF disclosure does not state commitment year; portfolio reflects current holdings
+        [
+            ("The Russell Family Foundation", "Leapfrog Emerging Consumer Fund III"),
+        ],
+        ["Leapfrog Emerging Consumer Fund III"],
     ),
 ]
 

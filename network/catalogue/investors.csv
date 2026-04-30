@@ -113,8 +113,8 @@ Emerson Collective,emerson-collective,family-office,unknown,https://www.emersonc
 Surdna Foundation,surdna-foundation,foundation,unknown,https://surdna.org/news/,,unknown,active,
 Schmidt Family Foundation / 11th Hour Project,schmidt-family-foundation-11th-hour-project,family-office,unknown,https://tsffoundation.org/our-work/,,unknown,active,
 Sorenson Impact Foundation,sorenson-impact-foundation,family-office,unknown,https://sorensonimpact.com/news/,,unknown,active,
-KL Felicitas Foundation,kl-felicitas-foundation,foundation,unknown,https://klfelicitasfoundation.org/,US,unknown,active,
-The Russell Family Foundation,the-russell-family-foundation,family-office,unknown,https://www.trff.org/news/,,unknown,active,
+KL Felicitas Foundation,kl-felicitas-foundation,foundation,unknown,https://klfelicitasfoundation.org/,,unknown,active,
+The Russell Family Foundation,the-russell-family-foundation,foundation,unknown,https://www.trff.org/news/,,unknown,active,
 Heron Foundation,heron-foundation,family-office,unknown,https://www.heron.org/news,,unknown,active,
 McConnell Foundation,mcconnell-foundation,family-office,unknown,https://mcconnellfoundation.ca/news/,,unknown,active,
 Cordes Foundation,cordes-foundation,family-office,unknown,https://www.cordesfoundation.org/news,,unknown,active,
@@ -129,7 +129,7 @@ Cisneros Foundation,cisneros-foundation,family-office,unknown,https://fundacionc
 Tata Trusts,tata-trusts,family-office,unknown,https://www.tatatrusts.org/our-news/news,,unknown,active,
 Wadhwani Foundation,wadhwani-foundation,family-office,unknown,https://wadhwanifoundation.org/news/,,unknown,active,
 Azim Premji Foundation,azim-premji-foundation,family-office,unknown,https://azimpremjifoundation.org/announcements,,unknown,active,
-Prince Albert II of Monaco Foundation,prince-albert-ii-of-monaco-foundation,family-office,unknown,https://www.fpa2.org/en/news.html,,unknown,active,
+Prince Albert II of Monaco Foundation,prince-albert-ii-of-monaco-foundation,foundation,unknown,https://www.fpa2.org/en/news.html,,unknown,active,
 Esmée Fairbairn Foundation,esmee-fairbairn-foundation,family-office,unknown,https://esmeefairbairn.org.uk/news/,,unknown,active,
 Lankelly Chase,lankelly-chase,family-office,unknown,https://lankellychase.org.uk/blog/,,unknown,active,
 John Ellerman Foundation,john-ellerman-foundation,family-office,unknown,https://ellerman.org.uk/news/,,unknown,active,
@@ -346,3 +346,4 @@ Netri Foundation,netri-foundation,foundation,unknown,,,unknown,active,Discovered
 U.S. Agency for International Development,u-s-agency-for-international-development,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Schmidt Family Foundation,schmidt-family-foundation,foundation,unknown,,US,unknown,active,Schmidt Family Foundation / 11th Hour Project; private 501(c)(3); discovered via Aligned Climate Fund 2 LP scrape.
 Nathan Cummings Foundation,nathan-cummings-foundation,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Paul G. Allen Family Foundation,paul-g-allen-family-foundation,foundation,unknown,,US,unknown,active,Discovered via GFCR LP scrape (2026-04-30); US private foundation co-initiator of Global Fund for Coral Reefs.

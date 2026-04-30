@@ -2842,6 +2842,46 @@ peer_funds:
       /network/ via this edge). Final close, target size, and full LP
       roster pending — flagged validation_status: unverified.
 
+  - slug: gfcr-global-fund-for-coral-reefs
+    name: Global Fund for Coral Reefs (GFCR)
+    manager: Pegasus Capital Advisors (investment window) / UN MPTF Office (grant window)
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2020
+    size_usd_m: 625
+    sector_tags: [climate, biodiversity]
+    geo_tags: [global]
+    vehicle_type: blended
+    first_close_date: 2020-09-16
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Prince Albert II of Monaco Foundation (co-initiator) / Paul G. Allen Family Foundation (co-initiator)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: investing
+    public_source_url: https://www.fpa2.org/en/initiatives/global-fund-for-coral-reefs-008
+    last_seen_at: 2026-04-30
+    validation_status: unverified
+    notes: >
+      Blended-finance fund for coral reef conservation — first global SDG 14
+      financing instrument. Co-initiated 2018 in Monaco by Prince Albert II
+      Foundation and Paul G. Allen Family Foundation; officially launched
+      2020-09-16. Structure: $125m grant window (UN MPTF: UNDP / UNEP /
+      UNCDF) + ~$500m investment window managed by Pegasus Capital Advisors,
+      targeting $2bn leveraged investment. Named partners (per FPA2
+      verbatim): Germany, France, the United Kingdom, Paul G. Allen Family
+      Foundation, Prince Albert II of Monaco Foundation, UNDP, UNEP, UNCDF,
+      BNP Paribas, Pegasus Capital Advisors, International Coral Reef
+      Initiative. Included as comparable because Prince Albert II Foundation
+      is onboarded into /network/ via this edge as a co-initiator/grant
+      contributor; full investment-window LP roster pending. Flagged
+      validation_status: unverified.
+
   # ---------- Network-discovered (unverified — full profile pending) ----------
   #
   # Added 2026-04-29 to make /peer-funds/ a complete superset of /network/'s
