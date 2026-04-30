@@ -7,19 +7,23 @@ fund for coral reef conservation (SDG 14), launched 2020-09-16.
 Structure: $125m grant window (UN MPTF: UNDP / UNEP / UNCDF) +
 ~$500m investment window managed by Pegasus Capital Advisors.
 
-Source: Prince Albert II of Monaco Foundation initiative page —
-https://www.fpa2.org/en/initiatives/global-fund-for-coral-reefs-008
+Sources (per-LP):
+  - Prince Albert II of Monaco Foundation initiative page (FPA2) —
+    https://www.fpa2.org/en/initiatives/global-fund-for-coral-reefs-008
+    Names co-initiators: Prince Albert II Foundation + Paul G. Allen Family Foundation.
 
-Verbatim:
-"Initiated by the Prince Albert II of Monaco Foundation and the Paul G.
-Allen Family Foundation, and conceptualized during a workshop held in the
-Principality of Monaco in 2018, the GFCR has since become a global
-partnership that includes Member States (Germany, France), the United
-Kingdom, philanthropic organizations (the Paul G. Allen Family Foundation
-and the Prince Albert II of Monaco Foundation) ..."
+  - GFCR coalition / news page (globalfundcoralreefs.org) —
+    https://globalfundcoralreefs.org/reef-plus/news/bloomberg-builders-join-gfcr-for-coral-protection/
+    Names 2022 Grant Fund contributors: Bloomberg Philanthropies, Builders Vision.
 
 Per advice doc lesson 11: one custom scraper per fund. This is bespoke to
-the FPA2 initiative-page prose layout.
+the GFCR co-initiator + Grant Fund contributor disclosure pattern.
+
+Note on edge classification: Grant Fund contributions are treated as LP-
+equivalent edges, mirroring the precedent set by the FPA2 entry (the
+co-initiators contributed via the same Grant Fund window, not the
+investment window). If the operator wants to tighten this rule, drop the
+SECOND source block and the Bloomberg/Builders entries.
 """
 from __future__ import annotations
 
@@ -37,20 +41,36 @@ from network.utils.http import USER_AGENT  # noqa: E402
 from network.utils.slugify import slugify  # noqa: E402
 
 SCRAPER_NAME = "fund_lp_scraper_GFCR"
-SOURCE_URL = "https://www.fpa2.org/en/initiatives/global-fund-for-coral-reefs-008"
 FUND_SLUG = "gfcr-global-fund-for-coral-reefs"
 INGO_SLUG = ""
-COMMITMENT_YEAR = "2020"  # GFCR officially launched 2020-09-16
 
-GFCR_LPs: list[tuple[str, str]] = [
-    ("Prince Albert II of Monaco Foundation", "Prince Albert II of Monaco Foundation"),
-    ("Paul G. Allen Family Foundation", "Paul G. Allen Family Foundation"),
-]
-
-CONTEXT_NEEDLES = [
-    "Global Fund for Coral Reefs",
-    "Initiated by the Prince Albert II of Monaco Foundation",
-    "philanthropic organizations",
+# Each source: (url, commitment_year, [(canonical_name, needle), ...], [context_needles])
+SOURCES: list[tuple[str, str, list[tuple[str, str]], list[str]]] = [
+    (
+        "https://www.fpa2.org/en/initiatives/global-fund-for-coral-reefs-008",
+        "2020",  # GFCR officially launched 2020-09-16
+        [
+            ("Prince Albert II of Monaco Foundation", "Prince Albert II of Monaco Foundation"),
+            ("Paul G. Allen Family Foundation", "Paul G. Allen Family Foundation"),
+        ],
+        [
+            "Global Fund for Coral Reefs",
+            "Initiated by the Prince Albert II of Monaco Foundation",
+            "philanthropic organizations",
+        ],
+    ),
+    (
+        "https://globalfundcoralreefs.org/reef-plus/news/bloomberg-builders-join-gfcr-for-coral-protection/",
+        "2022",  # Bloomberg / Builders 2022 Grant Fund contributions
+        [
+            ("Bloomberg Philanthropies", "Bloomberg Philanthropies"),
+            ("Builders Vision", "Builders Vision"),
+        ],
+        [
+            "Global Fund for Coral Reefs",
+            "Grant Fund",
+        ],
+    ),
 ]
 
 OUTPUT_HEADERS = [
@@ -67,48 +87,49 @@ OUTPUT_HEADERS = [
 
 
 def scrape(run_number: int, output_dir: Path | str) -> int:
-    r = httpx.get(
-        SOURCE_URL,
-        headers={"User-Agent": USER_AGENT},
-        timeout=30.0,
-        follow_redirects=True,
-    )
-    r.raise_for_status()
-    html = r.content.decode("utf-8", errors="replace")
-
-    missing_context = [n for n in CONTEXT_NEEDLES if n not in html]
-    if missing_context:
-        raise RuntimeError(
-            f"{SCRAPER_NAME}: source no longer describes the GFCR co-initiator "
-            f"relationship — missing context: {missing_context}"
-        )
-
     rows: list[dict] = []
     today = date.today().isoformat()
-    missing: list[str] = []
+    all_missing: list[str] = []
 
-    for canonical, needle in GFCR_LPs:
-        if needle not in html:
-            missing.append(canonical)
-            continue
-        rows.append(
-            {
-                "Fund Slug": FUND_SLUG,
-                "INGO Slug": INGO_SLUG,
-                "LP Name": canonical,
-                "LP Slug": slugify(canonical),
-                "Commitment Year": COMMITMENT_YEAR,
-                "Source URL": SOURCE_URL,
-                "Source Date": today,
-                "Confidence": "confirmed",
-                "Scraping Method Used": SCRAPER_NAME,
-            }
+    for source_url, year, lps, context_needles in SOURCES:
+        r = httpx.get(
+            source_url,
+            headers={"User-Agent": USER_AGENT},
+            timeout=30.0,
+            follow_redirects=True,
         )
+        r.raise_for_status()
+        html = r.content.decode("utf-8", errors="replace")
 
-    if missing:
+        missing_context = [n for n in context_needles if n not in html]
+        if missing_context:
+            raise RuntimeError(
+                f"{SCRAPER_NAME}: source {source_url} no longer describes the GFCR "
+                f"relationship — missing context: {missing_context}"
+            )
+
+        for canonical, needle in lps:
+            if needle not in html:
+                all_missing.append(f"{canonical} (in {source_url})")
+                continue
+            rows.append(
+                {
+                    "Fund Slug": FUND_SLUG,
+                    "INGO Slug": INGO_SLUG,
+                    "LP Name": canonical,
+                    "LP Slug": slugify(canonical),
+                    "Commitment Year": year,
+                    "Source URL": source_url,
+                    "Source Date": today,
+                    "Confidence": "confirmed",
+                    "Scraping Method Used": SCRAPER_NAME,
+                }
+            )
+
+    if all_missing:
         raise RuntimeError(
-            f"{SCRAPER_NAME}: {len(missing)} expected LP(s) not found in source "
-            f"(page may have been edited): {missing}"
+            f"{SCRAPER_NAME}: {len(all_missing)} expected LP(s) not found in source "
+            f"(page may have been edited): {all_missing}"
         )
 
     out_path = Path(output_dir) / f"run_{run_number}" / f"{FUND_SLUG}.csv"

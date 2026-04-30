@@ -2826,7 +2826,7 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
-    status: investing
+    status: deployed
     public_source_url: https://www.rockefellerfoundation.org/news/nathan-cummings-rockefeller-and-schmidt-family-foundations-invest-in-aligned-climate-capitals-fund-2/
     last_seen_at: 2026-04-30
     validation_status: unverified
@@ -2863,7 +2863,7 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
-    status: investing
+    status: deployed
     public_source_url: https://www.fpa2.org/en/initiatives/global-fund-for-coral-reefs-008
     last_seen_at: 2026-04-30
     validation_status: unverified

@@ -118,14 +118,14 @@ foundations:
     aum_usd_m_year: null
     stated_priority_themes: [climate, health, gender]
     stated_geo_focus: [global]
-    stated_thesis_url: null
+    stated_thesis_url: https://www.packard.org/what-we-fund/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 3
     typical_check_usd_m_max: 15
     pri_program: null
     mri_program: null
-    public_newsroom_url: null
-    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.packard.org/insights/
+    last_seen_at: 2026-04-29
 
   - slug: hilton-foundation
     name: Conrad N. Hilton Foundation
@@ -208,14 +208,14 @@ foundations:
     aum_usd_m_year: null
     stated_priority_themes: [health, housing]
     stated_geo_focus: [us]
-    stated_thesis_url: null
+    stated_thesis_url: https://www.rwjf.org/en/about-rwjf.html
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 3
     typical_check_usd_m_max: 15
     pri_program: null
     mri_program: null
-    public_newsroom_url: null
-    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.rwjf.org/en/about-rwjf/newsroom.html
+    last_seen_at: 2026-04-29
 
   - slug: mcknight-foundation
     name: McKnight Foundation
@@ -372,14 +372,14 @@ foundations:
     aum_usd_m_year: null
     stated_priority_themes: [edu, climate, health]
     stated_geo_focus: [global, us]
-    stated_thesis_url: null
+    stated_thesis_url: https://www.emersoncollective.com/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 3
     typical_check_usd_m_max: 15
     pri_program: null
     mri_program: null
     public_newsroom_url: null
-    last_seen_at: 2026-04-27
+    last_seen_at: 2026-04-29
 
   # ---- Mastercard Foundation, CIFF, Wellcome — large global private ----
 
@@ -702,14 +702,14 @@ foundations:
     aum_usd_m_year: null
     stated_priority_themes: [health]
     stated_geo_focus: [global]
-    stated_thesis_url: null
+    stated_thesis_url: https://www.pfizer.com/about/responsibility/global-impact/the-pfizer-foundation
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 1
     typical_check_usd_m_max: 5
     pri_program: null
     mri_program: null
     public_newsroom_url: null
-    last_seen_at: 2026-04-27
+    last_seen_at: 2026-04-29
 
   - slug: autodesk-foundation
     name: Autodesk Foundation
@@ -720,14 +720,14 @@ foundations:
     aum_usd_m_year: null
     stated_priority_themes: [climate, edu]
     stated_geo_focus: [global]
-    stated_thesis_url: null
+    stated_thesis_url: https://www.autodesk.org/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 1
     typical_check_usd_m_max: 5
     pri_program: null
     mri_program: null
-    public_newsroom_url: null
-    last_seen_at: 2026-04-27
+    public_newsroom_url: https://blogs.autodesk.com/autodesk-foundation/
+    last_seen_at: 2026-04-29
 
   - slug: patagonia-holdfast
     name: Patagonia / Holdfast Collective
@@ -812,14 +812,14 @@ foundations:
     aum_usd_m_year: null
     stated_priority_themes: [health]
     stated_geo_focus: [africa, asia, global]
-    stated_thesis_url: null
+    stated_thesis_url: https://www.gavi.org/our-alliance/about
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 10
     typical_check_usd_m_max: 100
     pri_program: null
     mri_program: null
-    public_newsroom_url: null
-    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.gavi.org/news-insights
+    last_seen_at: 2026-04-29
 
   - slug: global-fund
     name: The Global Fund
@@ -998,14 +998,14 @@ foundations:
     aum_usd_m_year: null
     stated_priority_themes: [gender, smb, fi]
     stated_geo_focus: [global]
-    stated_thesis_url: null
+    stated_thesis_url: https://cordesfoundation.org/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 1
     typical_check_usd_m_max: 5
     pri_program: null
     mri_program: null
-    public_newsroom_url: null
-    last_seen_at: 2026-04-27
+    public_newsroom_url: https://cordesfoundation.org/press
+    last_seen_at: 2026-04-29
 
   - slug: esmee-fairbairn-foundation
     name: Esmée Fairbairn Foundation
@@ -1016,14 +1016,14 @@ foundations:
     aum_usd_m_year: null
     stated_priority_themes: [climate, fi, smb]
     stated_geo_focus: [uk, global]
-    stated_thesis_url: null
+    stated_thesis_url: https://esmeefairbairn.org.uk/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 1
     typical_check_usd_m_max: 5
     pri_program: null
     mri_program: null
     public_newsroom_url: null
-    last_seen_at: 2026-04-27
+    last_seen_at: 2026-04-29
 
   - slug: helmsley-charitable-trust
     name: Helmsley Charitable Trust
@@ -1088,14 +1088,14 @@ foundations:
     aum_usd_m_year: null
     stated_priority_themes: [climate, smb]
     stated_geo_focus: [uk]
-    stated_thesis_url: null
+    stated_thesis_url: https://ellerman.org.uk/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 1
     typical_check_usd_m_max: 3
     pri_program: null
     mri_program: null
-    public_newsroom_url: null
-    last_seen_at: 2026-04-27
+    public_newsroom_url: https://ellerman.org.uk/blog
+    last_seen_at: 2026-04-29
 
   - slug: kl-felicitas-foundation
     name: KL Felicitas Foundation
@@ -1250,14 +1250,14 @@ foundations:
     aum_usd_m_year: null
     stated_priority_themes: [fi, smb, gender, edu]
     stated_geo_focus: [global, us]
-    stated_thesis_url: null
+    stated_thesis_url: https://sorensonimpactfoundation.org/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 1
     typical_check_usd_m_max: 10
     pri_program: null
     mri_program: null
-    public_newsroom_url: null
-    last_seen_at: 2026-04-27
+    public_newsroom_url: https://sorensonimpactfoundation.org/the-latest/
+    last_seen_at: 2026-04-29
 
   - slug: tara-health-foundation
     name: Tara Health Foundation
@@ -1268,14 +1268,14 @@ foundations:
     aum_usd_m_year: null
     stated_priority_themes: [gender, health]
     stated_geo_focus: [global, us]
-    stated_thesis_url: null
+    stated_thesis_url: https://tarahealthfoundation.org/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 1
     typical_check_usd_m_max: 5
     pri_program: null
     mri_program: null
     public_newsroom_url: null
-    last_seen_at: 2026-04-27
+    last_seen_at: 2026-04-29
 
   - slug: tata-trusts
     name: Tata Trusts
@@ -1286,14 +1286,14 @@ foundations:
     aum_usd_m_year: null
     stated_priority_themes: [health, edu, agri]
     stated_geo_focus: [asia]
-    stated_thesis_url: null
+    stated_thesis_url: https://www.tatatrusts.org/our-work
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 5
     typical_check_usd_m_max: 25
     pri_program: null
     mri_program: null
-    public_newsroom_url: null
-    last_seen_at: 2026-04-27
+    public_newsroom_url: https://www.tatatrusts.org/media
+    last_seen_at: 2026-04-29
 
   - slug: wadhwani-foundation
     name: Wadhwani Foundation
@@ -1698,5 +1698,81 @@ foundations:
     pri_program: null
     mri_program: null
     public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  # ---- Surfaced via /add-foundation-edges skill (round 2) ----
+  # 4 new foundations discovered as LPs by skill-added scrapers
+  # (Transform Health Fund, Aligned Climate Fund 2, GFCR). Added 2026-04-29.
+
+  - slug: anesvad-foundation
+    name: Anesvad Foundation
+    aliases: ["Anesvad Foundation", "Anesvad"]
+    country: "ES"
+    foundation_type: public_charity
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health]
+    stated_geo_focus: [africa, global]
+    stated_thesis_url: https://www.anesvad.org/en/
+    stated_thesis_excerpt: "We exist so the most forgotten people, in the most forgotten places, have the right to health."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.anesvad.org/en/last-news/
+    last_seen_at: 2026-04-29
+
+  - slug: nathan-cummings-foundation
+    name: Nathan Cummings Foundation
+    aliases: ["Nathan Cummings Foundation", "NCF"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, generalist]
+    stated_geo_focus: [us]
+    stated_thesis_url: https://nathancummings.org/
+    stated_thesis_excerpt: "NCF is working to help create a more just, vibrant, sustainable, and democratic society."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://nathancummings.org/press/
+    last_seen_at: 2026-04-29
+
+  - slug: netri-foundation
+    name: Netri Foundation
+    aliases: ["Netri Foundation", "Fundación Netri"]
+    country: "ES"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health, edu, generalist]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://fundacion-netri.org/en/purpose/
+    stated_thesis_excerpt: "Social investments to fight poverty"
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: null
+    last_seen_at: 2026-04-29
+
+  - slug: paul-g-allen-family-foundation
+    name: Paul G. Allen Family Foundation
+    aliases: ["Paul G. Allen Family Foundation", "Allen Family Philanthropies"]
+    country: "US"
+    foundation_type: private
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, generalist]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: https://www.allenphilanthropies.org/who-we-are
+    stated_thesis_excerpt: "Building thriving and resilient communities in the Pacific Northwest and beyond."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    pri_program: null
+    mri_program: null
+    public_newsroom_url: https://www.allenphilanthropies.org/news-and-stories
     last_seen_at: 2026-04-29
 
