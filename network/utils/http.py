@@ -12,11 +12,7 @@ from pathlib import Path
 
 import httpx
 
-USER_AGENT = (
-    "ingo-first-close-bot/0.1 "
-    "(+https://github.com/Sally-Mason/Impact; "
-    "research; contact via repo issues)"
-)
+USER_AGENT = "ingo-first-close-bot/0.1 (research)"
 TIMEOUT = httpx.Timeout(30.0)
 DEFAULT_SLEEP = 1.5
 
