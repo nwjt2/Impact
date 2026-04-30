@@ -1123,13 +1123,12 @@ dfi_profiles:
     status: defunct
     defunct_since: 2025-07-01
     defunct_note: |
-      Power Africa was a USAID-led initiative. USAID officially ceased
-      operations on 1 July 2025 after the Trump administration's
-      dismantling of the agency (94% of staff laid off by mid-2025;
-      remaining functions absorbed into State Department). Power Africa
-      programmes have been terminated and usaid.gov/powerafrica/newsroom
-      now returns 404. Retained on this page as a historical track-
-      record reference for INGO funds that were anchored by Power Africa.
+      Power Africa was a USAID-led initiative. USAID ceased operations
+      on 1 July 2025; remaining functions were transferred to the
+      State Department. Power Africa programmes have been terminated
+      and usaid.gov/powerafrica/newsroom now returns 404. Retained on
+      this page as a historical track-record reference for INGO funds
+      that were anchored by Power Africa.
 
   - dfi_slug: usaid-div
     dfi_name: USAID Development Innovation Ventures
@@ -1149,10 +1148,9 @@ dfi_profiles:
     defunct_note: |
       USAID Development Innovation Ventures (DIV) was a tiered grant
       programme (Stages 1–3, $200k–$15m) that funded innovation pilots.
-      USAID was dismantled by the Trump administration and ceased
-      operations on 1 July 2025; DIV's funding was cut and usaid.gov/div
-      now returns 404. Retained as a historical track-record reference
-      only.
+      USAID ceased operations on 1 July 2025; DIV funding was
+      discontinued and usaid.gov/div now returns 404. Retained as a
+      historical track-record reference only.
 
   - dfi_slug: ukfcdo
     dfi_name: UK FCDO
