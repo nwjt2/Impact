@@ -3349,3 +3349,40 @@ peer_funds:
       Ceniarth. Surfaces Grand Challenges Canada, Skoll Foundation,
       UBS Optimus Foundation, Anesvad Foundation, and Netri Foundation
       as foundation/public-charity LPs on /network/.
+
+  - slug: meloy-fund-i
+    name: Meloy Fund I, LP
+    manager: Deliberate Capital
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2017
+    size_usd_m: 22
+    sector_tags: [climate, biodiversity]
+    geo_tags: [asia]
+    vehicle_type: closed_end_fund
+    first_close_date: 2017-08-04
+    final_close_date: 2017-12-01
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Global Environment Facility (GEF)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.prweb.com/releases/impact_investment_fund_marks_first_close_of_10_million_for_sustainable_coastal_fisheries/prweb14562946.htm
+    last_seen_at: 2026-04-30
+    validation_status: unverified
+    notes: >
+      First-of-its-kind impact investment fund (debt + equity) dedicated to
+      sustainable small-scale coastal fisheries in Indonesia and the
+      Philippines. First close August 2017 at US$10M; final close December
+      2017 at US$22M. The General Partner is a wholly-owned subsidiary of
+      Rare, the US-based global conservation INGO; Dale Galvin (Rare's
+      Sustainable Markets group) is named Manager of the GP. Named LPs in
+      the first-close press release: Walton Family Foundation (committed
+      via the Lukas Walton Fund of the Walton Family Foundation) and the
+      Global Environment Facility (GEF) as anchor investor (US$6M).
+      Surfaces Walton Family Foundation as a foundation LP on /network/.
