@@ -3231,3 +3231,44 @@ peer_funds:
       Finance Fund (ILFF) Stichting umbrella, co-managed by iGravity
       and Roots of Impact. Surfaces Jacobs Foundation as a foundation
       LP on /network/.
+
+  - slug: transform-health-fund
+    name: Transform Health Fund
+    manager: AfricInvest
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2023
+    size_usd_m: 111
+    sector_tags: [health]
+    geo_tags: [africa]
+    vehicle_type: closed_end_fund
+    first_close_date: 2023-09-01
+    final_close_date: 2024-10-03
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Royal Philips
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Health Finance Coalition
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.grandchallenges.ca/2024/thf-final-close/
+    last_seen_at: 2026-04-30
+    validation_status: unverified
+    notes: >
+      Blended-finance debt/mezzanine fund co-managed by AfricInvest and
+      the Health Finance Coalition (Malaria No More US-convened
+      coalition), targeting African healthcare supply chains, care
+      delivery, and digital health. First close 2023 ($50M), final close
+      3 October 2024 at $111M. Catalytic capital (first-loss /
+      concessional) provided by Grand Challenges Canada ($5M, ~25% of
+      catalytic pool) with funding from Global Affairs Canada, USAID,
+      Skoll Foundation, UBS Optimus Foundation, Anesvad Foundation,
+      Netri Foundation, and Chemonics. Senior LPs: Royal Philips, IFC,
+      Swedfund, US DFC, Proparco, MSD (Merck), FSD Africa Investments,
+      ImpactAssets, Global Health Investment Corporation (GHIC),
+      Ceniarth. Surfaces Grand Challenges Canada, Skoll Foundation,
+      UBS Optimus Foundation, Anesvad Foundation, and Netri Foundation
+      as foundation/public-charity LPs on /network/.
