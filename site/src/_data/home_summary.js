@@ -9,8 +9,12 @@ module.exports = function () {
   });
 
   const fundNames = new Map();
+  const fundIsIngo = new Map();
   network.nodes.forEach((n) => {
-    if (n.type === "fund") fundNames.set(n.id, n.name || n.id);
+    if (n.type === "fund") {
+      fundNames.set(n.id, n.name || n.id);
+      fundIsIngo.set(n.id, Boolean(n.ingo_slug));
+    }
   });
 
   const lpFunds = new Map();
@@ -20,6 +24,13 @@ module.exports = function () {
     if (!lpFunds.has(e.source)) lpFunds.set(e.source, []);
     lpFunds.get(e.source).push(fundNames.get(e.target) || e.target);
     lpFundsCovered.add(e.target);
+  });
+
+  let lpFundsCoveredIngo = 0;
+  let lpFundsCoveredComparable = 0;
+  lpFundsCovered.forEach((id) => {
+    if (fundIsIngo.get(id)) lpFundsCoveredIngo += 1;
+    else lpFundsCoveredComparable += 1;
   });
 
   const lpWall = [...lpFunds.entries()]
@@ -53,6 +64,8 @@ module.exports = function () {
     lpWall,
     lpDistinctCount: lpWall.length,
     lpFundsCoveredCount: lpFundsCovered.size,
+    lpFundsCoveredIngo,
+    lpFundsCoveredComparable,
     lpFundsTotal: network.stats.fund_count,
     lpArchetypeRollup,
     lpFeatured: featured,
