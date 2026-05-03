@@ -262,7 +262,7 @@ peer_funds:
     placement_agent: null
     status: deployed
     public_source_url: https://www.savethechildren.net/news/save-children-announces-new-global-investment-entity-deliver-social-benefit-millions-children
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-03
     notes: >
       Globally-launched 2022-11-16 (built on a 2019/2020 Australian
       precursor — the world's first child-focused impact fund at
@@ -293,7 +293,7 @@ peer_funds:
     placement_agent: null
     status: deployed
     public_source_url: https://www.nature.org/en-us/about-us/who-we-are/how-we-work/finance-investing/naturevest/
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-03
     notes: >
       Established 2014 by TNC with founding support from JPMorgan Chase.
       Has closed ~12 deals representing ~$1.3bn committed capital
@@ -325,7 +325,7 @@ peer_funds:
     placement_agent: null
     status: deployed
     public_source_url: https://the.akdn/en/how-we-work/our-agencies/aga-khan-fund-economic-development
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-03
     # status: unverified — homepage URL resolves but precise founding date
     # and "$4.5bn" AUM figure not confirmed in current public materials.
     notes: >
@@ -357,7 +357,7 @@ peer_funds:
     placement_agent: null
     status: deployed
     public_source_url: https://the.akdn/en/how-we-work/our-agencies/aga-khan-agency-microfinance
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-03
     notes: >
       Microfinance arm of AKDN; holding company structure across multiple
       country microfinance institutions. Structurally a bank holding,
@@ -386,7 +386,7 @@ peer_funds:
     placement_agent: null
     status: deployed
     public_source_url: https://www.conservation.org/projects/conservation-international-ventures-llc
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-03
     notes: >
       CI Ventures plans 100 deals totaling $30m of CI capital with $200m
       planned co-financing/private capital over a decade. First five
@@ -449,7 +449,7 @@ peer_funds:
     placement_agent: null
     status: deployed
     public_source_url: https://www.christianaid.org.uk/get-involved/fundraising/philanthropic-capital-investment-fund
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-03
     # status: unverified — no formal vehicle launch date or capitalization in
     # public record; current page describes it as a "collective giving platform"
     # rather than a registered investment fund.
