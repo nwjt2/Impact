@@ -384,7 +384,9 @@ pageKey: timeline
     var ROW_H = 30, ROW_GAP = 6;
     var LABEL_W = 420, BAR_AREA = 540, RIGHT_PAD = 240, PADDING = 14;
     var width = LABEL_W + BAR_AREA + RIGHT_PAD + PADDING * 2;
-    var TOP = 38;
+    // TOP is the y of the first row. Above it: 36px reserved for the
+    // median callout band, then 14px for axis ticks (axisY = TOP - 14).
+    var TOP = 56;
     var height = TOP + rows.length * (ROW_H + ROW_GAP) + 44;
 
     var x0 = PADDING + LABEL_W;
@@ -418,18 +420,20 @@ pageKey: timeline
       var medX = xFor(aMed);
       parts.push('<line class="tl-median" x1="' + medX + '" x2="' + medX
         + '" y1="' + (TOP - 4) + '" y2="' + (height - 24) + '" />');
-      parts.push('<text class="tl-median-label" x="' + medX + '" y="' + (TOP - 18)
+      // Sits in the dedicated callout band, ~16px above the axis ticks.
+      parts.push('<text class="tl-median-label" x="' + medX + '" y="' + (TOP - 36)
         + '" text-anchor="middle">median ' + I.esc(fmtMonths(aMed)) + '</text>');
     }
 
-    // "You are here" vertical line
+    // "You are here" vertical line — label sits in the same callout band
+    // as the median, but offset by 14px so the two never collide.
     if (state.youAnnounce) {
       var youElapsed = monthsBetween(state.youAnnounce, TODAY);
       if (youElapsed >= 0 && youElapsed <= maxMonths) {
         var yx = xFor(youElapsed);
         parts.push('<line class="tl-you" x1="' + yx + '" x2="' + yx
-          + '" y1="' + (TOP - 8) + '" y2="' + (height - 24) + '" />');
-        parts.push('<text class="tl-you-label" x="' + yx + '" y="' + (TOP - 14)
+          + '" y1="' + (TOP - 4) + '" y2="' + (height - 24) + '" />');
+        parts.push('<text class="tl-you-label" x="' + yx + '" y="' + (TOP - 50)
           + '" text-anchor="middle">you · ' + I.esc(fmtMonths(youElapsed)) + '</text>');
       }
     }
