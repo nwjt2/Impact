@@ -614,3 +614,179 @@ family_offices:
     invests_via_grants: null
     public_newsroom_url: https://impactassets.org/news/
     last_seen_at: 2026-04-27
+
+  # ---- Family offices / philanthropies discovered as LPs but not previously curated ----
+  # Honest-null: stated themes / geo focus / check size left null until
+  # primary-source verification. Country and category populated from
+  # well-known general knowledge.
+
+  - slug: alvarium
+    name: Alvarium
+    aliases: ["Alvarium", "Alvarium Investments", "Alvarium Tiedemann"]
+    country: "GB"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+
+  - slug: dreilinden
+    name: Dreilinden
+    aliases: ["Dreilinden", "Dreilinden gGmbH"]
+    country: "DE"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+
+  - slug: ferd
+    name: Ferd
+    aliases: ["Ferd", "Ferd AS", "Ferd Sosiale Entreprenører", "Ferd Social Entrepreneurs"]
+    country: "NO"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+
+  - slug: korys
+    name: Korys
+    aliases: ["Korys", "Korys Investments"]
+    country: "BE"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+
+  - slug: legatum
+    name: Legatum
+    aliases: ["Legatum", "Legatum Group"]
+    country: "AE"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+
+  - slug: sobrato-philanthropies
+    name: Sobrato Philanthropies
+    aliases: ["Sobrato Philanthropies", "Sobrato Family Foundation"]
+    country: "US"
+    category: philanthropy_llc
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+
+  - slug: the-russell-family-foundation
+    name: The Russell Family Foundation
+    aliases: ["The Russell Family Foundation", "Russell Family Foundation", "TRFF"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+
+  - slug: the-todd-and-anne-mccormack-fund
+    name: The Todd and Anne McCormack Fund
+    aliases: ["The Todd and Anne McCormack Fund", "Todd and Anne McCormack Fund"]
+    country: "US"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+
+  - slug: volksvermogen
+    name: Volksvermogen
+    aliases: ["Volksvermogen"]
+    country: "BE"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04

@@ -30,6 +30,7 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from network.utils.csv_io import read_rows, write_rows  # noqa: E402
 from network.utils.aliases import canonicalize_investor_slug, is_deprecated_investor_slug  # noqa: E402
+from network.utils.investor_classifier import classify_investor_type as _classify_investor_type  # noqa: E402
 
 INDIVIDUAL_DIR = REPO_ROOT / "network" / "fund_lp_scraping" / "individual_fund_lps"
 COMBINED_DIR = REPO_ROOT / "network" / "fund_lp_scraping" / "combined_fund_lps"
@@ -112,41 +113,6 @@ def _read_run_number() -> int:
         return 1
     state = json.loads(RUN_STATE_JSON.read_text(encoding="utf-8"))
     return max(1, int(state.get("current_run") or 1))
-
-
-def _classify_investor_type(name: str) -> str:
-    """Best-guess investor type. Same heuristic as combine_portco_investors.
-
-    Operator review can refine.
-    """
-    n = name.lower()
-    if "family" in n and ("foundation" in n or "fund" in n or "office" in n):
-        return "family-office"
-    if any(w in n for w in ["usaid", "fcdo", "norad", "sida", "ministry", "department of"]):
-        return "government"
-    if n.startswith("government of"):
-        return "government"
-    if "development finance" in n or " dfi " in f" {n} ":
-        return "dfi"
-    vc_suffixes = (" ventures", " capital", " partners", " angel", " holdings")
-    if any(n.endswith(s) for s in vc_suffixes):
-        return "vc"
-    well_known_vc = (
-        "andreessen horowitz", "a16z", "sequoia", "tiger global",
-        "y combinator", "kindred", "variant", "sv angel", "coinbase",
-        "lowercarbon", "floating point",
-    )
-    if any(w in n for w in well_known_vc):
-        return "vc"
-    if "foundation" in n or "philanthropy" in n or "philanthrophy" in n:
-        return "foundation"
-    if "missionary" in n or "sister" in n or "religious" in n:
-        return "foundation"
-    if "investment services" in n or "charitable" in n:
-        return "foundation"
-    if "advisors" in n or "advisor" in n:
-        return "other"
-    return "other"
 
 
 def _read_primary_rows(run_number: int) -> tuple[list[dict], int, int]:

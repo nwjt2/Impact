@@ -29,12 +29,18 @@ permalink: /network/
   .lg-cell-both      { background: #c4a83a; position: relative; }
   .lg-cell-both::after { content: ''; position: absolute; left: 50%; top: 50%; width: 4px; height: 4px;
                          background: #0e0f12; border-radius: 50%; transform: translate(-50%, -50%); }
-  .lg-dfi        { background: #e25c5c; }
-  .lg-vc         { background: #3ed7b3; }
-  .lg-foundation { background: #d6b94a; }
-  .lg-family     { background: #b86bdf; }
-  .lg-government { background: #4a9cd6; }
-  .lg-other      { background: #6c8aac; }
+  .lg-dfi             { background: #e25c5c; }
+  .lg-foundation      { background: #d6b94a; }
+  .lg-family          { background: #b86bdf; }
+  .lg-asset-manager   { background: #4ec5a6; }
+  .lg-bank            { background: #c97c3e; }
+  .lg-pension-fund    { background: #7a8aab; }
+  .lg-corporate       { background: #8a7448; }
+  .lg-bilateral-donor { background: #2c6d9c; }
+  .lg-government      { background: #4a9cd6; }
+  .lg-cooperative-ngo { background: #94a64a; }
+  .lg-vc              { background: #3ed7b3; }
+  .lg-other           { background: #6c8aac; }
 
   /* View tabs */
   .view-tabs { display: flex; gap: 0; margin: 1rem 0 0.5rem; border-bottom: 1px solid #2c2c2c; }
@@ -197,10 +203,16 @@ permalink: /network/
           <h4>Investor archetypes (row dot colour)</h4>
           <ul class="legend-list">
             <li><span class="lg-shape lg-dot lg-dfi"></span> <b>DFI</b> — development finance institution (BII, IFC, US DFC, Norfund …)</li>
+            <li><span class="lg-shape lg-dot lg-foundation"></span> <b>Foundation</b> (Gates, Skoll, Hilton …)</li>
+            <li><span class="lg-shape lg-dot lg-family"></span> <b>Family office</b> (private wealth, philanthropy LLCs)</li>
+            <li><span class="lg-shape lg-dot lg-asset-manager"></span> <b>Asset manager / MIV</b> (Symbiotics, Triple Jump, Nuveen, Impax …)</li>
+            <li><span class="lg-shape lg-dot lg-bank"></span> <b>Bank</b> (Rabobank, Standard Chartered, Banca Etica …)</li>
+            <li><span class="lg-shape lg-dot lg-pension-fund"></span> <b>Pension fund</b> (APG, KBC Pensioenfonds …)</li>
+            <li><span class="lg-shape lg-dot lg-corporate"></span> <b>Corporate</b> (Mastercard, Starbucks, Reckitt …)</li>
+            <li><span class="lg-shape lg-dot lg-bilateral-donor"></span> <b>Bilateral donor</b> (USAID, BMZ, DFAT, Swiss Dev Coop …)</li>
+            <li><span class="lg-shape lg-dot lg-government"></span> <b>Sovereign government</b> (Côte d'Ivoire, Tunisia, Luxembourg …)</li>
+            <li><span class="lg-shape lg-dot lg-cooperative-ngo"></span> <b>Cooperative / NGO</b> (Boerenbond, MRBB, Oxfam, MEDA …)</li>
             <li><span class="lg-shape lg-dot lg-vc"></span> <b>VC / private fund</b> (Andreessen Horowitz, Coinbase Ventures …)</li>
-            <li><span class="lg-shape lg-dot lg-foundation"></span> <b>Foundation</b> (Gates, Skoll …)</li>
-            <li><span class="lg-shape lg-dot lg-family"></span> <b>Family office</b> (private wealth)</li>
-            <li><span class="lg-shape lg-dot lg-government"></span> <b>Government agency</b> (USAID …)</li>
             <li><span class="lg-shape lg-dot lg-other"></span> <b>Other</b> (donor-advised, mixed, unclassified)</li>
           </ul>
         </div>
@@ -233,10 +245,16 @@ permalink: /network/
     <fieldset class="ctrl-group">
       <legend>Investor / funder kinds</legend>
       <label><input type="checkbox" data-itype="dfi" checked> <span class="lg-shape lg-dot lg-dfi"></span> DFIs</label>
-      <label><input type="checkbox" data-itype="vc" checked> <span class="lg-shape lg-dot lg-vc"></span> VC / private funds</label>
       <label><input type="checkbox" data-itype="foundation" checked> <span class="lg-shape lg-dot lg-foundation"></span> Foundations</label>
       <label><input type="checkbox" data-itype="family-office" checked> <span class="lg-shape lg-dot lg-family"></span> Family offices</label>
-      <label><input type="checkbox" data-itype="government" checked> <span class="lg-shape lg-dot lg-government"></span> Government</label>
+      <label><input type="checkbox" data-itype="asset-manager" checked> <span class="lg-shape lg-dot lg-asset-manager"></span> Asset managers / MIVs</label>
+      <label><input type="checkbox" data-itype="bank" checked> <span class="lg-shape lg-dot lg-bank"></span> Banks</label>
+      <label><input type="checkbox" data-itype="pension-fund" checked> <span class="lg-shape lg-dot lg-pension-fund"></span> Pension funds</label>
+      <label><input type="checkbox" data-itype="corporate" checked> <span class="lg-shape lg-dot lg-corporate"></span> Corporates</label>
+      <label><input type="checkbox" data-itype="bilateral-donor" checked> <span class="lg-shape lg-dot lg-bilateral-donor"></span> Bilateral donors</label>
+      <label><input type="checkbox" data-itype="government" checked> <span class="lg-shape lg-dot lg-government"></span> Sovereign government</label>
+      <label><input type="checkbox" data-itype="cooperative-ngo" checked> <span class="lg-shape lg-dot lg-cooperative-ngo"></span> Cooperative / NGO</label>
+      <label><input type="checkbox" data-itype="vc" checked> <span class="lg-shape lg-dot lg-vc"></span> VC / private funds</label>
       <label><input type="checkbox" data-itype="other" checked> <span class="lg-shape lg-dot lg-other"></span> Other</label>
     </fieldset>
 
@@ -329,13 +347,21 @@ permalink: /network/
   // Archetype palette — distinct enough that "other" doesn't read as
   // an empty cell. Empty cells are NOT drawn (the matrix background is
   // the empty state) so any visible square is signal.
+  // 12-archetype enum — kept in sync with network.utils.investor_classifier.ARCHETYPES
+  // and the CSS palette in app.css / data-arch="..." selectors.
   const ARCHETYPE_COLOR = {
-    'dfi':           '#e25c5c',
-    'vc':            '#3ed7b3',
-    'foundation':    '#d6b94a',
-    'family-office': '#b86bdf',
-    'government':    '#4a9cd6',
-    'other':         '#6c8aac',
+    'dfi':             '#e25c5c',
+    'foundation':      '#d6b94a',
+    'family-office':   '#b86bdf',
+    'asset-manager':   '#4ec5a6',
+    'bank':            '#c97c3e',
+    'pension-fund':    '#7a8aab',
+    'corporate':       '#8a7448',
+    'bilateral-donor': '#2c6d9c',
+    'government':      '#4a9cd6',
+    'cooperative-ngo': '#94a64a',
+    'vc':              '#3ed7b3',
+    'other':           '#6c8aac',
   };
 
   function prep() {

@@ -1,15 +1,26 @@
 Deprecated Slug,Canonical Slug,Note
-cdc-group-plc,british-international-investment,CDC renamed to BII in 2022.
-u-s-international-development-finance-corporation-dfc,u-s-international-development-finance-corporation,Long-form parens variant of seeded slug.
+british-international-investment,bii,Network long-form maps to registry short slug used by dfi_profiles.
+cdc-group-plc,bii,CDC renamed to BII in 2022; canonical is BII.
+european-investment-bank,eib,Network long-form maps to registry short slug used by dfi_profiles.
+european-investment-bank-eib,eib,Long-form parens variant.
+international-finance-corporation,ifc,Network long-form maps to registry short slug used by dfi_profiles.
+kfw-development-bank,kfw,Network long-form maps to registry short slug used by dfi_profiles. (Was previously canonicalized in the other direction; flipped to align with registry.)
+sida-sweden,sida,Network long-form maps to registry short slug used by dfi_profiles.
+swedish-international-development-cooperation-agency-sida,sida,Long-form name; same org.
+u-s-international-development-finance-corporation,dfc,Network long-form maps to registry short slug used by dfi_profiles.
+u-s-international-development-finance-corporation-dfc,dfc,Long-form parens variant.
+overseas-private-investment-corporation-opic,dfc,OPIC reorganised into DFC in Oct 2019 under the BUILD Act — same line of capital.
+u-s-agency-for-international-development,usaid,Long-form name; same agency.
+global-environment-facility,gef,Network long-form maps to registry short slug used by dfi_profiles.
 small-industries-development-bank-of-india-sidbi,sidbi,Long-form parens variant of seeded slug.
-european-investment-bank-eib,european-investment-bank,Long-form parens variant of seeded slug.
 bio-belgian-investment-company-for-developing-countries,bio-invest,Same org; LP-scraped long-form name.
 swiss-investment-fund-for-emerging-markets-sifem,sifem,Long-form parens variant of seeded slug.
 oesterreichische-entwicklungsbank-oeeb,oeeb,Long-form parens variant of seeded slug.
 japan-international-cooperation-agency,jica,Long-form name; same org.
-swedish-international-development-cooperation-agency-sida,sida-sweden,Long-form name; same org.
-kfw,kfw-development-bank,KfW shortform refers to dev arm in this context.
 common-fund-for-commodities-cfc,common-fund-for-commodities,Parens variant; canonical drops the (CFC) suffix.
+conrad-n-hilton-foundation,hilton-foundation,Network long-form maps to registry short slug used by foundation_lps.yml.
+prince-albert-ii-of-monaco-foundation,prince-albert-ii-monaco,Network long-form maps to registry short slug used by foundation_lps.yml.
+ubs-optimus-foundation,ubs-optimus,Network long-form maps to registry short slug used by foundation_lps.yml.
 john-d-and-catherine-t-macarthur-foundation,macarthur-foundation,Long-form name; same org.
 ceniarth-llc,ceniarth,Same family office; LLC suffix.
 howard-buffett-foundation,howard-g-buffett-foundation,Same foundation; missing middle initial.

@@ -1,7 +1,21 @@
 const network = require("./network.json");
 const networkLpSummary = require("./network_lp_summary.js");
 
-const ARCHETYPE_ORDER = ["dfi", "foundation", "family-office", "vc", "government", "other"];
+// Order matches investor_classifier.ARCHETYPES (Python). Keep in sync.
+const ARCHETYPE_ORDER = [
+  "dfi",
+  "foundation",
+  "family-office",
+  "asset-manager",
+  "bank",
+  "pension-fund",
+  "corporate",
+  "bilateral-donor",
+  "government",
+  "cooperative-ngo",
+  "vc",
+  "other",
+];
 
 module.exports = function () {
   const { lpCountBySlug: networkLpCountBySlug } = networkLpSummary();

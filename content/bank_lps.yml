@@ -1,0 +1,170 @@
+# Bank LP registry — banks acting as fund LPs into peer impact funds.
+#
+# Source of truth for the /banks/ page. Hand-curated.
+#
+# Honest-null discipline (parallel to content/foundation_lps.yml):
+#   - aum_usd_m_consolidated, stated_thesis_url, stated_priority_themes,
+#     stated_geo_focus, typical_check_usd_m_min/max are null where not
+#     verifiable in primary public sources (annual report, sustainability
+#     report, dedicated impact-finance landing page).
+#   - Banks rarely publish stated impact theses for their LP commitments.
+#     Expect heavy null coverage on theme/geo/check-size fields. The fact
+#     of an LP commitment is captured in the network LP edges
+#     (network/dashboard_prep/fund_lps.csv); this registry adds the
+#     above-the-line context.
+#   - known_ingo_gp_commits is empty until each commit is independently
+#     traced to a public source.
+#
+# category enum:
+#   cooperative          Member-owned (Rabobank, Crédit Coopératif, vdk bank, Banca Etica)
+#   commercial           Standard listed commercial bank
+#   development_oriented Bank with explicit development-finance mandate
+#   investment_bank      Wholesale / IB
+#
+# Schema per entry mirrors foundation_lps.yml where possible.
+
+banks:
+
+  - slug: anz
+    name: ANZ
+    aliases: ["ANZ", "Australia and New Zealand Banking Group"]
+    country: "AU"
+    category: commercial
+    aum_usd_m_consolidated: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: null
+
+  - slug: bnp-paribas
+    name: BNP Paribas
+    aliases: ["BNP Paribas", "BNP Paribas Asset Management"]
+    country: "FR"
+    category: commercial
+    aum_usd_m_consolidated: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: null
+
+  - slug: banca-etica
+    name: Banca Etica
+    aliases: ["Banca Etica", "Banca Popolare Etica"]
+    country: "IT"
+    category: cooperative
+    aum_usd_m_consolidated: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Italian ethical-banking cooperative.
+
+  - slug: bank-of-america
+    name: Bank of America
+    aliases: ["Bank of America", "BofA"]
+    country: "US"
+    category: commercial
+    aum_usd_m_consolidated: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: null
+
+  - slug: credit-cooperatif
+    name: Crédit Coopératif
+    aliases: ["Crédit Coopératif", "Credit Cooperatif"]
+    country: "FR"
+    category: cooperative
+    aum_usd_m_consolidated: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: French cooperative bank serving social-economy clients.
+
+  - slug: rabobank
+    name: Rabobank
+    aliases: ["Rabobank", "Coöperatieve Rabobank U.A."]
+    country: "NL"
+    category: cooperative
+    aum_usd_m_consolidated: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Dutch cooperative bank with significant agri-finance footprint.
+
+  - slug: standard-chartered-bank
+    name: Standard Chartered Bank
+    aliases: ["Standard Chartered Bank", "Standard Chartered", "StanChart"]
+    country: "GB"
+    category: commercial
+    aum_usd_m_consolidated: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Emerging-markets focused commercial bank.
+
+  - slug: vdk-bank
+    name: vdk bank
+    aliases: ["vdk bank", "Volksvermogen-Diocesaan Krediet"]
+    country: "BE"
+    category: cooperative
+    aum_usd_m_consolidated: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Flemish cooperative bank.

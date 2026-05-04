@@ -1,0 +1,258 @@
+# Corporate LP registry — operating corporates (consumer / industrial /
+# pharma / tech / retail / financial-services) committing to peer impact
+# funds, typically tied to a supply-chain or brand initiative.
+#
+# Source of truth for the /corporates/ page. Hand-curated.
+#
+# Honest-null discipline:
+#   - Corporates almost never publish a stated impact thesis at the
+#     fund-LP level. Most LP commitments are tied to a specific
+#     ESG / supply-chain / brand programme rather than a standing
+#     allocation. Expect ~all rich fields null at first publication.
+#   - The corresponding corporate foundation (e.g. MetLife Foundation,
+#     Mastercard Foundation) is tracked SEPARATELY in
+#     content/foundation_lps.yml — corporate balance sheet ≠ corporate
+#     foundation endowment. Do not collapse.
+#   - known_ingo_gp_commits is empty until each commit is independently
+#     traced to a public source.
+#
+# category enum:
+#   consumer             Consumer-products firm (Starbucks, Gap, Reckitt, Niagara)
+#   industrial           Industrial / chemicals (DuPont, Ecolab)
+#   pharma               Pharma / health (Merck, Royal Philips)
+#   tech                 Technology / digital (PayPal, The Mills Fabrica)
+#   financial_services   Insurer / payments / financial-services corp (Mastercard, MetLife, Prudential, Mercantil Colpatria)
+
+corporates:
+
+  - slug: dupont
+    name: DuPont
+    aliases: ["DuPont", "DuPont de Nemours"]
+    country: "US"
+    category: industrial
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: null
+
+  - slug: ecolab
+    name: Ecolab
+    aliases: ["Ecolab", "Ecolab Inc."]
+    country: "US"
+    category: industrial
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: null
+
+  - slug: gap-inc
+    name: Gap Inc.
+    aliases: ["Gap Inc.", "Gap"]
+    country: "US"
+    category: consumer
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: null
+
+  - slug: mastercard
+    name: Mastercard
+    aliases: ["Mastercard", "Mastercard Inc.", "Mastercard Incorporated"]
+    country: "US"
+    category: financial_services
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      Mastercard's corporate balance sheet — distinct from Mastercard
+      Foundation (separate entity, separate slug).
+
+  - slug: mercantil-colpatria
+    name: Mercantil Colpatria
+    aliases: ["Mercantil Colpatria"]
+    country: "CO"
+    category: financial_services
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Colombian financial-services holding.
+
+  - slug: merck-co-inc
+    name: Merck & Co., Inc.
+    aliases: ["Merck", "Merck & Co.", "MSD"]
+    country: "US"
+    category: pharma
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      US Merck (operates as MSD outside North America). Distinct from the
+      German Merck KGaA.
+
+  - slug: metlife
+    name: MetLife
+    aliases: ["MetLife", "MetLife Inc."]
+    country: "US"
+    category: financial_services
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      MetLife's corporate balance sheet — distinct from MetLife Foundation
+      (separate entity, separate slug, tracked in foundation_lps.yml).
+
+  - slug: niagara-bottling
+    name: Niagara Bottling
+    aliases: ["Niagara Bottling", "Niagara Bottling LLC"]
+    country: "US"
+    category: consumer
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: null
+
+  - slug: paypal
+    name: PayPal
+    aliases: ["PayPal", "PayPal Holdings", "PayPal Inc."]
+    country: "US"
+    category: tech
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: null
+
+  - slug: prudential-financial
+    name: Prudential Financial
+    aliases: ["Prudential Financial", "Prudential", "Prudential Financial Inc."]
+    country: "US"
+    category: financial_services
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      US Prudential Financial — distinct from UK Prudential plc (different
+      entity, listed in London).
+
+  - slug: reckitt
+    name: Reckitt
+    aliases: ["Reckitt", "Reckitt Benckiser", "Reckitt Benckiser Group plc"]
+    country: "GB"
+    category: consumer
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: null
+
+  - slug: royal-philips
+    name: Royal Philips
+    aliases: ["Royal Philips", "Philips", "Koninklijke Philips N.V."]
+    country: "NL"
+    category: pharma
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Dutch health-technology multinational.
+
+  - slug: starbucks
+    name: Starbucks
+    aliases: ["Starbucks", "Starbucks Corporation"]
+    country: "US"
+    category: consumer
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: null
+
+  - slug: the-mills-fabrica
+    name: The Mills Fabrica
+    aliases: ["The Mills Fabrica", "Mills Fabrica"]
+    country: "HK"
+    category: tech
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Hong Kong–based incubator/investor focused on agrifood and textile sustainability.

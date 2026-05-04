@@ -97,6 +97,12 @@ _dfi_slug_mapping:
   dbn-nigeria: Development Bank of Nigeria
   bstdb: BSTDB
   sidbi: SIDBI
+  bancoldex: Bancóldex
+  common-fund-for-commodities: Common Fund for Commodities
+  dutch-good-growth-fund-dggf: Dutch Good Growth Fund (DGGF)
+  fsd-africa-investments: FSD Africa Investments
+  global-health-investment-corporation: Global Health Investment Corporation
+  idb-lab: IDB Lab
 
 commitments:
 
@@ -1692,4 +1698,91 @@ dfi_profiles:
     typical_ticket_usd_m_max: 25
     last_seen_at: 2026-04-27
     public_newsroom_url: https://www.sidbi.in/en/news
+    emerging_manager_facility: null
+
+  # ---- DFIs discovered as LPs but not previously curated. Honest-null:
+  # rich-thesis fields left null until primary-source verification. ----
+
+  - dfi_slug: bancoldex
+    dfi_name: Bancóldex
+    dfi_country: "CO"
+    stated_sector_preferences: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: null
+    typical_ticket_usd_m_max: null
+    last_seen_at: 2026-05-04
+    public_newsroom_url: null
+    emerging_manager_facility: null
+
+  - dfi_slug: common-fund-for-commodities
+    dfi_name: Common Fund for Commodities
+    dfi_country: "NL"
+    stated_sector_preferences: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: null
+    typical_ticket_usd_m_max: null
+    last_seen_at: 2026-05-04
+    public_newsroom_url: null
+    emerging_manager_facility: null
+
+  - dfi_slug: dutch-good-growth-fund-dggf
+    dfi_name: Dutch Good Growth Fund (DGGF)
+    dfi_country: "NL"
+    stated_sector_preferences: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: null
+    typical_ticket_usd_m_max: null
+    last_seen_at: 2026-05-04
+    public_newsroom_url: null
+    emerging_manager_facility: null
+
+  - dfi_slug: fsd-africa-investments
+    dfi_name: FSD Africa Investments
+    dfi_country: "KE"
+    stated_sector_preferences: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: null
+    typical_ticket_usd_m_max: null
+    last_seen_at: 2026-05-04
+    public_newsroom_url: null
+    emerging_manager_facility: null
+
+  - dfi_slug: global-health-investment-corporation
+    dfi_name: Global Health Investment Corporation
+    dfi_country: "US"
+    stated_sector_preferences: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: null
+    typical_ticket_usd_m_max: null
+    last_seen_at: 2026-05-04
+    public_newsroom_url: null
+    emerging_manager_facility: null
+
+  - dfi_slug: idb-lab
+    dfi_name: IDB Lab
+    dfi_country: "US"
+    stated_sector_preferences: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    known_contacts_public: []
+    typical_ticket_usd_m_min: null
+    typical_ticket_usd_m_max: null
+    last_seen_at: 2026-05-04
+    public_newsroom_url: null
     emerging_manager_facility: null

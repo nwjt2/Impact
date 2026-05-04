@@ -1518,13 +1518,20 @@ a.commit-fund:hover { color: var(--amber); }
 .home-col-clickable:hover .sec-title,
 .home-col-clickable:hover .sec-link { color: var(--amber); }
 
-/* Archetype palette — kept in sync with /network/ and /catalysts/. */
-.home-split-network [data-arch="dfi"]           { --arch: #e25c5c; }
-.home-split-network [data-arch="vc"]            { --arch: #3ed7b3; }
-.home-split-network [data-arch="foundation"]    { --arch: #d6b94a; }
-.home-split-network [data-arch="family-office"] { --arch: #b86bdf; }
-.home-split-network [data-arch="government"]    { --arch: #4a9cd6; }
-.home-split-network [data-arch="other"]         { --arch: #6c8aac; }
+/* Archetype palette — kept in sync with /network/ and /catalysts/.
+   12-archetype enum (dfi → other) matches network.utils.investor_classifier.ARCHETYPES. */
+.home-split-network [data-arch="dfi"]             { --arch: #e25c5c; }
+.home-split-network [data-arch="foundation"]      { --arch: #d6b94a; }
+.home-split-network [data-arch="family-office"]   { --arch: #b86bdf; }
+.home-split-network [data-arch="asset-manager"]   { --arch: #4ec5a6; }
+.home-split-network [data-arch="bank"]            { --arch: #c97c3e; }
+.home-split-network [data-arch="pension-fund"]    { --arch: #7a8aab; }
+.home-split-network [data-arch="corporate"]       { --arch: #8a7448; }
+.home-split-network [data-arch="bilateral-donor"] { --arch: #2c6d9c; }
+.home-split-network [data-arch="government"]      { --arch: #4a9cd6; }
+.home-split-network [data-arch="cooperative-ngo"] { --arch: #94a64a; }
+.home-split-network [data-arch="vc"]              { --arch: #3ed7b3; }
+.home-split-network [data-arch="other"]           { --arch: #6c8aac; }
 
 /* Network tile */
 .lp-headline {

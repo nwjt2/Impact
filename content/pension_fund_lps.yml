@@ -1,0 +1,95 @@
+# Pension-fund LP registry — public, corporate, and industry pension
+# funds appearing as LPs in peer impact funds.
+#
+# Source of truth for the /pension-funds/ page. Hand-curated.
+#
+# Honest-null discipline:
+#   - Pension funds disclose total AUM but rarely disclose impact-vertical
+#     allocations or per-LP commitments. Coverage on stated_priority_themes
+#     and typical_check_usd_m will be sparse.
+#   - The fact of an LP commitment is captured in the network LP edges.
+#     This registry adds beneficiary-base, governance, and stated thesis
+#     where disclosed.
+#   - known_ingo_gp_commits is empty until each commit is independently
+#     traced to a public source.
+#
+# category enum:
+#   public               Civil-service / sovereign pension scheme (CalPERS, ABP)
+#   corporate            Corporate-sponsored pension fund (KBC Pensioenfonds)
+#   industry_collective  Multi-employer / sectoral collective (APG, PGGM, SPF, SPOV)
+
+pension_funds:
+
+  - slug: apg
+    name: APG
+    aliases: ["APG", "APG Asset Management", "Algemene Pensioen Groep"]
+    country: "NL"
+    category: industry_collective
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      Dutch pension administrator managing assets for several large
+      industry pension funds (ABP, bpfBOUW, SPW, etc.).
+
+  - slug: kbc-pensioenfonds
+    name: KBC Pensioenfonds
+    aliases: ["KBC Pensioenfonds"]
+    country: "BE"
+    category: corporate
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Belgian KBC group pension fund.
+
+  - slug: spf-dutch-railway-pension-fund
+    name: SPF (Dutch railway pension fund)
+    aliases: ["SPF", "Spoorwegpensioenfonds"]
+    country: "NL"
+    category: industry_collective
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Pension fund for Dutch railway sector employees.
+
+  - slug: spov-public-transport-pension-fund
+    name: SPOV (public transport pension fund)
+    aliases: ["SPOV", "Pensioenfonds Openbaar Vervoer"]
+    country: "NL"
+    category: industry_collective
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Pension fund for Dutch public transport sector employees.

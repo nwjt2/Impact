@@ -1,0 +1,218 @@
+# Government & bilateral-donor LP registry — bilateral aid agencies and
+# sovereign governments appearing as LPs in peer impact funds.
+#
+# Source of truth for the /government-donors/ page. Hand-curated.
+#
+# Honest-null discipline:
+#   - Bilateral donors publish development-cooperation strategies that are
+#     usually country-and-sector specific. Mapping those to fund-LP
+#     thesis fields is approximate; left null unless the donor explicitly
+#     publishes an impact-fund LP allocation strategy.
+#   - Sovereign governments here usually LP into ONE specific INGO-sponsored
+#     vehicle as a domestic-policy or post-conflict transition initiative,
+#     not as part of a standing allocation strategy. The fact of the LP
+#     commitment is captured in network LP edges; this registry adds
+#     country and program context.
+#   - known_ingo_gp_commits is empty until each commit is independently
+#     traced to a public source.
+#
+# category enum:
+#   bilateral_aid       Bilateral / development-cooperation agency funded
+#                       from a national aid budget (USAID, BMZ, DFAT,
+#                       Swiss Dev Coop, Global Affairs Canada).
+#   multilateral_eu     EU institution acting as a fund LP.
+#   multilateral_un     UN agency acting as a fund LP.
+#   sovereign_lp        Sovereign government LP'ing directly into a fund
+#                       (often a post-conflict / trust-fund vehicle).
+
+government_donors:
+
+  - slug: australian-department-of-foreign-affairs-and-trade-dfat
+    name: Australian Department of Foreign Affairs and Trade (DFAT)
+    aliases: ["DFAT", "Australian Department of Foreign Affairs and Trade"]
+    country: "AU"
+    category: bilateral_aid
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Australia's bilateral aid agency.
+
+  - slug: european-union
+    name: European Union
+    aliases: ["European Union", "EU", "European Commission", "DG INTPA"]
+    country: "EU"
+    category: multilateral_eu
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      EU LP commitments typically flow through DG INTPA (formerly DEVCO)
+      or the EFSD+ blending facilities.
+
+  - slug: german-federal-ministry-for-economic-cooperation-and-development-bmz
+    name: German Federal Ministry for Economic Cooperation and Development (BMZ)
+    aliases: ["BMZ", "German Federal Ministry for Economic Cooperation and Development",
+             "Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung"]
+    country: "DE"
+    category: bilateral_aid
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      Germany's federal development ministry. Many LP commitments are
+      executed via KfW (tracked separately as a DFI).
+
+  - slug: global-affairs-canada
+    name: Global Affairs Canada
+    aliases: ["Global Affairs Canada", "GAC"]
+    country: "CA"
+    category: bilateral_aid
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Canada's foreign affairs and development ministry.
+
+  - slug: international-trade-centre
+    name: International Trade Centre
+    aliases: ["International Trade Centre", "ITC"]
+    country: "CH"
+    category: multilateral_un
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Joint UN-WTO agency, Geneva HQ.
+
+  - slug: swiss-agency-for-development-and-cooperation
+    name: Swiss Agency for Development and Cooperation
+    aliases: ["SDC", "Swiss Agency for Development and Cooperation",
+             "Direktion für Entwicklung und Zusammenarbeit", "DEZA"]
+    country: "CH"
+    category: bilateral_aid
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Switzerland's bilateral development cooperation agency.
+
+  - slug: usaid
+    name: USAID
+    aliases: ["USAID", "U.S. Agency for International Development",
+             "United States Agency for International Development"]
+    country: "US"
+    category: bilateral_aid
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      U.S. bilateral aid agency. LP commitments often executed via DFC
+      (tracked separately as a DFI) and direct Mission-level grants.
+
+  # ---- Sovereign-government LPs (typically one-off into a specific vehicle) ----
+
+  - slug: government-of-cote-d-ivoire
+    name: Government of Côte d'Ivoire
+    aliases: ["Government of Côte d'Ivoire", "Côte d'Ivoire"]
+    country: "CI"
+    category: sovereign_lp
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Sovereign LP in domestic-policy / sector-development vehicles.
+
+  - slug: government-of-luxembourg
+    name: Government of Luxembourg
+    aliases: ["Government of Luxembourg", "Grand Duchy of Luxembourg",
+             "Ministère des Affaires étrangères et européennes (Luxembourg)"]
+    country: "LU"
+    category: sovereign_lp
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      Luxembourg is a frequent fund-domicile and an active sovereign LP
+      via its development-cooperation budget.
+
+  - slug: government-of-the-democratic-republic-of-the-congo
+    name: Government of the Democratic Republic of the Congo
+    aliases: ["Government of the Democratic Republic of the Congo", "DRC", "RDC"]
+    country: "CD"
+    category: sovereign_lp
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: null
+
+  - slug: government-of-tunisia
+    name: Government of Tunisia
+    aliases: ["Government of Tunisia"]
+    country: "TN"
+    category: sovereign_lp
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: null

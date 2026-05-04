@@ -1,0 +1,333 @@
+# Cooperative-NGO LP registry — INGOs, farmer cooperatives, faith-based
+# orgs, trade unions, and university endowments appearing as LPs in peer
+# impact funds.
+#
+# Source of truth for the /cooperative-ngos/ page. Hand-curated.
+#
+# A large share of these are the Belgian agri-coop / fair-trade cluster
+# (Boerenbond, MRBB, Rikolto, Trias, vdk-bank, SOS Faim, Oxfam-Solidarité,
+# Broederlijk Delen, Louvain Coopération, KU Leuven, ACV-CSC Metea) that
+# co-anchor a small set of vehicles like Kampani, Truvalu, and BRS
+# Microfinance Coop. Geography skews EU-Belgian.
+#
+# Honest-null discipline:
+#   - Impact theses for these LPs are usually mission-statement level
+#     rather than fund-LP-strategy level. Rich fields will be sparse.
+#   - INGOs LP'ing into other INGOs' funds is the unusual pattern this
+#     registry surfaces (CARE Enterprises, Oxfam, Pathfinder, Solidaridad).
+#     Worth tracking but treat as a different signal from foundation LP
+#     activity.
+#
+# category enum:
+#   ngo                       International NGO acting as fund LP
+#                             (CARE Enterprises, Oxfam, Pathfinder, Solidaridad,
+#                              Broederlijk Delen, MEDA, SOS Faim, Trias, Rikolto)
+#   farmer_coop               Farmer / producer cooperative or coop holding
+#                             (Boerenbond, MRBB, CLAC)
+#   trade_union               Trade-union / labour-movement entity
+#                             (ACV-CSC Metea, Uniting Financial Services)
+#   university_endowment      University endowment LP (KU Leuven, Louvain Coopération)
+#   faith_based               Faith-based / mission organisation
+#   development_consultancy   Development consultancy (Chemonics) — included
+#                             because it appears as fund LP in scraped data
+
+cooperative_ngos:
+
+  - slug: acv-csc-metea
+    name: ACV-CSC Metea
+    aliases: ["ACV-CSC Metea"]
+    country: "BE"
+    category: trade_union
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Belgian trade union (textile, clothing, leather, chemical sectors).
+
+  - slug: boerenbond
+    name: Boerenbond
+    aliases: ["Boerenbond"]
+    country: "BE"
+    category: farmer_coop
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Flemish farmers' association. Anchor in Belgian agri-coop fund cluster.
+
+  - slug: broederlijk-delen
+    name: Broederlijk Delen
+    aliases: ["Broederlijk Delen"]
+    country: "BE"
+    category: faith_based
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Belgian Catholic development NGO.
+
+  - slug: care-enterprises
+    name: CARE Enterprises
+    aliases: ["CARE Enterprises", "CARE Enterprises Inc."]
+    country: "US"
+    category: ngo
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      Investment arm of CARE International. INGO LP'ing into other
+      INGO-sponsored vehicles — unusual pattern worth flagging.
+
+  - slug: chemonics-international
+    name: Chemonics International
+    aliases: ["Chemonics International", "Chemonics"]
+    country: "US"
+    category: development_consultancy
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: US development consultancy / USAID prime contractor.
+
+  - slug: clac-coordinadora-latinoamericana-y-del-caribe-de-pequenos-productores
+    name: CLAC (Coordinadora Latinoamericana y del Caribe de Pequeños Productores)
+    aliases: ["CLAC", "Coordinadora Latinoamericana y del Caribe de Pequeños Productores"]
+    country: "SV"
+    category: farmer_coop
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      Latin-American Fairtrade producer network (HQ El Salvador). LP via
+      coordinated producer-cooperative capital.
+
+  - slug: ku-leuven
+    name: KU Leuven
+    aliases: ["KU Leuven", "Katholieke Universiteit Leuven"]
+    country: "BE"
+    category: university_endowment
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Flemish Catholic university with endowment-style LP commitments.
+
+  - slug: louvain-cooperation
+    name: Louvain Coopération
+    aliases: ["Louvain Coopération", "Louvain Cooperation"]
+    country: "BE"
+    category: ngo
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Development-cooperation NGO of UCLouvain (Université catholique de Louvain).
+
+  - slug: meda
+    name: MEDA
+    aliases: ["MEDA", "Mennonite Economic Development Associates"]
+    country: "CA"
+    category: faith_based
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Mennonite Economic Development Associates — faith-based development NGO.
+
+  - slug: maatschappij-voor-roerend-bezit-van-de-boerenbond-mrbb
+    name: Maatschappij voor Roerend Bezit van de Boerenbond (MRBB)
+    aliases: ["MRBB", "Maatschappij voor Roerend Bezit van de Boerenbond"]
+    country: "BE"
+    category: farmer_coop
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      Investment holding of Boerenbond (Flemish farmers' association); a
+      recurring anchor in Belgian agri-coop fund cluster.
+
+  - slug: oxfam
+    name: Oxfam
+    aliases: ["Oxfam", "Oxfam International"]
+    country: "GB"
+    category: ngo
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      Oxfam Confederation (international secretariat in Nairobi, legal
+      entity historically in UK). The Oxfam SEIIF fund (managed by
+      Symbiotics) is a separate vehicle in peer_funds.yml.
+
+  - slug: oxfam-solidarite-belgium
+    name: Oxfam-Solidarité Belgium
+    aliases: ["Oxfam-Solidarité Belgium", "Oxfam Solidariteit", "Oxfam Solidarité"]
+    country: "BE"
+    category: ngo
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: |
+      Belgian affiliate of Oxfam Confederation — distinct LP from the
+      international entity above.
+
+  - slug: pathfinder
+    name: Pathfinder
+    aliases: ["Pathfinder", "Pathfinder International"]
+    country: "US"
+    category: ngo
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Sexual and reproductive health INGO.
+
+  - slug: rikolto
+    name: Rikolto
+    aliases: ["Rikolto", "Vredeseilanden"]
+    country: "BE"
+    category: ngo
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Belgian farmer-livelihoods NGO (formerly Vredeseilanden).
+
+  - slug: sos-faim-luxembourg
+    name: SOS Faim Luxembourg
+    aliases: ["SOS Faim Luxembourg", "SOS Faim"]
+    country: "LU"
+    category: ngo
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Luxembourg-based food-sovereignty / smallholder-finance NGO.
+
+  - slug: solidaridad
+    name: Solidaridad
+    aliases: ["Solidaridad", "Solidaridad Network"]
+    country: "NL"
+    category: ngo
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Dutch sustainable supply-chain NGO.
+
+  - slug: trias
+    name: Trias
+    aliases: ["Trias", "Trias NGO"]
+    country: "BE"
+    category: ngo
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Belgian member-organisation NGO supporting smallholder farmers and entrepreneurs.
+
+  - slug: uniting-financial-services-ufs
+    name: Uniting Financial Services (UFS)
+    aliases: ["Uniting Financial Services", "UFS"]
+    country: "AU"
+    category: faith_based
+    stated_priority_themes: null
+    stated_geo_focus: null
+    stated_thesis_url: null
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: null
+    last_seen_at: 2026-05-04
+    known_ingo_gp_commits: []
+    notes: Financial services arm of the Uniting Church in Australia.

@@ -28,16 +28,13 @@ Caprock Group,caprock-group,family-office,unknown,,US,unknown,active,
 Tiedemann Advisors,tiedemann-advisors,family-office,unknown,https://www.tiedemannadvisors.com/insights,US,unknown,active,
 Veris Wealth Partners,veris-wealth-partners,family-office,unknown,https://www.veriswp.com/news/,US,unknown,active,
 ImpactAssets,impactassets,foundation,unknown,https://impactassets.org/news/,US,unknown,active,
-British International Investment,british-international-investment,dfi,unknown,https://www.bii.co.uk/en/news-insight/,,unknown,active,
 FMO,fmo,dfi,unknown,https://www.fmo.nl/news,,unknown,active,
-U.S. International Development Finance Corporation,u-s-international-development-finance-corporation,dfi,unknown,https://www.dfc.gov/media/press-releases,,unknown,active,
 Proparco,proparco,dfi,unknown,https://www.proparco.fr/en/news,,unknown,active,
 Norfund,norfund,dfi,unknown,https://www.norfund.no/news/,,unknown,active,
 Finnfund,finnfund,dfi,unknown,https://www.finnfund.fi/en/news/,,unknown,active,
 IFC Asset Management / AIP,ifc-asset-management-aip,dfi,unknown,https://pressroom.ifc.org/,,unknown,active,
 Swedfund,swedfund,dfi,unknown,https://www.swedfund.se/en/news/,,unknown,active,
 DEG,deg,dfi,unknown,https://www.deginvest.de/International-financing/DEG/Press/,,unknown,active,
-KfW Development Bank,kfw-development-bank,dfi,unknown,https://www.kfw.de/About-KfW/Newsroom/,,unknown,active,
 AECID,aecid,dfi,unknown,https://www.aecid.es/EN/press-room,,unknown,active,
 FinDev Canada,findev-canada,dfi,unknown,https://www.findevcanada.ca/en/news,,unknown,active,
 AFD,afd,dfi,unknown,https://www.afd.fr/en/actualites,,unknown,active,
@@ -47,7 +44,6 @@ IDB Invest,idb-invest,dfi,unknown,https://www.idbinvest.org/en/news,,unknown,act
 Asian Development Bank,asian-development-bank,dfi,unknown,https://www.adb.org/news,,unknown,active,
 African Development Bank,african-development-bank,dfi,unknown,https://www.afdb.org/en/news-and-events,,unknown,active,
 Caribbean Development Bank,caribbean-development-bank,dfi,unknown,https://www.caribank.org/newsroom,,unknown,active,
-European Investment Bank,european-investment-bank,dfi,unknown,https://www.eib.org/en/press/index.htm,,unknown,active,
 Islamic Development Bank,islamic-development-bank,dfi,unknown,https://www.isdb.org/news,,unknown,active,
 BIO Invest,bio-invest,dfi,unknown,https://www.bio-invest.be/en/news,,unknown,active,
 SIFEM,sifem,dfi,unknown,https://www.sifem.ch/news,,unknown,active,
@@ -94,7 +90,6 @@ Omidyar Network,omidyar-network,foundation,unknown,https://omidyar.com/news/,,un
 Skoll Foundation,skoll-foundation,foundation,unknown,https://skoll.org/news/,,unknown,active,
 W.K. Kellogg Foundation,w-k-kellogg-foundation,foundation,unknown,https://www.wkkf.org/news-and-media,,unknown,active,
 Hewlett Foundation,hewlett-foundation,foundation,unknown,https://hewlett.org/news/,,unknown,active,
-Conrad N. Hilton Foundation,conrad-n-hilton-foundation,foundation,unknown,https://www.hiltonfoundation.org/news,,unknown,active,
 Mastercard Foundation,mastercard-foundation,foundation,unknown,https://mastercardfdn.org/news/,,unknown,active,
 Open Society Foundations,open-society-foundations,foundation,unknown,https://www.opensocietyfoundations.org/newsroom,,unknown,active,
 Wellcome Trust,wellcome-trust,foundation,unknown,https://wellcome.org/news,,unknown,active,
@@ -114,7 +109,7 @@ Surdna Foundation,surdna-foundation,foundation,unknown,https://surdna.org/news/,
 Schmidt Family Foundation / 11th Hour Project,schmidt-family-foundation-11th-hour-project,family-office,unknown,https://tsffoundation.org/our-work/,,unknown,active,
 Sorenson Impact Foundation,sorenson-impact-foundation,family-office,unknown,https://sorensonimpact.com/news/,,unknown,active,
 KL Felicitas Foundation,kl-felicitas-foundation,foundation,unknown,https://klfelicitasfoundation.org/,,unknown,active,
-The Russell Family Foundation,the-russell-family-foundation,foundation,unknown,https://www.trff.org/news/,,unknown,active,
+The Russell Family Foundation,the-russell-family-foundation,family-office,unknown,https://www.trff.org/news/,,unknown,active,
 Heron Foundation,heron-foundation,family-office,unknown,https://www.heron.org/news,,unknown,active,
 McConnell Foundation,mcconnell-foundation,family-office,unknown,https://mcconnellfoundation.ca/news/,,unknown,active,
 Cordes Foundation,cordes-foundation,family-office,unknown,https://www.cordesfoundation.org/news,,unknown,active,
@@ -129,12 +124,11 @@ Cisneros Foundation,cisneros-foundation,family-office,unknown,https://fundacionc
 Tata Trusts,tata-trusts,family-office,unknown,https://www.tatatrusts.org/our-news/news,,unknown,active,
 Wadhwani Foundation,wadhwani-foundation,family-office,unknown,https://wadhwanifoundation.org/news/,,unknown,active,
 Azim Premji Foundation,azim-premji-foundation,family-office,unknown,https://azimpremjifoundation.org/announcements,,unknown,active,
-Prince Albert II of Monaco Foundation,prince-albert-ii-of-monaco-foundation,foundation,unknown,https://www.fpa2.org/en/news.html,,unknown,active,
 Esmée Fairbairn Foundation,esmee-fairbairn-foundation,family-office,unknown,https://esmeefairbairn.org.uk/news/,,unknown,active,
 Lankelly Chase,lankelly-chase,family-office,unknown,https://lankellychase.org.uk/blog/,,unknown,active,
 John Ellerman Foundation,john-ellerman-foundation,family-office,unknown,https://ellerman.org.uk/news/,,unknown,active,
 Argidius Foundation,argidius-foundation,family-office,unknown,https://www.argidius.com/en/news,,unknown,active,
-MetLife Foundation,metlife-foundation,other,unknown,https://www.metlife.com/metlife-foundation/,,unknown,active,
+MetLife Foundation,metlife-foundation,foundation,unknown,https://www.metlife.com/metlife-foundation/,,unknown,active,
 Citi Foundation,citi-foundation,other,unknown,https://www.citigroup.com/global/foundation,,unknown,active,
 JPMorgan Chase Foundation,jpmorgan-chase-foundation,other,unknown,https://www.jpmorganchase.com/impact,,unknown,active,
 Bank of America Foundation,bank-of-america-foundation,other,unknown,https://about.bankofamerica.com/en/making-an-impact,,unknown,active,
@@ -144,7 +138,6 @@ Global Innovation Fund,global-innovation-fund,dfi,unknown,https://www.globalinno
 Grand Challenges Canada,grand-challenges-canada,foundation,unknown,https://www.grandchallenges.ca/news/,,unknown,active,
 Climate Investment Funds,climate-investment-funds,dfi,unknown,https://www.cif.org/news,,unknown,active,
 Green Climate Fund,green-climate-fund,dfi,unknown,https://www.greenclimate.fund/news,,unknown,active,
-Global Environment Facility,global-environment-facility,dfi,unknown,https://www.thegef.org/newsroom,,unknown,active,
 GAVI The Vaccine Alliance,gavi-the-vaccine-alliance,foundation,unknown,https://www.gavi.org/news,,unknown,active,
 The Global Fund,the-global-fund,foundation,unknown,https://www.theglobalfund.org/en/news/,,unknown,active,
 Educate Girls DIB / UBS Optimus,educate-girls-dib-ubs-optimus,other,unknown,https://www.ubs.com/microsites/optimus-foundation/en/news.html,,unknown,active,
@@ -154,7 +147,6 @@ Power Africa,power-africa,dfi,unknown,https://www.usaid.gov/powerafrica/newsroom
 Global Partnership for Education,global-partnership-for-education,foundation,unknown,https://www.globalpartnership.org/news,,unknown,active,
 USAID DIV,usaid-div,dfi,unknown,https://www.usaid.gov/div,,unknown,active,
 UK FCDO What Works,uk-fcdo-what-works,dfi,unknown,https://www.gov.uk/government/organisations/foreign-commonwealth-development-office,,unknown,active,
-SIDA Sweden,sida-sweden,dfi,unknown,https://www.sida.se/en/news,,unknown,active,
 NORAD,norad,dfi,unknown,https://www.norad.no/en/front/news/,,unknown,active,
 GIZ Germany,giz-germany,dfi,unknown,https://www.giz.de/en/mediacenter/news.html,,unknown,active,
 UNDP SDG Impact,undp-sdg-impact,dfi,unknown,https://www.undp.org/news,,unknown,active,
@@ -172,90 +164,88 @@ Laudes Foundation,laudes-foundation,foundation,unknown,https://www.laudesfoundat
 Ikea Social Entrepreneurship,ikea-social-entrepreneurship,other,unknown,https://ikeasocialentrepreneurship.org/news/,,unknown,active,
 Vitol Foundation,vitol-foundation,other,unknown,https://www.vitol.com/about-us/vitol-foundation/,,unknown,active,
 Jacobs Foundation,jacobs-foundation,foundation,unknown,https://jacobsfoundation.org/news/,,unknown,active,
-International Finance Corporation,international-finance-corporation,dfi,unknown,,US,unknown,active,Seeded from content/dfi_ingo_commitments.yml.
-TIAA,tiaa,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-IDB Lab,idb-lab,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Dutch Good Growth Fund (DGGF),dutch-good-growth-fund-dggf,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Bancóldex,bancoldex,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Mercantil Colpatria,mercantil-colpatria,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Fundación Bancolombia,fundacion-bancolombia,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Fundación Sura,fundacion-sura,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Fundación WWB Colombia,fundacion-wwb-colombia,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+TIAA,tiaa,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+IDB Lab,idb-lab,dfi,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Dutch Good Growth Fund (DGGF),dutch-good-growth-fund-dggf,dfi,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Bancóldex,bancoldex,dfi,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Mercantil Colpatria,mercantil-colpatria,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Fundación Bancolombia,fundacion-bancolombia,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Fundación Sura,fundacion-sura,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Fundación WWB Colombia,fundacion-wwb-colombia,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Government of Luxembourg,government-of-luxembourg,government,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Government of Côte d'Ivoire,government-of-cote-d-ivoire,government,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Government of the Democratic Republic of the Congo,government-of-the-democratic-republic-of-the-congo,government,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Government of Tunisia,government-of-tunisia,government,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-International Trade Centre,international-trade-centre,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-CARE Enterprises,care-enterprises,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Bamboo Capital Partners,bamboo-capital-partners,vc,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Common Fund for Commodities,common-fund-for-commodities,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Banca Etica,banca-etica,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Crédit Coopératif,credit-cooperatif,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-SOS Faim Luxembourg,sos-faim-luxembourg,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-SIDI (Solidarité Internationale pour le Développement et l'Investissement),sidi-solidarite-internationale-pour-le-developpement-et-l-investissement,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Alterfin,alterfin,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Australian Department of Foreign Affairs and Trade (DFAT),australian-department-of-foreign-affairs-and-trade-dfat,government,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Standard Chartered Bank,standard-chartered-bank,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-ANZ,anz,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Global Affairs Canada,global-affairs-canada,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Nuveen,nuveen,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-APG,apg,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-PayPal,paypal,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-MetLife,metlife,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Uniting Financial Services (UFS),uniting-financial-services-ufs,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Pathfinder,pathfinder,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Alvarium,alvarium,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+International Trade Centre,international-trade-centre,bilateral-donor,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+CARE Enterprises,care-enterprises,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Bamboo Capital Partners,bamboo-capital-partners,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Common Fund for Commodities,common-fund-for-commodities,dfi,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Banca Etica,banca-etica,bank,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Crédit Coopératif,credit-cooperatif,bank,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+SOS Faim Luxembourg,sos-faim-luxembourg,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+SIDI (Solidarité Internationale pour le Développement et l'Investissement),sidi-solidarite-internationale-pour-le-developpement-et-l-investissement,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Alterfin,alterfin,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Australian Department of Foreign Affairs and Trade (DFAT),australian-department-of-foreign-affairs-and-trade-dfat,bilateral-donor,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Standard Chartered Bank,standard-chartered-bank,bank,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+ANZ,anz,bank,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Global Affairs Canada,global-affairs-canada,bilateral-donor,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Nuveen,nuveen,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+APG,apg,pension-fund,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+PayPal,paypal,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+MetLife,metlife,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Uniting Financial Services (UFS),uniting-financial-services-ufs,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Pathfinder,pathfinder,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Alvarium,alvarium,family-office,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Grieg Foundation,grieg-foundation,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Impax Asset Management,impax-asset-management,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Volksvermogen,volksvermogen,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-ACV-CSC Metea,acv-csc-metea,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Incofin Investment Management,incofin-investment-management,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-AXA Investment Managers,axa-investment-managers,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-KBC Pensioenfonds,kbc-pensioenfonds,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Korys,korys,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Invest in Visions Global Social Impact Fund,invest-in-visions-global-social-impact-fund,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Maatschappij voor Roerend Bezit van de Boerenbond (MRBB),maatschappij-voor-roerend-bezit-van-de-boerenbond-mrbb,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-vdk bank,vdk-bank,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-SPF (Dutch railway pension fund),spf-dutch-railway-pension-fund,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-SPOV (public transport pension fund),spov-public-transport-pension-fund,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-BNP Paribas,bnp-paribas,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Impax Asset Management,impax-asset-management,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Volksvermogen,volksvermogen,family-office,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+ACV-CSC Metea,acv-csc-metea,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Incofin Investment Management,incofin-investment-management,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+AXA Investment Managers,axa-investment-managers,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+KBC Pensioenfonds,kbc-pensioenfonds,pension-fund,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Korys,korys,family-office,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Invest in Visions Global Social Impact Fund,invest-in-visions-global-social-impact-fund,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Maatschappij voor Roerend Bezit van de Boerenbond (MRBB),maatschappij-voor-roerend-bezit-van-de-boerenbond-mrbb,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+vdk bank,vdk-bank,bank,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+SPF (Dutch railway pension fund),spf-dutch-railway-pension-fund,pension-fund,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+SPOV (public transport pension fund),spov-public-transport-pension-fund,pension-fund,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+BNP Paribas,bnp-paribas,bank,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 King Baudouin Foundation,king-baudouin-foundation,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Rikolto,rikolto,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Boerenbond,boerenbond,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Louvain Coopération,louvain-cooperation,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Trias,trias,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Broederlijk Delen,broederlijk-delen,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-CLAC (Coordinadora Latinoamericana y del Caribe de Pequeños Productores),clac-coordinadora-latinoamericana-y-del-caribe-de-pequenos-productores,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Oxfam-Solidarité Belgium,oxfam-solidarite-belgium,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-KU Leuven,ku-leuven,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Solidaridad,solidaridad,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Sobrato Philanthropies,sobrato-philanthropies,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Rikolto,rikolto,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Boerenbond,boerenbond,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Louvain Coopération,louvain-cooperation,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Trias,trias,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Broederlijk Delen,broederlijk-delen,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+CLAC (Coordinadora Latinoamericana y del Caribe de Pequeños Productores),clac-coordinadora-latinoamericana-y-del-caribe-de-pequenos-productores,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Oxfam-Solidarité Belgium,oxfam-solidarite-belgium,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+KU Leuven,ku-leuven,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Solidaridad,solidaridad,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Sobrato Philanthropies,sobrato-philanthropies,family-office,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 The Missionary Sisters of the Sacred Heart of Jesus,the-missionary-sisters-of-the-sacred-heart-of-jesus,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 The Shapiro Family Foundation,the-shapiro-family-foundation,foundation,unknown,,,unknown,active,Family-named foundation; reclassified from family-office.
 The Dunn Family Charitable Foundation,the-dunn-family-charitable-foundation,foundation,unknown,,,unknown,active,Family-named foundation; reclassified from family-office.
 The Fairmount Foundation,the-fairmount-foundation,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Vanguard Charitable,vanguard-charitable,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-CapShift,capshift,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+CapShift,capshift,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 The JMB Charitable Fund,the-jmb-charitable-fund,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-The Todd and Anne McCormack Fund,the-todd-and-anne-mccormack-fund,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Oxfam,oxfam,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-City of London Corporation,city-of-london-corporation,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Symbiotics,symbiotics,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Bank of America,bank-of-america,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Overseas Private Investment Corporation (OPIC),overseas-private-investment-corporation-opic,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Niagara Bottling,niagara-bottling,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+The Todd and Anne McCormack Fund,the-todd-and-anne-mccormack-fund,family-office,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Oxfam,oxfam,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+City of London Corporation,city-of-london-corporation,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Symbiotics,symbiotics,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Bank of America,bank-of-america,bank,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Niagara Bottling,niagara-bottling,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Osprey Foundation,osprey-foundation,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Starbucks,starbucks,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Ecolab,ecolab,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Gap Inc.,gap-inc,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Reckitt,reckitt,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-DuPont,dupont,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-European Union,european-union,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-German Federal Ministry for Economic Cooperation and Development (BMZ),german-federal-ministry-for-economic-cooperation-and-development-bmz,government,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Starbucks,starbucks,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Ecolab,ecolab,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Gap Inc.,gap-inc,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Reckitt,reckitt,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+DuPont,dupont,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+European Union,european-union,bilateral-donor,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+German Federal Ministry for Economic Cooperation and Development (BMZ),german-federal-ministry-for-economic-cooperation-and-development-bmz,bilateral-donor,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Sasakawa Peace Foundation,sasakawa-peace-foundation,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-MEDA,meda,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Dreilinden,dreilinden,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-USAID,usaid,government,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+MEDA,meda,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Dreilinden,dreilinden,family-office,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+USAID,usaid,bilateral-donor,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Burnt Island Ventures,burnt-island-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Sand River Ventures,sand-river-ventures,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Amadeus Capital Partners,amadeus-capital-partners,vc,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
@@ -325,25 +315,33 @@ Dalus Capital,dalus-capital,vc,unknown,,,unknown,active,Discovered via portco-in
 Draper,draper,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Innventure,innventure,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
 Gain,gain,other,unknown,,,unknown,active,Discovered via portco-investor scraper; awaiting operator review.
-UBS Optimus Foundation,ubs-optimus-foundation,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Legatum,legatum,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Ferd,ferd,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Mastercard,mastercard,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Wire Group,wire-group,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-The Mills Fabrica,the-mills-fabrica,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Rabobank,rabobank,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Swiss Agency for Development and Cooperation,swiss-agency-for-development-and-cooperation,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Prudential Financial,prudential-financial,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Triple Jump,triple-jump,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Royal Philips,royal-philips,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-"Merck & Co., Inc.",merck-co-inc,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-FSD Africa Investments,fsd-africa-investments,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-ImpactAssets Inc.,impactassets-inc,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Global Health Investment Corporation,global-health-investment-corporation,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-Chemonics International,chemonics-international,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Legatum,legatum,family-office,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Ferd,ferd,family-office,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Mastercard,mastercard,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Wire Group,wire-group,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+The Mills Fabrica,the-mills-fabrica,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Rabobank,rabobank,bank,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Swiss Agency for Development and Cooperation,swiss-agency-for-development-and-cooperation,bilateral-donor,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Prudential Financial,prudential-financial,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Triple Jump,triple-jump,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Royal Philips,royal-philips,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+"Merck & Co., Inc.",merck-co-inc,corporate,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+FSD Africa Investments,fsd-africa-investments,dfi,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+ImpactAssets Inc.,impactassets-inc,asset-manager,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Global Health Investment Corporation,global-health-investment-corporation,dfi,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
+Chemonics International,chemonics-international,cooperative-ngo,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Anesvad Foundation,anesvad-foundation,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Netri Foundation,netri-foundation,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
-U.S. Agency for International Development,u-s-agency-for-international-development,other,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Schmidt Family Foundation,schmidt-family-foundation,foundation,unknown,,US,unknown,active,Schmidt Family Foundation / 11th Hour Project; private 501(c)(3); discovered via Aligned Climate Fund 2 LP scrape.
 Nathan Cummings Foundation,nathan-cummings-foundation,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.
 Paul G. Allen Family Foundation,paul-g-allen-family-foundation,foundation,unknown,,US,unknown,active,Discovered via GFCR LP scrape (2026-04-30); US private foundation co-initiator of Global Fund for Coral Reefs.
+British International Investment,bii,dfi,unknown,https://www.bii.co.uk/en/news-insight/,,unknown,active,
+U.S. International Development Finance Corporation,dfc,dfi,unknown,https://www.dfc.gov/media/press-releases,,unknown,active,
+KfW Development Bank,kfw,dfi,unknown,https://www.kfw.de/About-KfW/Newsroom/,,unknown,active,
+European Investment Bank,eib,dfi,unknown,https://www.eib.org/en/press/index.htm,,unknown,active,
+Conrad N. Hilton Foundation,hilton-foundation,foundation,unknown,https://www.hiltonfoundation.org/news,,unknown,active,
+Prince Albert II of Monaco Foundation,prince-albert-ii-monaco,foundation,unknown,https://www.fpa2.org/en/news.html,,unknown,active,
+Global Environment Facility,gef,dfi,unknown,https://www.thegef.org/newsroom,,unknown,active,
+SIDA Sweden,sida,dfi,unknown,https://www.sida.se/en/news,,unknown,active,
+International Finance Corporation,ifc,dfi,unknown,,US,unknown,active,Seeded from content/dfi_ingo_commitments.yml.
+UBS Optimus Foundation,ubs-optimus,foundation,unknown,,,unknown,active,Discovered via LP scraper; awaiting operator review.

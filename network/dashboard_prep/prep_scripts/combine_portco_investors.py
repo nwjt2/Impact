@@ -25,6 +25,7 @@ sys.path.insert(0, str(REPO_ROOT))
 
 from network.utils.csv_io import read_rows, write_rows  # noqa: E402
 from network.utils.aliases import canonicalize_investor_slug, is_deprecated_investor_slug  # noqa: E402
+from network.utils.investor_classifier import classify_investor_type as _classify_investor_type  # noqa: E402
 
 INDIVIDUAL_DIR = REPO_ROOT / "network" / "portco_investor_scraping" / "individual_portco_investors"
 COMBINED_DIR = REPO_ROOT / "network" / "portco_investor_scraping" / "combined_portco_investors"
@@ -87,57 +88,6 @@ def _read_run_number() -> int:
         return 1
     state = json.loads(RUN_STATE_JSON.read_text(encoding="utf-8"))
     return max(1, int(state.get("current_run") or 1))
-
-
-def _classify_investor_type(name: str) -> str:
-    """Best-guess investor type for newly discovered LPs / co-investors.
-
-    Operator review can refine. Heuristic only.
-    Order matters: most-specific tests first.
-    """
-    n = name.lower()
-
-    # Family offices first — "Family Foundation" should not be classified as plain foundation.
-    if "family" in n and ("foundation" in n or "fund" in n or "office" in n):
-        return "family-office"
-
-    # Government / agency
-    if any(w in n for w in ["usaid", "fcdo", "norad", "sida", "ministry", "department of"]):
-        return "government"
-    if n.startswith("government of"):
-        return "government"
-
-    # DFIs
-    if "development finance" in n or " dfi " in f" {n} ":
-        return "dfi"
-
-    # VC / equity funds — pattern: ends in Ventures / Capital / Partners,
-    # OR is a well-known VC firm (a16z, etc.). Note: this comes before
-    # "foundation" to ensure e.g. "Coinbase Ventures" maps to vc, not other.
-    vc_suffixes = (" ventures", " capital", " partners", " angel", " holdings")
-    if any(n.endswith(s) for s in vc_suffixes):
-        return "vc"
-    well_known_vc = (
-        "andreessen horowitz", "a16z", "sequoia", "tiger global",
-        "y combinator", "kindred", "variant", "sv angel", "coinbase",
-        "lowercarbon", "floating point",
-    )
-    if any(w in n for w in well_known_vc):
-        return "vc"
-
-    # Foundations / religious / charitable
-    if "foundation" in n or "philanthropy" in n or "philanthrophy" in n:
-        return "foundation"
-    if "missionary" in n or "sister" in n or "religious" in n:
-        return "foundation"
-    if "investment services" in n or "charitable" in n:
-        return "foundation"
-
-    # Wealth advisors etc → other
-    if "advisors" in n or "advisor" in n:
-        return "other"
-
-    return "other"
 
 
 def _read_primary_rows(run_number: int) -> tuple[list[dict], int, int]:
