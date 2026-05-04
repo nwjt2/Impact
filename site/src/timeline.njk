@@ -106,15 +106,17 @@ pageKey: timeline
   "use strict";
   var I = window.IFC;
 
-  // Reuse the same taxonomy as /match/ for consistency.
+  // Sector vocabulary — covers both naming conventions used across content
+  // YAMLs (peer_funds uses `gender`; /match/ uses `gender_lens`). Only chips
+  // for tags that actually appear in the population are rendered.
   var SECTOR_LABELS = {
     fi: "Financial inclusion", agri: "Agriculture", smb: "SMEs / livelihoods",
     climate: "Climate", energy: "Energy", health: "Health", edu: "Education",
     wash: "Water & sanitation", gender: "Gender lens", gender_lens: "Gender lens",
     housing: "Housing", forestry: "Forestry / nature", biodiversity: "Biodiversity",
-    generalist: "Generalist",
+    humanitarian: "Humanitarian", generalist: "Generalist",
   };
-  var SECTOR_ORDER = ["fi","agri","smb","climate","energy","health","edu","wash","gender","gender_lens","housing","forestry","biodiversity","generalist"];
+  var SECTOR_ORDER = ["fi","agri","smb","climate","energy","health","edu","wash","gender","gender_lens","housing","forestry","biodiversity","humanitarian","generalist"];
 
   var GEO_LABELS = {
     africa: "Africa", mena: "MENA", asia: "Asia", latam: "Latin America",
@@ -177,10 +179,22 @@ pageKey: timeline
     });
   }
 
+  // Build the live tag inventory from the population so the picker only
+  // shows chips that actually filter to non-empty results.
+  var sectorsInUse = new Set();
+  var geosInUse = new Set();
+  PEER.filter(function (f) { return f.first_close_date; }).forEach(function (f) {
+    (f.sector_tags || []).forEach(function (t) { sectorsInUse.add(t); });
+    (f.geo_tags || []).forEach(function (t) { geosInUse.add(t); });
+  });
+
+  var sectorOrder = SECTOR_ORDER.filter(function (k) { return sectorsInUse.has(k); });
+  var geoOrder = GEO_ORDER.filter(function (k) { return geosInUse.has(k); });
+
   document.querySelectorAll("#tl-picker .picker-chips").forEach(function (host) {
     var dim = host.getAttribute("data-dim");
-    if (dim === "sectors") buildChips(host, "sectors", SECTOR_ORDER, SECTOR_LABELS);
-    else if (dim === "geos") buildChips(host, "geos", GEO_ORDER, GEO_LABELS);
+    if (dim === "sectors") buildChips(host, "sectors", sectorOrder, SECTOR_LABELS);
+    else if (dim === "geos") buildChips(host, "geos", geoOrder, GEO_LABELS);
     else if (dim === "cohort") buildChips(host, "cohort", COHORT_ORDER, COHORT_LABELS);
   });
 
