@@ -33,33 +33,40 @@ government_donors:
     country: "AU"
     category: bilateral_aid
     stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
+    stated_geo_focus: [asia]
+    stated_thesis_url: https://www.dfat.gov.au/development
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.dfat.gov.au/news/media-releases
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Australia's bilateral aid agency.
+    notes: |
+      Australia's bilateral aid agency. Indo-Pacific is the canonical
+      geographic focus. WebFetch verification on 2026-05-04 timed out.
+      URLs above are canonical entry points; themes/excerpt left null
+      pending operator verification.
 
   - slug: european-union
     name: European Union
     aliases: ["European Union", "EU", "European Commission", "DG INTPA"]
     country: "EU"
     category: multilateral_eu
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [climate, energy, health, gender, edu]
+    stated_geo_focus: [africa, global]
+    stated_thesis_url: https://international-partnerships.ec.europa.eu/policies/global-gateway_en
+    stated_thesis_excerpt: "The EU addresses global challenges through international partnerships that uphold and promote European values and interests, and contribute to peace and prosperity in the world."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://international-partnerships.ec.europa.eu/news-and-events/news_en
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
       EU LP commitments typically flow through DG INTPA (formerly DEVCO)
-      or the EFSD+ blending facilities.
+      or the EFSD+ blending facilities. Global Gateway is the headline
+      initiative. Africa-EU Partnership is the prominent geographic
+      priority on the policy landing page; explicit Asia/LATAM coverage
+      is via specific country/regional programs.
 
   - slug: german-federal-ministry-for-economic-cooperation-and-development-bmz
     name: German Federal Ministry for Economic Cooperation and Development (BMZ)
@@ -67,17 +74,21 @@ government_donors:
              "Bundesministerium für wirtschaftliche Zusammenarbeit und Entwicklung"]
     country: "DE"
     category: bilateral_aid
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
+    stated_priority_themes: [climate, agri, edu, health]
+    stated_geo_focus: [africa]
+    stated_thesis_url: https://www.bmz.de/en/issues
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.bmz.de/en/news/press-releases
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
-      Germany's federal development ministry. Many LP commitments are
+      Germany's federal development ministry. Thematic priorities include
+      climate action / international climate finance, food security,
+      education, health cooperation, development-oriented migration.
+      Geographic priorities centre on Africa with significant MENA and
+      Ukraine reconstruction commitments. Many LP commitments are
       executed via KfW (tracked separately as a DFI).
 
   - slug: global-affairs-canada
@@ -85,32 +96,42 @@ government_donors:
     aliases: ["Global Affairs Canada", "GAC"]
     country: "CA"
     category: bilateral_aid
-    stated_priority_themes: null
+    stated_priority_themes: [gender, climate]
     stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_thesis_url: https://www.international.gc.ca/world-monde/issues_development-enjeux_developpement/priorities-priorites/policy-politique.aspx?lang=eng
+    stated_thesis_excerpt: "Promote human dignity and a more just, inclusive, sustainable, and safe world."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
     public_newsroom_url: null
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Canada's foreign affairs and development ministry.
+    notes: |
+      Canada's foreign affairs and development ministry. Operates under
+      the Feminist International Assistance Policy. Headline themes:
+      gender equality, climate change, human rights / democracy /
+      governance. Geographic priorities are thematic rather than
+      regionally fixed.
 
   - slug: international-trade-centre
     name: International Trade Centre
     aliases: ["International Trade Centre", "ITC"]
     country: "CH"
     category: multilateral_un
-    stated_priority_themes: null
+    stated_priority_themes: [smb, gender]
     stated_geo_focus: null
-    stated_thesis_url: null
+    stated_thesis_url: https://intracen.org/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
     public_newsroom_url: null
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Joint UN-WTO agency, Geneva HQ.
+    notes: |
+      Joint UN-WTO agency, Geneva HQ. Focuses on SME export competitiveness
+      and inclusive trade (SheTrades programme is the gender-focused
+      signature initiative). WebFetch verification on 2026-05-04 returned
+      403 (WAF). Themes/excerpt populated from well-known programmatic
+      profile but left thin pending operator verification.
 
   - slug: swiss-agency-for-development-and-cooperation
     name: Swiss Agency for Development and Cooperation
@@ -120,14 +141,19 @@ government_donors:
     category: bilateral_aid
     stated_priority_themes: null
     stated_geo_focus: null
-    stated_thesis_url: null
+    stated_thesis_url: https://www.eda.admin.ch/sdc/en/home/sdc/strategy/strategy-international-cooperation-2025-2028.html
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.eda.admin.ch/sdc/en/home/news.html
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Switzerland's bilateral development cooperation agency.
+    notes: |
+      Switzerland's bilateral development cooperation agency. WebFetch
+      verification on 2026-05-04 returned 403 (WAF). URLs above are the
+      canonical entry points for the 2025-2028 International Cooperation
+      Strategy and SDC newsroom; themes/excerpt left null pending
+      operator verification.
 
   - slug: usaid
     name: USAID
@@ -145,8 +171,14 @@ government_donors:
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
-      U.S. bilateral aid agency. LP commitments often executed via DFC
-      (tracked separately as a DFI) and direct Mission-level grants.
+      U.S. bilateral aid agency. Note: USAID was substantially restructured
+      / dismantled under the Trump administration in early 2025; ongoing
+      programs and the agency's institutional thesis are in flux as of
+      2026-05-04. Historical LP commitments remain in network/dashboard_prep/
+      fund_lps.csv with their original source URLs. Operator should verify
+      current state before relying on a stated thesis. Many DFC commitments
+      were previously co-mobilised with USAID (DFC tracked separately as
+      a DFI).
 
   # ---- Sovereign-government LPs (typically one-off into a specific vehicle) ----
 
@@ -174,7 +206,7 @@ government_donors:
     category: sovereign_lp
     stated_priority_themes: null
     stated_geo_focus: null
-    stated_thesis_url: null
+    stated_thesis_url: https://maee.gouvernement.lu/en.html
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
@@ -183,7 +215,9 @@ government_donors:
     known_ingo_gp_commits: []
     notes: |
       Luxembourg is a frequent fund-domicile and an active sovereign LP
-      via its development-cooperation budget.
+      via its development-cooperation budget (Lux-Development is the
+      operating arm). Stated thesis URL is the foreign affairs ministry;
+      direct LP-strategy disclosure is sparse.
 
   - slug: government-of-the-democratic-republic-of-the-congo
     name: Government of the Democratic Republic of the Congo

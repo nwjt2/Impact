@@ -78,18 +78,22 @@ corporates:
     aliases: ["Mastercard", "Mastercard Inc.", "Mastercard Incorporated"]
     country: "US"
     category: financial_services
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [fi, smb, gender]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.mastercardcenter.org/about-the-center/the-center
+    stated_thesis_excerpt: "Doing good, by doing what we do best."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.mastercardcenter.org/about-the-center/news
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
       Mastercard's corporate balance sheet — distinct from Mastercard
-      Foundation (separate entity, separate slug).
+      Foundation (separate entity, separate slug). Mastercard Center for
+      Inclusive Growth runs the impact arm: financial security &
+      inclusion, small business growth, women entrepreneurs, impact
+      data science. Global with named programs in Europe (Strive EU),
+      Asia-Pacific, Americas.
 
   - slug: mercantil-colpatria
     name: Mercantil Colpatria
@@ -214,16 +218,19 @@ corporates:
     aliases: ["Royal Philips", "Philips", "Koninklijke Philips N.V."]
     country: "NL"
     category: pharma
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [health, climate]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.philips.com/a-w/about/sustainability/impact-ambitions.html
+    stated_thesis_excerpt: "We see huge potential in making a difference through innovation, design, sustainability and collaboration, supporting more healthcare providers to care for more patients."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.philips.com/a-w/about/news/home.html
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Dutch health-technology multinational.
+    notes: |
+      Dutch health-technology multinational. Sustainability themes: access
+      to care / patient outcomes, environmental impact (climate, materials,
+      ecodesign), supply-chain responsibility.
 
   - slug: starbucks
     name: Starbucks

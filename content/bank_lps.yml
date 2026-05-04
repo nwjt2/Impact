@@ -32,16 +32,19 @@ banks:
     category: commercial
     aum_usd_m_consolidated: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [fi, climate, housing, gender]
+    stated_geo_focus: [asia]
+    stated_thesis_url: https://www.anz.com/about-us/esg/
+    stated_thesis_excerpt: "Shape a world where people and communities thrive."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://media.anz.com/featured
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: null
+    notes: |
+      Australian commercial bank. Stated ESG pillars: financial wellbeing,
+      environmental sustainability, housing, fair banking, diversity. AU/NZ
+      primary market; operates in ~30 markets including 10+ across Asia.
 
   - slug: bnp-paribas
     name: BNP Paribas
@@ -52,14 +55,18 @@ banks:
     aum_usd_m_year: null
     stated_priority_themes: null
     stated_geo_focus: null
-    stated_thesis_url: null
+    stated_thesis_url: https://group.bnpparibas/en/group/sustainability
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://group.bnpparibas/en/news
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: null
+    notes: |
+      WebFetch verification of sustainability landing was blocked (403 WAF)
+      on 2026-05-04. URLs above are the canonical group-level pages but
+      themes/excerpt left null pending operator verification. BNP Paribas
+      Asset Management runs a separate impact-investing platform.
 
   - slug: banca-etica
     name: Banca Etica
@@ -68,16 +75,21 @@ banks:
     category: cooperative
     aum_usd_m_consolidated: null
     aum_usd_m_year: null
-    stated_priority_themes: null
+    stated_priority_themes: [fi, housing, gender, smb, climate, generalist]
     stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_thesis_url: https://www.bancaetica.it/policy-di-finanza-etica/
+    stated_thesis_excerpt: "We finance responsible initiatives under social and environmental profiles."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.bancaetica.it/area-stampa/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Italian ethical-banking cooperative.
+    notes: |
+      Italian ethical-banking cooperative. Funds social housing, worker
+      cooperatives, microfinance, gender equality, environmental projects.
+      Primary geo Italy with branch operations in Spain, France, Germany;
+      international development work via partner organisations. Annual
+      impact report at bancaetica.it/report-impatto-2024/.
 
   - slug: bank-of-america
     name: Bank of America
@@ -86,16 +98,20 @@ banks:
     category: commercial
     aum_usd_m_consolidated: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [fi, climate, housing, edu]
+    stated_geo_focus: [us]
+    stated_thesis_url: https://about.bankofamerica.com/en/making-an-impact
+    stated_thesis_excerpt: "From families creating better lives to communities and coalitions promoting the greater good, we support all kinds of efforts to build a brighter future."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://newsroom.bankofamerica.com/content/newsroom/press-releases
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: null
+    notes: |
+      US-centred commercial bank. Stated impact themes: community development,
+      economic opportunity / job training, environmental sustainability,
+      digital divide. Bank of America Foundation is tracked separately on
+      /foundations/.
 
   - slug: credit-cooperatif
     name: Crédit Coopératif
@@ -104,16 +120,21 @@ banks:
     category: cooperative
     aum_usd_m_consolidated: null
     aum_usd_m_year: null
-    stated_priority_themes: null
+    stated_priority_themes: [climate, housing, smb, fi]
     stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_thesis_url: https://www.credit-cooperatif.coop/finance-engagee/
+    stated_thesis_excerpt: "Une autre banque est possible — finance solidaire au service de l'économie sociale et solidaire."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.credit-cooperatif.coop/votre-banque/une-autre-banque-est-possible/espace-presse/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: French cooperative bank serving social-economy clients.
+    notes: |
+      French cooperative bank serving the social and solidarity economy.
+      Themes: ecological transition, sustainable mobility, social housing,
+      solidarity savings products. France-only retail footprint. Reports
+      €100M+ in donations channelled to associations through solidarity
+      banking products over 40 years.
 
   - slug: rabobank
     name: Rabobank
@@ -122,16 +143,22 @@ banks:
     category: cooperative
     aum_usd_m_consolidated: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
+    stated_priority_themes: [agri, fi, climate]
+    stated_geo_focus: [global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://media.rabobank.com/en/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Dutch cooperative bank with significant agri-finance footprint.
+    notes: |
+      Dutch cooperative bank with significant agri-finance footprint
+      globally. WebFetch verification of about-us/sustainability pages
+      blocked (403 WAF) on 2026-05-04. Themes (agri / fi / climate)
+      derived from well-known business profile but stated_thesis_url and
+      excerpt left null pending operator verification. Rabo Foundation
+      and Rabo Rural Fund operate alongside the parent bank.
 
   - slug: standard-chartered-bank
     name: Standard Chartered Bank
@@ -140,16 +167,20 @@ banks:
     category: commercial
     aum_usd_m_consolidated: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [climate, fi, smb, energy]
+    stated_geo_focus: [asia, africa]
+    stated_thesis_url: https://www.sc.com/en/about/sustainability/
+    stated_thesis_excerpt: "We're mobilising capital to help deliver sustainable and inclusive growth for the places we call home."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.sc.com/en/media/press-releases/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Emerging-markets focused commercial bank.
+    notes: |
+      Emerging-markets-focused commercial bank. Three sustainable-finance
+      pillars: Accelerating Zero (net zero by 2050 financed-emissions
+      target), Resetting Globalisation, Lifting Participation. Operations
+      across 24+ countries in Asia, Africa, Middle East.
 
   - slug: vdk-bank
     name: vdk bank
@@ -158,13 +189,16 @@ banks:
     category: cooperative
     aum_usd_m_consolidated: null
     aum_usd_m_year: null
-    stated_priority_themes: null
+    stated_priority_themes: [smb, climate]
     stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_thesis_url: https://vdk.bank/nl/welkom-bij-vdk-bank
+    stated_thesis_excerpt: "The sustainable, ethical bank with personal advice — investing in trust, sustainable relationships and ethical projects, socially, economically and ecologically since 1926."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://vdk.bank/nl/nieuws
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Flemish cooperative bank.
+    notes: |
+      Flemish cooperative bank. Ranks 2nd among Belgian banks on the
+      BankWijzer FairFin sustainability assessment (84%). Belgium-only
+      footprint, primary in Flanders / Dutch-speaking regions.

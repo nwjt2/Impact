@@ -37,16 +37,18 @@ asset_managers:
     category: mfi_specialist
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [fi, agri, smb]
+    stated_geo_focus: [latam, africa, asia]
+    stated_thesis_url: https://www.alterfin.be/about-us
+    stated_thesis_excerpt: "Every share in Alterfin is a share in a human life."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.alterfin.be/updates
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Belgian cooperative MFI specialist; lends to smallholder agri and microfinance.
+    notes: |
+      Belgian cooperative MFI specialist; lends to smallholder agri,
+      microfinance, and fair trade across LATAM, Africa, and Asia.
 
   - slug: axa-investment-managers
     name: AXA Investment Managers
@@ -64,7 +66,12 @@ asset_managers:
     public_newsroom_url: null
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: AXA IM operates a dedicated Impact Investing platform.
+    notes: |
+      WebFetch verification on 2026-05-04 hit a redirect to BNP Paribas AM
+      — AXA IM was acquired and rebranded under the BNP Paribas Asset
+      Management umbrella in mid-2024. Pre-acquisition LP commitments
+      remain attributed to AXA IM. Operator should verify whether to
+      keep this slug or migrate to bnp-paribas-asset-management.
 
   - slug: bamboo-capital-partners
     name: Bamboo Capital Partners
@@ -73,13 +80,13 @@ asset_managers:
     category: dedicated_impact
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [fi, energy, health, agri]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://bamboocp.com/about-us/
+    stated_thesis_excerpt: "Innovative financing solutions to businesses in emerging and frontier markets serving the needs of low- to middle-income populations, thus catalysing lasting impact."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://bamboocp.com/news/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
@@ -103,7 +110,10 @@ asset_managers:
     public_newsroom_url: null
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Impact-investing platform aggregating donor-advised-fund and family-office capital.
+    notes: |
+      Impact-investing platform aggregating donor-advised-fund and
+      family-office capital. WebFetch verification on 2026-05-04 returned
+      403 (WAF). Themes/excerpt left null pending operator verification.
 
   - slug: impactassets-inc
     name: ImpactAssets Inc.
@@ -112,16 +122,22 @@ asset_managers:
     category: platform
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [climate, fi, health, edu, energy]
+    stated_geo_focus: [global, us]
+    stated_thesis_url: https://impactassets.org/about-us/
+    stated_thesis_excerpt: "ImpactAssets works with individuals, families and organizations to create positive change through impact investing and philanthropic giving."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://impactassets.org/news-perspectives/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Donor-advised-fund sponsor specialising in impact allocations.
+    notes: |
+      Donor-advised-fund sponsor specialising in impact allocations.
+      Themes: energy transition, clean transportation, economic
+      empowerment, healthcare, poverty alleviation, education, energy
+      access. Same name appears as `impactassets` slug under
+      family_office_lps.yml as a DAF host — minor pre-existing dup,
+      tolerated by tests/test_lp_registries.py.
 
   - slug: impax-asset-management
     name: Impax Asset Management
@@ -130,16 +146,21 @@ asset_managers:
     category: mainstream_with_impact_arm
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [climate, energy, wash, agri]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://impaxam.com/about-us/
+    stated_thesis_excerpt: "Specialist investor focused on the transition to a more sustainable economy."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://impaxam.com/insights-and-news/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Listed UK asset manager focused on transition / sustainable economy.
+    notes: |
+      Listed UK asset manager focused on transition / sustainable
+      economy. Themes include environmental markets (climate, water,
+      food), sustainable infrastructure, energy efficiency. Global
+      footprint with offices in London, Dublin, NH, NY, Hong Kong,
+      Tokyo, Frankfurt, and Køge.
 
   - slug: incofin-investment-management
     name: Incofin Investment Management
@@ -148,16 +169,19 @@ asset_managers:
     category: mfi_specialist
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [fi, agri, wash]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://incofin.com/about-us/
+    stated_thesis_excerpt: "When people have access to capital — not handouts — they can grow businesses, strengthen communities and build better futures."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://incofin.com/news-insights/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Belgian impact-investing AM focused on inclusive finance and smallholder agri.
+    notes: |
+      Belgian impact-investing AM. Three pillar themes: inclusive finance,
+      sustainable food, clean water. Active in 50+ countries with focus
+      across Africa and LATAM.
 
   - slug: invest-in-visions-global-social-impact-fund
     name: Invest in Visions Global Social Impact Fund
@@ -166,16 +190,19 @@ asset_managers:
     category: mfi_specialist
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [fi, energy]
+    stated_geo_focus: [africa, asia]
+    stated_thesis_url: https://www.investinvisions.com/en/company/
+    stated_thesis_excerpt: "Provide institutional and private investors with access to a unique asset class that offers both financial and social returns."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.investinvisions.com/en/blog/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: German MFI fund manager.
+    notes: |
+      German MFI fund manager. Microfinance lending plus off-grid solar
+      electrification financing in Sub-Saharan Africa. India exposure
+      via Aye Finance partnership.
 
   - slug: nuveen
     name: Nuveen
@@ -193,7 +220,10 @@ asset_managers:
     public_newsroom_url: null
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: TIAA-owned AM with a dedicated Nuveen Global Impact business.
+    notes: |
+      TIAA-owned AM with a dedicated Nuveen Global Impact business.
+      WebFetch verification on 2026-05-04 timed out (60s). Themes/excerpt
+      left null pending operator verification.
 
   - slug: sidi-solidarite-internationale-pour-le-developpement-et-l-investissement
     name: SIDI (Solidarité Internationale pour le Développement et l'Investissement)
@@ -202,16 +232,20 @@ asset_managers:
     category: mfi_specialist
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [fi, agri, climate]
+    stated_geo_focus: [africa, latam]
+    stated_thesis_url: https://www.sidi.fr/en/who-we-are/
+    stated_thesis_excerpt: "Working for a fairer world and respect for the environment through solidarity investment in developing countries."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.sidi.fr/en/press-area/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: French solidarity-finance institution backing inclusive finance and rural enterprise.
+    notes: |
+      French solidarity-finance institution. Active in 33 countries —
+      primarily Africa (Rwanda, Uganda, Kenya, Mali, Madagascar) and
+      LATAM (Peru, Ecuador). Also Middle East (Palestine, Jordan) and
+      Eastern Europe (Albania).
 
   - slug: symbiotics
     name: Symbiotics
@@ -220,19 +254,22 @@ asset_managers:
     category: dedicated_impact
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [fi, smb, energy]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: https://symbioticsgroup.com/impact/
+    stated_thesis_excerpt: "The leading market access platform for impact investing, dedicated to private markets in emerging and frontier economies."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://symbioticsgroup.com/news-2/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
-      Swiss impact-finance specialist. Also appears as a fund GP / sub-advisor
-      in network/catalogue/impact_funds.csv (manages Oxfam SEIIF, Habitat
-      MicroBuild, etc.); the LP-side appearance reflects cross-vehicle structures.
+      Swiss impact-finance specialist. Themes: financial inclusion,
+      microfinance, SME lending, energy efficiency. Active across
+      emerging and frontier markets. Also appears as a fund GP /
+      sub-advisor in network/catalogue/impact_funds.csv (manages Oxfam
+      SEIIF, Habitat MicroBuild, etc.); the LP-side appearance reflects
+      cross-vehicle structures.
 
   - slug: tiaa
     name: TIAA
@@ -250,7 +287,11 @@ asset_managers:
     public_newsroom_url: null
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Parent of Nuveen; institutional retirement-services provider.
+    notes: |
+      Parent of Nuveen; institutional retirement-services provider.
+      LP commitments typically routed via Nuveen's impact platform.
+      Not separately verified on 2026-05-04 (lower priority — Nuveen
+      is the operating impact arm).
 
   - slug: triple-jump
     name: Triple Jump
@@ -259,21 +300,24 @@ asset_managers:
     category: mfi_specialist
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [fi, smb, housing, energy, climate]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://triplejump.eu/how-we-invest/
+    stated_thesis_excerpt: "The funds, portfolios and mandates we manage or advise create impact in emerging economies while generating healthy returns."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://triplejump.eu/news-and-insights/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Dutch impact-investment AM with focus on emerging-market inclusive finance.
+    notes: |
+      Dutch impact-investment AM with offices in NL (HQ), Thailand,
+      Georgia, Mexico, Peru, Kenya. Five themes: financial inclusion,
+      SMEs, affordable housing, access to energy, climate and nature.
 
   - slug: wire-group
     name: Wire Group
     aliases: ["Wire Group"]
-    country: "NL"
+    country: null
     category: dedicated_impact
     aum_usd_m: null
     aum_usd_m_year: null
@@ -286,4 +330,11 @@ asset_managers:
     public_newsroom_url: null
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Dutch impact-investment platform.
+    notes: |
+      Operator review needed. WebFetch of wire-group.com on 2026-05-04
+      resolved to an oilfield services company (Gulf of Guinea slickline
+      services), not an impact-investing platform. The LP edge naming
+      "Wire Group" likely refers to a different entity — possibly a Dutch
+      impact platform — but the canonical website is unverified. Country
+      and category should be revisited; consider re-archetype to "other"
+      pending clarification.

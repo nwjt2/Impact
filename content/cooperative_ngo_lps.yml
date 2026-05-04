@@ -54,16 +54,23 @@ cooperative_ngos:
     aliases: ["Boerenbond"]
     country: "BE"
     category: farmer_coop
-    stated_priority_themes: null
+    stated_priority_themes: [agri, climate, smb]
     stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_thesis_url: https://www.boerenbond.be/over-ons
+    stated_thesis_excerpt: "In overleg met de maatschappij wil Boerenbond als landbouworganisatie bouwen aan een levenskrachtige, duurzame land- en tuinbouw."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.boerenbond.be/pers
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Flemish farmers' association. Anchor in Belgian agri-coop fund cluster.
+    notes: |
+      Flemish farmers' association — anchor in the Belgian agri-coop fund
+      cluster (Kampani, Truvalu, BRS Microfinance Coop). Mission roughly
+      translates: "In consultation with society, Boerenbond as an
+      agricultural organisation aims to build viable, sustainable
+      agriculture and horticulture." Investment activity is via MRBB
+      (Maatschappij voor Roerend Bezit van de Boerenbond), tracked
+      separately.
 
   - slug: broederlijk-delen
     name: Broederlijk Delen
@@ -72,14 +79,17 @@ cooperative_ngos:
     category: faith_based
     stated_priority_themes: null
     stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_thesis_url: https://broederlijkdelen.be/en
+    stated_thesis_excerpt: "Until everyone is with us."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
     public_newsroom_url: null
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Belgian Catholic development NGO.
+    notes: |
+      Belgian Catholic development NGO. WebFetch returned only the tagline
+      on 2026-05-04; themes/geo focus and excerpt left thin pending
+      operator verification.
 
   - slug: care-enterprises
     name: CARE Enterprises
@@ -97,7 +107,9 @@ cooperative_ngos:
     known_ingo_gp_commits: []
     notes: |
       Investment arm of CARE International. INGO LP'ing into other
-      INGO-sponsored vehicles — unusual pattern worth flagging.
+      INGO-sponsored vehicles — unusual pattern worth flagging. WebFetch
+      verification on 2026-05-04 returned ECONNREFUSED at care-enterprises.com
+      — the entity URL may have changed; operator should verify.
 
   - slug: chemonics-international
     name: Chemonics International
@@ -106,22 +118,25 @@ cooperative_ngos:
     category: development_consultancy
     stated_priority_themes: null
     stated_geo_focus: null
-    stated_thesis_url: null
+    stated_thesis_url: https://chemonics.com/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
     public_newsroom_url: null
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: US development consultancy / USAID prime contractor.
+    notes: |
+      US development consultancy / USAID prime contractor. Note that
+      Chemonics' business has been substantially affected by the 2025
+      USAID restructuring; current LP-investing thesis is uncertain.
 
   - slug: clac-coordinadora-latinoamericana-y-del-caribe-de-pequenos-productores
     name: CLAC (Coordinadora Latinoamericana y del Caribe de Pequeños Productores)
     aliases: ["CLAC", "Coordinadora Latinoamericana y del Caribe de Pequeños Productores"]
     country: "SV"
     category: farmer_coop
-    stated_priority_themes: null
-    stated_geo_focus: null
+    stated_priority_themes: [agri, smb]
+    stated_geo_focus: [latam]
     stated_thesis_url: null
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
@@ -170,23 +185,26 @@ cooperative_ngos:
     aliases: ["MEDA", "Mennonite Economic Development Associates"]
     country: "CA"
     category: faith_based
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [agri, smb, gender]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.meda.org/about/
+    stated_thesis_excerpt: "Creating Business Solutions to Poverty."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.meda.org/news/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Mennonite Economic Development Associates — faith-based development NGO.
+    notes: |
+      Mennonite Economic Development Associates — faith-based development
+      NGO. Has worked in 80+ countries with focus on agricultural systems,
+      smallholder farming, and entrepreneurship.
 
   - slug: maatschappij-voor-roerend-bezit-van-de-boerenbond-mrbb
     name: Maatschappij voor Roerend Bezit van de Boerenbond (MRBB)
     aliases: ["MRBB", "Maatschappij voor Roerend Bezit van de Boerenbond"]
     country: "BE"
     category: farmer_coop
-    stated_priority_themes: null
+    stated_priority_themes: [agri, smb]
     stated_geo_focus: null
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -197,26 +215,29 @@ cooperative_ngos:
     known_ingo_gp_commits: []
     notes: |
       Investment holding of Boerenbond (Flemish farmers' association); a
-      recurring anchor in Belgian agri-coop fund cluster.
+      recurring anchor in Belgian agri-coop fund cluster. MRBB also holds
+      stakes in major Belgian agri-cooperatives and food processors.
 
   - slug: oxfam
     name: Oxfam
     aliases: ["Oxfam", "Oxfam International"]
     country: "GB"
     category: ngo
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [wash, climate, gender, fi]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: https://www.oxfam.org/en/what-we-do/about
+    stated_thesis_excerpt: "The future is equal."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.oxfam.org/en/press-releases
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
-      Oxfam Confederation (international secretariat in Nairobi, legal
-      entity historically in UK). The Oxfam SEIIF fund (managed by
-      Symbiotics) is a separate vehicle in peer_funds.yml.
+      Oxfam Confederation. Operates in 77 countries. Six pillar themes:
+      water/sanitation, food/climate/natural resources, conflicts/disasters,
+      extreme inequality/essential services, digital rights, gender/rights/
+      justice. The Oxfam SEIIF fund (managed by Symbiotics) is a separate
+      vehicle in peer_funds.yml.
 
   - slug: oxfam-solidarite-belgium
     name: Oxfam-Solidarité Belgium
@@ -234,14 +255,15 @@ cooperative_ngos:
     known_ingo_gp_commits: []
     notes: |
       Belgian affiliate of Oxfam Confederation — distinct LP from the
-      international entity above.
+      international entity above. Active in the Belgian agri-coop fund
+      cluster.
 
   - slug: pathfinder
     name: Pathfinder
     aliases: ["Pathfinder", "Pathfinder International"]
     country: "US"
     category: ngo
-    stated_priority_themes: null
+    stated_priority_themes: [health, gender]
     stated_geo_focus: null
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -250,30 +272,37 @@ cooperative_ngos:
     public_newsroom_url: null
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Sexual and reproductive health INGO.
+    notes: |
+      Sexual and reproductive health INGO. WebFetch verification on
+      2026-05-04 returned 404 at /about/; operator should verify the
+      current entity URL.
 
   - slug: rikolto
     name: Rikolto
     aliases: ["Rikolto", "Vredeseilanden"]
     country: "BE"
     category: ngo
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [agri, climate]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: https://www.rikolto.org/about-us
+    stated_thesis_excerpt: "A sustainable income for farmers and nutritious, affordable food for everyone."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.rikolto.org/stories
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Belgian farmer-livelihoods NGO (formerly Vredeseilanden).
+    notes: |
+      Belgian farmer-livelihoods NGO (formerly Vredeseilanden). Three
+      core programmes: sustainable rice, good food for cities, sustainable
+      cocoa/coffee. Active in Southeast Asia (Vietnam, Indonesia), East
+      Africa (Uganda), West Africa, LATAM (Honduras), and Europe.
 
   - slug: sos-faim-luxembourg
     name: SOS Faim Luxembourg
     aliases: ["SOS Faim Luxembourg", "SOS Faim"]
     country: "LU"
     category: ngo
-    stated_priority_themes: null
+    stated_priority_themes: [agri, fi]
     stated_geo_focus: null
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -289,32 +318,40 @@ cooperative_ngos:
     aliases: ["Solidaridad", "Solidaridad Network"]
     country: "NL"
     category: ngo
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
+    stated_priority_themes: [agri, climate, smb]
+    stated_geo_focus: [latam, africa, asia]
+    stated_thesis_url: https://www.solidaridadnetwork.org/who-we-are/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.solidaridadnetwork.org/news-and-resources
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Dutch sustainable supply-chain NGO.
+    notes: |
+      Dutch sustainable supply-chain NGO. Active in commodity chains
+      (livestock, cocoa, palm oil, etc.) across LATAM (Brazil/Pará),
+      East/Central/Southern/West Africa, Asia, Europe, North America.
+      Multi-Annual Strategic Plan 2026-2030 published.
 
   - slug: trias
     name: Trias
     aliases: ["Trias", "Trias NGO"]
     country: "BE"
     category: ngo
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [agri, smb, gender, climate]
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: https://worldwide.trias.ngo/en/who-we-are/
+    stated_thesis_excerpt: "Turning dreams into opportunities."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://worldwide.trias.ngo/en/news/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: Belgian member-organisation NGO supporting smallholder farmers and entrepreneurs.
+    notes: |
+      Belgian member-organisation NGO supporting smallholder farmers and
+      entrepreneurs. Active in 17 countries across West/Central/East
+      Africa, Southeast Asia, Central America/Caribbean, South America,
+      and Belgium.
 
   - slug: uniting-financial-services-ufs
     name: Uniting Financial Services (UFS)

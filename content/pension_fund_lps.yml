@@ -27,18 +27,20 @@ pension_funds:
     category: industry_collective
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [climate, generalist]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://apg.nl/en/about-apg/socially-responsible-sustainable/
+    stated_thesis_excerpt: "As the pension administrator for eight pension funds, APG works every day towards a good pension in a livable world."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://apg.nl/en/press-and-media/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
       Dutch pension administrator managing assets for several large
-      industry pension funds (ABP, bpfBOUW, SPW, etc.).
+      industry pension funds (ABP, bpfBOUW, SPW, etc.). Investment
+      themes are broad — climate, financial markets, corporate
+      governance — rather than thematically narrow.
 
   - slug: kbc-pensioenfonds
     name: KBC Pensioenfonds
