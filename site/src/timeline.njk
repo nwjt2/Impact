@@ -82,8 +82,8 @@ pageKey: timeline
 .tl-row-meta  { font: 400 0.72rem/1 "IBM Plex Sans", system-ui, sans-serif; fill: currentColor; opacity: 0.6; }
 .tl-bar-pre   { fill: rgba(120,140,180,0.35); }
 .tl-bar-post  { fill: rgba(180,140,80,0.55); }
-.tl-bar-point { fill: rgba(120,140,180,0.85); }
-.tl-bar-sameday { fill: rgba(160,180,210,0.85); }
+.tl-bar-point { fill: rgba(120,140,180,0.95); stroke: rgba(20,30,50,0.6); stroke-width: 1; }
+.tl-bar-sameday { fill: rgba(180,200,230,0.95); stroke: rgba(20,30,50,0.6); stroke-width: 1; }
 .tl-row-final { fill: currentColor; opacity: 0.85; font: 500 0.72rem/1 "IBM Plex Sans", system-ui, sans-serif; }
 .tl-row-anchor { font: 400 0.72rem/1 "IBM Plex Sans", system-ui, sans-serif; fill: currentColor; opacity: 0.7; }
 .tl-row-sameday { font: 500 0.7rem/1 "IBM Plex Sans", system-ui, sans-serif; fill: currentColor; opacity: 0.55; }
@@ -480,27 +480,16 @@ pageKey: timeline
       var raising = aMonthsThis != null && aMonthsThis >= 1;
       var fcX = xFor(raising ? aMonthsThis : 0);
 
+      // Render order: bars first (background), then markers on top so the
+      // same-day diamond / no-announce dot is never buried by a final-close
+      // amber bar that starts at the same x.
+
+      // Pre-first-close raising-window bar (only when raising)
       if (raising) {
         var preCls = "tl-bar-pre" + (f.announce_date_month_only ? " tl-month-only" : "");
         parts.push('<rect class="' + preCls + '" x="' + xFor(0) + '" y="' + barY
           + '" width="' + (fcX - xFor(0)) + '" height="' + barH + '" rx="2" />');
-      } else if (sameDay) {
-        // Diamond marker at t=0 indicating "same-day announce/close"
-        var cx = xFor(0), cy = barY + barH / 2;
-        parts.push('<polygon class="tl-bar-sameday" points="'
-          + (cx - 5) + ',' + cy + ' '
-          + cx + ',' + (cy - 5) + ' '
-          + (cx + 5) + ',' + cy + ' '
-          + cx + ',' + (cy + 5) + '" />');
-      } else {
-        // pointOnly — no announce_date, just first close
-        parts.push('<circle class="tl-bar-point" cx="' + xFor(0)
-          + '" cy="' + (barY + barH / 2) + '" r="4" />');
       }
-
-      // First-close tick (always)
-      parts.push('<line class="tl-axis-line" x1="' + fcX + '" x2="' + fcX
-        + '" y1="' + barY + '" y2="' + (barY + barH) + '" stroke-width="1.5" />');
 
       // Post-first → final close (extends rightward from first close)
       var hasFinal = f.final_close_date && f.final_close_date !== f.first_close_date;
@@ -514,6 +503,26 @@ pageKey: timeline
         var fStr = String(f.final_close_date).slice(0, 7);
         parts.push('<text class="tl-row-final" x="' + (postX + postW + 6)
           + '" y="' + (barY + barH - 2) + '">final ' + I.esc(fStr) + '</text>');
+      }
+
+      // First-close tick (between bar layers and marker layer so the marker
+      // overrides if same-day diamond sits on the tick)
+      parts.push('<line class="tl-axis-line" x1="' + fcX + '" x2="' + fcX
+        + '" y1="' + barY + '" y2="' + (barY + barH) + '" stroke-width="1.5" />');
+
+      // Marker on top — same-day diamond or no-announce dot. Stroke so the
+      // marker reads cleanly on top of the amber bar when the row also has
+      // a first→final-close span.
+      if (sameDay) {
+        var cx = xFor(0), cy = barY + barH / 2;
+        parts.push('<polygon class="tl-bar-sameday" points="'
+          + (cx - 6) + ',' + cy + ' '
+          + cx + ',' + (cy - 6) + ' '
+          + (cx + 6) + ',' + cy + ' '
+          + cx + ',' + (cy + 6) + '" />');
+      } else if (!raising) {
+        parts.push('<circle class="tl-bar-point" cx="' + xFor(0)
+          + '" cy="' + (barY + barH / 2) + '" r="4.5" />');
       }
 
       // Right-side annotation: anchor LP and/or status tag that explains
