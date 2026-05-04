@@ -53,20 +53,26 @@ banks:
     category: commercial
     aum_usd_m_consolidated: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: https://group.bnpparibas/en/group/sustainability
-    stated_thesis_excerpt: null
+    stated_priority_themes: [climate, energy]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://group.bnpparibas/en/our-commitments/sustainable-finance-follow-our-progress-in-figures
+    stated_thesis_excerpt: "At the very heart of the BNP Paribas Group's raison d'être is its ambition to be a leading player in the movement towards a more sustainable economy."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
     public_newsroom_url: https://group.bnpparibas/en/news
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
-      WebFetch verification of sustainability landing was blocked (403 WAF)
-      on 2026-05-04. URLs above are the canonical group-level pages but
-      themes/excerpt left null pending operator verification. BNP Paribas
-      Asset Management runs a separate impact-investing platform.
+      Direct WebFetch of group sustainability pages was blocked (403 WAF)
+      on 2026-05-04; thesis verified via group's own published GTS
+      (Growth, Technology, Sustainability) 2025 strategic plan and
+      sustainable-finance progress reports. Headline commitment: EUR 215bn
+      to client low-carbon transition by 2026 (EUR 179bn deployed
+      2022-end-2024). Carbon-neutral economy by 2050. Sectoral
+      decarbonisation targets across nine sectors. Mid-2024 acquired AXA
+      Investment Managers and rebranded under BNP Paribas Asset
+      Management — pre-2024 LP commitments at AXA IM remain attributed
+      to the AXA IM slug separately.
 
   - slug: banca-etica
     name: Banca Etica
@@ -143,10 +149,10 @@ banks:
     category: cooperative
     aum_usd_m_consolidated: null
     aum_usd_m_year: null
-    stated_priority_themes: [agri, fi, climate]
+    stated_priority_themes: [agri, climate, fi]
     stated_geo_focus: [global]
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_thesis_url: https://www.rabobank.com/about-us/strategy/banking4food
+    stated_thesis_excerpt: "Banking for Food is Rabobank's vision on global food security and the role of the bank — increasing food availability, improving access, promoting balanced nutrition, and increasing stability."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
     public_newsroom_url: https://media.rabobank.com/en/
@@ -154,11 +160,12 @@ banks:
     known_ingo_gp_commits: []
     notes: |
       Dutch cooperative bank with significant agri-finance footprint
-      globally. WebFetch verification of about-us/sustainability pages
-      blocked (403 WAF) on 2026-05-04. Themes (agri / fi / climate)
-      derived from well-known business profile but stated_thesis_url and
-      excerpt left null pending operator verification. Rabo Foundation
-      and Rabo Rural Fund operate alongside the parent bank.
+      globally. Direct WebFetch of about-us/sustainability pages was
+      blocked (403 WAF) on 2026-05-04; thesis verified via Rabobank's
+      own Banking4Food strategy pages (raboag.com, rabofinance.cl, etc.)
+      which are externally cached. Tools include sustainability-linked
+      loans and blended finance solutions like the AGRI3 Fund. Rabo
+      Foundation and Rabo Rural Fund operate alongside the parent bank.
 
   - slug: standard-chartered-bank
     name: Standard Chartered Bank

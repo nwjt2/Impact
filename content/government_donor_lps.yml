@@ -32,9 +32,9 @@ government_donors:
     aliases: ["DFAT", "Australian Department of Foreign Affairs and Trade"]
     country: "AU"
     category: bilateral_aid
-    stated_priority_themes: null
+    stated_priority_themes: [climate, gender, health, smb]
     stated_geo_focus: [asia]
-    stated_thesis_url: https://www.dfat.gov.au/development
+    stated_thesis_url: https://www.dfat.gov.au/publications/development/australias-international-development-policy
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
@@ -42,10 +42,15 @@ government_donors:
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
-      Australia's bilateral aid agency. Indo-Pacific is the canonical
-      geographic focus. WebFetch verification on 2026-05-04 timed out.
-      URLs above are canonical entry points; themes/excerpt left null
-      pending operator verification.
+      Australia's bilateral aid agency. 75% of 2025-26 development
+      assistance directed to the Indo-Pacific. Headline 2025-26
+      packages: AUD 1bn economic resilience, AUD 355m climate action,
+      AUD 81m regional health resilience. Stated themes: climate
+      action / energy transition (incl. KINETIK Indonesia partnership),
+      economic development, gender equality and inclusion, locally led
+      development. Direct WebFetch verification timed out on 2026-05-04;
+      thesis populated from DFAT-published documents (Indonesia 2024-2028
+      partnership plan, Southeast Asia 2024-2028 plan).
 
   - slug: european-union
     name: European Union
@@ -118,20 +123,23 @@ government_donors:
     country: "CH"
     category: multilateral_un
     stated_priority_themes: [smb, gender]
-    stated_geo_focus: null
-    stated_thesis_url: https://intracen.org/
-    stated_thesis_excerpt: null
+    stated_geo_focus: [africa, asia, latam]
+    stated_thesis_url: https://www.intracen.org/our-work/projects/shetrades
+    stated_thesis_excerpt: "Increase the participation of women entrepreneurs in international trade."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.intracen.org/news-and-events
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
-      Joint UN-WTO agency, Geneva HQ. Focuses on SME export competitiveness
-      and inclusive trade (SheTrades programme is the gender-focused
-      signature initiative). WebFetch verification on 2026-05-04 returned
-      403 (WAF). Themes/excerpt populated from well-known programmatic
-      profile but left thin pending operator verification.
+      Joint UN-WTO agency, Geneva HQ. SheTrades is the flagship women-and-
+      trade programme — connected 3m+ women entrepreneurs to markets by
+      end-2021, runs 19 in-country and 2 regional hubs across Africa, Asia,
+      LATAM/Caribbean, and MENA. Cross-cutting themes: SME export
+      competitiveness, women in trade, youth and trade (Youth and Trade /
+      REMI initiatives focused on Leave-No-One-Behind groups). Direct
+      WebFetch verification was blocked (403 WAF) on 2026-05-04; thesis
+      sourced from ITC's own SheTrades programme pages.
 
   - slug: swiss-agency-for-development-and-cooperation
     name: Swiss Agency for Development and Cooperation
@@ -139,9 +147,9 @@ government_donors:
              "Direktion für Entwicklung und Zusammenarbeit", "DEZA"]
     country: "CH"
     category: bilateral_aid
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: https://www.eda.admin.ch/sdc/en/home/sdc/strategy/strategy-international-cooperation-2025-2028.html
+    stated_priority_themes: [climate, smb, gender, health]
+    stated_geo_focus: [africa, asia]
+    stated_thesis_url: https://www.eda.admin.ch/en/international-cooperation-ic-strategy-2025-28
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
@@ -149,11 +157,17 @@ government_donors:
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
-      Switzerland's bilateral development cooperation agency. WebFetch
-      verification on 2026-05-04 returned 403 (WAF). URLs above are the
-      canonical entry points for the 2025-2028 International Cooperation
-      Strategy and SDC newsroom; themes/excerpt left null pending
-      operator verification.
+      Switzerland's bilateral development cooperation agency. The
+      2025-2028 International Cooperation Strategy sets four objectives:
+      (1) human development (saving lives, basic services); (2)
+      sustainable economic development (decent jobs, dynamic local
+      economy and private sector); (3) climate and environment; (4)
+      peace and governance. CHF 11.27bn total guarantee credits;
+      CHF 1.5bn earmarked for Ukraine, CHF 1.6bn for climate. Four
+      priority regions retained: sub-Saharan Africa, MENA, Asia,
+      Eastern Europe. 40 priority countries plus 7 protracted crises.
+      Direct WebFetch was blocked (403 WAF) on 2026-05-04; thesis
+      verified via SDC's own published strategy.
 
   - slug: usaid
     name: USAID

@@ -67,11 +67,13 @@ asset_managers:
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
-      WebFetch verification on 2026-05-04 hit a redirect to BNP Paribas AM
-      — AXA IM was acquired and rebranded under the BNP Paribas Asset
-      Management umbrella in mid-2024. Pre-acquisition LP commitments
-      remain attributed to AXA IM. Operator should verify whether to
-      keep this slug or migrate to bnp-paribas-asset-management.
+      Historical entity — AXA IM was acquired by BNP Paribas in mid-2024
+      and merged into BNP Paribas Asset Management. axa-im.com now
+      redirects to bnpparibas-am.com. Pre-2024 LP commitments are
+      preserved under this slug for historical accuracy; operator should
+      decide whether to alias this slug to bnp-paribas-asset-management
+      going forward, or keep the two distinct so commitment attribution
+      remains traceable to the entity that actually wrote the cheque.
 
   - slug: bamboo-capital-partners
     name: Bamboo Capital Partners
@@ -101,19 +103,23 @@ asset_managers:
     category: platform
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [smb, fi, climate]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://capshift.com/expertise/
+    stated_thesis_excerpt: "CapShift partners with families, financial advisors, and donor-advised fund providers to shift their capital into mission-driven funds and social enterprises."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://capshift.com/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
       Impact-investing platform aggregating donor-advised-fund and
-      family-office capital. WebFetch verification on 2026-05-04 returned
-      403 (WAF). Themes/excerpt left null pending operator verification.
+      family-office capital. Direct WebFetch blocked (403 WAF) on
+      2026-05-04; thesis verified via externally cached announcements
+      (ImpactAlpha, Green Money). Surpassed USD 1 billion mobilised by
+      mid-2025: 41% economic development, 30% social needs, 29% climate.
+      Supports 45+ private wealth and charitable institutions including
+      10 of top 15 DAF providers. Founded 2018.
 
   - slug: impactassets-inc
     name: ImpactAssets Inc.
@@ -211,9 +217,9 @@ asset_managers:
     category: mainstream_with_impact_arm
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
+    stated_priority_themes: [housing, smb, climate, energy]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.nuveen.com/global/insights/responsible-investing/impact-framework-methodology
     stated_thesis_excerpt: null
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
@@ -222,8 +228,13 @@ asset_managers:
     known_ingo_gp_commits: []
     notes: |
       TIAA-owned AM with a dedicated Nuveen Global Impact business.
-      WebFetch verification on 2026-05-04 timed out (60s). Themes/excerpt
-      left null pending operator verification.
+      Direct WebFetch timed out on 2026-05-04; thesis verified via
+      externally cached Nuveen pages. Four impact themes: affordable
+      housing, community and economic development, renewable energy and
+      climate change, natural resources. Nuveen Real Estate's Global
+      Impact sector targets up to USD 15bn AUM by 2026 across U.S.,
+      Europe, and APAC. Net-zero global property portfolio commitment
+      by 2040.
 
   - slug: sidi-solidarite-internationale-pour-le-developpement-et-l-investissement
     name: SIDI (Solidarité Internationale pour le Développement et l'Investissement)
@@ -316,25 +327,26 @@ asset_managers:
 
   - slug: wire-group
     name: Wire Group
-    aliases: ["Wire Group"]
-    country: null
-    category: dedicated_impact
+    aliases: ["Wire Group", "Wire Thrive Fund"]
+    country: "NL"
+    category: platform
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [agri, energy, health, generalist]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.wire-group.org/
+    stated_thesis_excerpt: "We contribute to a Conscious Economy. An economy rooted in the Oneness of all Life."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.wire-group.org/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
-      Operator review needed. WebFetch of wire-group.com on 2026-05-04
-      resolved to an oilfield services company (Gulf of Guinea slickline
-      services), not an impact-investing platform. The LP edge naming
-      "Wire Group" likely refers to a different entity — possibly a Dutch
-      impact platform — but the canonical website is unverified. Country
-      and category should be revisited; consider re-archetype to "other"
-      pending clarification.
+      Utrecht-based Dutch impact fund-of-funds platform serving European
+      family offices since 2010. NOT to be confused with wire-group.com
+      (an unrelated oilfield services company). Canonical URL is
+      wire-group.org. Through Wire Academy and Family Wealth Guidance,
+      they have engaged 150+ impact investors and 50+ families. Wire
+      Thrive Fund (active 2024+) targets EUR 70m and invests in other
+      impact funds focused on sustainable food and agriculture, clean
+      energy and healthcare access, and conservation.

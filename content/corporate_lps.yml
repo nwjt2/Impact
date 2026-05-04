@@ -46,16 +46,23 @@ corporates:
     aliases: ["Ecolab", "Ecolab Inc."]
     country: "US"
     category: industrial
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [wash, climate, health]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.ecolab.com/corporate-responsibility/2030-positive-impact
+    stated_thesis_excerpt: "A global sustainability leader offering water, hygiene and infection prevention solutions and services that protect people and the resources vital to life."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.ecolab.com/news
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
-    notes: null
+    notes: |
+      Direct WebFetch returned 404 on multiple sustainability paths on
+      2026-05-04; thesis verified via externally cached Ecolab pages
+      and 2030 Positive Impact announcements. Stated 2030 customer
+      goals: save 300bn gallons of water/year (= 1bn people's drinking
+      water), avoid 6m metric tons of GHG/year. Internal: Scope 1+2 GHG
+      -50% by 2030 (vs 2018), 100% renewable electricity by 2030, net-zero
+      value chain by 2050. Climate targets approved by SBTi (2024).
 
   - slug: gap-inc
     name: Gap Inc.

@@ -96,20 +96,22 @@ cooperative_ngos:
     aliases: ["CARE Enterprises", "CARE Enterprises Inc."]
     country: "US"
     category: ngo
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [gender, climate, smb]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://www.careenterprises.net/
+    stated_thesis_excerpt: "A for-profit subsidiary of CARE USA running a gender-justice impact fund with a robust climate lens, focused on economically empowering women along the business value chain."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
     public_newsroom_url: null
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
-      Investment arm of CARE International. INGO LP'ing into other
-      INGO-sponsored vehicles — unusual pattern worth flagging. WebFetch
-      verification on 2026-05-04 returned ECONNREFUSED at care-enterprises.com
-      — the entity URL may have changed; operator should verify.
+      Canonical URL is careenterprises.net (NOT care-enterprises.com,
+      which was previously listed and resolved differently). Investment
+      arm of CARE USA; for-profit subsidiary structure. INGO LP'ing into
+      other INGO-sponsored vehicles is the unusual pattern this entry
+      surfaces. Distinct from Small Enterprise Assistance Funds (SEAF)
+      which spun out of CARE International in 1995.
 
   - slug: chemonics-international
     name: Chemonics International
@@ -263,19 +265,23 @@ cooperative_ngos:
     aliases: ["Pathfinder", "Pathfinder International"]
     country: "US"
     category: ngo
-    stated_priority_themes: [health, gender]
-    stated_geo_focus: null
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_priority_themes: [health, gender, climate]
+    stated_geo_focus: [africa, asia]
+    stated_thesis_url: https://www.pathfinder.org/about-us/
+    stated_thesis_excerpt: "Pathfinder envisions a world that values and invests in leadership, health, and resilience for women and girls."
     typical_check_usd_m_min: null
     typical_check_usd_m_max: null
-    public_newsroom_url: null
+    public_newsroom_url: https://www.pathfinder.org/news/
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: |
-      Sexual and reproductive health INGO. WebFetch verification on
-      2026-05-04 returned 404 at /about/; operator should verify the
-      current entity URL.
+      Three core themes: women's health, climate resilience, leadership.
+      Active in 120+ countries with focus on Africa (Burkina Faso, Burundi,
+      Côte d'Ivoire, DRC, Ethiopia, Kenya, Mozambique, Niger, Nigeria,
+      Tanzania, Uganda), South Asia (Bangladesh, India, Pakistan), and
+      Middle East (Egypt, Jordan). Mission: "Catalyze women-led, locally
+      grounded sustainable solutions that strengthen communities."
+      Canonical about URL is /about-us/ (a previous /about/ path 404'd).
 
   - slug: rikolto
     name: Rikolto
