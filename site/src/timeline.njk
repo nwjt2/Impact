@@ -47,6 +47,25 @@ pageKey: timeline
 
   <div class="tl-headlines" id="tl-headlines"></div>
 
+  <ul class="tl-legend" aria-label="Chart legend">
+    <li><span class="tl-legend-swatch tl-legend-pre"></span>announce → first close</li>
+    <li><span class="tl-legend-swatch tl-legend-post"></span>first close → final close</li>
+    <li>
+      <svg class="tl-legend-icon" viewBox="-7 -7 14 14" aria-hidden="true">
+        <polygon class="tl-bar-sameday" points="-6,0 0,-6 6,0 0,6" />
+      </svg>
+      same-day announce/close
+    </li>
+    <li>
+      <svg class="tl-legend-icon" viewBox="-6 -6 12 12" aria-hidden="true">
+        <circle class="tl-bar-point" r="4.5" />
+      </svg>
+      first close only — no announce date on file
+    </li>
+    <li><span class="tl-legend-anchor" aria-hidden="true">⚓</span> anchor LP</li>
+    <li><span class="tl-legend-rule tl-legend-rule-median"></span> median (raising-window funds)</li>
+  </ul>
+
   <div class="tl-chart-wrap">
     <div id="tl-chart"></div>
   </div>
@@ -75,7 +94,15 @@ pageKey: timeline
 .tl-headline-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.8; margin-bottom: 4px; }
 .tl-headline-tail { font-size: 0.78rem; opacity: 0.7; margin-top: 4px; line-height: 1.4; }
 .tl-headline-num.is-empty { opacity: 0.35; }
-.tl-chart-wrap { margin: 22px 0; overflow-x: auto; }
+.tl-legend { list-style: none; margin: 14px 0 18px; padding: 10px 14px; display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 0.78rem; opacity: 0.85; border: 1px solid var(--rule, rgba(255,255,255,0.08)); border-radius: 4px; background: var(--bg-soft, rgba(255,255,255,0.02)); }
+.tl-legend li { display: inline-flex; align-items: center; gap: 7px; line-height: 1.2; }
+.tl-legend-swatch { display: inline-block; width: 22px; height: 10px; border-radius: 2px; }
+.tl-legend-pre { background: rgba(120,140,180,0.35); }
+.tl-legend-post { background: rgba(180,140,80,0.55); }
+.tl-legend-icon { width: 12px; height: 12px; flex-shrink: 0; overflow: visible; }
+.tl-legend-anchor { font-size: 0.92rem; line-height: 1; opacity: 0.7; }
+.tl-legend-rule { display: inline-block; width: 22px; height: 0; border-top: 1.5px dashed rgba(220,80,80,0.7); }
+.tl-chart-wrap { margin: 14px 0 22px; overflow-x: auto; }
 .tl-chart { display: block; max-width: 100%; height: auto; }
 .tl-row { cursor: default; }
 .tl-row-label { font: 600 0.82rem/1 "IBM Plex Sans", system-ui, sans-serif; fill: currentColor; }
@@ -389,7 +416,7 @@ pageKey: timeline
     // TOP is the y of the first row. Above it: 36px reserved for the
     // median callout band, then 14px for axis ticks (axisY = TOP - 14).
     var TOP = 56;
-    var height = TOP + rows.length * (ROW_H + ROW_GAP) + 44;
+    var height = TOP + rows.length * (ROW_H + ROW_GAP) + 16;
 
     var x0 = PADDING + LABEL_W;
 
@@ -555,11 +582,8 @@ pageKey: timeline
       parts.push('</g>');
     });
 
-    // Footer legend
-    var legendY = height - 8;
-    parts.push('<text class="tl-axis-tick" x="' + (PADDING + LABEL_W) + '" y="' + legendY + '">'
-      + 'announce → first close (blue bar) · first → final close (amber) · ◆ same-day announce/close · ● first-close only · ⚓ anchor LP'
-      + '</text>');
+    // Legend lives outside the SVG (above the chart) for accessibility +
+    // styling. See the .tl-legend block in the template.
 
     parts.push('</svg>');
     host.innerHTML = parts.join("");
