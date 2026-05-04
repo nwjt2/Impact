@@ -1538,7 +1538,7 @@ a.commit-fund:hover { color: var(--amber); }
 .home-split-network [data-arch="vc"]              { --arch: #3ed7b3; }
 .home-split-network [data-arch="other"]           { --arch: #6c8aac; }
 
-/* ===== /match/ — fund-profile LP picker ============================ */
+/* ===== /match-my-fund/ — fund-profile LP picker ===================== */
 
 .picker {
   margin: 24px 0 8px;
