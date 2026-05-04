@@ -1,0 +1,105 @@
+---
+layout: base.njk
+title: Banks
+permalink: /banks/index.html
+pageKey: banks
+---
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
+  <header class="detail-header">
+    <div class="detail-eyebrow">
+      <span>Capital sources · banks acting as fund LPs</span>
+    </div>
+    <h1>Banks observed as LPs in peer impact funds.</h1>
+    <p class="detail-sub">{{ bank_lps | length }} bank profiles. Banks rarely publish a stated impact thesis at the fund-LP level — most rich-thesis fields will be null until a primary-source pass populates them. The fact of an LP commitment is captured in the network LP edges, with a public source URL on every edge. Cooperative banks (Banca Etica, Crédit Coopératif, Rabobank, vdk) are the most consistently active LPs in this category; mainstream commercials (BNP Paribas, Bank of America, ANZ, Standard Chartered) typically commit via specific impact-finance teams.</p>
+  </header>
+
+  <div class="filter-bar">
+    <label class="filter-label" for="country-filter">Country</label>
+    <select id="country-filter" class="filter-select"></select>
+    <label class="filter-label" for="cat-filter">Type</label>
+    <select id="cat-filter" class="filter-select">
+      <option value="ALL">All types</option>
+      <option value="cooperative">Cooperative</option>
+      <option value="commercial">Commercial</option>
+      <option value="development_oriented">Development-oriented</option>
+      <option value="investment_bank">Investment bank</option>
+    </select>
+    <span id="filter-summary" class="filter-summary"></span>
+  </div>
+
+  <div id="lp-list" class="dfi-list" aria-live="polite"></div>
+  <div id="lp-empty" class="empty-state" hidden></div>
+</section>
+
+<script type="application/json" id="data-banks">{{ bank_lps | dump | safe }}</script>
+<script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
+<script type="application/json" id="data-net-lp-funds">{{ network_lp_summary.lpFundsBySlug | dump | safe }}</script>
+
+<script src="{{ '/assets/js/render.js' | url }}"></script>
+<script>
+(function () {
+  "use strict";
+  var I = window.IFC;
+  var LPS = I.loadJSON("data-banks") || [];
+  var META = I.loadJSON("data-slot-meta") || {};
+  var NET_LP = I.loadJSON("data-net-lp-funds") || {};
+
+  LPS.forEach(function (d) {
+    if (d.slug && NET_LP[d.slug]) d._network_lp_funds = NET_LP[d.slug];
+  });
+
+  function netLpCount(d) { return (d._network_lp_funds || []).length; }
+
+  var state = { country: "ALL", category: "ALL" };
+
+  function render() {
+    var list = LPS.filter(function (d) {
+      if (state.country !== "ALL" && d.country !== state.country) return false;
+      if (state.category !== "ALL" && d.category !== state.category) return false;
+      return true;
+    });
+    list.sort(function (a, b) {
+      var ac = netLpCount(a), bc = netLpCount(b);
+      if (ac !== bc) return bc - ac;
+      return (a.name || "").localeCompare(b.name || "");
+    });
+
+    var root = document.getElementById("lp-list");
+    var empty = document.getElementById("lp-empty");
+    var sum = document.getElementById("filter-summary");
+
+    if (list.length === 0) {
+      root.innerHTML = "";
+      empty.hidden = false;
+      empty.innerHTML = "<p>No banks match this filter. Try <em>All countries</em> or <em>All types</em>.</p>";
+      sum.textContent = "Showing 0 of " + LPS.length;
+      return;
+    }
+    empty.hidden = true; empty.innerHTML = "";
+    root.innerHTML = list.map(function (d) { return I.renderSimpleLpCard(d, META, "bank"); }).join("");
+    sum.textContent = "Showing " + list.length + " of " + LPS.length;
+  }
+
+  // Build country dropdown from observed bank countries.
+  var observedCountries = {};
+  LPS.forEach(function (d) { if (d.country) observedCountries[d.country] = (observedCountries[d.country] || 0) + 1; });
+  var sel = document.getElementById("country-filter");
+  var options = ['<option value="ALL">All countries (' + LPS.length + ')</option>'];
+  Object.keys(observedCountries).sort().forEach(function (c) {
+    options.push('<option value="' + I.escAttr(c) + '">' + I.esc(I.countryName(META, c)) + ' (' + observedCountries[c] + ')</option>');
+  });
+  sel.innerHTML = options.join("");
+
+  sel.addEventListener("change", function (e) {
+    state.country = e.target.value; render();
+  });
+  document.getElementById("cat-filter").addEventListener("change", function (e) {
+    state.category = e.target.value; render();
+  });
+
+  I.installCardClick(".detail-page");
+  render();
+})();
+</script>

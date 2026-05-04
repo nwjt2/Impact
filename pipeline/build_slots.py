@@ -67,6 +67,21 @@ DFI_COMMITS_YML = CONTENT / "dfi_ingo_commitments.yml"
 DEADLINES_YML = CONTENT / "deadlines.yml"
 FOUNDATION_LPS_YML = CONTENT / "foundation_lps.yml"
 FAMILY_OFFICE_LPS_YML = CONTENT / "family_office_lps.yml"
+
+# 6 supplementary LP registries added 2026-05-04 to give the homepage LP wall
+# 100% archetype coverage. These don't carry peer_fund handshake refs (their
+# known_ingo_gp_commits[] are empty pending primary-source verification), so
+# they don't need Pydantic models the way foundations / family offices do.
+# Round-tripped to JSON via load_simple_lp_registry below.
+SIMPLE_LP_REGISTRIES: tuple[tuple[str, str, str, str], ...] = (
+    # (yml_filename,            top-level key,       slug field, output JSON key)
+    ("bank_lps.yml",            "banks",             "slug",     "bank_lps"),
+    ("asset_manager_lps.yml",   "asset_managers",    "slug",     "asset_manager_lps"),
+    ("pension_fund_lps.yml",    "pension_funds",     "slug",     "pension_fund_lps"),
+    ("corporate_lps.yml",       "corporates",        "slug",     "corporate_lps"),
+    ("government_donor_lps.yml","government_donors", "slug",     "government_donor_lps"),
+    ("cooperative_ngo_lps.yml", "cooperative_ngos",  "slug",     "cooperative_ngo_lps"),
+)
 ENTITIES_YML = REPO / "pipeline" / "entities.yml"
 
 HEALTH_DIR = REPO / "tool" / "health"
@@ -650,6 +665,46 @@ def load_family_office_lps(peer_slugs: set[str]) -> list[FamilyOfficeLp]:
     return out
 
 
+def load_simple_lp_registry(yml_filename: str, top_key: str, slug_field: str) -> list[dict]:
+    """Round-trip a supplementary LP registry to JSON-ready dicts.
+
+    These registries (banks, asset_managers, etc.) don't carry handshake
+    references to peer_funds.yml, so we don't need Pydantic models — the
+    structural integrity is covered by tests/test_lp_registries.py.
+
+    Performs minimal validation:
+      - File exists
+      - Top-level key present
+      - Each entry is a mapping with a non-empty slug field
+      - No duplicate slugs
+
+    Coerces datetime.date in `last_seen_at` to ISO string for JSON safety.
+    """
+    path = CONTENT / yml_filename
+    if not path.exists():
+        return []
+    raw = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    rows = raw.get(top_key) or []
+    seen: set[str] = set()
+    out: list[dict] = []
+    for i, row in enumerate(rows):
+        if not isinstance(row, dict):
+            raise HandshakeError(f"{yml_filename} row {i} is not a mapping")
+        slug = (row.get(slug_field) or "").strip()
+        if not slug:
+            raise HandshakeError(f"{yml_filename} row {i} missing required `{slug_field}`")
+        if slug in seen:
+            raise HandshakeError(f"{yml_filename}: duplicate slug `{slug}`")
+        seen.add(slug)
+        # Make a JSON-ready copy: stringify date fields.
+        clean = dict(row)
+        ls = clean.get("last_seen_at")
+        if isinstance(ls, date):
+            clean["last_seen_at"] = ls.isoformat()
+        out.append(clean)
+    return out
+
+
 # ------------------------------------------------------------------ emit
 
 
@@ -686,6 +741,15 @@ def build(verbose: bool = True) -> dict[str, int]:
         print(f"[fdn]    foundation_lps: {len(foundation_models)} entries")
         print(f"[famof]  family_office_lps: {len(family_office_models)} entries")
 
+    # --- 6 supplementary LP registries (banks, asset-managers, etc.) ---
+    # Round-tripped to JSON via the simple loader; no peer-fund handshake.
+    simple_lp_payloads: dict[str, list[dict]] = {}
+    for yml_filename, top_key, slug_field, json_key in SIMPLE_LP_REGISTRIES:
+        rows = load_simple_lp_registry(yml_filename, top_key, slug_field)
+        simple_lp_payloads[json_key] = rows
+        if verbose:
+            print(f"[lp]     {json_key}: {len(rows)} entries")
+
     # --- emit ---
     # Slot 1 / /peer-funds/ is the **complete catalogue** of peer impact-fund
     # vehicles tracked by the project: INGO-sponsored vehicles plus non-INGO
@@ -719,6 +783,8 @@ def build(verbose: bool = True) -> dict[str, int]:
     write_json("deadlines", dead_payload)
     write_json("foundation_lps", [_dump(m) for m in foundation_models])
     write_json("family_office_lps", [_dump(m) for m in family_office_models])
+    for json_key, payload in simple_lp_payloads.items():
+        write_json(json_key, payload)
 
     # --- impact-areas aggregation ---
     impact_rows = build_impact_areas(
@@ -754,6 +820,7 @@ def build(verbose: bool = True) -> dict[str, int]:
             "impact_areas": len(impact_rows),
             "foundation_lps": len(foundation_models),
             "family_office_lps": len(family_office_models),
+            **{k: len(v) for k, v in simple_lp_payloads.items()},
         },
         "country_counts": {
             "slot_1_parent_ingo_country": dict(slot1_countries),

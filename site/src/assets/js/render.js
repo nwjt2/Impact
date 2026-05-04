@@ -901,6 +901,125 @@
     return '<article class="card dfi-card' + clickCls + '"' + idAttr + dataAttr + '>' + parts.join("") + '</article>';
   }
 
+  // ---- Generic LP card (banks, asset managers, pension funds, corporates,
+  //      government donors, cooperative-NGOs) --------------------------------
+  //
+  // Pattern-shared with renderFoundationCard / renderFamilyOfficeCard but
+  // tolerates richer-fields-mostly-null entries by collapsing the empty
+  // sections cleanly. Drives /banks/, /asset-managers/, /pension-funds/,
+  // /corporates/, /government-donors/, /cooperative-ngos/.
+
+  var SIMPLE_LP_CATEGORY_LABELS = {
+    bank: {
+      cooperative: "Cooperative",
+      commercial: "Commercial",
+      development_oriented: "Development-oriented",
+      investment_bank: "Investment bank",
+    },
+    "asset-manager": {
+      dedicated_impact: "Dedicated impact",
+      mfi_specialist: "MFI specialist",
+      platform: "Platform / DAF host",
+      mainstream_with_impact_arm: "Mainstream w/ impact arm",
+    },
+    "pension-fund": {
+      public: "Public",
+      corporate: "Corporate",
+      industry_collective: "Industry collective",
+    },
+    corporate: {
+      consumer: "Consumer",
+      industrial: "Industrial",
+      pharma: "Pharma / health",
+      tech: "Technology",
+      retail: "Retail",
+      financial_services: "Financial services",
+    },
+    "government-donor": {
+      bilateral_aid: "Bilateral aid agency",
+      multilateral_eu: "Multilateral (EU)",
+      multilateral_un: "Multilateral (UN)",
+      sovereign_lp: "Sovereign LP",
+    },
+    "cooperative-ngo": {
+      ngo: "NGO",
+      farmer_coop: "Farmer cooperative",
+      trade_union: "Trade union",
+      university_endowment: "University endowment",
+      faith_based: "Faith-based",
+      development_consultancy: "Development consultancy",
+    },
+  };
+
+  // Per-archetype id prefix for the card anchor (matches /network/ deep links).
+  var SIMPLE_LP_ANCHOR_PREFIX = {
+    bank: "bank",
+    "asset-manager": "am",
+    "pension-fund": "pf",
+    corporate: "corp",
+    "government-donor": "govd",
+    "cooperative-ngo": "coop",
+  };
+
+  function renderSimpleLpCard(d, meta, kind) {
+    var labels = SIMPLE_LP_CATEGORY_LABELS[kind] || {};
+    var anchorPrefix = SIMPLE_LP_ANCHOR_PREFIX[kind] || "lp";
+    var parts = [];
+    parts.push('<h3 class="dfi-name">' + esc(d.name) + '</h3>');
+
+    var hdrBits = [];
+    if (d.country) hdrBits.push(badge(countryName(meta, d.country), "badge-country"));
+    if (d.category && labels[d.category]) {
+      hdrBits.push(badge(labels[d.category], "badge-remit"));
+    }
+    parts.push('<div class="dfi-sub">' + hdrBits.join(" ") + '</div>');
+
+    var stats = [];
+    var commits = d.known_ingo_gp_commits || [];
+    if (commits.length > 0) {
+      stats.push('<span class="stat"><span class="stat-num">' + commits.length + '</span><span class="stat-label">disclosed INGO-GP commitments</span></span>');
+    }
+    var checkStat = renderLpCheckRange(d);
+    if (checkStat) stats.push(checkStat);
+    if (stats.length) parts.push('<div class="dfi-stats">' + stats.join("") + '</div>');
+
+    var netLp = d._network_lp_funds || [];
+    if (netLp.length === 0 && commits.length === 0) {
+      parts.push('<p class="dfi-commits-empty muted">No public fund-LP commitments located in this entity\'s materials at last verification.</p>');
+    }
+    parts.push(renderNetworkLpBlock(d));
+
+    var prefBits = [];
+    if (d.stated_priority_themes && d.stated_priority_themes.length) {
+      prefBits.push('<div class="pref-row"><span class="pref-label">Priority themes:</span> ' +
+        d.stated_priority_themes.map(function (t) { return chip(sectorLabel(t), "chip-sector"); }).join("") + '</div>');
+    }
+    if (d.stated_geo_focus && d.stated_geo_focus.length) {
+      prefBits.push('<div class="pref-row"><span class="pref-label">Geo focus:</span> ' +
+        d.stated_geo_focus.map(function (t) { return chip(geoLabel(t), "chip-geo"); }).join("") + '</div>');
+    }
+    if (d.stated_thesis_excerpt) {
+      prefBits.push('<blockquote class="thesis-excerpt">' + esc(d.stated_thesis_excerpt) + '</blockquote>');
+    }
+    if (prefBits.length) parts.push('<div class="dfi-prefs">' + prefBits.join("") + '</div>');
+
+    if (d.notes) {
+      parts.push('<p class="dfi-notes muted">' + esc(d.notes) + '</p>');
+    }
+
+    var footBits = [];
+    if (d.stated_thesis_url) footBits.push(sourceLink(d.stated_thesis_url, "Stated thesis"));
+    if (d.public_newsroom_url) footBits.push(sourceLink(d.public_newsroom_url, "Newsroom"));
+    if (d.last_seen_at) footBits.push('<span class="muted">Last seen ' + esc(fmtDate(d.last_seen_at)) + '</span>');
+    if (footBits.length) parts.push('<div class="dfi-foot">' + footBits.join('<span class="sep">·</span>') + '</div>');
+
+    var url = d.stated_thesis_url || d.public_newsroom_url;
+    var clickCls = url ? " card-clickable" : "";
+    var dataAttr = url ? ' data-source-url="' + escAttr(url) + '"' : "";
+    var idAttr = d.slug ? ' id="' + anchorPrefix + '-' + escAttr(d.slug) + '"' : "";
+    return '<article class="card dfi-card' + clickCls + '"' + idAttr + dataAttr + '>' + parts.join("") + '</article>';
+  }
+
   // ---- Public API ---------------------------------------------------------
 
   root.IFC = {
@@ -912,6 +1031,8 @@
     renderDfiCard: renderDfiCard,
     renderFoundationCard: renderFoundationCard,
     renderFamilyOfficeCard: renderFamilyOfficeCard,
+    renderSimpleLpCard: renderSimpleLpCard,
+    SIMPLE_LP_CATEGORY_LABELS: SIMPLE_LP_CATEGORY_LABELS,
     renderDeadlineRow: renderDeadlineRow,
     renderImpactChart: renderImpactChart,
     renderImpactDrawer: renderImpactDrawer,

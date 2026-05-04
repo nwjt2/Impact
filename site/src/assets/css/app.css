@@ -123,6 +123,11 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
   color: var(--fg);
   border-bottom-color: var(--amber);
 }
+.site-nav .nav-sep {
+  color: var(--fg-3);
+  user-select: none;
+  margin: 0 -10px;
+}
 
 .masthead-meta {
   font-size: 11px;

@@ -1,0 +1,98 @@
+---
+layout: base.njk
+title: Government donors
+permalink: /government-donors/index.html
+pageKey: government-donors
+---
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
+  <header class="detail-header">
+    <div class="detail-eyebrow">
+      <span>Capital sources · bilateral donors and sovereign LPs</span>
+    </div>
+    <h1>Bilateral aid agencies and sovereign governments observed as fund LPs.</h1>
+    <p class="detail-sub">{{ government_donor_lps | length }} profiles. Bilateral aid agencies (USAID, BMZ, DFAT, Swiss Dev Coop, GAC) typically commit via specific country/sector strategies; many also execute through their associated DFI (KfW, DFC) which is tracked separately on /dfis/. Sovereign-government LPs usually appear as one-off commitments to a specific INGO-sponsored vehicle as a domestic-policy or post-conflict transition initiative — not part of a standing allocation strategy.</p>
+  </header>
+
+  <div class="filter-bar">
+    <label class="filter-label" for="country-filter">Country</label>
+    <select id="country-filter" class="filter-select"></select>
+    <label class="filter-label" for="cat-filter">Type</label>
+    <select id="cat-filter" class="filter-select">
+      <option value="ALL">All types</option>
+      <option value="bilateral_aid">Bilateral aid agency</option>
+      <option value="multilateral_eu">Multilateral (EU)</option>
+      <option value="multilateral_un">Multilateral (UN)</option>
+      <option value="sovereign_lp">Sovereign LP</option>
+    </select>
+    <span id="filter-summary" class="filter-summary"></span>
+  </div>
+
+  <div id="lp-list" class="dfi-list" aria-live="polite"></div>
+  <div id="lp-empty" class="empty-state" hidden></div>
+</section>
+
+<script type="application/json" id="data-lps">{{ government_donor_lps | dump | safe }}</script>
+<script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
+<script type="application/json" id="data-net-lp-funds">{{ network_lp_summary.lpFundsBySlug | dump | safe }}</script>
+
+<script src="{{ '/assets/js/render.js' | url }}"></script>
+<script>
+(function () {
+  "use strict";
+  var I = window.IFC;
+  var LPS = I.loadJSON("data-lps") || [];
+  var META = I.loadJSON("data-slot-meta") || {};
+  var NET_LP = I.loadJSON("data-net-lp-funds") || {};
+
+  LPS.forEach(function (d) {
+    if (d.slug && NET_LP[d.slug]) d._network_lp_funds = NET_LP[d.slug];
+  });
+  function netLpCount(d) { return (d._network_lp_funds || []).length; }
+
+  var state = { country: "ALL", category: "ALL" };
+
+  function render() {
+    var list = LPS.filter(function (d) {
+      if (state.country !== "ALL" && d.country !== state.country) return false;
+      if (state.category !== "ALL" && d.category !== state.category) return false;
+      return true;
+    });
+    list.sort(function (a, b) {
+      var ac = netLpCount(a), bc = netLpCount(b);
+      if (ac !== bc) return bc - ac;
+      return (a.name || "").localeCompare(b.name || "");
+    });
+
+    var root = document.getElementById("lp-list");
+    var empty = document.getElementById("lp-empty");
+    var sum = document.getElementById("filter-summary");
+
+    if (list.length === 0) {
+      root.innerHTML = "";
+      empty.hidden = false;
+      empty.innerHTML = "<p>No government donors match this filter.</p>";
+      sum.textContent = "Showing 0 of " + LPS.length;
+      return;
+    }
+    empty.hidden = true; empty.innerHTML = "";
+    root.innerHTML = list.map(function (d) { return I.renderSimpleLpCard(d, META, "government-donor"); }).join("");
+    sum.textContent = "Showing " + list.length + " of " + LPS.length;
+  }
+
+  var observedCountries = {};
+  LPS.forEach(function (d) { if (d.country) observedCountries[d.country] = (observedCountries[d.country] || 0) + 1; });
+  var sel = document.getElementById("country-filter");
+  var options = ['<option value="ALL">All countries (' + LPS.length + ')</option>'];
+  Object.keys(observedCountries).sort().forEach(function (c) {
+    options.push('<option value="' + I.escAttr(c) + '">' + I.esc(I.countryName(META, c)) + ' (' + observedCountries[c] + ')</option>');
+  });
+  sel.innerHTML = options.join("");
+  sel.addEventListener("change", function (e) { state.country = e.target.value; render(); });
+  document.getElementById("cat-filter").addEventListener("change", function (e) { state.category = e.target.value; render(); });
+
+  I.installCardClick(".detail-page");
+  render();
+})();
+</script>
