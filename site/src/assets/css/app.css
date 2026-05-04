@@ -1538,6 +1538,252 @@ a.commit-fund:hover { color: var(--amber); }
 .home-split-network [data-arch="vc"]              { --arch: #3ed7b3; }
 .home-split-network [data-arch="other"]           { --arch: #6c8aac; }
 
+/* ===== /match/ — fund-profile LP picker ============================ */
+
+.picker {
+  margin: 24px 0 8px;
+  padding: 16px 18px;
+  background: #0e0f12;
+  border: 1px solid #2c2c2c;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.picker-group {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.picker-legend {
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fg-2);
+  padding: 0;
+  margin-bottom: 6px;
+}
+.picker-hint {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--fg-3);
+  text-transform: none;
+  letter-spacing: 0;
+  margin-left: 6px;
+}
+.picker-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.picker-chip {
+  background: #16181d;
+  border: 1px solid #2c2c2c;
+  color: var(--fg-2);
+  font-family: inherit;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  letter-spacing: 0.005em;
+}
+.picker-chip:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+.picker-chip.is-on {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: #0e0f12;
+  font-weight: 600;
+}
+.picker-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 4px;
+  border-top: 1px dashed #2c2c2c;
+  margin-top: 4px;
+}
+.picker-reset {
+  background: transparent;
+  border: 1px solid #2c2c2c;
+  color: var(--fg-2);
+  font-family: inherit;
+  font-size: 11.5px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  letter-spacing: 0.005em;
+}
+.picker-reset:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+.picker-summary {
+  font-size: 12px;
+  color: var(--fg-3);
+  flex: 1;
+}
+
+/* ----- Match list (LP cards) ----- */
+
+.match-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+.match-card {
+  background: #0e0f12;
+  border: 1px solid #2c2c2c;
+  border-left: 3px solid #2c2c2c;
+  padding: 10px 12px;
+  font-size: 12.5px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.match-card.card-clickable {
+  cursor: pointer;
+}
+.match-card.card-clickable:hover {
+  border-color: var(--amber);
+  border-left-color: var(--amber);
+}
+.match-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+}
+.match-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0;
+  line-height: 1.25;
+}
+.match-name-link {
+  color: inherit;
+  text-decoration: none;
+}
+.match-name-link:hover {
+  color: var(--amber);
+  text-decoration: none;
+}
+.match-tags {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-shrink: 0;
+}
+.match-arch {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 2px;
+  background: #16181d;
+  color: var(--fg-2);
+  border: 1px solid #2c2c2c;
+}
+.match-arch[data-arch="dfi"]             { color: #e25c5c; border-color: #e25c5c44; }
+.match-arch[data-arch="foundation"]      { color: #d6b94a; border-color: #d6b94a44; }
+.match-arch[data-arch="family-office"]   { color: #b86bdf; border-color: #b86bdf44; }
+.match-arch[data-arch="asset-manager"]   { color: #4ec5a6; border-color: #4ec5a644; }
+.match-arch[data-arch="bank"]            { color: #c97c3e; border-color: #c97c3e44; }
+.match-arch[data-arch="pension-fund"]    { color: #7a8aab; border-color: #7a8aab44; }
+.match-arch[data-arch="corporate"]       { color: #8a7448; border-color: #8a744844; }
+.match-arch[data-arch="bilateral-donor"] { color: #2c6d9c; border-color: #2c6d9c44; }
+.match-arch[data-arch="government"]      { color: #4a9cd6; border-color: #4a9cd644; }
+.match-arch[data-arch="cooperative-ngo"] { color: #94a64a; border-color: #94a64a44; }
+.match-arch[data-arch="vc"]              { color: #3ed7b3; border-color: #3ed7b344; }
+.match-arch.is-matched {
+  background: #fa3;
+  color: #0e0f12;
+  border-color: #fa3;
+  font-weight: 700;
+}
+.match-country {
+  font-size: 11px;
+  color: var(--fg-3);
+}
+.match-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+.match-row-label {
+  font-size: 10.5px;
+  color: var(--fg-3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-right: 4px;
+  min-width: 36px;
+}
+.match-chip {
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 2px;
+  background: #16181d;
+  border: 1px solid #2c2c2c;
+  color: var(--fg-2);
+}
+.match-chip.is-matched {
+  background: #fa3;
+  border-color: #fa3;
+  color: #0e0f12;
+  font-weight: 600;
+}
+.match-noflag {
+  font-size: 11.5px;
+  color: var(--fg-3);
+  font-style: italic;
+}
+.match-excerpt {
+  font-size: 11.5px;
+  color: var(--fg-2);
+  font-style: italic;
+  border-left: 2px solid #2c2c2c;
+  padding: 2px 0 2px 8px;
+  margin: 2px 0;
+  line-height: 1.4;
+}
+.match-foot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--fg-3);
+  border-top: 1px dashed #2c2c2c;
+  padding-top: 6px;
+  margin-top: 2px;
+}
+.match-edge-count {
+  font-variant-numeric: tabular-nums;
+}
+.match-foot-link {
+  color: var(--fg-2);
+  text-decoration: none;
+}
+.match-foot-link:hover {
+  color: var(--amber);
+}
+.match-score {
+  margin-left: auto;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+/* Tier-B card (no thesis on file) — slightly muted */
+.match-card:has(.match-noflag) {
+  opacity: 0.85;
+}
+
 /* Network tile */
 .lp-headline {
   margin: 12px 0 6px;

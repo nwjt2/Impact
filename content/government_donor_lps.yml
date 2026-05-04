@@ -32,7 +32,7 @@ government_donors:
     aliases: ["DFAT", "Australian Department of Foreign Affairs and Trade"]
     country: "AU"
     category: bilateral_aid
-    stated_priority_themes: [climate, gender, health, smb]
+    stated_priority_themes: [climate, gender_lens, health, smb]
     stated_geo_focus: [asia]
     stated_thesis_url: https://www.dfat.gov.au/publications/development/australias-international-development-policy
     stated_thesis_excerpt: null
@@ -57,7 +57,7 @@ government_donors:
     aliases: ["European Union", "EU", "European Commission", "DG INTPA"]
     country: "EU"
     category: multilateral_eu
-    stated_priority_themes: [climate, energy, health, gender, edu]
+    stated_priority_themes: [climate, energy, health, gender_lens, edu]
     stated_geo_focus: [africa, global]
     stated_thesis_url: https://international-partnerships.ec.europa.eu/policies/global-gateway_en
     stated_thesis_excerpt: "The EU addresses global challenges through international partnerships that uphold and promote European values and interests, and contribute to peace and prosperity in the world."
@@ -101,7 +101,7 @@ government_donors:
     aliases: ["Global Affairs Canada", "GAC"]
     country: "CA"
     category: bilateral_aid
-    stated_priority_themes: [gender, climate]
+    stated_priority_themes: [gender_lens, climate]
     stated_geo_focus: null
     stated_thesis_url: https://www.international.gc.ca/world-monde/issues_development-enjeux_developpement/priorities-priorites/policy-politique.aspx?lang=eng
     stated_thesis_excerpt: "Promote human dignity and a more just, inclusive, sustainable, and safe world."
@@ -122,7 +122,7 @@ government_donors:
     aliases: ["International Trade Centre", "ITC"]
     country: "CH"
     category: multilateral_un
-    stated_priority_themes: [smb, gender]
+    stated_priority_themes: [smb, gender_lens]
     stated_geo_focus: [africa, asia, latam]
     stated_thesis_url: https://www.intracen.org/our-work/projects/shetrades
     stated_thesis_excerpt: "Increase the participation of women entrepreneurs in international trade."
@@ -147,7 +147,7 @@ government_donors:
              "Direktion für Entwicklung und Zusammenarbeit", "DEZA"]
     country: "CH"
     category: bilateral_aid
-    stated_priority_themes: [climate, smb, gender, health]
+    stated_priority_themes: [climate, smb, gender_lens, health]
     stated_geo_focus: [africa, asia]
     stated_thesis_url: https://www.eda.admin.ch/en/international-cooperation-ic-strategy-2025-28
     stated_thesis_excerpt: null

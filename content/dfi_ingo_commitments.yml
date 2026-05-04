@@ -479,7 +479,7 @@ commitments:
     parent_ingo_country: US
     commit_date: 2020-03-01
     commit_usd_m: null
-    sector_tags: [fi, gender]
+    sector_tags: [fi, gender_lens]
     geo_tags: [africa, asia, latam]
     public_source_url: https://www.womensworldbanking.org/insights/womens-world-banking-asset-management-closes-second-fund-for-financial-inclusion-at-103m/
     notes: |
@@ -597,7 +597,7 @@ dfi_profiles:
   - dfi_slug: bii
     dfi_name: British International Investment
     stated_sector_preferences: [climate, gender_lens, fi, energy, agri]
-    stated_geo_focus: [africa, south-asia]
+    stated_geo_focus: [africa, asia]
     # 2026-05-03 freshness pass: WebFetch returned 403 (likely bot/geo block);
     # Google site-search confirms URL is still the canonical BII portfolios
     # page and is indexed. Not bumping last_seen_at — direct re-fetch could
@@ -848,7 +848,7 @@ dfi_profiles:
   - dfi_slug: eib
     dfi_name: European Investment Bank
     stated_sector_preferences: [climate, energy, fi]
-    stated_geo_focus: [eu, africa, mena]
+    stated_geo_focus: [europe, africa, mena]
     stated_thesis_url: https://www.eib.org/en/projects/topics/index.htm
     stated_thesis_excerpt: "We provide economic support to sectors that contribute significantly to growth, employment, regional cohesion and environmental sustainability in Europe and beyond."
     known_contacts_public: []
@@ -931,7 +931,7 @@ dfi_profiles:
     dfi_name: EBRD
     dfi_country: "INT"
     stated_sector_preferences: [generalist, energy, fi, climate]
-    stated_geo_focus: [eu, mena, asia]
+    stated_geo_focus: [europe, mena, asia]
     stated_thesis_url: null
     stated_thesis_excerpt: null
     known_contacts_public: []
@@ -1171,7 +1171,7 @@ dfi_profiles:
   - dfi_slug: ukfcdo
     dfi_name: UK FCDO
     dfi_country: "GB"
-    stated_sector_preferences: [generalist, gender, health]
+    stated_sector_preferences: [generalist, gender_lens, health]
     stated_geo_focus: [global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -1185,7 +1185,7 @@ dfi_profiles:
   - dfi_slug: sida
     dfi_name: SIDA Sweden
     dfi_country: "SE"
-    stated_sector_preferences: [generalist, gender, climate]
+    stated_sector_preferences: [generalist, gender_lens, climate]
     stated_geo_focus: [global, africa]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -1199,7 +1199,7 @@ dfi_profiles:
   - dfi_slug: norad
     dfi_name: NORAD
     dfi_country: "NO"
-    stated_sector_preferences: [generalist, gender, climate]
+    stated_sector_preferences: [generalist, gender_lens, climate]
     stated_geo_focus: [global, africa]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -1326,7 +1326,7 @@ dfi_profiles:
     dfi_name: Nordic Investment Bank
     dfi_country: "INT"
     stated_sector_preferences: [climate, energy, fi]
-    stated_geo_focus: [eu, global]
+    stated_geo_focus: [europe, global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
     known_contacts_public: []
@@ -1620,7 +1620,7 @@ dfi_profiles:
     dfi_name: BGK Poland
     dfi_country: "PL"
     stated_sector_preferences: [generalist, fi, energy]
-    stated_geo_focus: [eu]
+    stated_geo_focus: [europe]
     stated_thesis_url: null
     stated_thesis_excerpt: null
     known_contacts_public: []
@@ -1648,7 +1648,7 @@ dfi_profiles:
     dfi_name: EFSD+
     dfi_country: "INT"
     stated_sector_preferences: [generalist, climate, fi]
-    stated_geo_focus: [eu, africa, mena]
+    stated_geo_focus: [europe, africa, mena]
     stated_thesis_url: null
     stated_thesis_excerpt: null
     known_contacts_public: []
@@ -1676,7 +1676,7 @@ dfi_profiles:
     dfi_name: BSTDB
     dfi_country: "INT"
     stated_sector_preferences: [generalist, energy, fi]
-    stated_geo_focus: [eu, mena]
+    stated_geo_focus: [europe, mena]
     stated_thesis_url: null
     stated_thesis_excerpt: null
     known_contacts_public: []

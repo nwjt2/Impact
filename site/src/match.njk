@@ -1,0 +1,336 @@
+---
+layout: base.njk
+title: Match my fund
+permalink: /match/index.html
+pageKey: match
+---
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
+  <header class="detail-header">
+    <div class="detail-eyebrow">
+      <span>Decision support · LP shortlist for an INGO-sponsored fund</span>
+    </div>
+    <h1>Match my fund.</h1>
+    <p class="detail-sub">Pick your fund's profile — impact themes, geography, and the LP archetypes you'd consider — and get a ranked subset of the {{ slot_meta.slot_counts.foundation_lps + slot_meta.slot_counts.family_office_lps + slot_meta.slot_counts.dfi_ingo_commits + slot_meta.slot_counts.bank_lps + slot_meta.slot_counts.asset_manager_lps + slot_meta.slot_counts.pension_fund_lps + slot_meta.slot_counts.corporate_lps + slot_meta.slot_counts.government_donor_lps + slot_meta.slot_counts.cooperative_ngo_lps }} LPs whose disclosed thesis plausibly fits. Ranking only — no filtering — every LP appears, sorted by fit. LPs with no public thesis on file are shown at the bottom with an honest <strong>thesis not on file</strong> badge so you can decide whether to chase them on archetype-fit alone.</p>
+  </header>
+
+  <form id="picker" class="picker">
+    <fieldset class="picker-group">
+      <legend class="picker-legend">Impact themes <span class="picker-hint">— pick the themes your fund will pursue</span></legend>
+      <div class="picker-chips" data-dim="themes"></div>
+    </fieldset>
+
+    <fieldset class="picker-group">
+      <legend class="picker-legend">Geography <span class="picker-hint">— pick where your fund will deploy</span></legend>
+      <div class="picker-chips" data-dim="geos"></div>
+    </fieldset>
+
+    <fieldset class="picker-group">
+      <legend class="picker-legend">LP archetypes you'd consider <span class="picker-hint">— pick none to consider all</span></legend>
+      <div class="picker-chips" data-dim="archetypes"></div>
+    </fieldset>
+
+    <div class="picker-actions">
+      <button type="button" id="picker-reset" class="picker-reset">Reset all</button>
+      <span id="picker-summary" class="picker-summary"></span>
+    </div>
+  </form>
+
+  <div id="match-list" class="match-list" aria-live="polite"></div>
+</section>
+
+<script type="application/json" id="data-foundations">{{ foundation_lps | dump | safe }}</script>
+<script type="application/json" id="data-family-offices">{{ family_office_lps | dump | safe }}</script>
+<script type="application/json" id="data-dfis">{{ dfi_ingo_commits | dump | safe }}</script>
+<script type="application/json" id="data-banks">{{ bank_lps | dump | safe }}</script>
+<script type="application/json" id="data-asset-managers">{{ asset_manager_lps | dump | safe }}</script>
+<script type="application/json" id="data-pension-funds">{{ pension_fund_lps | dump | safe }}</script>
+<script type="application/json" id="data-corporates">{{ corporate_lps | dump | safe }}</script>
+<script type="application/json" id="data-government-donors">{{ government_donor_lps | dump | safe }}</script>
+<script type="application/json" id="data-cooperative-ngos">{{ cooperative_ngo_lps | dump | safe }}</script>
+<script type="application/json" id="data-network">{{ network | dump | safe }}</script>
+<script type="application/json" id="data-net-lp-funds">{{ network_lp_summary.lpFundsBySlug | dump | safe }}</script>
+<script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
+
+<script src="{{ '/assets/js/render.js' | url }}"></script>
+<script>
+(function () {
+  "use strict";
+  var I = window.IFC;
+
+  // ---- Taxonomies ----------------------------------------------------------
+
+  var THEME_LABELS = {
+    climate: "Climate", agri: "Agriculture", energy: "Energy", health: "Health",
+    fi: "Financial inclusion", smb: "SMEs / livelihoods", edu: "Education",
+    housing: "Affordable housing", wash: "Water & sanitation",
+    gender_lens: "Gender lens", forestry: "Forestry / nature",
+    generalist: "Generalist (broad mandate)",
+  };
+  var THEME_ORDER = ["climate","agri","energy","health","fi","smb","edu","housing","wash","gender_lens","forestry","generalist"];
+
+  var GEO_LABELS = {
+    africa: "Africa", mena: "MENA", asia: "Asia", latam: "Latin America",
+    us: "United States", europe: "Europe", global: "Global",
+  };
+  var GEO_ORDER = ["africa","mena","asia","latam","us","europe","global"];
+
+  var ARCH_LABELS = {
+    dfi: "DFI", foundation: "Foundation", "family-office": "Family office",
+    "asset-manager": "Asset manager / MIV", bank: "Bank",
+    "pension-fund": "Pension fund", corporate: "Corporate",
+    "bilateral-donor": "Bilateral donor", government: "Sovereign government",
+    "cooperative-ngo": "NGO / cooperative", vc: "VC / private fund",
+  };
+  var ARCH_ORDER = ["dfi","foundation","family-office","asset-manager","bank","pension-fund","corporate","bilateral-donor","government","cooperative-ngo","vc"];
+
+  // ---- Load + normalise the LP corpus --------------------------------------
+
+  var network = I.loadJSON("data-network") || { nodes: [], edges: [] };
+  var META = I.loadJSON("data-slot-meta") || {};
+  var NET_LP = I.loadJSON("data-net-lp-funds") || {};
+
+  // Map network investor slug → archetype
+  var archBySlug = {};
+  network.nodes.forEach(function (n) {
+    if (n.type === "investor") {
+      archBySlug[n.id.slice(9)] = n.investor_type || "other";
+    }
+  });
+
+  function pull(elemId, themesField, geoField, categoryField) {
+    return (I.loadJSON(elemId) || []).map(function (d) {
+      return {
+        slug: d.slug || d.dfi_slug,
+        name: d.name || d.dfi_name,
+        country: d.country || d.dfi_country || "",
+        category: categoryField ? d[categoryField] : null,
+        themes: d[themesField] || [],
+        geos: d[geoField] || [],
+        thesis_url: d.stated_thesis_url || null,
+        thesis_excerpt: d.stated_thesis_excerpt || null,
+      };
+    });
+  }
+
+  var lps = []
+    .concat(pull("data-foundations",        "stated_priority_themes",     "stated_geo_focus",     "foundation_type"))
+    .concat(pull("data-family-offices",     "stated_priority_themes",     "stated_geo_focus",     "category"))
+    .concat(pull("data-dfis",               "stated_sector_priorities",   "stated_geo_priorities", null))
+    .concat(pull("data-banks",              "stated_priority_themes",     "stated_geo_focus",     "category"))
+    .concat(pull("data-asset-managers",     "stated_priority_themes",     "stated_geo_focus",     "category"))
+    .concat(pull("data-pension-funds",      "stated_priority_themes",     "stated_geo_focus",     "category"))
+    .concat(pull("data-corporates",         "stated_priority_themes",     "stated_geo_focus",     "category"))
+    .concat(pull("data-government-donors",  "stated_priority_themes",     "stated_geo_focus",     "category"))
+    .concat(pull("data-cooperative-ngos",   "stated_priority_themes",     "stated_geo_focus",     "category"));
+
+  // Keep only LPs that appear in the network as actual LP edges (146 entities).
+  // Registries also include hand-curated entities that haven't shown up as
+  // LPs anywhere yet — those would show as "0 fund commits" rows that are
+  // noise for picker purposes. The /foundations/ /family-offices/ etc.
+  // pages still show them in full; this picker is restricted to entities
+  // that have at least one observed LP commitment.
+  var lpsBySlug = {};
+  lps.forEach(function (lp) { lpsBySlug[lp.slug] = lp; });
+  var corpus = Object.keys(NET_LP).map(function (slug) {
+    var lp = lpsBySlug[slug] || { slug: slug, name: slug, country: "", category: null, themes: [], geos: [], thesis_url: null, thesis_excerpt: null };
+    lp.archetype = archBySlug[slug] || "other";
+    lp.networkLpCount = (NET_LP[slug] || []).length;
+    lp.networkLpFunds = NET_LP[slug] || [];
+    lp.hasThesis = (lp.themes && lp.themes.length > 0) || (lp.geos && lp.geos.length > 0);
+    return lp;
+  });
+
+  // ---- Picker state --------------------------------------------------------
+
+  var state = { themes: new Set(), geos: new Set(), archetypes: new Set() };
+
+  function buildChips(host, dim, order, labels) {
+    host.innerHTML = order.map(function (k) {
+      return '<button type="button" class="picker-chip" data-key="' + I.escAttr(k) + '">' + I.esc(labels[k]) + '</button>';
+    }).join("");
+    host.addEventListener("click", function (evt) {
+      var btn = evt.target.closest(".picker-chip");
+      if (!btn) return;
+      var key = btn.getAttribute("data-key");
+      var set = state[dim];
+      if (set.has(key)) { set.delete(key); btn.classList.remove("is-on"); }
+      else { set.add(key); btn.classList.add("is-on"); }
+      render();
+    });
+  }
+
+  document.querySelectorAll(".picker-chips").forEach(function (host) {
+    var dim = host.getAttribute("data-dim");
+    if (dim === "themes") buildChips(host, "themes", THEME_ORDER, THEME_LABELS);
+    else if (dim === "geos") buildChips(host, "geos", GEO_ORDER, GEO_LABELS);
+    else if (dim === "archetypes") buildChips(host, "archetypes", ARCH_ORDER, ARCH_LABELS);
+  });
+
+  document.getElementById("picker-reset").addEventListener("click", function () {
+    state.themes.clear(); state.geos.clear(); state.archetypes.clear();
+    document.querySelectorAll(".picker-chip.is-on").forEach(function (b) { b.classList.remove("is-on"); });
+    render();
+  });
+
+  // ---- Scoring -------------------------------------------------------------
+  //
+  // For each LP, compute three sub-scores. None of them filter — they only
+  // rank. The "always yields something" rule means every LP is shown in the
+  // output; LPs with no thesis data fall to the bottom with an honest badge.
+
+  function score(lp) {
+    var themes = state.themes, geos = state.geos, archs = state.archetypes;
+    var matched = { themes: [], geos: [], archetype: false };
+    var s = 0;
+
+    if (themes.size > 0) {
+      var lpThemes = new Set(lp.themes || []);
+      var hits = 0;
+      themes.forEach(function (t) {
+        if (lpThemes.has(t)) { hits++; matched.themes.push(t); }
+      });
+      // Generalist = half-credit for any unmatched user pick (broad mandate).
+      var generalistBoost = (lpThemes.has("generalist") && hits === 0) ? 0.5 : 0;
+      s += (hits / themes.size) + generalistBoost;
+    }
+
+    if (geos.size > 0) {
+      var lpGeos = new Set(lp.geos || []);
+      var anyHit = false;
+      geos.forEach(function (g) {
+        if (lpGeos.has(g)) { anyHit = true; matched.geos.push(g); }
+      });
+      // Global LP = half-credit for any user pick.
+      if (!anyHit && lpGeos.has("global")) {
+        s += 0.5;
+        matched.geos.push("global");
+      } else if (anyHit) {
+        s += 1;
+      }
+    }
+
+    if (archs.size > 0) {
+      if (archs.has(lp.archetype)) {
+        s += 1;
+        matched.archetype = true;
+      }
+    }
+
+    return { score: s, matched: matched };
+  }
+
+  // ---- Render --------------------------------------------------------------
+
+  function render() {
+    var anySelected = state.themes.size + state.geos.size + state.archetypes.size > 0;
+
+    var ranked = corpus.map(function (lp) {
+      var r = score(lp);
+      return Object.assign({}, lp, { _score: r.score, _matched: r.matched });
+    });
+
+    ranked.sort(function (a, b) {
+      // Tier A first (has thesis data), tier B second (no thesis data).
+      if (a.hasThesis !== b.hasThesis) return a.hasThesis ? -1 : 1;
+      if (a._score !== b._score) return b._score - a._score;
+      if (a.networkLpCount !== b.networkLpCount) return b.networkLpCount - a.networkLpCount;
+      return (a.name || "").localeCompare(b.name || "");
+    });
+
+    var withThesis = ranked.filter(function (lp) { return lp.hasThesis; }).length;
+    var archOnly = ranked.length - withThesis;
+    var summary = document.getElementById("picker-summary");
+    if (anySelected) {
+      summary.innerHTML = "Ranking <strong>" + ranked.length + "</strong> LPs · "
+        + withThesis + " ranked on stated thesis · "
+        + archOnly + " archetype-only (thesis not on file)";
+    } else {
+      summary.innerHTML = "Showing all <strong>" + ranked.length + "</strong> LPs in network — pick filters above to rank by fit";
+    }
+
+    var listHost = document.getElementById("match-list");
+    listHost.innerHTML = ranked.map(function (lp) { return renderCard(lp, anySelected); }).join("");
+  }
+
+  function renderCard(lp, anySelected) {
+    var matched = lp._matched || { themes: [], geos: [], archetype: false };
+    var matchedThemes = new Set(matched.themes);
+    var matchedGeos = new Set(matched.geos);
+
+    var detailHref = detailUrl(lp);
+    var name = detailHref
+      ? '<a href="' + I.escAttr(detailHref) + '" class="match-name-link">' + I.esc(lp.name) + '</a>'
+      : I.esc(lp.name);
+
+    var bits = [];
+    bits.push('<div class="match-head">');
+    bits.push('<h3 class="match-name">' + name + '</h3>');
+    bits.push('<div class="match-tags">');
+    var archCls = matched.archetype ? " is-matched" : "";
+    bits.push('<span class="match-arch' + archCls + '" data-arch="' + I.escAttr(lp.archetype) + '">'
+      + I.esc(ARCH_LABELS[lp.archetype] || lp.archetype) + '</span>');
+    if (lp.country) bits.push('<span class="match-country">' + I.esc(I.countryName(META, lp.country)) + '</span>');
+    bits.push('</div>');
+    bits.push('</div>');
+
+    if (lp.hasThesis) {
+      if (lp.themes && lp.themes.length) {
+        var themeSpan = lp.themes.map(function (t) {
+          var on = matchedThemes.has(t) ? " is-matched" : "";
+          return '<span class="match-chip match-chip-theme' + on + '">' + I.esc(THEME_LABELS[t] || t) + '</span>';
+        }).join("");
+        bits.push('<div class="match-row"><span class="match-row-label">Themes</span> ' + themeSpan + '</div>');
+      }
+      if (lp.geos && lp.geos.length) {
+        var geoSpan = lp.geos.map(function (g) {
+          var on = matchedGeos.has(g) ? " is-matched" : "";
+          return '<span class="match-chip match-chip-geo' + on + '">' + I.esc(GEO_LABELS[g] || g) + '</span>';
+        }).join("");
+        bits.push('<div class="match-row"><span class="match-row-label">Geo</span> ' + geoSpan + '</div>');
+      }
+    } else if (anySelected) {
+      bits.push('<div class="match-noflag">Thesis not on file — ranked on archetype fit only</div>');
+    }
+
+    if (lp.thesis_excerpt) {
+      bits.push('<blockquote class="match-excerpt">' + I.esc(lp.thesis_excerpt) + '</blockquote>');
+    }
+
+    bits.push('<div class="match-foot">');
+    bits.push('<span class="match-edge-count">' + lp.networkLpCount + ' tracked LP commit'
+      + (lp.networkLpCount === 1 ? '' : 's') + '</span>');
+    if (lp.thesis_url) {
+      bits.push('<a class="match-foot-link" href="' + I.escAttr(lp.thesis_url) + '" target="_blank" rel="noopener">stated thesis ↗</a>');
+    }
+    if (anySelected) {
+      bits.push('<span class="match-score" title="Match score (themes + geo + archetype)">score ' + lp._score.toFixed(2) + '</span>');
+    }
+    bits.push('</div>');
+
+    var clickCls = lp.thesis_url ? " card-clickable" : "";
+    var dataAttr = lp.thesis_url ? ' data-source-url="' + I.escAttr(lp.thesis_url) + '"' : "";
+    return '<article class="match-card' + clickCls + '"' + dataAttr + '>' + bits.join("") + '</article>';
+  }
+
+  function detailUrl(lp) {
+    var prefix = (window.IFC_PATH_PREFIX || "/");
+    var arch = lp.archetype;
+    if (arch === "dfi") return prefix + "dfis/#dfi-" + lp.slug;
+    if (arch === "foundation") return prefix + "foundations/#fdn-" + lp.slug;
+    if (arch === "family-office") return prefix + "family-offices/#famof-" + lp.slug;
+    if (arch === "asset-manager") return prefix + "asset-managers/#am-" + lp.slug;
+    if (arch === "bank") return prefix + "banks/#bank-" + lp.slug;
+    if (arch === "pension-fund") return prefix + "pension-funds/#pf-" + lp.slug;
+    if (arch === "corporate") return prefix + "corporates/#corp-" + lp.slug;
+    if (arch === "bilateral-donor") return prefix + "government-donors/#govd-" + lp.slug;
+    if (arch === "government") return prefix + "government-donors/#govd-" + lp.slug;
+    if (arch === "cooperative-ngo") return prefix + "cooperative-ngos/#coop-" + lp.slug;
+    return null;
+  }
+
+  I.installCardClick(".detail-page");
+  render();
+})();
+</script>

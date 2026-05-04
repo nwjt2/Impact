@@ -85,7 +85,7 @@ corporates:
     aliases: ["Mastercard", "Mastercard Inc.", "Mastercard Incorporated"]
     country: "US"
     category: financial_services
-    stated_priority_themes: [fi, smb, gender]
+    stated_priority_themes: [fi, smb, gender_lens]
     stated_geo_focus: [global]
     stated_thesis_url: https://www.mastercardcenter.org/about-the-center/the-center
     stated_thesis_excerpt: "Doing good, by doing what we do best."

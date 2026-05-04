@@ -96,7 +96,7 @@ cooperative_ngos:
     aliases: ["CARE Enterprises", "CARE Enterprises Inc."]
     country: "US"
     category: ngo
-    stated_priority_themes: [gender, climate, smb]
+    stated_priority_themes: [gender_lens, climate, smb]
     stated_geo_focus: [global]
     stated_thesis_url: https://www.careenterprises.net/
     stated_thesis_excerpt: "A for-profit subsidiary of CARE USA running a gender-justice impact fund with a robust climate lens, focused on economically empowering women along the business value chain."
@@ -187,7 +187,7 @@ cooperative_ngos:
     aliases: ["MEDA", "Mennonite Economic Development Associates"]
     country: "CA"
     category: faith_based
-    stated_priority_themes: [agri, smb, gender]
+    stated_priority_themes: [agri, smb, gender_lens]
     stated_geo_focus: [global]
     stated_thesis_url: https://www.meda.org/about/
     stated_thesis_excerpt: "Creating Business Solutions to Poverty."
@@ -225,7 +225,7 @@ cooperative_ngos:
     aliases: ["Oxfam", "Oxfam International"]
     country: "GB"
     category: ngo
-    stated_priority_themes: [wash, climate, gender, fi]
+    stated_priority_themes: [wash, climate, gender_lens, fi]
     stated_geo_focus: [africa, asia, latam]
     stated_thesis_url: https://www.oxfam.org/en/what-we-do/about
     stated_thesis_excerpt: "The future is equal."
@@ -265,7 +265,7 @@ cooperative_ngos:
     aliases: ["Pathfinder", "Pathfinder International"]
     country: "US"
     category: ngo
-    stated_priority_themes: [health, gender, climate]
+    stated_priority_themes: [health, gender_lens, climate]
     stated_geo_focus: [africa, asia]
     stated_thesis_url: https://www.pathfinder.org/about-us/
     stated_thesis_excerpt: "Pathfinder envisions a world that values and invests in leadership, health, and resilience for women and girls."
@@ -344,7 +344,7 @@ cooperative_ngos:
     aliases: ["Trias", "Trias NGO"]
     country: "BE"
     category: ngo
-    stated_priority_themes: [agri, smb, gender, climate]
+    stated_priority_themes: [agri, smb, gender_lens, climate]
     stated_geo_focus: [africa, asia, latam]
     stated_thesis_url: https://worldwide.trias.ngo/en/who-we-are/
     stated_thesis_excerpt: "Turning dreams into opportunities."

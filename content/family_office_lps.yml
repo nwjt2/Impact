@@ -18,7 +18,7 @@ family_offices:
     category: family_office
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [climate, fi, gender]
+    stated_priority_themes: [climate, fi, gender_lens]
     stated_geo_focus: [africa, global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -180,7 +180,7 @@ family_offices:
     category: faith_based
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [housing, fi, climate, gender]
+    stated_priority_themes: [housing, fi, climate, gender_lens]
     stated_geo_focus: [us, global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -218,7 +218,7 @@ family_offices:
     category: faith_based
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [housing, fi, climate, gender]
+    stated_priority_themes: [housing, fi, climate, gender_lens]
     stated_geo_focus: [us, global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -279,7 +279,7 @@ family_offices:
     category: family_office
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [climate, gender, fi]
+    stated_priority_themes: [climate, gender_lens, fi]
     stated_geo_focus: [global, us]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -338,7 +338,7 @@ family_offices:
     category: daf
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [generalist, gender, fi, housing]
+    stated_priority_themes: [generalist, gender_lens, fi, housing]
     stated_geo_focus: [global, us]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -403,7 +403,7 @@ family_offices:
     category: family_office
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [climate, gender, generalist]
+    stated_priority_themes: [climate, gender_lens, generalist]
     stated_geo_focus: [global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -480,7 +480,7 @@ family_offices:
     category: philanthropy_llc
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [gender, edu, health]
+    stated_priority_themes: [gender_lens, edu, health]
     stated_geo_focus: [us, global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -518,7 +518,7 @@ family_offices:
     category: philanthropy_llc
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [edu, smb, gender]
+    stated_priority_themes: [edu, smb, gender_lens]
     stated_geo_focus: [us]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -563,7 +563,7 @@ family_offices:
     category: family_office
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [generalist, climate, gender, fi]
+    stated_priority_themes: [generalist, climate, gender_lens, fi]
     stated_geo_focus: [global, us]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -582,7 +582,7 @@ family_offices:
     category: family_office
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [generalist, gender, climate]
+    stated_priority_themes: [generalist, gender_lens, climate]
     stated_geo_focus: [us, global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -603,7 +603,7 @@ family_offices:
     category: daf
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [generalist, climate, fi, gender]
+    stated_priority_themes: [generalist, climate, fi, gender_lens]
     stated_geo_focus: [global, us]
     stated_thesis_url: null
     stated_thesis_excerpt: null

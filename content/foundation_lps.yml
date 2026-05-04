@@ -26,7 +26,7 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [gender, fi, housing, generalist]
+    stated_priority_themes: [gender_lens, fi, housing, generalist]
     stated_geo_focus: [global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -80,7 +80,7 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [climate, gender, housing]
+    stated_priority_themes: [climate, gender_lens, housing]
     stated_geo_focus: [global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -98,7 +98,7 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [climate, edu, gender]
+    stated_priority_themes: [climate, edu, gender_lens]
     stated_geo_focus: [global, africa]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -116,7 +116,7 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [climate, health, gender]
+    stated_priority_themes: [climate, health, gender_lens]
     stated_geo_focus: [global]
     stated_thesis_url: https://www.packard.org/what-we-fund/
     stated_thesis_excerpt: null
@@ -260,7 +260,7 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [gender, housing, generalist]
+    stated_priority_themes: [gender_lens, housing, generalist]
     stated_geo_focus: [global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -334,7 +334,7 @@ foundations:
     foundation_type: philanthropy
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [generalist, gender, housing]
+    stated_priority_themes: [generalist, gender_lens, housing]
     stated_geo_focus: [us, global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -445,7 +445,7 @@ foundations:
     aum_usd_m: null
     aum_usd_m_year: null
     stated_priority_themes: [health, climate]
-    stated_geo_focus: [global, uk]
+    stated_geo_focus: [global, europe]
     stated_thesis_url: null
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 10
@@ -554,7 +554,7 @@ foundations:
     foundation_type: philanthropy
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [gender, edu]
+    stated_priority_themes: [gender_lens, edu]
     stated_geo_focus: [global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -574,7 +574,7 @@ foundations:
     foundation_type: corporate
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [gender, fi, smb]
+    stated_priority_themes: [gender_lens, fi, smb]
     stated_geo_focus: [global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -790,7 +790,7 @@ foundations:
     foundation_type: corporate
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [edu, gender, health]
+    stated_priority_themes: [edu, gender_lens, health]
     stated_geo_focus: [global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -900,7 +900,7 @@ foundations:
     foundation_type: public_charity
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [health, edu, gender]
+    stated_priority_themes: [health, edu, gender_lens]
     stated_geo_focus: [africa, asia, latam]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -996,7 +996,7 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [gender, smb, fi]
+    stated_priority_themes: [gender_lens, smb, fi]
     stated_geo_focus: [global]
     stated_thesis_url: https://cordesfoundation.org/
     stated_thesis_excerpt: null
@@ -1015,7 +1015,7 @@ foundations:
     aum_usd_m: null
     aum_usd_m_year: null
     stated_priority_themes: [climate, fi, smb]
-    stated_geo_focus: [uk, global]
+    stated_geo_focus: [europe, global]
     stated_thesis_url: https://esmeefairbairn.org.uk/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 1
@@ -1087,7 +1087,7 @@ foundations:
     aum_usd_m: null
     aum_usd_m_year: null
     stated_priority_themes: [climate, smb]
-    stated_geo_focus: [uk]
+    stated_geo_focus: [europe]
     stated_thesis_url: https://ellerman.org.uk/
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 1
@@ -1104,7 +1104,7 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [generalist, gender, climate, smb]
+    stated_priority_themes: [generalist, gender_lens, climate, smb]
     stated_geo_focus: [global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -1122,8 +1122,8 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [smb, gender]
-    stated_geo_focus: [uk]
+    stated_priority_themes: [smb, gender_lens]
+    stated_geo_focus: [europe]
     stated_thesis_url: null
     stated_thesis_excerpt: null
     typical_check_usd_m_min: 1
@@ -1176,7 +1176,7 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [gender, agri, edu]
+    stated_priority_themes: [gender_lens, agri, edu]
     stated_geo_focus: [global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
@@ -1248,7 +1248,7 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [fi, smb, gender, edu]
+    stated_priority_themes: [fi, smb, gender_lens, edu]
     stated_geo_focus: [global, us]
     stated_thesis_url: https://sorensonimpactfoundation.org/
     stated_thesis_excerpt: null
@@ -1266,7 +1266,7 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [gender, health]
+    stated_priority_themes: [gender_lens, health]
     stated_geo_focus: [global, us]
     stated_thesis_url: https://tarahealthfoundation.org/
     stated_thesis_excerpt: null
@@ -1343,7 +1343,7 @@ foundations:
     foundation_type: corporate
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [gender, fi, generalist, health]
+    stated_priority_themes: [gender_lens, fi, generalist, health]
     stated_geo_focus: [global]
     stated_thesis_url: https://www.cartierphilanthropy.org/
     stated_thesis_excerpt: "We are committed to improving the lives of vulnerable communities worldwide."
@@ -1505,7 +1505,7 @@ foundations:
     foundation_type: public_charity
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [climate, housing, gender, agri, fi]
+    stated_priority_themes: [climate, housing, gender_lens, agri, fi]
     stated_geo_focus: [global, us]
     stated_thesis_url: https://mercyinvestmentservices.org/our-approach/impact-investing/mercy-partnership-fund/
     stated_thesis_excerpt: "Mercy Partnership Fund provides below-market rate investments to mission-driven organizations and projects that provide high social and environmental impact."
@@ -1545,7 +1545,7 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [gender, generalist]
+    stated_priority_themes: [gender_lens, generalist]
     stated_geo_focus: [asia, global]
     stated_thesis_url: https://www.spf.org/en/
     stated_thesis_excerpt: null

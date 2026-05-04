@@ -19,6 +19,7 @@
       </div>
       <nav class="site-nav">
         <a href="{{ '/' | url }}"{% if pageKey == 'index' %} aria-current="page"{% endif %}>Index</a>
+        <a href="{{ '/match/' | url }}"{% if pageKey == 'match' %} aria-current="page"{% endif %}>Match my fund</a>
         <a href="{{ '/network/' | url }}"{% if pageKey == 'network' %} aria-current="page"{% endif %}>Network</a>
         <a href="{{ '/catalysts/' | url }}"{% if pageKey == 'catalysts' %} aria-current="page"{% endif %}>Catalysts</a>
         <a href="{{ '/peer-funds/' | url }}"{% if pageKey == 'peer-funds' %} aria-current="page"{% endif %}>Peer funds</a>

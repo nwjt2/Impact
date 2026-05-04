@@ -32,7 +32,7 @@ banks:
     category: commercial
     aum_usd_m_consolidated: null
     aum_usd_m_year: null
-    stated_priority_themes: [fi, climate, housing, gender]
+    stated_priority_themes: [fi, climate, housing, gender_lens]
     stated_geo_focus: [asia]
     stated_thesis_url: https://www.anz.com/about-us/esg/
     stated_thesis_excerpt: "Shape a world where people and communities thrive."
@@ -81,7 +81,7 @@ banks:
     category: cooperative
     aum_usd_m_consolidated: null
     aum_usd_m_year: null
-    stated_priority_themes: [fi, housing, gender, smb, climate, generalist]
+    stated_priority_themes: [fi, housing, gender_lens, smb, climate, generalist]
     stated_geo_focus: null
     stated_thesis_url: https://www.bancaetica.it/policy-di-finanza-etica/
     stated_thesis_excerpt: "We finance responsible initiatives under social and environmental profiles."
