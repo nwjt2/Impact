@@ -1706,41 +1706,41 @@ dfi_profiles:
   - dfi_slug: bancoldex
     dfi_name: Bancóldex
     dfi_country: "CO"
-    stated_sector_preferences: null
-    stated_geo_focus: null
-    stated_thesis_url: null
+    stated_sector_preferences: [smb]
+    stated_geo_focus: [latam]
+    stated_thesis_url: https://www.bancoldex.com/en/fund-investments/investment-funds-3839
     stated_thesis_excerpt: null
     known_contacts_public: []
-    typical_ticket_usd_m_min: null
-    typical_ticket_usd_m_max: null
+    typical_ticket_usd_m_min: 5
+    typical_ticket_usd_m_max: 30
     last_seen_at: 2026-05-04
-    public_newsroom_url: null
+    public_newsroom_url: https://www.bancoldex.com/en/news
     emerging_manager_facility: null
 
   - dfi_slug: common-fund-for-commodities
     dfi_name: Common Fund for Commodities
     dfi_country: "NL"
-    stated_sector_preferences: null
+    stated_sector_preferences: [agri, smb]
     stated_geo_focus: null
-    stated_thesis_url: null
+    stated_thesis_url: https://common-fund.org/projects/guidelines-for-operations-of-the-cfc
     stated_thesis_excerpt: null
     known_contacts_public: []
-    typical_ticket_usd_m_min: null
-    typical_ticket_usd_m_max: null
+    typical_ticket_usd_m_min: 0.06
+    typical_ticket_usd_m_max: 1.5
     last_seen_at: 2026-05-04
-    public_newsroom_url: null
+    public_newsroom_url: https://www.common-fund.org/news
     emerging_manager_facility: null
 
   - dfi_slug: dutch-good-growth-fund-dggf
     dfi_name: Dutch Good Growth Fund (DGGF)
     dfi_country: "NL"
-    stated_sector_preferences: null
+    stated_sector_preferences: [smb]
     stated_geo_focus: null
-    stated_thesis_url: null
+    stated_thesis_url: https://english.dggf.nl/
     stated_thesis_excerpt: null
     known_contacts_public: []
-    typical_ticket_usd_m_min: null
-    typical_ticket_usd_m_max: null
+    typical_ticket_usd_m_min: 0.1
+    typical_ticket_usd_m_max: 15
     last_seen_at: 2026-05-04
     public_newsroom_url: null
     emerging_manager_facility: null
@@ -1748,13 +1748,13 @@ dfi_profiles:
   - dfi_slug: fsd-africa-investments
     dfi_name: FSD Africa Investments
     dfi_country: "KE"
-    stated_sector_preferences: null
-    stated_geo_focus: null
-    stated_thesis_url: null
+    stated_sector_preferences: [fi, smb]
+    stated_geo_focus: [africa]
+    stated_thesis_url: https://fsdafrica.org/fsdai-investments/
     stated_thesis_excerpt: null
     known_contacts_public: []
-    typical_ticket_usd_m_min: null
-    typical_ticket_usd_m_max: null
+    typical_ticket_usd_m_min: 0.5
+    typical_ticket_usd_m_max: 5
     last_seen_at: 2026-05-04
     public_newsroom_url: null
     emerging_manager_facility: null
@@ -1762,9 +1762,9 @@ dfi_profiles:
   - dfi_slug: global-health-investment-corporation
     dfi_name: Global Health Investment Corporation
     dfi_country: "US"
-    stated_sector_preferences: null
-    stated_geo_focus: null
-    stated_thesis_url: null
+    stated_sector_preferences: [health]
+    stated_geo_focus: [global]
+    stated_thesis_url: https://ghicfunds.org/about/
     stated_thesis_excerpt: null
     known_contacts_public: []
     typical_ticket_usd_m_min: null
@@ -1776,13 +1776,13 @@ dfi_profiles:
   - dfi_slug: idb-lab
     dfi_name: IDB Lab
     dfi_country: "US"
-    stated_sector_preferences: null
-    stated_geo_focus: null
-    stated_thesis_url: null
+    stated_sector_preferences: [smb, fi]
+    stated_geo_focus: [latam]
+    stated_thesis_url: https://bidlab.org/en/products/financing-products
     stated_thesis_excerpt: null
     known_contacts_public: []
-    typical_ticket_usd_m_min: null
-    typical_ticket_usd_m_max: null
+    typical_ticket_usd_m_min: 1
+    typical_ticket_usd_m_max: 10
     last_seen_at: 2026-05-04
-    public_newsroom_url: null
+    public_newsroom_url: https://bidlab.org/en/news
     emerging_manager_facility: null

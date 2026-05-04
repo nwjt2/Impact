@@ -1451,16 +1451,26 @@ foundations:
     foundation_type: private
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [climate, health, edu]
+    stated_priority_themes: [climate, health, edu, gender_lens]
     stated_geo_focus: [global]
-    stated_thesis_url: https://www.griegfoundation.com/en/
+    stated_thesis_url: https://www.griegfoundation.com/what-we-support
     stated_thesis_excerpt: null
-    typical_check_usd_m_min: null
-    typical_check_usd_m_max: null
+    typical_check_usd_m_min: 0.05
+    typical_check_usd_m_max: 0.5
     pri_program: null
-    mri_program: null
-    public_newsroom_url: null
-    last_seen_at: 2026-04-29
+    mri_program:
+      exists: true
+      program_name: Impact Investment programme
+      url: https://www.griegfoundation.com/what-we-support/impact-investment
+      notes: |
+        Grieg Foundation runs a dedicated impact-investment programme alongside
+        traditional grantmaking. Stated themes: employment / inclusive growth
+        / poverty reduction; health; education; gender equality; climate
+        mitigation and adaptation. International projects require a Norwegian
+        partner / link to Norway. ~NOK 101m disbursed in 2024 (~USD 9m at
+        2024 rates); cumulative >NOK 1.1bn since founding.
+    public_newsroom_url: https://www.griegfoundation.com/2025-highlights
+    last_seen_at: 2026-05-04
 
   - slug: john-deere-foundation
     name: John Deere Foundation
@@ -1491,12 +1501,19 @@ foundations:
     stated_geo_focus: [global]
     stated_thesis_url: https://kbs-frb.be/en
     stated_thesis_excerpt: null
-    typical_check_usd_m_min: null
-    typical_check_usd_m_max: null
+    typical_check_usd_m_min: 0.05
+    typical_check_usd_m_max: 0.5
     pri_program: null
     mri_program: null
-    public_newsroom_url: null
-    last_seen_at: 2026-04-29
+    public_newsroom_url: https://kbs-frb.be/en/news
+    last_seen_at: 2026-05-04
+    notes: |
+      Belgian public-charity foundation supporting ~1,500 projects/year via
+      ~137 thematic sub-funds. €132.5m total grants (2021); typical grant
+      €26-52k for community-level work, larger awards (e.g. €200k African
+      Development Prize) for flagships. Fund-LP allocations sit at the upper
+      end of the typical-check range. Annual €9.8m grant from Belgian
+      National Lottery contributes to the funding base.
 
   - slug: mercy-investment-services
     name: Mercy Investment Services
@@ -1549,12 +1566,22 @@ foundations:
     stated_geo_focus: [asia, global]
     stated_thesis_url: https://www.spf.org/en/
     stated_thesis_excerpt: null
-    typical_check_usd_m_min: null
-    typical_check_usd_m_max: null
-    pri_program: null
+    typical_check_usd_m_min: 0.05
+    typical_check_usd_m_max: 0.5
+    pri_program:
+      exists: true
+      program_name: Innovative Finance Program
+      url: https://www.spf.org/en/
+      notes: |
+        SPF Innovative Finance Program (since 2016) explores blended-finance
+        and impact-investment mechanisms across Asia. Typical project budget
+        US$20k–$100k (the bulk of grants); larger PRI/MRI commitments are
+        deal-specific and not routinely disclosed. Five focus areas: Asia
+        challenges, women's empowerment, Muslim-majority country relations,
+        Japan-US relations, ocean sustainability.
     mri_program: null
-    public_newsroom_url: null
-    last_seen_at: 2026-04-29
+    public_newsroom_url: https://www.spf.org/en/about/news/
+    last_seen_at: 2026-05-04
 
   - slug: the-fairmount-foundation
     name: The Fairmount Foundation
@@ -1727,18 +1754,24 @@ foundations:
     aliases: ["Nathan Cummings Foundation", "NCF"]
     country: "US"
     foundation_type: private
-    aum_usd_m: null
-    aum_usd_m_year: null
+    aum_usd_m: 500
+    aum_usd_m_year: 2023
     stated_priority_themes: [climate, generalist]
     stated_geo_focus: [us]
     stated_thesis_url: https://nathancummings.org/
     stated_thesis_excerpt: "NCF is working to help create a more just, vibrant, sustainable, and democratic society."
-    typical_check_usd_m_min: null
-    typical_check_usd_m_max: null
-    pri_program: null
+    typical_check_usd_m_min: 0.2
+    typical_check_usd_m_max: 0.5
+    pri_program:
+      exists: true
+      program_name: NCF Program-Related Investments
+      url: https://nathancummings.org/our-investments/
+      notes: |
+        $22m PRI pool (5% of endowment). Typical PRI $200k-$500k.
+        Themes: racial, economic, environmental justice; first-time funds welcome.
     mri_program: null
     public_newsroom_url: https://nathancummings.org/press/
-    last_seen_at: 2026-04-29
+    last_seen_at: 2026-05-04
 
   - slug: netri-foundation
     name: Netri Foundation
@@ -1763,18 +1796,18 @@ foundations:
     aliases: ["Paul G. Allen Family Foundation", "Allen Family Philanthropies"]
     country: "US"
     foundation_type: private
-    aum_usd_m: null
-    aum_usd_m_year: null
+    aum_usd_m: 1350
+    aum_usd_m_year: 2023
     stated_priority_themes: [climate, generalist]
     stated_geo_focus: [us, global]
     stated_thesis_url: https://www.allenphilanthropies.org/who-we-are
     stated_thesis_excerpt: "Building thriving and resilient communities in the Pacific Northwest and beyond."
-    typical_check_usd_m_min: null
-    typical_check_usd_m_max: null
+    typical_check_usd_m_min: 0.5
+    typical_check_usd_m_max: 5
     pri_program: null
     mri_program: null
     public_newsroom_url: https://www.allenphilanthropies.org/news-and-stories
-    last_seen_at: 2026-04-29
+    last_seen_at: 2026-05-04
 
   # ---- Foundations discovered as LPs but not previously curated ----
   # Honest-null: stated themes / geo focus / check size left null until

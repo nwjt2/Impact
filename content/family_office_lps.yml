@@ -722,17 +722,24 @@ family_offices:
     category: philanthropy_llc
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
+    stated_priority_themes: [climate, agri, fi, smb, wash, edu, housing]
+    stated_geo_focus: [us, global]
+    stated_thesis_url: https://www.sobrato.com/sobrato-philanthropies/
     stated_thesis_excerpt: null
-    typical_check_usd_m_min: null
-    typical_check_usd_m_max: null
-    invests_via_fund_lp: null
-    invests_via_direct: null
-    invests_via_grants: null
-    public_newsroom_url: null
+    typical_check_usd_m_min: 0.05
+    typical_check_usd_m_max: 3
+    invests_via_fund_lp: true
+    invests_via_direct: true
+    invests_via_grants: true
+    public_newsroom_url: https://www.sobrato.com/news/
     last_seen_at: 2026-05-04
+    notes: |
+      Annual grants ~$62.5m (range $50k–$3m). PRI/MRI capital deployed
+      across climate, sustainable food systems, financial inclusion,
+      smallholder farmers, workforce development, water/sanitation. The
+      Sobrato Family has committed >$500m cumulatively to the Silicon
+      Valley region; 2025 commitment of >$150m for regional economic
+      mobility, affordable housing, and education for multilingual learners.
 
   - slug: the-russell-family-foundation
     name: The Russell Family Foundation
@@ -741,17 +748,24 @@ family_offices:
     category: family_office
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: null
-    stated_geo_focus: null
-    stated_thesis_url: null
+    stated_priority_themes: [forestry, agri, climate, housing, gender_lens]
+    stated_geo_focus: [us]
+    stated_thesis_url: https://trff.org/impact-investments/
     stated_thesis_excerpt: null
-    typical_check_usd_m_min: null
-    typical_check_usd_m_max: null
-    invests_via_fund_lp: null
-    invests_via_direct: null
-    invests_via_grants: null
+    typical_check_usd_m_min: 0.05
+    typical_check_usd_m_max: 0.6
+    invests_via_fund_lp: true
+    invests_via_direct: true
+    invests_via_grants: true
     public_newsroom_url: null
     last_seen_at: 2026-05-04
+    notes: |
+      Grew from 7% to ~75% mission-aligned investments over four years;
+      PRI signatory since 2023-05-11. Five-tier framework: Negative
+      Screening → Positive Screening / Shareholder Engagement → Sustainability
+      Integration → Thematic / Place-Based Investing → Capacity Building PRIs.
+      Catalyst for first-time funds and innovative business models.
+      Annual grants ~$1.2m, range $3k–$600k.
 
   - slug: the-todd-and-anne-mccormack-fund
     name: The Todd and Anne McCormack Fund
