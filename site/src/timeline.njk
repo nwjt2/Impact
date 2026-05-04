@@ -87,6 +87,7 @@ pageKey: timeline
 .tl-row-final { fill: currentColor; opacity: 0.85; font: 500 0.72rem/1 "IBM Plex Sans", system-ui, sans-serif; }
 .tl-row-anchor { font: 400 0.72rem/1 "IBM Plex Sans", system-ui, sans-serif; fill: currentColor; opacity: 0.7; }
 .tl-row-sameday { font: 500 0.7rem/1 "IBM Plex Sans", system-ui, sans-serif; fill: currentColor; opacity: 0.55; }
+.tl-row-sameday-inline { font-weight: 500; opacity: 0.7; }
 .tl-axis-line { stroke: currentColor; opacity: 0.18; }
 .tl-axis-tick { font: 400 0.7rem/1 "IBM Plex Sans", system-ui, sans-serif; fill: currentColor; opacity: 0.6; }
 .tl-median { stroke: rgba(220,80,80,0.7); stroke-width: 1.5; stroke-dasharray: 3 3; }
@@ -515,20 +516,30 @@ pageKey: timeline
           + '" y="' + (barY + barH - 2) + '">final ' + I.esc(fStr) + '</text>');
       }
 
-      // Right-side annotation: anchor LP if known, else a status tag that
-      // explains the marker (same-day diamond, or no-announce dot).
+      // Right-side annotation: anchor LP and/or status tag that explains
+      // the marker. Same-day and "no announce" tags are additive when an
+      // anchor is also known — both apply.
       var rightX = hasFinal ? null : (fcX + 8);
       if (rightX != null) {
+        var anchorPart = "";
         if (f.anchor_lp) {
           var anchor = f.anchor_lp.length > 36 ? f.anchor_lp.slice(0, 34) + "…" : f.anchor_lp;
+          anchorPart = '⚓ ' + I.esc(anchor);
+        }
+        var statusPart = "";
+        if (sameDay) statusPart = "same-day announce/close";
+        else if (!f.announce_date) statusPart = "first close only · no announce date on file";
+
+        if (anchorPart && statusPart) {
           parts.push('<text class="tl-row-anchor" x="' + rightX
-            + '" y="' + (barY + barH - 2) + '">⚓ ' + I.esc(anchor) + '</text>');
-        } else if (sameDay) {
+            + '" y="' + (barY + barH - 2) + '">' + anchorPart
+            + ' <tspan class="tl-row-sameday-inline">· ' + statusPart + '</tspan></text>');
+        } else if (anchorPart) {
+          parts.push('<text class="tl-row-anchor" x="' + rightX
+            + '" y="' + (barY + barH - 2) + '">' + anchorPart + '</text>');
+        } else if (statusPart) {
           parts.push('<text class="tl-row-sameday" x="' + rightX
-            + '" y="' + (barY + barH - 2) + '">same-day announce/close</text>');
-        } else if (!f.announce_date) {
-          parts.push('<text class="tl-row-sameday" x="' + rightX
-            + '" y="' + (barY + barH - 2) + '">first close only · no announce date on file</text>');
+            + '" y="' + (barY + barH - 2) + '">' + statusPart + '</text>');
         }
       }
 
