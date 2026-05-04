@@ -1,0 +1,520 @@
+---
+layout: base.njk
+title: First-close timeline benchmark
+permalink: /timeline/index.html
+pageKey: timeline
+---
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
+  <header class="detail-header">
+    <div class="detail-eyebrow">
+      <span>Pacing benchmark · INGO-sponsored fund first-close timelines</span>
+    </div>
+    <h1>How long does first close take?</h1>
+    <p class="detail-sub">Pacing reference for INGO fund teams already mid-raise. Drawn from {{ peer_ingo_funds | length }} peer impact funds in the registry: those with a disclosed first-close date are plotted as horizontal bars below — announce (where public) → first close → final close. Pick your fund's profile to filter. Optionally enter your own announce date to overlay a "you are here" marker against the median. <strong>Honesty caveat:</strong> only a small subset of peer funds publish a separate announce date; for the rest we show the first close as a single point and the announce-to-close metric is sampled on that small subset only. The first-close-to-final-close metric uses the bigger subset where both close dates are disclosed.</p>
+  </header>
+
+  <form id="tl-picker" class="picker">
+    <fieldset class="picker-group">
+      <legend class="picker-legend">Sector tags <span class="picker-hint">— pick the themes your fund will pursue (none = all)</span></legend>
+      <div class="picker-chips" data-dim="sectors"></div>
+    </fieldset>
+
+    <fieldset class="picker-group">
+      <legend class="picker-legend">Geography <span class="picker-hint">— pick where your fund will deploy (none = all)</span></legend>
+      <div class="picker-chips" data-dim="geos"></div>
+    </fieldset>
+
+    <fieldset class="picker-group">
+      <legend class="picker-legend">Comparables <span class="picker-hint">— include non-INGO funds for sample-size depth</span></legend>
+      <div class="picker-chips" data-dim="cohort"></div>
+    </fieldset>
+
+    <fieldset class="picker-group tl-you-are-here">
+      <legend class="picker-legend">You are here <span class="picker-hint">— optional: your own fund's announce date</span></legend>
+      <input type="date" id="tl-announce" class="tl-date-input" aria-label="Your fund's announce date" />
+      <span id="tl-you-status" class="muted"></span>
+      <button type="button" id="tl-clear-you" class="picker-reset">Clear</button>
+    </fieldset>
+
+    <div class="picker-actions">
+      <button type="button" id="tl-reset" class="picker-reset">Reset filters</button>
+      <span id="tl-summary" class="picker-summary"></span>
+    </div>
+  </form>
+
+  <div class="tl-headlines" id="tl-headlines"></div>
+
+  <div class="tl-chart-wrap">
+    <div id="tl-chart"></div>
+  </div>
+
+  <aside class="tl-method">
+    <h3>Method &amp; caveats</h3>
+    <ul>
+      <li><strong>Announce date</strong> means the date the fundraise was first publicly announced (press release, INGO board statement, or partner co-announcement). Where the public record only names the close, announce_date is null.</li>
+      <li><strong>First close</strong> is the GP's own reported first close — definitions vary across funds (some report a $5m anchor as "first close," others wait for $50m). The benchmark blurs these. Where size is disclosed it's labeled.</li>
+      <li><strong>Survivor bias.</strong> The peer-fund registry only contains funds that announced publicly, and skews toward those that actually reached a close. Funds that quietly died never made the registry. Treat the distribution as an optimistic floor.</li>
+      <li><strong>Sample size.</strong> Surfaced loudly per metric. Under sector + geo filter, the working sample often drops below 5 — that's directional only, not a distribution.</li>
+    </ul>
+  </aside>
+</section>
+
+<script type="application/json" id="data-peer-funds">{{ peer_ingo_funds | dump | safe }}</script>
+<script type="application/json" id="data-meta">{{ meta | dump | safe }}</script>
+
+<style>
+.tl-you-are-here { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.tl-date-input { font: inherit; padding: 6px 8px; border: 1px solid var(--rule, #ccc); border-radius: 3px; background: var(--bg, #fff); color: inherit; }
+.tl-headlines { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin: 18px 0 10px; }
+.tl-headline { padding: 12px 14px; border: 1px solid var(--rule, #ccc); border-radius: 4px; background: var(--bg-soft, rgba(0,0,0,0.02)); }
+.tl-headline-num { font-size: 1.6rem; font-weight: 600; line-height: 1; }
+.tl-headline-unit { font-size: 0.9rem; opacity: 0.7; margin-left: 4px; }
+.tl-headline-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; opacity: 0.8; margin-bottom: 4px; }
+.tl-headline-tail { font-size: 0.78rem; opacity: 0.7; margin-top: 4px; line-height: 1.4; }
+.tl-headline-num.is-empty { opacity: 0.35; }
+.tl-chart-wrap { margin: 22px 0; overflow-x: auto; }
+.tl-chart { width: 100%; min-width: 720px; }
+.tl-row { cursor: default; }
+.tl-row-label { font: 500 0.78rem/1 "IBM Plex Mono", monospace; fill: currentColor; }
+.tl-row-meta  { font: 400 0.72rem/1 "IBM Plex Mono", monospace; fill: currentColor; opacity: 0.55; }
+.tl-bar-pre   { fill: rgba(120,140,180,0.35); }
+.tl-bar-post  { fill: rgba(180,140,80,0.55); }
+.tl-bar-point { fill: rgba(120,140,180,0.7); }
+.tl-row-final { fill: currentColor; opacity: 0.85; font: 500 0.72rem/1 "IBM Plex Mono", monospace; }
+.tl-row-anchor { font: 400 0.72rem/1 "IBM Plex Mono", monospace; fill: currentColor; opacity: 0.6; }
+.tl-axis-line { stroke: currentColor; opacity: 0.18; }
+.tl-axis-tick { font: 400 0.7rem/1 "IBM Plex Mono", monospace; fill: currentColor; opacity: 0.55; }
+.tl-median { stroke: rgba(220,80,80,0.7); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.tl-median-label { font: 600 0.72rem/1 "IBM Plex Mono", monospace; fill: rgba(220,80,80,0.9); }
+.tl-you { stroke: rgba(40,140,200,0.85); stroke-width: 2; }
+.tl-you-label { font: 600 0.72rem/1 "IBM Plex Mono", monospace; fill: rgba(40,140,200,1); }
+.tl-month-only { font-style: italic; }
+.tl-method { margin-top: 28px; padding: 14px 18px; border-top: 1px solid var(--rule, #ccc); }
+.tl-method h3 { margin: 0 0 8px; font-size: 0.92rem; text-transform: uppercase; letter-spacing: 0.05em; }
+.tl-method ul { margin: 0; padding-left: 18px; font-size: 0.86rem; line-height: 1.55; }
+.tl-method li + li { margin-top: 6px; }
+.tl-empty { padding: 24px; text-align: center; opacity: 0.6; font-style: italic; }
+</style>
+
+<script src="{{ '/assets/js/render.js' | url }}"></script>
+<script>
+(function () {
+  "use strict";
+  var I = window.IFC;
+
+  // Reuse the same taxonomy as /match/ for consistency.
+  var SECTOR_LABELS = {
+    fi: "Financial inclusion", agri: "Agriculture", smb: "SMEs / livelihoods",
+    climate: "Climate", energy: "Energy", health: "Health", edu: "Education",
+    wash: "Water & sanitation", gender: "Gender lens", gender_lens: "Gender lens",
+    housing: "Housing", forestry: "Forestry / nature", biodiversity: "Biodiversity",
+    generalist: "Generalist",
+  };
+  var SECTOR_ORDER = ["fi","agri","smb","climate","energy","health","edu","wash","gender","gender_lens","housing","forestry","biodiversity","generalist"];
+
+  var GEO_LABELS = {
+    africa: "Africa", mena: "MENA", asia: "Asia", latam: "Latin America",
+    us: "United States", europe: "Europe", global: "Global",
+  };
+  var GEO_ORDER = ["africa","mena","asia","latam","us","europe","global"];
+
+  var COHORT_LABELS = { ingo_only: "INGO-sponsored only", include_comparables: "Include comparables" };
+  var COHORT_ORDER = ["ingo_only", "include_comparables"];
+
+  // ---- Load + filter to funds with first_close_date -----------------------
+  var PEER = I.loadJSON("data-peer-funds") || [];
+  var BUILD = I.loadJSON("data-meta") || {};
+  var TODAY = (BUILD.last_run_timestamp || BUILD.generated_at || new Date().toISOString()).slice(0, 10);
+
+  function parseDate(iso) { return iso ? Date.parse(iso) : null; }
+  function monthsBetween(a, b) {
+    var ms = parseDate(b) - parseDate(a);
+    return ms / (1000 * 60 * 60 * 24 * 30.4375);
+  }
+  function fmtMonths(m) {
+    if (m == null || isNaN(m)) return "—";
+    if (m < 1) return "<1mo";
+    if (m < 24) return Math.round(m) + "mo";
+    return (m / 12).toFixed(1) + "yr";
+  }
+
+  // Population: every peer fund with a first_close_date.
+  var POP = PEER.filter(function (f) { return f.first_close_date; });
+
+  // ---- Picker state -------------------------------------------------------
+  var state = {
+    sectors: new Set(),
+    geos: new Set(),
+    cohort: new Set(["include_comparables"]), // default: include comparables
+    youAnnounce: null,
+  };
+
+  function buildChips(host, dim, order, labels) {
+    host.innerHTML = order.map(function (k) {
+      var on = state[dim].has(k) ? " is-on" : "";
+      return '<button type="button" class="picker-chip' + on + '" data-key="' + I.escAttr(k) + '">'
+        + I.esc(labels[k] || k) + '</button>';
+    }).join("");
+    host.addEventListener("click", function (evt) {
+      var btn = evt.target.closest(".picker-chip");
+      if (!btn) return;
+      var key = btn.getAttribute("data-key");
+      var s = state[dim];
+      if (dim === "cohort") {
+        // cohort is single-select (toggle which mode)
+        s.clear(); s.add(key);
+        host.querySelectorAll(".picker-chip").forEach(function (b) { b.classList.remove("is-on"); });
+        btn.classList.add("is-on");
+      } else {
+        if (s.has(key)) { s.delete(key); btn.classList.remove("is-on"); }
+        else { s.add(key); btn.classList.add("is-on"); }
+      }
+      render();
+    });
+  }
+
+  document.querySelectorAll("#tl-picker .picker-chips").forEach(function (host) {
+    var dim = host.getAttribute("data-dim");
+    if (dim === "sectors") buildChips(host, "sectors", SECTOR_ORDER, SECTOR_LABELS);
+    else if (dim === "geos") buildChips(host, "geos", GEO_ORDER, GEO_LABELS);
+    else if (dim === "cohort") buildChips(host, "cohort", COHORT_ORDER, COHORT_LABELS);
+  });
+
+  document.getElementById("tl-reset").addEventListener("click", function () {
+    state.sectors.clear(); state.geos.clear();
+    state.cohort.clear(); state.cohort.add("include_comparables");
+    document.querySelectorAll("#tl-picker .picker-chip").forEach(function (b) { b.classList.remove("is-on"); });
+    document.querySelector('#tl-picker [data-dim="cohort"] [data-key="include_comparables"]').classList.add("is-on");
+    render();
+  });
+
+  var youInput = document.getElementById("tl-announce");
+  youInput.addEventListener("input", function () {
+    state.youAnnounce = youInput.value || null;
+    render();
+  });
+  document.getElementById("tl-clear-you").addEventListener("click", function () {
+    youInput.value = "";
+    state.youAnnounce = null;
+    render();
+  });
+
+  // ---- Filter ------------------------------------------------------------
+  function passes(f) {
+    if (state.cohort.has("ingo_only") && !f.parent_ingo) return false;
+    if (state.sectors.size > 0) {
+      var any = (f.sector_tags || []).some(function (t) { return state.sectors.has(t); });
+      if (!any) return false;
+    }
+    if (state.geos.size > 0) {
+      var any2 = (f.geo_tags || []).some(function (t) { return state.geos.has(t); });
+      if (!any2) return false;
+    }
+    return true;
+  }
+
+  // ---- Distribution stats -------------------------------------------------
+  function median(arr) {
+    if (!arr.length) return null;
+    var s = arr.slice().sort(function (a, b) { return a - b; });
+    var mid = Math.floor(s.length / 2);
+    return s.length % 2 === 0 ? (s[mid - 1] + s[mid]) / 2 : s[mid];
+  }
+  function range(arr) {
+    if (!arr.length) return null;
+    return { min: Math.min.apply(null, arr), max: Math.max.apply(null, arr) };
+  }
+
+  // ---- Headlines ----------------------------------------------------------
+  //
+  // Honest framing for the "announce to first close" metric:
+  //   - Funds where announce_date == first_close_date are effectively
+  //     publicizing a pre-arranged close, not running a public fundraise.
+  //     They are NOT a useful benchmark for an INGO mid-raise.
+  //   - Split the metric: "funds with a public raising window" (gap ≥ 30 days)
+  //     drives the headline; "same-day announce/close" funds counted separately.
+  //   - When the raising-window sample is < 3, surface raw data points instead
+  //     of a median — n=2 doesn't meaningfully median.
+  function renderHeadlines(working) {
+    var withAnnounce = working.filter(function (f) { return f.announce_date && f.first_close_date; });
+    var withFinal = working.filter(function (f) {
+      return f.first_close_date && f.final_close_date
+        && f.first_close_date !== f.final_close_date;
+    });
+
+    var aMonthsAll = withAnnounce.map(function (f) { return monthsBetween(f.announce_date, f.first_close_date); });
+    var raising = aMonthsAll.filter(function (m) { return m >= 1; });   // ≥ 1 month = "real" raise window
+    var sameDay = aMonthsAll.length - raising.length;
+
+    var fMonths = withFinal.map(function (f) { return monthsBetween(f.first_close_date, f.final_close_date); });
+
+    var aMed = median(raising), aRng = range(raising);
+    var fMed = median(fMonths), fRng = range(fMonths);
+
+    // Card 1: announce → first close, raising-window only
+    function announceCard(youTail) {
+      var medCell, tail;
+      if (raising.length === 0) {
+        medCell = '<div class="tl-headline-num is-empty">—</div>';
+        tail = "no peer funds in the working set disclose a public raising window"
+          + (sameDay > 0 ? " · " + sameDay + " disclosed announce date == first close (pre-arranged close, not a fundraise window)" : "");
+      } else if (raising.length < 3) {
+        // Show raw data points, not a median.
+        var pts = raising.map(function (m) { return fmtMonths(m); }).join(", ");
+        medCell = '<div class="tl-headline-num">n=' + raising.length + '</div>';
+        tail = "data points: <strong>" + pts + "</strong> · too few to median"
+          + (sameDay > 0 ? " · " + sameDay + " same-day announce/close (excluded)" : "");
+      } else {
+        medCell = '<div class="tl-headline-num">' + fmtMonths(aMed).replace(/(\d+)([a-z]+)/, '$1<span class="tl-headline-unit">$2</span>') + '</div>';
+        tail = "median across <strong>" + raising.length + "</strong> peer funds with a disclosed raising window · range "
+          + fmtMonths(aRng.min) + "–" + fmtMonths(aRng.max)
+          + (sameDay > 0 ? "<br><span class=\"muted\">+ " + sameDay + " same-day announce/close (excluded — no public raising window)</span>" : "");
+      }
+      if (youTail) tail += "<br>" + youTail;
+      return '<div class="tl-headline">'
+        + '<div class="tl-headline-label">Time on market before first close</div>'
+        + medCell
+        + '<div class="tl-headline-tail">' + tail + '</div>'
+        + '</div>';
+    }
+
+    function finalCard() {
+      var medCell, tail;
+      if (withFinal.length === 0) {
+        medCell = '<div class="tl-headline-num is-empty">—</div>';
+        tail = "no peer funds in the working set disclose a final-close date distinct from first close";
+      } else if (withFinal.length < 3) {
+        var pts = fMonths.map(function (m) { return fmtMonths(m); }).join(", ");
+        medCell = '<div class="tl-headline-num">n=' + withFinal.length + '</div>';
+        tail = "data points: <strong>" + pts + "</strong> · too few to median";
+      } else {
+        medCell = '<div class="tl-headline-num">' + fmtMonths(fMed).replace(/(\d+)([a-z]+)/, '$1<span class="tl-headline-unit">$2</span>') + '</div>';
+        tail = "median across <strong>" + withFinal.length + "</strong> of " + working.length + " filtered funds · range "
+          + fmtMonths(fRng.min) + "–" + fmtMonths(fRng.max);
+      }
+      return '<div class="tl-headline">'
+        + '<div class="tl-headline-label">First close → final close</div>'
+        + medCell
+        + '<div class="tl-headline-tail">' + tail + '</div>'
+        + '</div>';
+    }
+
+    // "You are here" tail for the announce-to-first card
+    var youTail = "";
+    if (state.youAnnounce) {
+      var elapsed = monthsBetween(state.youAnnounce, TODAY);
+      if (elapsed >= 0) {
+        var compare = "";
+        if (raising.length >= 3) {
+          var delta = elapsed - aMed;
+          if (Math.abs(delta) < 1) compare = "right at the median";
+          else if (delta > 0) compare = '<strong>' + fmtMonths(delta) + ' past</strong> median';
+          else compare = fmtMonths(-delta) + ' below median';
+        }
+        youTail = "Your fund: <strong>" + fmtMonths(elapsed) + "</strong> since announce" + (compare ? " · " + compare : "");
+      }
+    }
+
+    document.getElementById("tl-headlines").innerHTML = announceCard(youTail) + finalCard();
+
+    // Stash the median for the chart to read.
+    return { aMed: raising.length >= 3 ? aMed : null };
+  }
+
+  // ---- Small-multiples chart ----------------------------------------------
+  // Each row = one fund. X-axis = months from a reference point.
+  //
+  // Reference point per row:
+  //   - If announce_date present: that's t=0
+  //   - Else: first_close_date is t=0 (a single point), with no pre-bar
+  //
+  // Extend rightward to final_close_date if known.
+
+  function renderChart(working, opts) {
+    opts = opts || {};
+    var host = document.getElementById("tl-chart");
+    if (working.length === 0) {
+      host.innerHTML = '<div class="tl-empty">No peer funds match the current filter.</div>';
+      return;
+    }
+
+    // Sort: most-recent first close at top.
+    var rows = working.slice().sort(function (a, b) {
+      return (b.first_close_date || "").localeCompare(a.first_close_date || "");
+    });
+
+    // X-axis range: 0 .. max(months across all rows from announce/first to final/today).
+    var maxMonths = 1;
+    rows.forEach(function (f) {
+      var t0 = f.announce_date || f.first_close_date;
+      var t1 = f.final_close_date || f.first_close_date;
+      var m = monthsBetween(t0, t1);
+      if (m > maxMonths) maxMonths = m;
+      if (f.announce_date) {
+        var m2 = monthsBetween(f.announce_date, f.first_close_date);
+        if (m2 > maxMonths) maxMonths = m2;
+      }
+    });
+    // Also include "you are here" elapsed if set, so the marker is visible.
+    if (state.youAnnounce) {
+      var youElapsed = monthsBetween(state.youAnnounce, TODAY);
+      if (youElapsed > maxMonths) maxMonths = youElapsed;
+    }
+    maxMonths = Math.ceil(maxMonths + 1);
+
+    // Geometry
+    var ROW_H = 26, ROW_GAP = 4;
+    var LABEL_W = 240, BAR_AREA = 600, RIGHT_PAD = 40, PADDING = 12;
+    var width = LABEL_W + BAR_AREA + RIGHT_PAD + PADDING * 2;
+    var TOP = 36;
+    var height = TOP + rows.length * (ROW_H + ROW_GAP) + 40;
+
+    var x0 = PADDING + LABEL_W;
+
+    function xFor(months) { return x0 + (months / maxMonths) * BAR_AREA; }
+
+    var parts = [];
+    parts.push('<svg class="tl-chart" viewBox="0 0 ' + width + ' ' + height
+      + '" preserveAspectRatio="xMidYMin meet" role="img" aria-label="Peer fund first-close timelines">');
+
+    // X-axis ticks (every 6 months up to maxMonths, capped at ~12 ticks).
+    var step = maxMonths <= 12 ? 3 : maxMonths <= 36 ? 6 : 12;
+    var axisY = TOP - 14;
+    parts.push('<line class="tl-axis-line" x1="' + x0 + '" x2="' + (x0 + BAR_AREA)
+      + '" y1="' + axisY + '" y2="' + axisY + '" />');
+    for (var t = 0; t <= maxMonths; t += step) {
+      var tx = xFor(t);
+      parts.push('<line class="tl-axis-line" x1="' + tx + '" x2="' + tx
+        + '" y1="' + axisY + '" y2="' + (axisY + 4) + '" />');
+      var lbl = t === 0 ? "0" : (t < 24 ? t + "mo" : (t / 12) + "yr");
+      parts.push('<text class="tl-axis-tick" x="' + tx + '" y="' + (axisY - 4)
+        + '" text-anchor="middle">' + I.esc(lbl) + '</text>');
+    }
+
+    // Median announce→first marker (red dashed) — uses the raising-window
+    // median computed by renderHeadlines (zero-day same-day announces excluded).
+    var aMed = opts.aMed;
+    if (aMed != null && aMed > 0) {
+      var medX = xFor(aMed);
+      parts.push('<line class="tl-median" x1="' + medX + '" x2="' + medX
+        + '" y1="' + (TOP - 8) + '" y2="' + (height - 24) + '" />');
+      parts.push('<text class="tl-median-label" x="' + medX + '" y="' + (height - 8)
+        + '" text-anchor="middle">median ' + I.esc(fmtMonths(aMed)) + '</text>');
+    }
+
+    // "You are here" vertical line
+    if (state.youAnnounce) {
+      var youElapsed = monthsBetween(state.youAnnounce, TODAY);
+      if (youElapsed >= 0 && youElapsed <= maxMonths) {
+        var yx = xFor(youElapsed);
+        parts.push('<line class="tl-you" x1="' + yx + '" x2="' + yx
+          + '" y1="' + (TOP - 8) + '" y2="' + (height - 24) + '" />');
+        parts.push('<text class="tl-you-label" x="' + yx + '" y="' + (TOP - 14)
+          + '" text-anchor="middle">you · ' + I.esc(fmtMonths(youElapsed)) + '</text>');
+      }
+    }
+
+    // Rows
+    rows.forEach(function (f, i) {
+      var y = TOP + i * (ROW_H + ROW_GAP);
+      var yMid = y + ROW_H / 2 + 4;
+
+      // Label
+      var label = f.name;
+      if (label.length > 38) label = label.slice(0, 36) + "…";
+      parts.push('<text class="tl-row-label" x="' + (PADDING + LABEL_W - 8)
+        + '" y="' + (y + 11) + '" text-anchor="end">' + I.esc(label) + '</text>');
+
+      var metaBits = [];
+      if (f.parent_ingo) metaBits.push(f.parent_ingo);
+      if (f.first_close_date) metaBits.push(String(f.first_close_date).slice(0, 7));
+      if (f.size_usd_m != null) metaBits.push("$" + f.size_usd_m + "M");
+      var metaTxt = metaBits.join(" · ");
+      if (metaTxt.length > 44) metaTxt = metaTxt.slice(0, 42) + "…";
+      parts.push('<text class="tl-row-meta" x="' + (PADDING + LABEL_W - 8)
+        + '" y="' + (y + 23) + '" text-anchor="end">' + I.esc(metaTxt) + '</text>');
+
+      // Bars
+      var barY = y + 6;
+      var barH = 12;
+
+      if (f.announce_date && f.first_close_date) {
+        var preMonths = monthsBetween(f.announce_date, f.first_close_date);
+        var pX = xFor(0), pW = Math.max(2, xFor(preMonths) - pX);
+        var preCls = "tl-bar-pre" + (f.announce_date_month_only ? " tl-month-only" : "");
+        parts.push('<rect class="' + preCls + '" x="' + pX + '" y="' + barY
+          + '" width="' + pW + '" height="' + barH + '" rx="2" />');
+      } else if (f.first_close_date) {
+        // Single point at t=0 — first close only, no announce bar
+        parts.push('<circle class="tl-bar-point" cx="' + xFor(0)
+          + '" cy="' + (barY + barH / 2) + '" r="3.5" />');
+      }
+
+      // First close marker (always present since population requires it)
+      var fcX = xFor(f.announce_date ? monthsBetween(f.announce_date, f.first_close_date) : 0);
+      parts.push('<line class="tl-axis-line" x1="' + fcX + '" x2="' + fcX
+        + '" y1="' + barY + '" y2="' + (barY + barH) + '" stroke-width="1.5" />');
+
+      // Post-first → final close
+      if (f.final_close_date && f.first_close_date && f.final_close_date !== f.first_close_date) {
+        var startM = f.announce_date ? monthsBetween(f.announce_date, f.first_close_date) : 0;
+        var totalM = f.announce_date ? monthsBetween(f.announce_date, f.final_close_date) : monthsBetween(f.first_close_date, f.final_close_date);
+        var postX = xFor(startM), postW = Math.max(2, xFor(totalM) - postX);
+        parts.push('<rect class="tl-bar-post" x="' + postX + '" y="' + barY
+          + '" width="' + postW + '" height="' + barH + '" rx="2" />');
+
+        // Final close label to right of bar
+        var fStr = String(f.final_close_date).slice(0, 7);
+        parts.push('<text class="tl-row-final" x="' + (postX + postW + 6)
+          + '" y="' + (barY + barH - 2) + '">final ' + I.esc(fStr) + '</text>');
+      }
+
+      // Anchor LP — append after the bars on the right
+      if (f.anchor_lp) {
+        var anchorX = (f.final_close_date && f.final_close_date !== f.first_close_date)
+          ? null  // already used right-side space
+          : xFor(f.announce_date ? monthsBetween(f.announce_date, f.first_close_date) : 0) + 6;
+        if (anchorX != null) {
+          var anchor = f.anchor_lp;
+          if (anchor.length > 38) anchor = anchor.slice(0, 36) + "…";
+          parts.push('<text class="tl-row-anchor" x="' + anchorX
+            + '" y="' + (barY + barH - 2) + '">⚓ ' + I.esc(anchor) + '</text>');
+        }
+      }
+    });
+
+    // Footer note
+    var legendY = height - 6;
+    parts.push('<text class="tl-axis-tick" x="' + (PADDING + LABEL_W) + '" y="' + legendY + '">'
+      + 'announce → first close (blue) · first → final close (amber) · ⚓ anchor LP'
+      + '</text>');
+
+    parts.push('</svg>');
+    host.innerHTML = parts.join("");
+  }
+
+  // ---- Top-level render ---------------------------------------------------
+  function render() {
+    var working = POP.filter(passes);
+
+    // Picker summary
+    var youStatus = "";
+    if (state.youAnnounce) {
+      var el = monthsBetween(state.youAnnounce, TODAY);
+      youStatus = (el >= 0) ? fmtMonths(el) + " elapsed" : "future date";
+    }
+    document.getElementById("tl-you-status").textContent = youStatus;
+
+    var summaryEl = document.getElementById("tl-summary");
+    summaryEl.innerHTML = "Working sample: <strong>" + working.length + "</strong> of "
+      + POP.length + " peer funds with disclosed first-close date";
+
+    var opts = renderHeadlines(working) || {};
+    renderChart(working, opts);
+  }
+
+  render();
+})();
+</script>

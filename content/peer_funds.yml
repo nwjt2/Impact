@@ -19,8 +19,20 @@
 #   sector_tags:                         [list]
 #   geo_tags:                            [list]
 #   vehicle_type:                        closed_end_fund | evergreen | blended | DIB
+#   announce_date:                       YYYY-MM-DD or null. Date the fund's
+#                                        active fundraise was first publicly
+#                                        announced (press release, INGO board
+#                                        statement, or partner co-announcement).
+#                                        Used by /timeline/ to compute
+#                                        announce -> first-close duration.
+#                                        Null where the public record only
+#                                        names the close date.
+#   announce_date_month_only:            true if announce_date day is a
+#                                        placeholder (only month/year known)
 #   first_close_date:                    YYYY-MM-DD or null
+#   first_close_date_month_only:         true if first_close_date day is placeholder
 #   final_close_date:                    YYYY-MM-DD or null
+#   final_close_date_month_only:         true if final_close_date day is placeholder
 #   timeline_days_announce_to_first_close: integer or null (computed at emit time; left null where announce date not public)
 #   anchor_lp:                           named anchor commitment (free string) or null
 #   mgmt_fee_bps:                        integer basis points (e.g. 175 = 1.75%) or null. DO NOT FABRICATE.
@@ -59,6 +71,7 @@ peer_funds:
     sector_tags: [fi, smb, agri]
     geo_tags: [africa, asia, latam]
     vehicle_type: closed_end_fund
+    announce_date: 2012-01-22
     first_close_date: 2012-07-01
     first_close_date_month_only: true
     final_close_date: null
@@ -186,6 +199,7 @@ peer_funds:
     sector_tags: [wash, fi]
     geo_tags: [asia, latam, africa]
     vehicle_type: closed_end_fund
+    announce_date: 2020-03-12
     first_close_date: 2021-04-23
     final_close_date: 2022-03-31
     timeline_days_announce_to_first_close: null
@@ -217,6 +231,7 @@ peer_funds:
     sector_tags: [wash, climate, fi]
     geo_tags: [asia, africa, latam]
     vehicle_type: closed_end_fund
+    announce_date: 2023-03-16
     first_close_date: 2023-03-16
     final_close_date: 2023-07-01
     first_close_date_month_only: false
@@ -249,6 +264,7 @@ peer_funds:
     sector_tags: [edu, health, climate]
     geo_tags: [global]
     vehicle_type: evergreen
+    announce_date: 2022-11-16
     first_close_date: 2022-11-16
     final_close_date: null
     timeline_days_announce_to_first_close: null
@@ -755,6 +771,7 @@ peer_funds:
     sector_tags: [fi]
     geo_tags: [africa, asia, latam]
     vehicle_type: closed_end_fund
+    announce_date: 2024-05-15
     first_close_date: 2024-05-15
     final_close_date: 2024-05-15
     timeline_days_announce_to_first_close: null
@@ -1141,6 +1158,7 @@ peer_funds:
     sector_tags: [wash, fi]
     geo_tags: [asia, latam]
     vehicle_type: evergreen
+    announce_date: 2025-03-21
     first_close_date: 2025-07-01
     first_close_date_month_only: true
     final_close_date: null
@@ -1400,6 +1418,8 @@ peer_funds:
     sector_tags: [agri, smb]
     geo_tags: [africa]
     vehicle_type: blended
+    announce_date: 2020-12-01
+    announce_date_month_only: true
     first_close_date: 2020-12-01
     first_close_date_month_only: true
     final_close_date: null
@@ -1459,6 +1479,7 @@ peer_funds:
     sector_tags: [agri, smb]
     geo_tags: [global, africa, asia, latam]
     vehicle_type: blended
+    announce_date: 2018-11-15
     first_close_date: 2019-11-01
     first_close_date_month_only: true
     final_close_date: null
@@ -1613,6 +1634,7 @@ peer_funds:
     sector_tags: [fi, agri]
     geo_tags: [africa]
     vehicle_type: closed_end_fund
+    announce_date: 2010-10-29
     first_close_date: 2011-07-01
     first_close_date_month_only: true
     final_close_date: null
@@ -1645,6 +1667,7 @@ peer_funds:
     sector_tags: [fi, agri]
     geo_tags: [africa]
     vehicle_type: closed_end_fund
+    announce_date: 2020-10-09
     first_close_date: 2022-06-01
     first_close_date_month_only: true
     final_close_date: null
@@ -1677,6 +1700,7 @@ peer_funds:
     sector_tags: [agri, smb]
     geo_tags: [global, africa, latam]
     vehicle_type: evergreen
+    announce_date: 2015-01-29
     first_close_date: 2015-01-29
     final_close_date: null
     timeline_days_announce_to_first_close: null
@@ -1803,6 +1827,8 @@ peer_funds:
     sector_tags: [wash, fi]
     geo_tags: [asia]
     vehicle_type: closed_end_fund
+    announce_date: 2017-01-01
+    announce_date_month_only: true
     first_close_date: 2018-09-01
     first_close_date_month_only: true
     final_close_date: 2019-03-01
@@ -1835,6 +1861,7 @@ peer_funds:
     sector_tags: [fi, gender, wash, smb]
     geo_tags: [global, africa, asia, latam]
     vehicle_type: closed_end_fund
+    announce_date: 2023-09-20
     first_close_date: 2023-09-20
     final_close_date: null
     timeline_days_announce_to_first_close: null
@@ -1992,6 +2019,7 @@ peer_funds:
     sector_tags: [fi, energy, wash, agri, health, edu]
     geo_tags: [global, africa, asia, latam]
     vehicle_type: programmatic_not_fund
+    announce_date: 2018-08-20
     first_close_date: 2018-08-20
     final_close_date: null
     timeline_days_announce_to_first_close: null
@@ -2386,6 +2414,7 @@ peer_funds:
     sector_tags: [smb, fi]
     geo_tags: [africa]
     vehicle_type: closed_end_fund
+    announce_date: 2019-05-16
     first_close_date: 2020-11-01
     final_close_date: null
     timeline_days_announce_to_first_close: null
@@ -2528,6 +2557,7 @@ peer_funds:
     sector_tags: [climate, health, edu]
     geo_tags: [global]
     vehicle_type: closed_end_fund
+    announce_date: 2018-12-03
     first_close_date: 2019-09-01
     final_close_date: 2020-12-01
     timeline_days_announce_to_first_close: null
@@ -2640,6 +2670,7 @@ peer_funds:
     sector_tags: [agri, fi]
     geo_tags: [africa, asia, latam]
     vehicle_type: closed_end_fund
+    announce_date: 2014-12-05
     first_close_date: 2015-11-01
     final_close_date: 2017-06-01
     timeline_days_announce_to_first_close: null
@@ -2860,6 +2891,8 @@ peer_funds:
     sector_tags: [climate, biodiversity]
     geo_tags: [global]
     vehicle_type: blended
+    announce_date: 2018-10-01
+    announce_date_month_only: true
     first_close_date: 2020-09-16
     final_close_date: null
     timeline_days_announce_to_first_close: null
@@ -3256,6 +3289,7 @@ peer_funds:
     sector_tags: [smb, climate]
     geo_tags: [asia]
     vehicle_type: closed_end_fund
+    announce_date: 2019-09-01
     first_close_date: 2019-09-01
     final_close_date: null
     timeline_days_announce_to_first_close: null
@@ -3290,6 +3324,7 @@ peer_funds:
     sector_tags: [edu]
     geo_tags: [africa, mena]
     vehicle_type: evergreen
+    announce_date: 2021-12-01
     first_close_date: 2021-12-01
     final_close_date: null
     timeline_days_announce_to_first_close: null
@@ -3327,6 +3362,7 @@ peer_funds:
     sector_tags: [health]
     geo_tags: [africa]
     vehicle_type: closed_end_fund
+    announce_date: 2022-12-14
     first_close_date: 2023-09-01
     final_close_date: 2024-10-03
     timeline_days_announce_to_first_close: null
@@ -3368,6 +3404,7 @@ peer_funds:
     sector_tags: [climate, biodiversity]
     geo_tags: [asia]
     vehicle_type: closed_end_fund
+    announce_date: 2016-12-19
     first_close_date: 2017-08-04
     final_close_date: 2017-12-01
     timeline_days_announce_to_first_close: null
