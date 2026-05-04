@@ -411,12 +411,14 @@ pageKey: timeline
 
     // Median announce→first marker (red dashed) — uses the raising-window
     // median computed by renderHeadlines (zero-day same-day announces excluded).
+    // Label sits at the TOP of the line so it doesn't collide with the
+    // footer legend.
     var aMed = opts.aMed;
     if (aMed != null && aMed > 0) {
       var medX = xFor(aMed);
       parts.push('<line class="tl-median" x1="' + medX + '" x2="' + medX
-        + '" y1="' + (TOP - 8) + '" y2="' + (height - 24) + '" />');
-      parts.push('<text class="tl-median-label" x="' + medX + '" y="' + (height - 8)
+        + '" y1="' + (TOP - 4) + '" y2="' + (height - 24) + '" />');
+      parts.push('<text class="tl-median-label" x="' + medX + '" y="' + (TOP - 18)
         + '" text-anchor="middle">median ' + I.esc(fmtMonths(aMed)) + '</text>');
     }
 
