@@ -382,7 +382,7 @@ pageKey: timeline
 
     // Geometry
     var ROW_H = 30, ROW_GAP = 6;
-    var LABEL_W = 300, BAR_AREA = 580, RIGHT_PAD = 220, PADDING = 14;
+    var LABEL_W = 420, BAR_AREA = 540, RIGHT_PAD = 240, PADDING = 14;
     var width = LABEL_W + BAR_AREA + RIGHT_PAD + PADDING * 2;
     var TOP = 38;
     var height = TOP + rows.length * (ROW_H + ROW_GAP) + 44;
@@ -437,10 +437,11 @@ pageKey: timeline
       var y = TOP + i * (ROW_H + ROW_GAP);
       var yMid = y + ROW_H / 2 + 4;
 
-      // Label — proportional sans, capped to fit LABEL_W. Truncation is
-      // conservative; the SVG also gets a <title> tooltip with the full name.
+      // Label — proportional sans, capped to fit LABEL_W (420 viewBox px ≈
+      // ~46 chars at 0.82rem sans bold). SVG <title> gives a hover tooltip
+      // with the full name when truncation does kick in.
       var fullName = f.name;
-      var label = fullName.length > 32 ? fullName.slice(0, 30) + "…" : fullName;
+      var label = fullName.length > 46 ? fullName.slice(0, 44) + "…" : fullName;
       parts.push('<g class="tl-row">');
       parts.push('<title>' + I.esc(fullName) + '</title>');
       parts.push('<text class="tl-row-label" x="' + (PADDING + LABEL_W - 10)
@@ -448,13 +449,13 @@ pageKey: timeline
 
       var metaBits = [];
       if (f.parent_ingo) {
-        var pi = f.parent_ingo.length > 22 ? f.parent_ingo.slice(0, 20) + "…" : f.parent_ingo;
+        var pi = f.parent_ingo.length > 32 ? f.parent_ingo.slice(0, 30) + "…" : f.parent_ingo;
         metaBits.push(pi);
       }
       if (f.first_close_date) metaBits.push(String(f.first_close_date).slice(0, 7));
       if (f.size_usd_m != null) metaBits.push("$" + f.size_usd_m + "M");
       var metaTxt = metaBits.join(" · ");
-      if (metaTxt.length > 40) metaTxt = metaTxt.slice(0, 38) + "…";
+      if (metaTxt.length > 56) metaTxt = metaTxt.slice(0, 54) + "…";
       parts.push('<text class="tl-row-meta" x="' + (PADDING + LABEL_W - 10)
         + '" y="' + (y + 25) + '" text-anchor="end">' + I.esc(metaTxt) + '</text>');
 
@@ -507,16 +508,20 @@ pageKey: timeline
           + '" y="' + (barY + barH - 2) + '">final ' + I.esc(fStr) + '</text>');
       }
 
-      // Right-side annotation: anchor LP if known, else "same-day" tag
+      // Right-side annotation: anchor LP if known, else a status tag that
+      // explains the marker (same-day diamond, or no-announce dot).
       var rightX = hasFinal ? null : (fcX + 8);
       if (rightX != null) {
         if (f.anchor_lp) {
-          var anchor = f.anchor_lp.length > 30 ? f.anchor_lp.slice(0, 28) + "…" : f.anchor_lp;
+          var anchor = f.anchor_lp.length > 36 ? f.anchor_lp.slice(0, 34) + "…" : f.anchor_lp;
           parts.push('<text class="tl-row-anchor" x="' + rightX
             + '" y="' + (barY + barH - 2) + '">⚓ ' + I.esc(anchor) + '</text>');
         } else if (sameDay) {
           parts.push('<text class="tl-row-sameday" x="' + rightX
             + '" y="' + (barY + barH - 2) + '">same-day announce/close</text>');
+        } else if (!f.announce_date) {
+          parts.push('<text class="tl-row-sameday" x="' + rightX
+            + '" y="' + (barY + barH - 2) + '">first close only · no announce date on file</text>');
         }
       }
 
