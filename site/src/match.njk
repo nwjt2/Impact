@@ -12,7 +12,7 @@ pageKey: match
       <span>Decision support · LP shortlist for an INGO-sponsored fund</span>
     </div>
     <h1>Match my fund.</h1>
-    <p class="detail-sub">Pick your fund's profile — impact themes, geography, and the LP archetypes you'd consider — and get a ranked subset of the {{ slot_meta.slot_counts.foundation_lps + slot_meta.slot_counts.family_office_lps + slot_meta.slot_counts.dfi_ingo_commits + slot_meta.slot_counts.bank_lps + slot_meta.slot_counts.asset_manager_lps + slot_meta.slot_counts.pension_fund_lps + slot_meta.slot_counts.corporate_lps + slot_meta.slot_counts.government_donor_lps + slot_meta.slot_counts.cooperative_ngo_lps }} LPs whose disclosed thesis plausibly fits. Ranking only — no filtering — every LP appears, sorted by fit. LPs with no public thesis on file are shown at the bottom with an honest <strong>thesis not on file</strong> badge so you can decide whether to chase them on archetype-fit alone.</p>
+    <p class="detail-sub">Pick your fund's profile — impact themes, geography, and the LP archetypes you'd consider — and get a filtered shortlist drawn from the {{ slot_meta.slot_counts.foundation_lps + slot_meta.slot_counts.family_office_lps + slot_meta.slot_counts.dfi_ingo_commits + slot_meta.slot_counts.bank_lps + slot_meta.slot_counts.asset_manager_lps + slot_meta.slot_counts.pension_fund_lps + slot_meta.slot_counts.corporate_lps + slot_meta.slot_counts.government_donor_lps + slot_meta.slot_counts.cooperative_ngo_lps }} LPs in the network. Filters are <strong>AND</strong> across dimensions: an LP must match the picked archetype <em>and</em> overlap with at least one picked theme <em>and</em> overlap with at least one picked geography. Generalist-theme and global-geo LPs count as a partial match on those dimensions. Within the filtered set, results are ranked by overlap strength.</p>
   </header>
 
   <form id="picker" class="picker">
@@ -174,11 +174,31 @@ pageKey: match
     render();
   });
 
-  // ---- Scoring -------------------------------------------------------------
+  // ---- Filtering + scoring -------------------------------------------------
   //
-  // For each LP, compute three sub-scores. None of them filter — they only
-  // rank. The "always yields something" rule means every LP is shown in the
-  // output; LPs with no thesis data fall to the bottom with an honest badge.
+  // AND across dimensions: an LP must satisfy every dimension the user has
+  // selected on. Within a dimension, OR — any one match counts. Generalist
+  // theme and global geo are honoured as partial matches.
+
+  function passesFilter(lp) {
+    if (state.archetypes.size > 0 && !state.archetypes.has(lp.archetype)) return false;
+
+    if (state.themes.size > 0) {
+      var lpThemes = new Set(lp.themes || []);
+      var anyHit = false;
+      state.themes.forEach(function (t) { if (lpThemes.has(t)) anyHit = true; });
+      if (!anyHit && !lpThemes.has("generalist")) return false;
+    }
+
+    if (state.geos.size > 0) {
+      var lpGeos = new Set(lp.geos || []);
+      var anyHit = false;
+      state.geos.forEach(function (g) { if (lpGeos.has(g)) anyHit = true; });
+      if (!anyHit && !lpGeos.has("global")) return false;
+    }
+
+    return true;
+  }
 
   function score(lp) {
     var themes = state.themes, geos = state.geos, archs = state.archetypes;
@@ -226,10 +246,12 @@ pageKey: match
   function render() {
     var anySelected = state.themes.size + state.geos.size + state.archetypes.size > 0;
 
-    var ranked = corpus.map(function (lp) {
-      var r = score(lp);
-      return Object.assign({}, lp, { _score: r.score, _matched: r.matched });
-    });
+    var ranked = corpus
+      .filter(passesFilter)
+      .map(function (lp) {
+        var r = score(lp);
+        return Object.assign({}, lp, { _score: r.score, _matched: r.matched });
+      });
 
     ranked.sort(function (a, b) {
       // Tier A first (has thesis data), tier B second (no thesis data).
@@ -239,15 +261,15 @@ pageKey: match
       return (a.name || "").localeCompare(b.name || "");
     });
 
-    var withThesis = ranked.filter(function (lp) { return lp.hasThesis; }).length;
-    var archOnly = ranked.length - withThesis;
     var summary = document.getElementById("picker-summary");
     if (anySelected) {
-      summary.innerHTML = "Ranking <strong>" + ranked.length + "</strong> LPs · "
-        + withThesis + " ranked on stated thesis · "
-        + archOnly + " archetype-only (thesis not on file)";
+      if (ranked.length === 0) {
+        summary.innerHTML = "<strong>No LPs match all of your filters.</strong> Try removing a constraint, or check whether the combination is realistic.";
+      } else {
+        summary.innerHTML = "Showing <strong>" + ranked.length + "</strong> LP" + (ranked.length === 1 ? "" : "s") + " matching all selected filters, ranked by overlap strength";
+      }
     } else {
-      summary.innerHTML = "Showing all <strong>" + ranked.length + "</strong> LPs in network — pick filters above to rank by fit";
+      summary.innerHTML = "Showing all <strong>" + ranked.length + "</strong> LPs in network — pick filters above to narrow the set";
     }
 
     var listHost = document.getElementById("match-list");
