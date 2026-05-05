@@ -3431,3 +3431,130 @@ peer_funds:
       via the Lukas Walton Fund of the Walton Family Foundation) and the
       Global Environment Facility (GEF) as anchor investor (US$6M).
       Surfaces Walton Family Foundation as a foundation LP on /network/.
+
+  - slug: althelia-sustainable-ocean-fund
+    name: Althelia Sustainable Ocean Fund
+    manager: Mirova
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2018
+    size_usd_m: 132
+    sector_tags: [climate, biodiversity]
+    geo_tags: [global, lac, africa, asia]
+    vehicle_type: closed_end_fund
+    announce_date: null
+    first_close_date: 2018-06-01
+    final_close_date: 2020-05-01
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Encourage Capital
+    placement_agent: null
+    status: deployed
+    public_source_url: https://impactalpha.com/sustainable-oceans-fund-raises-37-5-million-for-life-under-water/
+    last_seen_at: 2026-05-05
+    validation_status: unverified
+    notes: >
+      Closed-end blended-finance debt + equity impact fund (formerly known
+      as the Sustainable Ocean Fund) financing sustainable seafood,
+      sustainable fisheries, marine conservation, and circular blue-economy
+      ventures across Latin America, Africa, and Asia-Pacific. Managed by
+      Mirova (Natixis affiliate; absorbed Althelia Ecosphere in 2017);
+      sub-advised on origination by Encourage Capital. First close
+      announced June 2018 (US$37.5m); final close May 2020 (~US$132m).
+      Named LP per the David and Lucile Packard Foundation's own Mission
+      Investing Program Examples (2020): Packard committed US$1m PRI
+      equity to launch the fund. Other publicly named LPs include
+      EIB, IDB Lab, FMO, and AXA. Surfaces the David and Lucile Packard
+      Foundation as a foundation LP on /network/.
+
+  - slug: global-health-investment-fund
+    name: Global Health Investment Fund (GHIF)
+    manager: Global Health Investment Corporation (GHIC)
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2013
+    size_usd_m: 108
+    sector_tags: [health]
+    geo_tags: [global]
+    vehicle_type: closed_end_fund
+    announce_date: 2013-09-23
+    first_close_date: null
+    final_close_date: 2013-12-01
+    timeline_days_announce_to_first_close: null
+    anchor_lp: Bill & Melinda Gates Foundation (sponsor / first-loss guarantor)
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: Lion's Head Global Partners
+    placement_agent: null
+    status: deployed
+    public_source_url: https://ghicfunds.org/
+    last_seen_at: 2026-05-05
+    validation_status: unverified
+    notes: >
+      Closed-end blended-finance social impact fund (2013-2023) sponsored
+      by the Bill & Melinda Gates Foundation, advised by Lion's Head
+      Global Partners, and managed by the not-for-profit Global Health
+      Investment Corporation (GHIC). Final close December 2013 at
+      US$108m. Invested in twelve life-sciences/healthtech companies
+      developing diagnostics, devices, vaccines, and therapeutics for
+      diseases that disproportionately burden LMICs (HIV/AIDS, malaria,
+      tuberculosis, cholera). Gates Foundation underwrote 60% of capital
+      losses as first-loss guarantor. Per peer-reviewed primary source
+      in Oxford Academic / International Health (2016) and corroborated
+      by GHIC's own homepage logo grid (alt-text disambiguates "The
+      Pfizer Foundation"), GHIF's anchor LPs include: Grand Challenges
+      Canada (Government of Canada), JP Morgan Chase, BMZ via KfW,
+      IFC, Children's Investment Fund Foundation (CIFF), AXA Investment
+      Managers, Storebrand, Merck & Co., The Pfizer Foundation,
+      GlaxoSmithKline (GSK), and Sida (Swedish International Development
+      Agency). Surfaces The Pfizer Foundation, Children's Investment
+      Fund Foundation, and the Bill & Melinda Gates Foundation as
+      philanthropic LPs on /network/.
+
+  - slug: nesst-lirio-fund
+    name: NESsT Lirio Fund
+    manager: NESsT
+    parent_ingo: null
+    parent_ingo_country: null
+    vintage: 2019
+    size_usd_m: null
+    sector_tags: [agri, smb]
+    geo_tags: [latam]
+    vehicle_type: closed_end_fund
+    announce_date: null
+    first_close_date: null
+    final_close_date: null
+    timeline_days_announce_to_first_close: null
+    anchor_lp: null
+    mgmt_fee_bps: null
+    carry_pct: null
+    hurdle_pct: null
+    gp_commit_pct: null
+    investment_period_years: null
+    sub_advisor: null
+    placement_agent: null
+    status: deployed
+    public_source_url: https://www.nesst.org/lirio-fund
+    last_seen_at: 2026-05-05
+    validation_status: unverified
+    notes: >
+      NGO-managed debt fund for the Andes-Amazon "missing middle" — provides
+      working-capital loans (USD $200K-$500K) to smallholder agriculture,
+      sustainable land management, and rural-livelihood SMEs in Peru,
+      Colombia, Brazil, and Chile. Managed by NESsT (501(c)(3); HQ split
+      US/Latin America). First investment 2019; over USD $20m disbursed
+      across 37 loans by Feb 2026 per NESsT fund update. Surfaces Sorenson
+      Impact Foundation as a foundation LP on /network/ (PRI commitment
+      announced 23 January 2024 via Sorenson press release). Other named
+      supporters per the NESsT February 2026 fund update — IDB, Kiva,
+      Ceniarth, CapShift, DF Impact Capital, SK2 Fund — are not surfaced
+      here because the Sorenson press release is the scraper substrate
+      and only Sorenson is named there.

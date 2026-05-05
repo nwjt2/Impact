@@ -1784,6 +1784,240 @@ a.commit-fund:hover { color: var(--amber); }
   opacity: 0.85;
 }
 
+/* ----- /connective-lps/ — bridge LP reference page ----- */
+
+.connective-lps {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 16px;
+}
+.connective-group {
+  border: 1px solid #2c2c2c;
+  background: #0e0f12;
+  border-radius: 4px;
+  padding: 14px 16px 16px;
+}
+.connective-group-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #2c2c2c;
+  font-size: 13px;
+  font-weight: 600;
+}
+.connective-group-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 2px 7px;
+  border-radius: 2px;
+  background: #16181d;
+  border: 1px solid #2c2c2c;
+}
+.connective-group-label[data-arch="dfi"]             { color: #e25c5c; border-color: #e25c5c44; }
+.connective-group-label[data-arch="foundation"]      { color: #d6b94a; border-color: #d6b94a44; }
+.connective-group-label[data-arch="family-office"]   { color: #b86bdf; border-color: #b86bdf44; }
+.connective-group-label[data-arch="asset-manager"]   { color: #4ec5a6; border-color: #4ec5a644; }
+.connective-group-label[data-arch="bank"]            { color: #c97c3e; border-color: #c97c3e44; }
+.connective-group-label[data-arch="pension-fund"]    { color: #7a8aab; border-color: #7a8aab44; }
+.connective-group-label[data-arch="corporate"]       { color: #8a7448; border-color: #8a744844; }
+.connective-group-label[data-arch="bilateral-donor"] { color: #2c6d9c; border-color: #2c6d9c44; }
+.connective-group-label[data-arch="government"]      { color: #4a9cd6; border-color: #4a9cd644; }
+.connective-group-label[data-arch="cooperative-ngo"] { color: #94a64a; border-color: #94a64a44; }
+.connective-group-count {
+  font-size: 12px;
+  color: var(--fg-3);
+  font-variant-numeric: tabular-nums;
+}
+.connective-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 10px;
+}
+.connective-item {
+  border: 1px solid #2c2c2c;
+  background: #16181d;
+  padding: 10px 12px;
+  border-radius: 3px;
+}
+.connective-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.connective-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg);
+}
+.connective-fundcount {
+  font-size: 12.5px;
+  color: var(--amber);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+/* ----- Connective-LPs colour legend (top of page) ----- */
+.connective-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  margin: 16px 0 18px;
+  padding: 9px 14px;
+  border: 1px solid #2c2c2c;
+  background: #0e0f12;
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--fg-3);
+  text-transform: capitalize;
+}
+.connective-legend-label {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--fg-2);
+  margin-right: 4px;
+}
+.connective-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.connective-legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ----- Per-card constellation: one dot per co-LP ----- */
+.connective-constellation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  margin-bottom: 8px;
+  padding: 6px;
+  background: #0a0b0e;
+  border: 1px solid #1d1f23;
+  border-radius: 2px;
+  min-height: 22px;
+}
+.connective-dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  cursor: help;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.connective-dot:hover {
+  transform: scale(1.6);
+  box-shadow: 0 0 6px currentColor;
+  z-index: 2;
+}
+
+/* ----- Show-more toggle for the routes list ----- */
+.connective-show-more {
+  background: transparent;
+  border: none;
+  color: var(--fg-3);
+  font-family: inherit;
+  font-size: 12px;
+  padding: 6px 0 0 8px;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+}
+.connective-show-more:hover {
+  color: var(--amber);
+}
+
+.connective-routing-explainer {
+  font-size: 13px;
+  color: var(--fg-2);
+  margin: 6px 0 7px;
+  line-height: 1.45;
+}
+.connective-colps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.connective-colp {
+  color: var(--fg-2);
+  line-height: 1.45;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  padding-left: 12px;
+  position: relative;
+}
+.connective-colp.is-hidden {
+  display: none;
+}
+.connective-colp::before {
+  content: "→";
+  position: absolute;
+  left: 0;
+  color: var(--fg-3);
+  font-size: 11px;
+  top: 2px;
+}
+.connective-colp-name {
+  color: var(--fg);
+  font-weight: 500;
+}
+.connective-colp-arch {
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 1px 5px;
+  border-radius: 2px;
+  background: #16181d;
+  color: var(--fg-3);
+  border: 1px solid #2c2c2c;
+}
+.connective-colp-arch[data-arch="dfi"]             { color: #e25c5c; border-color: #e25c5c33; }
+.connective-colp-arch[data-arch="foundation"]      { color: #d6b94a; border-color: #d6b94a33; }
+.connective-colp-arch[data-arch="family-office"]   { color: #b86bdf; border-color: #b86bdf33; }
+.connective-colp-arch[data-arch="asset-manager"]   { color: #4ec5a6; border-color: #4ec5a633; }
+.connective-colp-arch[data-arch="bank"]            { color: #c97c3e; border-color: #c97c3e33; }
+.connective-colp-arch[data-arch="pension-fund"]    { color: #7a8aab; border-color: #7a8aab33; }
+.connective-colp-arch[data-arch="corporate"]       { color: #8a7448; border-color: #8a744833; }
+.connective-colp-arch[data-arch="bilateral-donor"] { color: #2c6d9c; border-color: #2c6d9c33; }
+.connective-colp-arch[data-arch="government"]      { color: #4a9cd6; border-color: #4a9cd633; }
+.connective-colp-arch[data-arch="cooperative-ngo"] { color: #94a64a; border-color: #94a64a33; }
+.connective-colp-via {
+  color: var(--fg-3);
+  font-size: 12px;
+}
+.connective-colp-via a {
+  color: var(--fg-2);
+  text-decoration: none;
+  border-bottom: 1px dotted #555;
+}
+.connective-colp-via a:hover {
+  color: var(--amber);
+  border-bottom-color: var(--amber);
+}
+.connective-source-arrow {
+  font-size: 10px;
+  color: var(--fg-3);
+}
+
 /* Network tile */
 .lp-headline {
   margin: 12px 0 6px;

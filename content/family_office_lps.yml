@@ -274,22 +274,22 @@ family_offices:
 
   - slug: pritzker-innovation-fund
     name: Pritzker Innovation Fund
-    aliases: ["Pritzker Innovation Fund", "Liesel Pritzker Simmons", "Ian Simmons"]
+    aliases: ["Pritzker Innovation Fund", "Rachel Pritzker", "Roland Pritzker"]
     country: "US"
-    category: family_office
+    category: philanthropy_llc
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [climate, gender_lens, fi]
-    stated_geo_focus: [global, us]
+    stated_priority_themes: [climate, democracy]
+    stated_geo_focus: [us, global]
     stated_thesis_url: null
     stated_thesis_excerpt: null
-    typical_check_usd_m_min: 1
-    typical_check_usd_m_max: 10
-    invests_via_fund_lp: null
-    invests_via_direct: null
-    invests_via_grants: null
-    public_newsroom_url: https://www.bluehavenmgmt.com/
-    last_seen_at: 2026-04-27
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: false
+    invests_via_direct: false
+    invests_via_grants: true
+    public_newsroom_url: https://www.pritzkerinnovationfund.org/
+    last_seen_at: 2026-05-05
 
   - slug: builders-initiative
     name: Builders Initiative

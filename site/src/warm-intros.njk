@@ -1,0 +1,91 @@
+---
+layout: base.njk
+title: Warm Intros
+permalink: /warm-intros/index.html
+pageKey: warm-intros
+---
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
+  <header class="detail-header">
+    <div class="detail-eyebrow">
+      <span>Reference · who can introduce you to whom in the impact-LP graph</span>
+    </div>
+    <h1>Warm intros.</h1>
+    <p class="detail-sub">If one of these {{ warm_intros.total }} LPs is in your relationship base, the dots beneath them are LPs they can warm-intro you to — each dot is a documented co-investment in a shared impact fund.</p>
+  </header>
+
+  {# ============ COLOUR LEGEND (for the per-card constellations below) ============ #}
+  <div class="connective-legend" aria-label="Constellation colour key">
+    <span class="connective-legend-label">Co-LP archetype:</span>
+    {%- for arch_key, color in warm_intros.archetypeColors -%}
+      {%- set has = false -%}
+      {%- for b in warm_intros.bridges -%}
+        {%- for c in b.coLps -%}{%- if c.archetype == arch_key -%}{%- set has = true -%}{%- endif -%}{%- endfor -%}
+      {%- endfor -%}
+      {%- if has -%}
+        <span class="connective-legend-item"><span class="connective-legend-dot" style="background:{{ color }}"></span>{{ arch_key | replace("-", " ") }}</span>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  {# ============ DETAILED LIST GROUPED BY ARCHETYPE ============ #}
+  <div class="connective-lps">
+    {% for group in warm_intros.archetypeGroups %}
+    <section class="connective-group">
+      <h2 class="connective-group-head">
+        <span class="connective-group-label" data-arch="{{ group.key }}">{{ group.label }}</span>
+        <span class="connective-group-count">{{ group.count }}</span>
+      </h2>
+      <ul class="connective-list">
+        {% for lp in group.bridges %}
+        <li class="connective-item" id="bridge-{{ lp.slug }}">
+          <div class="connective-row">
+            <span class="connective-name">{{ lp.name }}</span>
+            <span class="connective-fundcount">{{ lp.coLpCount }} co-LPs · {{ lp.fund_count }} shared funds</span>
+          </div>
+
+          {# Constellation of dots: one per co-LP, archetype-colored #}
+          <div class="connective-constellation" aria-hidden="true">
+            {%- for c in lp.coLps -%}
+              <span class="connective-dot" data-arch="{{ c.archetype }}" style="background:{{ warm_intros.archetypeColors[c.archetype] or '#777' }}" title="{{ c.name }} ({{ c.archetype }})"></span>
+            {%- endfor -%}
+          </div>
+
+          <p class="connective-routing-explainer">If <strong>{{ lp.name }}</strong> is a relationship of yours, they can warm-route you to:</p>
+          <ul class="connective-colps">
+            {% for c in lp.coLps %}
+            <li class="connective-colp{% if loop.index0 >= 3 %} is-hidden{% endif %}">
+              <span class="connective-colp-name">{{ c.name }}</span>
+              <span class="connective-colp-arch" data-arch="{{ c.archetype }}">{{ c.archetype }}</span>
+              <span class="connective-colp-via">via
+                {% if c.source_url %}<a href="{{ c.source_url }}" target="_blank" rel="noopener">{{ c.via_fund_name }} <span class="connective-source-arrow">↗</span></a>{% else %}{{ c.via_fund_name }}{% endif %}
+              </span>
+            </li>
+            {% endfor %}
+          </ul>
+          {% if lp.coLpCount > 3 %}
+          <button type="button" class="connective-show-more" data-target="{{ lp.slug }}">show {{ lp.coLpCount - 3 }} more…</button>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+(function () {
+  document.querySelectorAll(".connective-show-more").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var item = btn.closest(".connective-item");
+      if (!item) return;
+      item.querySelectorAll(".connective-colp.is-hidden").forEach(function (li) {
+        li.classList.remove("is-hidden");
+      });
+      btn.remove();
+    });
+  });
+})();
+</script>

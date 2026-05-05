@@ -890,7 +890,7 @@ target_lps:
     aliases: ["Sorenson Impact Foundation", "Sorenson Impact", "James Lee Sorenson"]
     sector_tags: [fi, smb, gender, edu]
     geo_tags: [global, us]
-    lp_type: family_office
+    lp_type: foundation
     typical_ticket_usd_m: "1-10"
     public_newsroom_url: https://sorensonimpact.com/news/
     first_pass_cadence_days: 21
@@ -935,7 +935,7 @@ target_lps:
     aliases: ["Cordes Foundation", "Ron Cordes", "Ron and Marty Cordes"]
     sector_tags: [gender, smb, fi]
     geo_tags: [global]
-    lp_type: family_office
+    lp_type: foundation
     typical_ticket_usd_m: "1-5"
     public_newsroom_url: https://www.cordesfoundation.org/news
     first_pass_cadence_days: 45
@@ -980,7 +980,7 @@ target_lps:
     aliases: ["Walton Family Foundation", "WFF"]
     sector_tags: [climate, edu]
     geo_tags: [us, global]
-    lp_type: family_office
+    lp_type: foundation
     typical_ticket_usd_m: "3-25"
     public_newsroom_url: https://www.waltonfamilyfoundation.org/stories
     first_pass_cadence_days: 14
