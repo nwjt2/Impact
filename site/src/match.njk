@@ -99,6 +99,19 @@ pageKey: match
     }
   });
 
+  // Build fund→LPs from NET_LP (which is LP→funds). Used to compute
+  // "who can introduce you to LP X" — co-LPs of X across any fund X is
+  // an LP in. Each introducer carries the shared fund as evidence.
+  var FUND_TO_LPS = {};
+  Object.keys(NET_LP).forEach(function (lpSlug) {
+    (NET_LP[lpSlug] || []).forEach(function (f) {
+      if (!FUND_TO_LPS[f.fund_slug]) {
+        FUND_TO_LPS[f.fund_slug] = { name: f.fund_name, lps: [] };
+      }
+      FUND_TO_LPS[f.fund_slug].lps.push({ slug: lpSlug, source_url: f.source_url });
+    });
+  });
+
   function pull(elemId, themesField, geoField, categoryField) {
     return (I.loadJSON(elemId) || []).map(function (d) {
       return {
@@ -141,6 +154,38 @@ pageKey: match
     lp.hasThesis = (lp.themes && lp.themes.length > 0) || (lp.geos && lp.geos.length > 0);
     return lp;
   });
+
+  // Slug → corpus entry, for fast name/archetype lookup when rendering
+  // introducer rows on each card.
+  var corpusBySlug = {};
+  corpus.forEach(function (lp) { corpusBySlug[lp.slug] = lp; });
+
+  // For LP X, return every other LP that has co-LP'd with X in any fund X
+  // is in (deduped, alphabetical). Each entry cites the shared fund as
+  // primary-source evidence of the warm-intro path.
+  function introducersFor(slug) {
+    var seen = {};
+    (NET_LP[slug] || []).forEach(function (cf) {
+      var fundData = FUND_TO_LPS[cf.fund_slug];
+      if (!fundData) return;
+      fundData.lps.forEach(function (other) {
+        if (other.slug === slug) return;
+        if (seen[other.slug]) return;
+        var meta = corpusBySlug[other.slug] || {};
+        seen[other.slug] = {
+          slug: other.slug,
+          name: meta.name || other.slug,
+          archetype: meta.archetype || "other",
+          via_fund_slug: cf.fund_slug,
+          via_fund_name: cf.fund_name,
+          source_url: cf.source_url || other.source_url || null,
+        };
+      });
+    });
+    return Object.values(seen).sort(function (a, b) {
+      return (a.name || "").toLowerCase().localeCompare((b.name || "").toLowerCase());
+    });
+  }
 
   // ---- Picker state --------------------------------------------------------
 
@@ -331,6 +376,31 @@ pageKey: match
     }
     bits.push('</div>');
 
+    var intros = introducersFor(lp.slug);
+    bits.push('<div class="match-intros">');
+    bits.push('<div class="match-intros-head">Who can introduce you to <strong>' + I.esc(lp.name) + '</strong>?</div>');
+    if (intros.length === 0) {
+      bits.push('<div class="match-intros-empty">No documented co-investors in our data — cold outreach.</div>');
+    } else {
+      bits.push('<ul class="connective-colps match-intros-list">');
+      intros.forEach(function (c, i) {
+        var hiddenCls = i >= 3 ? ' is-hidden' : '';
+        var fundLink = c.source_url
+          ? '<a href="' + I.escAttr(c.source_url) + '" target="_blank" rel="noopener">' + I.esc(c.via_fund_name) + ' <span class="connective-source-arrow">↗</span></a>'
+          : I.esc(c.via_fund_name);
+        bits.push('<li class="connective-colp' + hiddenCls + '">'
+          + '<span class="connective-colp-name">' + I.esc(c.name) + '</span>'
+          + '<span class="connective-colp-arch" data-arch="' + I.escAttr(c.archetype) + '">' + I.esc(c.archetype) + '</span>'
+          + '<span class="connective-colp-via">via ' + fundLink + '</span>'
+          + '</li>');
+      });
+      bits.push('</ul>');
+      if (intros.length > 3) {
+        bits.push('<button type="button" class="match-intros-show-more">show ' + (intros.length - 3) + ' more…</button>');
+      }
+    }
+    bits.push('</div>');
+
     var clickCls = lp.thesis_url ? " card-clickable" : "";
     var dataAttr = lp.thesis_url ? ' data-source-url="' + I.escAttr(lp.thesis_url) + '"' : "";
     return '<article class="match-card' + clickCls + '"' + dataAttr + '>' + bits.join("") + '</article>';
@@ -351,6 +421,22 @@ pageKey: match
     if (arch === "cooperative-ngo") return prefix + "cooperative-ngos/#coop-" + lp.slug;
     return null;
   }
+
+  // Delegated handler for the per-card "show N more…" introducer toggle.
+  // Cards are rebuilt on every render(), so a single delegated listener is
+  // simpler than re-attaching per render. stopPropagation prevents the
+  // card-click (which opens the LP's stated-thesis URL) from firing.
+  document.getElementById("match-list").addEventListener("click", function (e) {
+    var btn = e.target.closest(".match-intros-show-more");
+    if (!btn) return;
+    e.stopPropagation();
+    var card = btn.closest(".match-card");
+    if (!card) return;
+    card.querySelectorAll(".match-intros-list .connective-colp.is-hidden").forEach(function (li) {
+      li.classList.remove("is-hidden");
+    });
+    btn.remove();
+  });
 
   I.installCardClick(".detail-page");
   render();
