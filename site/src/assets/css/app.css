@@ -102,31 +102,80 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
 
 .site-nav {
   display: inline-flex;
-  gap: 22px;
+  align-items: center;
+  gap: 18px;
   font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.005em;
   justify-self: start;
   margin-left: 8px;
 }
-.site-nav a {
+.site-nav > a {
   color: var(--fg-2);
   padding: 4px 0;
   border-bottom: 1px solid transparent;
 }
-.site-nav a:hover {
+.site-nav > a:hover {
   color: var(--amber);
   text-decoration: none;
   border-bottom-color: var(--amber);
 }
-.site-nav a[aria-current="page"] {
+.site-nav > a[aria-current="page"] {
   color: var(--fg);
   border-bottom-color: var(--amber);
 }
-.site-nav .nav-sep {
-  color: var(--fg-3);
-  user-select: none;
-  margin: 0 -10px;
+
+.nav-more { position: relative; display: inline-block; }
+.nav-more-trigger {
+  background: none;
+  border: none;
+  border-bottom: 1px solid transparent;
+  padding: 4px 0;
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--fg-2);
+  cursor: pointer;
+}
+.nav-more-trigger:hover,
+.nav-more:focus-within .nav-more-trigger {
+  color: var(--amber);
+  border-bottom-color: var(--amber);
+}
+.nav-more.is-active .nav-more-trigger {
+  color: var(--fg);
+  border-bottom-color: var(--amber);
+}
+.nav-more-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  display: none;
+  flex-direction: column;
+  background: var(--bg);
+  border: 1px solid var(--rule);
+  padding: 6px 0;
+  min-width: 170px;
+  margin-top: 4px;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+}
+.nav-more:hover .nav-more-menu,
+.nav-more:focus-within .nav-more-menu { display: flex; }
+.nav-more-menu a {
+  padding: 6px 14px;
+  color: var(--fg-2);
+  white-space: nowrap;
+  border-bottom: none;
+}
+.nav-more-menu a:hover {
+  color: var(--amber);
+  background: var(--rule-soft);
+  text-decoration: none;
+}
+.nav-more-menu a[aria-current="page"] {
+  color: var(--fg);
+  background: var(--rule-soft);
 }
 
 .masthead-meta {

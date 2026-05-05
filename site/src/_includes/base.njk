@@ -17,8 +17,8 @@
         <span class="masthead-mark">IFC</span>
         <a class="masthead-title" href="{{ '/' | url }}">INGO First-Close Tool</a>
       </div>
+      {% set moreKeys = ['asset-managers','banks','pension-funds','corporates','government-donors','cooperative-ngos'] %}
       <nav class="site-nav">
-        <a href="{{ '/' | url }}"{% if pageKey == 'index' %} aria-current="page"{% endif %}>Index</a>
         <a href="{{ '/match-my-fund/' | url }}"{% if pageKey == 'match' %} aria-current="page"{% endif %}>Match my fund</a>
         <a href="{{ '/warm-intros/' | url }}"{% if pageKey == 'warm-intros' %} aria-current="page"{% endif %}>Warm Intros</a>
         <a href="{{ '/timeline/' | url }}"{% if pageKey == 'timeline' %} aria-current="page"{% endif %}>Timeline</a>
@@ -26,16 +26,20 @@
         <a href="{{ '/catalysts/' | url }}"{% if pageKey == 'catalysts' %} aria-current="page"{% endif %}>Catalysts</a>
         <a href="{{ '/peer-funds/' | url }}"{% if pageKey == 'peer-funds' %} aria-current="page"{% endif %}>Peer funds</a>
         <a href="{{ '/impact-areas/' | url }}"{% if pageKey == 'impact-areas' %} aria-current="page"{% endif %}>Impact areas</a>
-        <span class="nav-sep" aria-hidden="true">·</span>
         <a href="{{ '/dfis/' | url }}"{% if pageKey == 'dfis' %} aria-current="page"{% endif %}>DFIs</a>
         <a href="{{ '/foundations/' | url }}"{% if pageKey == 'foundations' %} aria-current="page"{% endif %}>Foundations</a>
         <a href="{{ '/family-offices/' | url }}"{% if pageKey == 'family-offices' %} aria-current="page"{% endif %}>Family offices</a>
-        <a href="{{ '/asset-managers/' | url }}"{% if pageKey == 'asset-managers' %} aria-current="page"{% endif %}>Asset mgrs</a>
-        <a href="{{ '/banks/' | url }}"{% if pageKey == 'banks' %} aria-current="page"{% endif %}>Banks</a>
-        <a href="{{ '/pension-funds/' | url }}"{% if pageKey == 'pension-funds' %} aria-current="page"{% endif %}>Pensions</a>
-        <a href="{{ '/corporates/' | url }}"{% if pageKey == 'corporates' %} aria-current="page"{% endif %}>Corporates</a>
-        <a href="{{ '/government-donors/' | url }}"{% if pageKey == 'government-donors' %} aria-current="page"{% endif %}>Gov donors</a>
-        <a href="{{ '/cooperative-ngos/' | url }}"{% if pageKey == 'cooperative-ngos' %} aria-current="page"{% endif %}>NGO/Coops</a>
+        <div class="nav-more{% if pageKey in moreKeys %} is-active{% endif %}">
+          <button type="button" class="nav-more-trigger" aria-haspopup="true">More investors <span aria-hidden="true">▾</span></button>
+          <div class="nav-more-menu" role="menu">
+            <a href="{{ '/asset-managers/' | url }}"{% if pageKey == 'asset-managers' %} aria-current="page"{% endif %}>Asset mgrs</a>
+            <a href="{{ '/banks/' | url }}"{% if pageKey == 'banks' %} aria-current="page"{% endif %}>Banks</a>
+            <a href="{{ '/pension-funds/' | url }}"{% if pageKey == 'pension-funds' %} aria-current="page"{% endif %}>Pensions</a>
+            <a href="{{ '/corporates/' | url }}"{% if pageKey == 'corporates' %} aria-current="page"{% endif %}>Corporates</a>
+            <a href="{{ '/government-donors/' | url }}"{% if pageKey == 'government-donors' %} aria-current="page"{% endif %}>Gov donors</a>
+            <a href="{{ '/cooperative-ngos/' | url }}"{% if pageKey == 'cooperative-ngos' %} aria-current="page"{% endif %}>NGO/Coops</a>
+          </div>
+        </div>
       </nav>
       <div class="masthead-meta">
         {% if meta and meta.last_run_timestamp %}Last built {{ meta.last_run_timestamp | dateISO }}{% endif %}
