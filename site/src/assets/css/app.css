@@ -1882,6 +1882,9 @@ a.commit-fund:hover { color: var(--amber); }
   font-size: 10px;
   line-height: 1;
 }
+.match-intros-show-more.is-expanded::after {
+  content: "▴";
+}
 .match-intros-show-more:hover {
   background: var(--amber);
   color: #0e0f12;
@@ -2051,6 +2054,9 @@ a.commit-fund:hover { color: var(--amber); }
   font-size: 11px;
   line-height: 1;
 }
+.connective-show-more.is-expanded::after {
+  content: "▴";
+}
 .connective-show-more:hover {
   background: var(--amber);
   color: #0e0f12;
@@ -2081,7 +2087,7 @@ a.commit-fund:hover { color: var(--amber); }
   padding-left: 12px;
   position: relative;
 }
-.connective-colp.is-hidden {
+.connective-colps.is-collapsed > .connective-colp:nth-child(n+4) {
   display: none;
 }
 .connective-colp::before {

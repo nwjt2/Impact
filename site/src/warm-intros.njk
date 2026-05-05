@@ -53,9 +53,9 @@ pageKey: warm-intros
           </div>
 
           <p class="connective-routing-explainer">If <strong>{{ lp.name }}</strong> is a relationship of yours, they can warm-route you to:</p>
-          <ul class="connective-colps">
+          <ul class="connective-colps{% if lp.coLpCount > 3 %} is-collapsed{% endif %}" data-total="{{ lp.coLpCount }}">
             {% for c in lp.coLps %}
-            <li class="connective-colp{% if loop.index0 >= 3 %} is-hidden{% endif %}">
+            <li class="connective-colp">
               <span class="connective-colp-name">{{ c.name }}</span>
               <span class="connective-colp-arch" data-arch="{{ c.archetype }}">{{ c.archetype }}</span>
               <span class="connective-colp-via">via
@@ -81,10 +81,12 @@ pageKey: warm-intros
     btn.addEventListener("click", function () {
       var item = btn.closest(".connective-item");
       if (!item) return;
-      item.querySelectorAll(".connective-colp.is-hidden").forEach(function (li) {
-        li.classList.remove("is-hidden");
-      });
-      btn.remove();
+      var list = item.querySelector(".connective-colps");
+      if (!list) return;
+      var collapsed = list.classList.toggle("is-collapsed");
+      btn.classList.toggle("is-expanded", !collapsed);
+      var total = parseInt(list.getAttribute("data-total"), 10) || 0;
+      btn.firstChild.nodeValue = collapsed ? "show " + (total - 3) + " more…" : "show less ";
     });
   });
 })();

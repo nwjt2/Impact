@@ -382,13 +382,13 @@ pageKey: match
     if (intros.length === 0) {
       bits.push('<div class="match-intros-empty">No documented co-investors in our data — cold outreach.</div>');
     } else {
-      bits.push('<ul class="connective-colps match-intros-list">');
-      intros.forEach(function (c, i) {
-        var hiddenCls = i >= 3 ? ' is-hidden' : '';
+      var listCls = "connective-colps match-intros-list" + (intros.length > 3 ? " is-collapsed" : "");
+      bits.push('<ul class="' + listCls + '" data-total="' + intros.length + '">');
+      intros.forEach(function (c) {
         var fundLink = c.source_url
           ? '<a href="' + I.escAttr(c.source_url) + '" target="_blank" rel="noopener">' + I.esc(c.via_fund_name) + ' <span class="connective-source-arrow">↗</span></a>'
           : I.esc(c.via_fund_name);
-        bits.push('<li class="connective-colp' + hiddenCls + '">'
+        bits.push('<li class="connective-colp">'
           + '<span class="connective-colp-name">' + I.esc(c.name) + '</span>'
           + '<span class="connective-colp-arch" data-arch="' + I.escAttr(c.archetype) + '">' + I.esc(c.archetype) + '</span>'
           + '<span class="connective-colp-via">via ' + fundLink + '</span>'
@@ -422,20 +422,23 @@ pageKey: match
     return null;
   }
 
-  // Delegated handler for the per-card "show N more…" introducer toggle.
-  // Cards are rebuilt on every render(), so a single delegated listener is
-  // simpler than re-attaching per render. stopPropagation prevents the
-  // card-click (which opens the LP's stated-thesis URL) from firing.
+  // Delegated handler for the per-card "show N more… / show less" introducer
+  // toggle. Cards are rebuilt on every render(), so a single delegated
+  // listener is simpler than re-attaching per render. stopPropagation
+  // prevents the card-click (which opens the LP's stated-thesis URL) from
+  // firing.
   document.getElementById("match-list").addEventListener("click", function (e) {
     var btn = e.target.closest(".match-intros-show-more");
     if (!btn) return;
     e.stopPropagation();
     var card = btn.closest(".match-card");
     if (!card) return;
-    card.querySelectorAll(".match-intros-list .connective-colp.is-hidden").forEach(function (li) {
-      li.classList.remove("is-hidden");
-    });
-    btn.remove();
+    var list = card.querySelector(".match-intros-list");
+    if (!list) return;
+    var collapsed = list.classList.toggle("is-collapsed");
+    btn.classList.toggle("is-expanded", !collapsed);
+    var total = parseInt(list.getAttribute("data-total"), 10) || 0;
+    btn.firstChild.nodeValue = collapsed ? "show " + (total - 3) + " more…" : "show less ";
   });
 
   I.installCardClick(".detail-page");
