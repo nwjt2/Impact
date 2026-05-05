@@ -12,7 +12,7 @@ pageKey: match
       <span>Decision support · LP shortlist for an INGO-sponsored fund</span>
     </div>
     <h1>Match my fund.</h1>
-    <p class="detail-sub">Pick your fund's profile — impact themes, geography, and the LP archetypes you'd consider — and get a filtered shortlist drawn from the {{ slot_meta.slot_counts.foundation_lps + slot_meta.slot_counts.family_office_lps + slot_meta.slot_counts.dfi_ingo_commits + slot_meta.slot_counts.bank_lps + slot_meta.slot_counts.asset_manager_lps + slot_meta.slot_counts.pension_fund_lps + slot_meta.slot_counts.corporate_lps + slot_meta.slot_counts.government_donor_lps + slot_meta.slot_counts.cooperative_ngo_lps }} LPs in the network. Filters are <strong>AND</strong> across dimensions: an LP must match the picked archetype <em>and</em> overlap with at least one picked theme <em>and</em> overlap with at least one picked geography. Generalist-theme and global-geo LPs count as a partial match on those dimensions. Within the filtered set, results are ranked by overlap strength.</p>
+    <p class="detail-sub">Filter the {{ slot_meta.slot_counts.foundation_lps + slot_meta.slot_counts.family_office_lps + slot_meta.slot_counts.dfi_ingo_commits + slot_meta.slot_counts.bank_lps + slot_meta.slot_counts.asset_manager_lps + slot_meta.slot_counts.pension_fund_lps + slot_meta.slot_counts.corporate_lps + slot_meta.slot_counts.government_donor_lps + slot_meta.slot_counts.cooperative_ngo_lps }} LPs in the network by your fund's themes, geography, and the archetypes you'd consider. Results are ranked by overlap; generalist-theme and global-geo LPs count as a partial match.</p>
   </header>
 
   <form id="picker" class="picker">
@@ -371,9 +371,6 @@ pageKey: match
     if (lp.thesis_url) {
       bits.push('<a class="match-foot-link" href="' + I.escAttr(lp.thesis_url) + '" target="_blank" rel="noopener">stated thesis ↗</a>');
     }
-    if (anySelected) {
-      bits.push('<span class="match-score" title="Match score (themes + geo + archetype)">score ' + lp._score.toFixed(2) + '</span>');
-    }
     bits.push('</div>');
 
     var intros = introducersFor(lp.slug);
@@ -390,7 +387,7 @@ pageKey: match
           : I.esc(c.via_fund_name);
         bits.push('<li class="connective-colp">'
           + '<span class="connective-colp-name">' + I.esc(c.name) + '</span>'
-          + '<span class="connective-colp-arch" data-arch="' + I.escAttr(c.archetype) + '">' + I.esc(c.archetype) + '</span>'
+          + '<span class="connective-colp-arch" data-arch="' + I.escAttr(c.archetype) + '">' + I.esc(ARCH_LABELS[c.archetype] || c.archetype) + '</span>'
           + '<span class="connective-colp-via">via ' + fundLink + '</span>'
           + '</li>');
       });

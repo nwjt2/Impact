@@ -57,7 +57,7 @@ pageKey: warm-intros
             {% for c in lp.coLps %}
             <li class="connective-colp">
               <span class="connective-colp-name">{{ c.name }}</span>
-              <span class="connective-colp-arch" data-arch="{{ c.archetype }}">{{ c.archetype }}</span>
+              <span class="connective-colp-arch" data-arch="{{ c.archetype }}">{{ c.archetype_label }}</span>
               <span class="connective-colp-via">via
                 {% if c.source_url %}<a href="{{ c.source_url }}" target="_blank" rel="noopener">{{ c.via_fund_name }} <span class="connective-source-arrow">↗</span></a>{% else %}{{ c.via_fund_name }}{% endif %}
               </span>

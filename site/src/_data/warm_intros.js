@@ -116,6 +116,7 @@ module.exports = function () {
           slug: other.lp_slug,
           name: otherMeta.name,
           archetype: otherMeta.archetype,
+          archetype_label: ARCH_LABELS[otherMeta.archetype] || otherMeta.archetype,
           via_fund_slug: f.fund_slug,
           via_fund_name: f.fund_name,
           source_url: f.source_url || other.source_url || null,
