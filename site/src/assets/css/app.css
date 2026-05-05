@@ -1927,17 +1927,30 @@ a.commit-fund:hover { color: var(--amber); }
 
 /* ----- Show-more toggle for the routes list ----- */
 .connective-show-more {
-  background: transparent;
-  border: none;
-  color: var(--fg-3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 170, 51, 0.08);
+  border: 1px solid var(--amber);
+  color: var(--amber);
   font-family: inherit;
   font-size: 12px;
-  padding: 6px 0 0 8px;
+  font-weight: 600;
+  padding: 6px 12px;
+  margin-top: 10px;
+  border-radius: 3px;
   cursor: pointer;
   letter-spacing: 0.01em;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+.connective-show-more::after {
+  content: "▾";
+  font-size: 11px;
+  line-height: 1;
 }
 .connective-show-more:hover {
-  color: var(--amber);
+  background: var(--amber);
+  color: #0e0f12;
 }
 
 .connective-routing-explainer {
