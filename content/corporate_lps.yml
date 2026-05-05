@@ -118,7 +118,7 @@ corporates:
     known_ingo_gp_commits: []
     notes: Colombian financial-services holding.
 
-  - slug: merck-co-inc
+  - slug: merck-co
     name: Merck & Co., Inc.
     aliases: ["Merck", "Merck & Co.", "MSD"]
     country: "US"

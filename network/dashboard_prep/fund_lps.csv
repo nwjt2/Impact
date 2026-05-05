@@ -78,14 +78,14 @@ global-health-investment-fund,grand-challenges-canada,2013,https://ghicfunds.org
 global-health-investment-fund,jp-morgan-chase,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
 global-health-investment-fund,kfw,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
 global-health-investment-fund,german-federal-ministry-for-economic-cooperation-and-development-bmz,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
-global-health-investment-fund,international-finance-corporation-ifc,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
+global-health-investment-fund,ifc,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
 global-health-investment-fund,children-s-investment-fund-foundation,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
 global-health-investment-fund,axa-investment-managers,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
 global-health-investment-fund,storebrand,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
 global-health-investment-fund,merck-co,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
 global-health-investment-fund,the-pfizer-foundation,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
 global-health-investment-fund,glaxosmithkline-gsk,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
-global-health-investment-fund,sida-swedish-international-development-agency,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
+global-health-investment-fund,sida,2013,https://ghicfunds.org/,2026-05-05,confirmed,fund_lp_scraper_GHIF
 good-fashion-fund,laudes-foundation,2019,https://www.fashionforgood.com/our_news/good-fashion-fund-welcomes-rabobank/,2026-04-30,confirmed,fund_lp_scraper_GoodFashionFund
 good-fashion-fund,the-mills-fabrica,2019,https://www.fashionforgood.com/our_news/good-fashion-fund-welcomes-rabobank/,2026-04-30,confirmed,fund_lp_scraper_GoodFashionFund
 good-fashion-fund,rabobank,2019,https://www.fashionforgood.com/our_news/good-fashion-fund-welcomes-rabobank/,2026-04-30,confirmed,fund_lp_scraper_GoodFashionFund
@@ -172,7 +172,7 @@ transform-health-fund,ifc,2024,https://www.grandchallenges.ca/2024/thf-final-clo
 transform-health-fund,swedfund,2024,https://www.grandchallenges.ca/2024/thf-final-close/,2026-04-30,confirmed,fund_lp_scraper_TransformHealthFund
 transform-health-fund,dfc,2024,https://www.grandchallenges.ca/2024/thf-final-close/,2026-04-30,confirmed,fund_lp_scraper_TransformHealthFund
 transform-health-fund,proparco,2024,https://www.grandchallenges.ca/2024/thf-final-close/,2026-04-30,confirmed,fund_lp_scraper_TransformHealthFund
-transform-health-fund,merck-co-inc,2024,https://www.grandchallenges.ca/2024/thf-final-close/,2026-04-30,confirmed,fund_lp_scraper_TransformHealthFund
+transform-health-fund,merck-co,2024,https://www.grandchallenges.ca/2024/thf-final-close/,2026-04-30,confirmed,fund_lp_scraper_TransformHealthFund
 transform-health-fund,fsd-africa-investments,2024,https://www.grandchallenges.ca/2024/thf-final-close/,2026-04-30,confirmed,fund_lp_scraper_TransformHealthFund
 transform-health-fund,grand-challenges-canada,2024,https://www.grandchallenges.ca/2024/thf-final-close/,2026-04-30,confirmed,fund_lp_scraper_TransformHealthFund
 transform-health-fund,impactassets-inc,2024,https://www.grandchallenges.ca/2024/thf-final-close/,2026-04-30,confirmed,fund_lp_scraper_TransformHealthFund

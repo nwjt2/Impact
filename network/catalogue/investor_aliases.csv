@@ -28,3 +28,6 @@ children-s-investment-fund,children-s-investment-fund-foundation,CIFF — trunca
 temasek-trust-philanthropy-asia,temasek-trust,Long-form name; family_office_lps.yml uses short slug.
 tides,tides-foundation,Tides DAF host; family_office_lps.yml uses tides-foundation slug.
 builders-vision,builders-initiative,Same family-led entity; family_office_lps.yml retains pre-2022 brand slug.
+international-finance-corporation-ifc,ifc,Long-form parens variant of seeded slug.
+merck-co-inc,merck-co,Inc suffix variant; same entity.
+sida-swedish-international-development-agency,sida,Long-form name; same agency (third variant alongside sida-sweden and swedish-international-development-cooperation-agency-sida).
