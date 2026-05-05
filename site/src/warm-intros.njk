@@ -12,7 +12,7 @@ pageKey: warm-intros
       <span>Reference · who can introduce you to whom in the impact-LP graph</span>
     </div>
     <h1>Warm intros.</h1>
-    <p class="detail-sub">If one of these {{ warm_intros.total }} LPs is in your relationship base, the dots beneath them are LPs they can warm-intro you to — each dot is a documented co-investment in a shared impact fund.</p>
+    <p class="detail-sub">If one of these {{ warm_intros.total }} LPs is in your relationship base, the dots beneath them are LPs they can potentially warm-intro you to — each dot is a documented co-investment in a shared impact fund.</p>
   </header>
 
   {# ============ COLOUR LEGEND (for the per-card constellations below) ============ #}
@@ -52,7 +52,7 @@ pageKey: warm-intros
             {%- endfor -%}
           </div>
 
-          <p class="connective-routing-explainer">If <strong>{{ lp.name }}</strong> is a relationship of yours, they can warm-route you to:</p>
+          <p class="connective-routing-explainer">If <strong>{{ lp.name }}</strong> is a relationship of yours, they can potentially warm-route you to:</p>
           <ul class="connective-colps{% if lp.coLpCount > 3 %} is-collapsed{% endif %}" data-total="{{ lp.coLpCount }}">
             {% for c in lp.coLps %}
             <li class="connective-colp">
