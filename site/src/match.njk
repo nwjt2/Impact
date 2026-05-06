@@ -51,6 +51,7 @@ pageKey: match
 <script type="application/json" id="data-cooperative-ngos">{{ cooperative_ngo_lps | dump | safe }}</script>
 <script type="application/json" id="data-network">{{ network | dump | safe }}</script>
 <script type="application/json" id="data-net-lp-funds">{{ network_lp_summary.lpFundsBySlug | dump | safe }}</script>
+<script type="application/json" id="data-lp-990-signals">{{ network_lp_990_signals | dump | safe }}</script>
 <script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
 
 <script src="{{ '/assets/js/render.js' | url }}"></script>
@@ -85,11 +86,29 @@ pageKey: match
   };
   var ARCH_ORDER = ["dfi","foundation","family-office","asset-manager","bank","pension-fund","corporate","bilateral-donor","government","cooperative-ngo","vc"];
 
+  // ---- Helpers --------------------------------------------------------------
+
+  // Compact USD for the 990 sizing line. $76.9B / $607M / $35M / $25K.
+  // Returns "" for null/zero/non-finite — caller can null-check.
+  function fmtUSDShort(n) {
+    if (n == null || !isFinite(n) || n <= 0) return "";
+    if (n >= 1e9) {
+      var b = n / 1e9;
+      return "$" + (b >= 10 ? Math.round(b) : b.toFixed(1)) + "B";
+    }
+    if (n >= 1e6) return "$" + Math.round(n / 1e6) + "M";
+    if (n >= 1e3) return "$" + Math.round(n / 1e3) + "K";
+    return "$" + Math.round(n);
+  }
+
   // ---- Load + normalise the LP corpus --------------------------------------
 
   var network = I.loadJSON("data-network") || { nodes: [], edges: [] };
   var META = I.loadJSON("data-slot-meta") || {};
   var NET_LP = I.loadJSON("data-net-lp-funds") || {};
+  // ProPublica 990 sizing data — keyed by LP slug, only US foundations populated.
+  // Honest-null: if absent or missing fields, the render path skips the line.
+  var LP_990 = I.loadJSON("data-lp-990-signals") || {};
 
   // Map network investor slug → archetype
   var archBySlug = {};
@@ -374,6 +393,28 @@ pageKey: match
       bits.push('<a class="match-foot-link" href="' + I.escAttr(lp.thesis_url) + '" target="_blank" rel="noopener">stated thesis ↗</a>');
     }
     bits.push('</div>');
+
+    // ProPublica 990 sizing — only when we have it (US foundations only).
+    // Honest-null: omit silently when fields missing.
+    var sig = LP_990[lp.slug];
+    if (sig) {
+      var assets = fmtUSDShort(sig.totalAssetsUSD);
+      var grants = fmtUSDShort(sig.annualGrantsPaidUSD);
+      var year = sig.latestFilingYear;
+      var parts = [];
+      if (assets) parts.push(assets + ' assets');
+      if (grants) parts.push(grants + ' grants paid');
+      if (year) parts.push('FY' + year);
+      if (parts.length) {
+        var line = parts.join(' · ');
+        if (sig.sourceUrl) {
+          line = '<a href="' + I.escAttr(sig.sourceUrl) + '" target="_blank" rel="noopener">' + I.esc(line) + ' ↗</a>';
+        } else {
+          line = I.esc(line);
+        }
+        bits.push('<div class="match-990">' + line + ' <span class="match-990-src">via ProPublica 990</span></div>');
+      }
+    }
 
     var intros = introducersFor(lp.slug);
     bits.push('<div class="match-intros">');
