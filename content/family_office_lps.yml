@@ -887,3 +887,41 @@ family_offices:
     invests_via_grants: true
     public_newsroom_url: https://www.man-capital.com/
     last_seen_at: 2026-05-06
+
+  - slug: jimco
+    name: Abdul Latif Jameel Investment Management Company
+    aliases: ["JIMCO", "Jameel family investment arm", "Abdul Latif Jameel Investment"]
+    country: "SA"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, energy, generalist]
+    stated_geo_focus: [global, mena]
+    stated_thesis_url: https://www.jimco.com/
+    stated_thesis_excerpt: "Abdul Latif Jameel Investment Management Company, JIMCO, is the global investment arm of the Jameel Family."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: true
+    invests_via_direct: true
+    invests_via_grants: null
+    public_newsroom_url: https://www.jimco.com/
+    last_seen_at: 2026-05-06
+
+  - slug: olayan-group
+    name: The Olayan Group
+    aliases: ["Olayan Group", "Olayan Financing Company", "OFC"]
+    country: "SA"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [health, energy, generalist]
+    stated_geo_focus: [global, mena]
+    stated_thesis_url: https://olayan.com/our-business/private-equity/
+    stated_thesis_excerpt: "Health and Wellness, Enterprise Software and Tech-Enabled Services, Business Services and Niche Products/Manufacturing, Energy and Energy Transition, and Digital Infrastructure."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: true
+    invests_via_direct: true
+    invests_via_grants: null
+    public_newsroom_url: https://olayan.com/
+    last_seen_at: 2026-05-06
