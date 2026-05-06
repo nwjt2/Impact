@@ -1993,9 +1993,48 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: senior_debt
+          provider: U.S. International Development Finance Corporation (DFC)
+          provider_slug: dfc
+          size_usd_m: 2.0
+          source_url: https://www.convergence.finance/news/5jvstAhInwiMnqDdv2msUm/view
+          source_quote: a $2 million long-term loan from the U.S. International Development Finance Corporation (USDFC, previously OPIC)
+        - tranche: first_loss_equity
+          provider: U.S. Department of Agriculture (USDA) — Food for Progress concessionary capital
+          size_usd_m: 1.8
+          source_url: https://www.convergence.finance/news/5jvstAhInwiMnqDdv2msUm/view
+          source_quote: $1.8 million in concessionary capital from the U.S. Department of Agriculture (USDA)
+      parallel_ta_facility: null
+      vehicle_legal_form: limited liability company (Delaware LLC; "AV Ventures Ghana LLC")
+      instruments_offered:
+        - revenue_based_loan
+        - mezzanine
+      structure_notes: >
+        Per Convergence Finance member spotlight with ACDI/VOCA's Zubeiru
+        Salifu, AVVG is a "$3.8 million permanent capital blended finance
+        vehicle" funded by a $2M long-term DFC loan stacked above $1.8M of
+        USDA concessionary capital. The USDA capital originated as the
+        sustainable legacy of the USDA Food for Progress Ghana Poultry
+        Project; classified here as first_loss_equity by structural
+        inference (subordinated permanent capital below the DFC senior
+        loan) — neither tranche is explicitly labeled by seniority in the
+        source. AV Ventures' downstream products are revenue-based loans
+        and other mezzanine structures. No parallel TA facility is named
+        in the public record. The Convergence $3.8M figure is the
+        most-recent itemized total; the existing peer_funds size of $4M
+        (~$3.6M per ACDI/VOCA 2022) is in the same neighborhood, with the
+        difference reflecting timing/rounding rather than a structural
+        change.
+      structure_source_urls:
+        - https://av-ventures.com/our_funds/
+        - https://www.convergence.finance/news/5jvstAhInwiMnqDdv2msUm/view
+        - https://av-ventures.com/the-av-ventures-ghana-fund-2/
+        - https://av-ventures.com/
     status: deployed
     public_source_url: https://av-ventures.com/our_funds/
-    last_seen_at: 2026-04-28
+    last_seen_at: 2026-05-06
     notes: >
       Evergreen blended-finance LLC funded with USDA concessionary
       capital and a US DFC long-term loan; size $3.6m per ACDI/VOCA 2022
@@ -2023,9 +2062,37 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack: []
+      parallel_ta_facility: null
+      vehicle_legal_form: null
+      instruments_offered:
+        - senior_debt
+      structure_notes: >
+        Existence and partial LP roster confirmed; no per-tranche
+        allocation publicly disclosed. AV Ventures describes CAIF as an
+        evergreen (permanent capital) blended-finance vehicle anchored
+        by a private Kazakh investor and ACDI/VOCA. The April 2020
+        ACDI/VOCA launch press release identifies the Kazakh anchor as
+        the nonprofit KMF-Demeu, which seeded the fund with $2M of an
+        initial $2.15M close, and states a target of $8-10M total fund
+        capital with downstream loans of $100k-$500k to SMEs. ACDI/VOCA's
+        2022 annual report and AV Ventures' site report ~$5-5.2M AUM
+        since. None of the publicly available sources break the capital
+        into senior / junior / first-loss layers, name a parallel TA
+        facility, or disclose a vehicle legal form. (The successor
+        vehicle CAIF II is publicly described as a debt and mezzanine
+        fund, but per-tranche composition for CAIF I is not in the
+        public record.)
+      structure_source_urls:
+        - https://av-ventures.com/our_funds/
+        - https://www.acdivoca.org/2020/04/acdi-voca-launches-central-asia-impact-fund-for-small-and-growing-businesses/
+        - https://www.acdivoca.org/about/affiliates/av-ventures/
+        - https://www.acdivoca.org/wp-content/uploads/2019/09/AV-Frontiers-Central-Asia-Impact-Fund-Sept-2019.pdf
+        - https://interactive.acdivoca.org/2022annualreport/exploring-our-impact
     status: deployed
     public_source_url: https://av-ventures.com/our_funds/
-    last_seen_at: 2026-04-28
+    last_seen_at: 2026-05-06
     notes: >
       Sector-agnostic evergreen blended fund covering Uzbekistan,
       Tajikistan, Kyrgyzstan, Kazakhstan; reported at $5.2m AUM in
@@ -2056,9 +2123,42 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack: []
+      parallel_ta_facility: null
+      vehicle_legal_form: null
+      instruments_offered:
+        - senior_debt
+        - quasi_equity
+      structure_notes: >
+        Single-source USAID-funded vehicle; existence and USAID-KUZA
+        anchoring confirmed but no layered capital stack publicly
+        disclosed. The fund is wholly capitalized by USAID through the
+        USAID Kuza activity (an Associate Award under the Feed the
+        Future Kenya Livestock Market Systems LWA held by ACDI/VOCA).
+        No co-investors, no named senior / junior / equity tranches,
+        and no parallel TA facility have been disclosed in the public
+        record. Publicly stated fund size has shifted across snapshots:
+        the December 2020 announce called it a "$5 million wholesale
+        financing vehicle"; ResilienceLinks/USAID materials describe a
+        $14M USAID Kenya commitment; the May 2024 climate-window
+        release calls it a "$30-million sustainable impact investment
+        fund" with a $6M climate window carved out within it; ACDI/VOCA's
+        2022 annual report disclosed $38M. None of these public sources
+        break the capitalization into a layered capital stack. ACDI/VOCA
+        describes INK as a USAID program-related investment vehicle.
+        Downstream the fund deploys wholesale loans to MFIs/SMEs plus
+        quasi-equity (e.g. solar farms).
+      structure_source_urls:
+        - https://www.acdivoca.org/2020/12/av-ventures-launches-fund-in-northern-kenya/
+        - https://www.acdivoca.org/av-ventures/impact-in-northern-kenya-fund/
+        - https://av-ventures.com/our_funds/
+        - https://www.acdivoca.org/2024/05/usaid-kuza-climate-finance-window/
+        - https://www.acdivoca.org/2021/03/bridging-the-gaps-in-northern-kenyas-access-to-finance/
+        - https://www.acdivoca.org/usaid-kuza/
     status: deployed
     public_source_url: https://www.acdivoca.org/2020/12/av-ventures-launches-fund-in-northern-kenya/
-    last_seen_at: 2026-04-28
+    last_seen_at: 2026-05-06
     notes: >
       Launched December 2020 to invest in Kenya's ten northern Frontier
       Counties. ACDI/VOCA disclosed $38m fund size in 2022 annual
