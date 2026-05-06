@@ -32,7 +32,7 @@ pageKey: match
     </fieldset>
 
     <fieldset class="picker-group">
-      <legend class="picker-legend">Track record <span class="picker-hint">— pick none to consider all</span></legend>
+      <legend class="picker-legend">Public track record of impact-fund LP commitments? <span class="picker-hint">— pick none to consider all</span></legend>
       <div class="picker-chips" data-dim="track"></div>
       <p class="picker-caveat">Track-record counts reflect only LP commitments we've ingested from primary public sources. An LP showing <strong>0 tracked impact-fund LP commitments</strong> may simply not disclose publicly, or we may not have picked the commitment up yet.</p>
     </fieldset>
@@ -92,10 +92,7 @@ pageKey: match
   };
   var ARCH_ORDER = ["dfi","foundation","family-office","asset-manager","bank","pension-fund","corporate","bilateral-donor","government","cooperative-ngo","vc"];
 
-  var TRACK_LABELS = {
-    has: "Tracked impact-fund LPs",
-    none: "Cold outreach (no edges yet)",
-  };
+  var TRACK_LABELS = { has: "Yes", none: "No" };
   var TRACK_ORDER = ["has", "none"];
 
   // ---- Helpers --------------------------------------------------------------
