@@ -131,6 +131,77 @@ VehicleType = Literal[
     "programmatic_not_fund",
 ]
 
+# Tranche types for the blended-finance capital stack. Ordered from least
+# risky (top of stack, first paid) to most risky (bottom, last paid). The
+# `grant` value is for cases where a grant arm sits *inside* the vehicle's
+# capitalization, distinct from a parallel TA facility on the side.
+CapitalStackTrancheType = Literal[
+    "senior_debt", "junior_debt", "mezzanine",
+    "equity", "first_loss_equity",
+    "guarantee", "grant",
+]
+
+
+class CapitalStackTranche(BaseModel):
+    """One tranche in a blended-finance fund's capital stack.
+
+    Sourcing discipline: every tranche should carry a source_url. The
+    source_quote is optional but encouraged where the public document
+    uses a memorable phrasing — it lets the site cite the disclosure
+    verbatim instead of paraphrasing.
+    """
+
+    model_config = ConfigDict(extra="allow")
+
+    tranche: CapitalStackTrancheType
+    provider: Optional[str] = None       # free-text (LP names sometimes carry parentheticals)
+    provider_slug: Optional[str] = None  # optional handshake → LP registry slug
+    size_usd_m: Optional[float] = None
+    source_url: Optional[str] = None
+    source_quote: Optional[str] = None
+
+
+class ParallelTAFacility(BaseModel):
+    """Technical-assistance / grant sidecar that sits alongside a fund.
+
+    Distinct from a `grant` tranche inside the capital stack: the TA
+    facility is parallel capital, not a layer of the investible vehicle.
+
+    `exists` semantics:
+      • True   — public record names a TA facility
+      • False  — public record explicitly says no TA facility
+      • None   — not in public record (the common case; honest-null)
+    """
+
+    model_config = ConfigDict(extra="allow")
+
+    exists: Optional[bool] = None
+    size_usd_m: Optional[float] = None
+    funder: Optional[str] = None
+    source_url: Optional[str] = None
+
+
+class BlendedFinanceStructure(BaseModel):
+    """Slot 1 — per-fund blended-finance disclosure block.
+
+    Hit-rate reality (per the 4-fund test):
+      • capital_stack          ~80% of funds have ≥1 layer publicly disclosed
+      • parallel_ta_facility   ~30%
+      • vehicle_legal_form     ~50%
+      • instruments_offered    ~70%
+    Everything is optional. Honest-null discipline: if a layer or tranche
+    is not in the public record, leave it out — never invent.
+    """
+
+    model_config = ConfigDict(extra="allow")
+
+    capital_stack: list[CapitalStackTranche] = Field(default_factory=list)
+    parallel_ta_facility: Optional[ParallelTAFacility] = None
+    vehicle_legal_form: Optional[str] = None  # free-text: "Delaware LP", "Luxembourg SCSp", "limited liability company"
+    instruments_offered: list[str] = Field(default_factory=list)
+    structure_notes: Optional[str] = None
+    structure_source_urls: list[str] = Field(default_factory=list)
+
 
 class PeerIngoFund(BaseModel):
     """Slot 1: one peer INGO fund card.
@@ -168,6 +239,7 @@ class PeerIngoFund(BaseModel):
     investment_period_years: Optional[float] = None
     sub_advisor: Optional[str] = None
     placement_agent: Optional[str] = None
+    blended_finance_structure: Optional[BlendedFinanceStructure] = None
     public_source_url: Optional[str] = None
     status: FundStatus = "raising"
     notes: Optional[str] = None

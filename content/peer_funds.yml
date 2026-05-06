@@ -42,10 +42,39 @@
 #   investment_period_years:             integer years or null
 #   sub_advisor:                         named sub-advisor firm or null
 #   placement_agent:                     named placement agent or null
+#   blended_finance_structure:           OPTIONAL nested block — see schema below
 #   status:                              raising | deployed | wound_down
 #   public_source_url:                   link to press release / fund page / annual report
 #   last_seen_at:                        YYYY-MM-DD — today's date for entries updated this round
 #   notes:                               <=2 factual sentences
+#
+# Blended-finance structure (optional nested block):
+#   blended_finance_structure:
+#     capital_stack:                     ordered list, top (least risky) to bottom (most risky)
+#       - tranche: senior_debt|junior_debt|mezzanine|equity|first_loss_equity|guarantee|grant
+#         provider:                      free-text LP name
+#         provider_slug:                 optional handshake → LP registry slug (foundations / dfis / etc.)
+#         size_usd_m:                    nullable number
+#         source_url:                    URL where this tranche is publicly stated
+#         source_quote:                  optional — verbatim phrasing from the source
+#     parallel_ta_facility:              technical-assistance / grant sidecar (separate from capital_stack)
+#       exists: true|false
+#       size_usd_m:                      nullable number
+#       funder:                          free-text or null
+#       source_url:                      URL where the facility is publicly stated
+#     vehicle_legal_form:                free-text — "Delaware LP", "Luxembourg SCSp", "limited liability company"
+#     instruments_offered:               list of capital instruments the fund deploys downstream
+#                                        (senior_debt, equity, mezzanine, quasi_equity, convertible_debt,
+#                                        revenue_based_loan, guarantee)
+#     structure_notes:                   <=2 factual sentences with anything that doesn't fit the above
+#     structure_source_urls:             primary sources used to populate this block beyond the
+#                                        per-tranche source_urls (e.g. case study, DFC PIS, ADV brochure)
+#
+# Honest-null discipline applies to every field of blended_finance_structure.
+# A missing tranche is infinitely more useful than a fabricated one. Disclosure
+# rate is highest on capital_stack and instruments_offered, lowest on
+# vehicle_legal_form and parallel_ta_facility — extrapolating from a 4-fund
+# pilot, ~80% of funds have ≥1 capital_stack layer publicly disclosed.
 #
 # Honesty requirement:
 #   If a field is not in the public record, it MUST be null. A blank field
@@ -84,9 +113,42 @@ peer_funds:
     investment_period_years: null
     sub_advisor: Symbiotics
     placement_agent: null
+    blended_finance_structure:
+      capital_stack: []
+      parallel_ta_facility: null
+      vehicle_legal_form: Luxembourg SICAV-SIF (Société d'Investissement à Capital Variable - Specialized Investment Fund); open-ended collective investment scheme with quarterly subscription/redemption
+      instruments_offered:
+        - senior_debt
+        - mezzanine
+        - equity
+      structure_notes: >
+        SEIIF is publicly disclosed as a Luxembourg SICAV-SIF open-ended
+        fund with two investor share classes (A and B/C) differentiated
+        by management fee (1.5% vs 2.0% NAV p.a.), not by loss-absorption
+        seniority. The Symbiotics fund presentation describes it as "a
+        joint initiative of the City of London, Oxfam GB and Symbiotics"
+        with Symbiotics SA as Investment Manager and SEIIF Ltd (a
+        wholly-owned Oxfam GB subsidiary) as Impact Fulfillment Adviser.
+        The City of London Corporation contributed a $500k cornerstone at
+        launch (per Third Sector announce coverage), but no junior/senior
+        or first-loss tranche structure is disclosed in any public
+        source. No parallel technical assistance grant facility is named
+        in the prospectus summary, key investment terms sheet, or fund
+        presentation. Downstream portfolio instruments are "primarily
+        senior debt, but also smaller portions of mezzanine and equity
+        instruments." Final fund size against the $100m three-year
+        target is not publicly confirmed. Note: existing vehicle_type
+        "closed_end_fund" is contradicted by the Symbiotics prospectus,
+        which describes SEIIF as open-ended.
+      structure_source_urls:
+        - https://symbioticsgroup.com/wp-content/uploads/2015/06/SEIIF-Key-Investment-Terms-01_2014.pdf
+        - http://symbioticsgroup.com/wp-content/uploads/2016/06/SEIIF_Fund_presentation_201603_UK-2.pdf
+        - https://www.thirdsector.co.uk/oxfam-launches-fund-impact-investments-developing-world/finance/article/1154243
+        - https://www.civilsociety.co.uk/news/oxfam-launches-its-first-investment-fund.html
+        - https://thegiin.org/news/oxfam-moves-into-fund-world/
     status: deployed
     public_source_url: https://www.thirdsector.co.uk/oxfam-launches-fund-impact-investments-developing-world/finance/article/1154243
-    last_seen_at: 2026-04-25
+    last_seen_at: 2026-05-06
     notes: >
       Oxfam-City of London-Symbiotics joint initiative; SEIIF launched
       July 2012 with City of London Corporation $500k cornerstone, target
@@ -115,9 +177,43 @@ peer_funds:
     investment_period_years: null
     sub_advisor: Bamboo Capital Partners
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: first_loss_equity
+          provider: CARE Enterprises
+          size_usd_m: 10
+          source_url: https://medium.com/usaid-invest/voices-from-the-usaid-finance-and-investment-network-care-enterprises-5f747e1d8fb9
+          source_quote: "CARE is raising capital to seed the fund with an initial $10 million first-loss investment"
+        - tranche: first_loss_equity
+          provider: USAID Office of Gender Equality and Women's Empowerment (catalytic)
+          size_usd_m: 0.5
+          source_url: https://medium.com/usaid-invest/voices-from-the-usaid-finance-and-investment-network-care-enterprises-5f747e1d8fb9
+          source_quote: "$500,000 catalytic funding contribution from USAID's Office of Gender Equality and Women's Empowerment"
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: null
+        funder: USAID INVEST (technical assistance partnership)
+        source_url: https://medium.com/usaid-invest/voices-from-the-usaid-finance-and-investment-network-care-enterprises-5f747e1d8fb9
+      vehicle_legal_form: null
+      instruments_offered:
+        - senior_debt
+        - mezzanine
+        - quasi_equity
+        - convertible_debt
+        - revenue_based_loan
+        - equity
+      structure_notes: >
+        Public record names a $15-20m total first-loss tranche target
+        anchored by CARE; senior tranche LPs not yet individually named.
+        Fund deploys debt and equity to growth-stage women-led SMBs in
+        South/SE Asia.
+      structure_source_urls:
+        - https://medium.com/usaid-invest/voices-from-the-usaid-finance-and-investment-network-care-enterprises-5f747e1d8fb9
+        - https://www.gendersmartinvesting.com/resource-library/2021/2/10/care-shetrades-impact-fund-bnc4t
+        - https://nextbillion.net/sme-investing-gender-covid-emerging-markets/
     status: raising
     public_source_url: https://bamboocp.com/the-international-trade-centre-care-enterprises-and-bamboo-capital-partners-join-forces-to-boost-gender-equality-with-the-care-shetrades-impact-fund/
-    last_seen_at: 2026-04-25
+    last_seen_at: 2026-05-06
     notes: >
       Launched June 2018 by Bamboo + CARE; ITC formally joined April
       2020. Target size $75m. CARE seeded $10m first-loss tranche;
@@ -147,9 +243,40 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack: []
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: 5
+        funder: null
+        source_url: https://www.mercycorpsventures.com/fund-2-resilient-future-fund
+      vehicle_legal_form: null
+      instruments_offered:
+        - equity
+      structure_notes: >
+        MCV-platform is evergreen (Fund I) — no closed-end capital stack.
+        Fund II / Resilient Future Fund (RFF) is a closed-end sub-vehicle
+        with a $50M target size and a 10-year term plus two 1-year
+        extensions ("10 year closed end fund plus two 1 year extensions —
+        potential for blended finance and catalytic capital structures").
+        RFF carries a $5M parallel TA facility ("$5 million in grant
+        capital for post-investment support / technical assistance via
+        the Venture Platform to be used over the lifetime of the fund").
+        Prime Coalition has approved RFF on its Catalytic Capital
+        Platform, indicating active catalytic LP recruitment. Public
+        sources name the $50M target, the 10+1+1 vehicle term, and the
+        TA facility, but do not disclose named LPs, anchor commitments,
+        first-loss layers, guarantees, or senior/junior tranching. RFF's
+        underlying legal entity form (Delaware LP, etc.) is not in the
+        public record.
+      structure_source_urls:
+        - https://www.mercycorpsventures.com/fund-2-resilient-future-fund
+        - https://www.mercycorpsventures.com/investment-funds-overview
+        - https://www.mercycorps.org/what-we-do/ventures
+        - https://www.primecoalition.org/beta-catalytic-capital-platform-facilitated/mercy-corps-ventures-fund-edg5z
     status: deployed
     public_source_url: https://www.mercycorps.org/what-we-do/ventures
-    last_seen_at: 2026-04-25
+    last_seen_at: 2026-05-06
     notes: >
       Founded 2015 as Mercy Corps Social Venture Fund (SVF); rebranded
       to MCV around 2019. Fund I = evergreen seed-stage climate-resilient
@@ -179,9 +306,44 @@ peer_funds:
     investment_period_years: null
     sub_advisor: SEAF (Small Enterprise Assistance Funds)
     placement_agent: null
+    blended_finance_structure:
+      capital_stack: []
+      parallel_ta_facility: null
+      vehicle_legal_form: null
+      instruments_offered:
+        - equity
+        - senior_debt
+        - guarantee
+      structure_notes: >
+        Heifer Impact Capital appears to be an internal programmatic line
+        of Heifer Project International (EIN 35-1019477), not a
+        separately capitalized fund vehicle. No standalone LLC, separate
+        990 filer, or fund entity surfaces in the public record. The HIC
+        fact sheet states "$17 million committed by Heifer Impact
+        Capital, leveraging more than $52 million from external
+        investors" but does not break either figure into tranches or name
+        the providers — consistent with balance-sheet deployment of
+        internal Heifer capital alongside external co-investors rather
+        than LP commitments stacked into a vehicle. The fact sheet does
+        assert HIC "employ[s] a blended finance strategy," but the
+        layer-by-layer breakdown is not public. SEAF (Small Enterprise
+        Assistance Funds) is a co-management / joint-program partner per
+        the Dec 2020 announcement — framed as leveraging "SEAF's global
+        network and experience raising over $1.2 billion in impact
+        investments," with no capital commitment disclosed. Downstream
+        instruments confirmed from project case studies: equity (Nueva
+        Kerala spice cooperative, Guatemala), revolving lines of credit
+        and term loans (mapped here to senior_debt), and loan guarantees
+        to US sustainable farming cooperatives. Capitalization sources
+        and per-provider sizes are not in the public record.
+      structure_source_urls:
+        - https://media-refresh.heifer.org/wp-content/uploads/Heifer-General-Impact-Capital-Fact-Sheet.pdf
+        - https://www.heifer.org/our-work/approach/leveraging-capital/impact-investing
+        - https://www.heifer.org/press-release/expand-impact-investing-globally
+        - https://www.seaf.com/heifer-agreement/
     status: deployed
     public_source_url: https://www.heifer.org/press-release/expand-impact-investing-globally
-    last_seen_at: 2026-04-25
+    last_seen_at: 2026-05-06
     notes: >
       Heifer's impact-investing division. December 2020 SEAF partnership
       announcement is the most concrete public anchor; specific entity
@@ -210,10 +372,40 @@ peer_funds:
     gp_commit_pct: null
     investment_period_years: null
     sub_advisor: null
-    placement_agent: null
+    placement_agent: BofA Securities
+    blended_finance_structure:
+      capital_stack:
+        - tranche: senior_debt
+          provider: U.S. International Development Finance Corporation (DFC)
+          provider_slug: dfc
+          size_usd_m: 100
+          source_url: https://www.dfc.gov/media/press-releases/dfc-achieves-first-close-100-million-loan-waterequitys-global-access-fund
+          source_quote: "$100 million loan ... funding the first $25 million tranche"
+        - tranche: equity
+          provider: foundations, institutional investors, donor-advised funds (not individually named)
+          size_usd_m: 53
+          source_url: https://www.globenewswire.com/news-release/2022/03/31/2414126/0/en/WaterEquity-Raises-Over-150-Million-at-Final-Close-of-Global-Access-Fund.html
+          source_quote: "equity capital from institutional investors, foundations, impact investors, and donor-advised funds"
+      parallel_ta_facility:
+        exists: null
+        size_usd_m: null
+        funder: null
+        source_url: null
+      vehicle_legal_form: Limited Partnership (offshore feeder named "Global Access Offshore Fund LP" per WaterEquity site)
+      instruments_offered:
+        - senior_debt
+      structure_notes: >
+        DFC loan was funded by issuing fixed-income instruments under the
+        ICMA Sustainability Bond guidelines. Equity LPs not individually
+        disclosed in public press materials. Fee/carry/hurdle/GP-commit
+        terms not in the public record.
+      structure_source_urls:
+        - https://www.dfc.gov/media/press-releases/dfc-achieves-first-close-100-million-loan-waterequitys-global-access-fund
+        - https://www.dfc.gov/sites/default/files/media/documents/9000093664.pdf
+        - https://adviserinfo.sec.gov/firm/summary/281955
     status: deployed
     public_source_url: https://www.globenewswire.com/news-release/2022/03/31/2414126/0/en/WaterEquity-Raises-Over-150-Million-at-Final-Close-of-Global-Access-Fund.html
-    last_seen_at: 2026-04-25
+    last_seen_at: 2026-05-06
     notes: >
       Final close $153m on 2022-03-31 (oversubscribed vs $150m target).
       DFC committed $100m senior debt at first close 2021-04-23 alongside
@@ -244,9 +436,39 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: senior_debt
+          provider: U.S. International Development Finance Corporation (DFC)
+          provider_slug: dfc
+          size_usd_m: 100
+          source_url: https://www.newswire.com/news/waterequity-announces-final-close-of-150-million-global-access-fund-iv-22128210
+          source_quote: "$100 million commitment from the U.S. International Development Finance Corporation"
+        - tranche: equity
+          provider: Starbucks (anchor) + Water Resilience Coalition members (Ecolab, Gap Inc., Reckitt, DuPont) + impact investors (Lazarus Financial Planning, Mary Estill Buchanan, Lynn White, clients of Align Impact, ImpactAssets)
+          size_usd_m: 50
+          source_url: https://www.newswire.com/news/waterequity-announces-final-close-of-150-million-global-access-fund-iv-22128210
+          source_quote: "Starbucks ... the fund's anchor investor ... Ecolab, Gap Inc., Reckitt, DuPont"
+      parallel_ta_facility:
+        exists: null
+        size_usd_m: null
+        funder: null
+        source_url: null
+      vehicle_legal_form: Limited Partnership (per WaterEquity offshore-feeder pattern; sister fund GAF III is "Global Access Offshore Fund LP")
+      instruments_offered:
+        - senior_debt
+      structure_notes: >
+        First vehicle of the Water Resilience Coalition Investment
+        Portfolio. Final close $150m (~$140m at first close 2023-03-16
+        + topped up to $150m by July 2023). DFC debt sits over an equity
+        layer of corporate-coalition LPs (Starbucks anchor) plus impact
+        investors and DAFs. Equity-tier per-LP allocations not disclosed.
+      structure_source_urls:
+        - https://www.newswire.com/news/waterequity-announces-final-close-of-150-million-global-access-fund-iv-22128210
+        - https://www.dfc.gov/sites/default/files/media/documents/PublicInfoSummary_GlobalAccessFundIVLP.pdf
     status: deployed
     public_source_url: https://www.newswire.com/news/waterequity-announces-final-close-of-150-million-global-access-fund-iv-22128210
-    last_seen_at: 2026-04-25
+    last_seen_at: 2026-05-06
     notes: >
       First vehicle of the Water Resilience Coalition Investment
       Portfolio. First close 2023-03-16 (~$140m), final close July 2023
@@ -276,9 +498,40 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: equity
+          provider: Save the Children (sponsor commitment to Generation Empowerment Fund)
+          size_usd_m: 5
+          source_url: https://impact-investor.com/save-the-childrens-impact-investing-arm-opens-up-new-funding-frontiers/
+          source_quote: "Some $5m of support has already been earmarked by Save the Children itself"
+        - tranche: equity
+          provider: QBE Group (launch partner)
+          size_usd_m: null
+          source_url: https://www.convergence.finance/news-and-events/news/7w42nAv6yvPnsxJqaiI0Bd/view
+      parallel_ta_facility:
+        exists: null
+        size_usd_m: null
+        funder: null
+        source_url: null
+      vehicle_legal_form: open-ended perpetual endowment fund (Children's Impact Endowment Fund); separate Africa-focused debt fund (Generation Empowerment Fund) at first-close stage
+      instruments_offered:
+        - equity
+        - senior_debt
+        - parametric_insurance
+        - results_based_finance
+      structure_notes: >
+        Multi-fund platform, not a single vehicle. Children's Impact
+        Endowment Fund + Children's Impact Multiplier Fund + Generation
+        Empowerment Fund (Africa debt, $20m first-close target → $50m).
+        Per-vehicle capital stacks not separately disclosed in public
+        record.
+      structure_source_urls:
+        - https://impact-investor.com/save-the-childrens-impact-investing-arm-opens-up-new-funding-frontiers/
+        - https://www.convergence.finance/news-and-events/news/7w42nAv6yvPnsxJqaiI0Bd/view
     status: deployed
     public_source_url: https://www.savethechildren.net/news/save-children-announces-new-global-investment-entity-deliver-social-benefit-millions-children
-    last_seen_at: 2026-05-03
+    last_seen_at: 2026-05-06
     notes: >
       Globally-launched 2022-11-16 (built on a 2019/2020 Australian
       precursor — the world's first child-focused impact fund at
@@ -400,9 +653,48 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: guarantee
+          provider: U.S. International Development Finance Corporation (DFC) and USAID (loan portfolio guaranty)
+          size_usd_m: 10
+          source_url: https://www.dfc.gov/media/press-releases/dfc-and-usaid-provide-10-million-loan-portfolio-guaranty-conservation
+          source_quote: "$5 million in financing for a $10 million loan portfolio guaranty for Conservation International Foundation's impact investment fund, Conservation International Ventures"
+        - tranche: grant
+          provider: The Coca-Cola Foundation (Southeast Asia mangrove themed pool)
+          size_usd_m: 1.5
+          source_url: https://technode.global/2024/08/20/conservation-international-ventures-gets-1-5m-grant-from-coca-cola-foundation-to-launch-new-climate-resilience-project/
+          source_quote: "through a $1.5 million grant, the project will create a dedicated investment pool in CI Ventures philanthropy fund"
+        - tranche: equity
+          provider: Conservation International (parent INGO philanthropic balance-sheet capital; planned $30m over a decade)
+          size_usd_m: 30
+          source_url: https://www.conservation.org/projects/conservation-international-ventures-llc
+          source_quote: "CI Ventures plans to execute 100 deals totaling $30 million — with an additional $200 million planned from co-financing and private-sector capital"
+      parallel_ta_facility: null
+      vehicle_legal_form: limited liability company (Conservation International Ventures LLC; state of incorporation not in public record)
+      instruments_offered:
+        - senior_debt
+      structure_notes: >
+        CI Ventures is a programmatic LLC lending vehicle, not a fund-of-LPs.
+        The $30m represents Conservation International's own philanthropic
+        balance-sheet capital deployed over a decade; the $200m "co-financing"
+        figure is portfolio-level mobilization raised by portcos alongside
+        CI Ventures' loans, NOT LP capital stacked above CI's commitment.
+        Third-party fund-level capital is limited to (a) a $10m DFC + USAID
+        loan-portfolio guaranty announced 23 Sep 2022 covering investments
+        in Mexico, Peru, and Colombia, and (b) a $1.5m Coca-Cola Foundation
+        grant (Aug 2024) creating a themed Southeast Asia mangrove-SME pool
+        inside the vehicle. Returns are recycled (evergreen). No parallel
+        TA facility is named in any public source.
+      structure_source_urls:
+        - https://www.conservation.org/projects/conservation-international-ventures-llc
+        - https://www.dfc.gov/media/press-releases/dfc-and-usaid-provide-10-million-loan-portfolio-guaranty-conservation
+        - https://technode.global/2024/08/20/conservation-international-ventures-gets-1-5m-grant-from-coca-cola-foundation-to-launch-new-climate-resilience-project/
+        - https://www.conservationfinancealliance.org/cfapartners/2020/11/12/conservation-international-ventures-llc
+        - https://innpact.com/references/ci-ventures/
     status: deployed
     public_source_url: https://www.conservation.org/projects/conservation-international-ventures-llc
-    last_seen_at: 2026-05-03
+    last_seen_at: 2026-05-06
     notes: >
       CI Ventures plans 100 deals totaling $30m of CI capital with $200m
       planned co-financing/private capital over a decade. First five
@@ -431,9 +723,43 @@ peer_funds:
     investment_period_years: null
     sub_advisor: Triple Jump
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: senior_debt
+          provider: Overseas Private Investment Corporation (OPIC, now DFC)
+          provider_slug: dfc
+          size_usd_m: 90
+          source_url: https://missioninvestors.org/resources/catalytic-capital-action-microbuild-fund
+          source_quote: "$90 million debt from OPIC"
+        - tranche: equity
+          provider: Habitat for Humanity, Triple Jump, MetLife Foundation
+          size_usd_m: 8
+          source_url: https://missioninvestors.org/resources/catalytic-capital-action-microbuild-fund
+          source_quote: "$8 million of additional equity from Habitat for Humanity, Triple Jump, and MetLife"
+        - tranche: first_loss_equity
+          provider: Omidyar Network (program-related investment)
+          size_usd_m: 2
+          source_url: https://missioninvestors.org/resources/catalytic-capital-action-microbuild-fund
+          source_quote: "$2 million Omidyar Network PRI ... provided early equity seed funding and first-loss capital"
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: 10
+        funder: null
+        source_url: https://triplejump.eu/fund/microbuild-fund/
+      vehicle_legal_form: limited liability company (revolving loan fund)
+      instruments_offered:
+        - senior_debt
+      structure_notes: >
+        Highly leveraged 9:1 debt-to-equity. OPIC required Habitat to
+        provide a credit enhancement to offset credit risk OPIC bore as
+        sole debt investor. Now in wind-down; final maturity 2025.
+      structure_source_urls:
+        - https://missioninvestors.org/resources/catalytic-capital-action-microbuild-fund
+        - https://triplejump.eu/fund/microbuild-fund/
+        - https://cases.grunin.law.nyu.edu/wp-content/uploads/2019/12/MBF-Case-Study.pdf
     status: deployed
     public_source_url: https://www.habitat.org/our-work/terwilliger-center-innovation-in-shelter/microbuild
-    last_seen_at: 2026-04-25
+    last_seen_at: 2026-05-06
     notes: >
       Habitat's housing-MFI lending fund, managed day-to-day by Triple
       Jump in Amsterdam. OPIC (predecessor to DFC) was the anchor at
@@ -498,6 +824,30 @@ peer_funds:
     investment_period_years: null
     sub_advisor: Osiris Group
     placement_agent: null
+    blended_finance_structure:
+      capital_stack: []
+      parallel_ta_facility: null
+      vehicle_legal_form: null
+      instruments_offered: []
+      structure_notes: >
+        Joint-venture impact-investment vehicle of BRAC and the Osiris
+        Group, announced August 2018, investing in tech-based start-ups
+        in education, healthcare, the digital economy, and access to
+        goods and services across Bangladesh and other frontier markets.
+        IFC's disclosure portal lists the entity as "BRAC IMPACT VENTURES
+        LIMITED" under project number SII/32909, but the disclosure page
+        renders only template fields without authentication / JS rendering
+        and the IFC commitment size, board date, and capital-stack detail
+        are not harvestable from the public page. The launch press
+        release explicitly states "Specifics such as target size, markets,
+        deal size, have not been disclosed." No LP coalition, anchor LP,
+        tranche breakdown, vehicle jurisdiction, or TA facility is named
+        in any public source reviewed.
+      structure_source_urls:
+        - https://www.brac.net/solutions/investments/brac-osiris-impact-ventures-ltd/
+        - https://disclosures.ifc.org/project-detail/SII/32909/brac-impact-ventures-limited
+        - https://www.findevgateway.org/news/brac-and-osiris-group-launch-impact-fund-bangladesh-and-other-frontier-markets
+        - https://futurestartup.com/2018/08/20/the-osiris-group-and-brac-announce-impact-fund-partnership/
     status: deployed
     public_source_url: https://www.brac.net/solutions/investments/brac-osiris-impact-ventures-ltd/
     last_seen_at: 2026-05-06
@@ -655,6 +1005,41 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: equity
+          provider: Ceniarth LLC (family office)
+          size_usd_m: 1.0
+          source_url: https://ceniarthllc.com/investee/wwb-capital-partners/
+          source_quote: "WWB Fund I is their first fund, making strategic minority equity investments in women-focused inclusive microfinance institutions"
+        - tranche: equity
+          provider: OeEB — Oesterreichische Entwicklungsbank (Austrian DFI)
+          size_usd_m: 4.8
+          source_url: https://www.oe-eb.at/en/our-projects/projects-at-a-glance/womens-world-banking.html
+          source_quote: "In June 2014, OeEB invested USD 4.8 million in Women's World Banking (WWB) Capital Partners, a private equity fund focusing on providing microfinance products for women"
+      parallel_ta_facility: null
+      vehicle_legal_form: Delaware Limited Partnership ("WWB Isis Fund, L.P." per Crunchbase; "WWB Capital Partners" is the manager/franchise brand applied retrospectively after Fund II)
+      instruments_offered:
+        - equity
+      structure_notes: >
+        Structurally a plain-vanilla single-class PE LP — Convergence
+        Finance's own Fund II case study describes Fund I as "a $50
+        million traditional private equity fund," explicitly contrasting
+        it with Fund II's EU + KfW first-loss blended structure. Co-
+        managed by WWB Asset Management and Triodos Investment
+        Management, which sourced an anchor Dutch/Norwegian private
+        pension LP and helped aggregate ~27 LPs (DFIs, MIVs, pensions,
+        family offices, HNWIs). Final raise was $50.6m versus a $50m
+        target. Only two individual LP commitments are publicly
+        attributed and sized — Ceniarth $1m (2013) and OeEB $4.8m (Jun
+        2014); the remaining ~$44.8m of the coalition is not
+        disaggregated in public materials.
+      structure_source_urls:
+        - https://www.crunchbase.com/organization/wwb-isis-fund
+        - https://ceniarthllc.com/investee/wwb-capital-partners/
+        - https://www.oe-eb.at/en/our-projects/projects-at-a-glance/womens-world-banking.html
+        - https://www.convergence.finance/resource/women's-world-banking-capital-partners-ii-(wwbcpii)-case-study/view
+        - https://www.womensworldbanking.org/gender-lens-investing/
     status: deployed
     public_source_url: https://www.womensworldbanking.org/gender-lens-investing/
     last_seen_at: 2026-05-06
@@ -692,9 +1077,37 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: equity
+          provider: Senior LPs — US DFC, European Investment Bank, Japan International Cooperation Agency (JICA), Soros Economic Development Fund, Sasakawa Peace Foundation, MEDA, Dreilinden, Ceniarth, USAID, family offices, HNW individuals
+          size_usd_m: null
+          source_url: https://www.womensworldbanking.org/insights/womens-world-banking-asset-management-closes-second-fund-for-financial-inclusion-at-103m/
+          source_quote: "United States Development Finance Corporation, European Investment Bank, Japan International Cooperation Agency, ... Soros Economic Development Fund, Sasakawa Peace Foundation, MEDA, Dreilinden, Ceniarth, USAID"
+        - tranche: first_loss_equity
+          provider: European Union + German BMZ (via KfW)
+          provider_slug: european-union
+          size_usd_m: null
+          source_url: https://www.womensworldbanking.org/insights/womens-world-banking-asset-management-closes-second-fund-for-financial-inclusion-at-103m/
+          source_quote: "European Union and German Federal Ministry for Economic Cooperation and Development (BMZ), facilitated by KfW, provided critical funding for both the first loss tranche"
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: null
+        funder: null
+        source_url: https://www.womensworldbanking.org/insights/womens-world-banking-asset-management-closes-second-fund-for-financial-inclusion-at-103m/
+      vehicle_legal_form: Limited Partnership ("WWB Capital Partners II, L.P.")
+      instruments_offered:
+        - equity
+      structure_notes: >
+        Blended-finance structure with EU + KfW first-loss tranche +
+        senior equity tranche held by DFI / institutional / family-office
+        LPs. Per-LP tranche allocations beyond first-loss not separately
+        disclosed. Dedicated grant-funded TA facility runs alongside.
+      structure_source_urls:
+        - https://www.womensworldbanking.org/insights/womens-world-banking-asset-management-closes-second-fund-for-financial-inclusion-at-103m/
     status: deployed
     public_source_url: https://www.womensworldbanking.org/insights/womens-world-banking-asset-management-closes-second-fund-for-financial-inclusion-at-103m/
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-06
     notes: >
       First close $75m March 2020; final close March 2022 at $103m
       (Soros Economic Development Fund among LPs). Anchored by EU and
@@ -722,9 +1135,39 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: equity
+          provider: Accion International (US 501(c)(3) parent — own balance-sheet capital)
+          size_usd_m: 10
+          source_url: https://www.accion.org/news/accion-venture-lab-launches-new-fund-quadruples-capital-for-inclusive-fintech-startups/
+          source_quote: "Launched in 2012 with $10 million in capital, Accion Venture Lab has emerged as a leader"
+      parallel_ta_facility: null
+      vehicle_legal_form: Evergreen investment program on Accion International's (US 501(c)(3) nonprofit) balance sheet; not a discrete LP fund vehicle. Successor capital was raised into separate closed-end vehicles (a 2019 $23M coinvestment fund and Accion Venture Lab Fund II, LP, 2025).
+      instruments_offered:
+        - equity
+      structure_notes: >
+        The original Accion Venture Lab (2012 vintage) is an evergreen
+        seed-equity program funded from Accion's own nonprofit balance
+        sheet — $10M of internal capital, no third-party LPs. In 2019
+        Accion explicitly described that round as the first time Venture
+        Lab had leveraged outside investor capital, and raised a $23M
+        coinvestment vehicle alongside it (FMO, Ford Foundation,
+        ImpactAssets/Blue Haven, Heifer Foundation, MetLife Foundation,
+        Open Society Foundations, Pace Able, Proparco, Prudential
+        Financial, Stichting Hivos-Triodos Fund, Visa) plus an additional
+        $10M from Accion. The 2025 $61.6M Accion Venture Lab Fund II, LP
+        is the next successor vehicle (tracked under
+        accion-venture-lab-fund-ii). Portfolio support is provided
+        in-kind via Accion's "Portfolio Engagement" team rather than a
+        discrete parallel TA facility named in the public record.
+      structure_source_urls:
+        - https://www.accion.org/news/accion-venture-lab-launches-new-fund-quadruples-capital-for-inclusive-fintech-startups/
+        - https://www.accion.org/news/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech/
+        - https://www.accion.org/how-we-work/investment-strategies/accion-impact-management/accion-ventures/
     status: deployed
     public_source_url: https://www.accion.org/how-we-work/invest/venture-lab
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-06
     notes: >
       Accion's seed-stage fintech venture arm. Distinct from Quona,
       which spun out to independence in 2015. AUM not consistently
@@ -752,9 +1195,72 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: equity
+          provider: FMO (Dutch entrepreneurial development bank)
+          provider_slug: fmo
+          size_usd_m: 8.25
+          source_url: https://www.fmo.nl/project-detail/61985
+          source_quote: "The intended limited partnership commitment to AVL II is in line with FMO's objective to promote financial inclusion in global emerging markets and strategy of the FMO Ventures Program to invest in early stage fintech start-ups and VC fintech funds."
+        - tranche: equity
+          provider: Proparco (AFD Group)
+          provider_slug: proparco
+          size_usd_m: 5.0
+          source_url: https://www.proparco.fr/en/news/proparco-invests-accion-venture-lab-fund-ii-support-financial-inclusion-africa-asia-and-latin
+          source_quote: "Proparco's $5 million investment in the Accion Venture Lab Fund II will make financing more accessible to disadvantaged populations."
+        - tranche: equity
+          provider: Ford Foundation
+          size_usd_m: null
+          source_url: https://www.prnewswire.com/news-releases/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech-302548169.html
+          source_quote: "Limited partners include Dutch development bank FMO, Proparco, ImpactAssets, the Ford Foundation, MetLife and Mastercard."
+        - tranche: equity
+          provider: MetLife
+          size_usd_m: null
+          source_url: https://www.prnewswire.com/news-releases/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech-302548169.html
+          source_quote: "Limited partners include Dutch development bank FMO, Proparco, ImpactAssets, the Ford Foundation, MetLife and Mastercard."
+        - tranche: equity
+          provider: Mastercard
+          size_usd_m: null
+          source_url: https://www.prnewswire.com/news-releases/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech-302548169.html
+          source_quote: "Limited partners include Dutch development bank FMO, Proparco, ImpactAssets, the Ford Foundation, MetLife and Mastercard."
+        - tranche: equity
+          provider: ImpactAssets
+          size_usd_m: null
+          source_url: https://www.prnewswire.com/news-releases/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech-302548169.html
+          source_quote: "Limited partners include Dutch development bank FMO, Proparco, ImpactAssets, the Ford Foundation, MetLife and Mastercard."
+      parallel_ta_facility: null
+      vehicle_legal_form: Limited Partnership ("LP" suffix in legal name "Accion Venture Lab Fund II, LP"); jurisdiction not explicitly disclosed in public sources (US Delaware LP is the standard form for an Accion-sponsored US fund vehicle).
+      instruments_offered:
+        - equity
+        - quasi_equity
+      structure_notes: >
+        $61.6M closed-end successor to the original evergreen Accion
+        Venture Lab program, final close 2025-09-08. Single-class LP
+        equity vehicle — no first-loss, junior, mezzanine, or guarantee
+        tranches disclosed across the Accion press release, the FMO
+        project page (project 61985), or the Proparco announcement. Two
+        LP commitment sizes are public: FMO USD 8.25m and Proparco
+        USD 5m. Other named LPs (Ford Foundation, MetLife, Mastercard,
+        ImpactAssets) have not disclosed individual commitment sizes;
+        the Accion release also references "commercial and impact asset
+        managers, development finance institutions, foundations, family
+        offices, and strategic financial service companies" as broader
+        LP categories, implying additional unnamed LPs beyond the six
+        named ones. Disclosed sized commitments ($13.25m) cover ~21% of
+        the $61.6m headline. Downstream is equity / quasi-equity into
+        early-stage inclusive fintech in Africa, Asia, and Latin America;
+        target portfolio ~30 companies, initial deployments include
+        PaidHR, Foyer, FinFra, and Flowcart. No parallel TA facility
+        named in the public record.
+      structure_source_urls:
+        - https://www.prnewswire.com/news-releases/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech-302548169.html
+        - https://www.accion.org/news/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech/
+        - https://www.fmo.nl/project-detail/61985
+        - https://www.proparco.fr/en/news/proparco-invests-accion-venture-lab-fund-ii-support-financial-inclusion-africa-asia-and-latin
     status: deployed
     public_source_url: https://www.prnewswire.com/news-releases/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech-302548169.html
-    last_seen_at: 2026-04-29
+    last_seen_at: 2026-05-06
     validation_status: unverified
     notes: >
       $61.6M second Accion Venture Lab fund, final close September 8,
@@ -788,9 +1294,72 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: equity
+          provider: IFC (International Finance Corporation)
+          provider_slug: ifc
+          size_usd_m: 25.0
+          source_url: https://disclosures.ifc.org/project-detail/SII/48456/adtx-equity
+          source_quote: "$25.00 million"
+        - tranche: equity
+          provider: FMO (Dutch entrepreneurial development bank)
+          provider_slug: fmo
+          size_usd_m: 21.5
+          source_url: https://www.fmo.nl/project-detail/60708
+          source_quote: "USD 21.50 MLN"
+        - tranche: equity
+          provider: Swedfund (Sweden)
+          provider_slug: swedfund
+          size_usd_m: 15.0
+          source_url: https://www.swedfund.se/sv/om-swedfund/nyheter/svensk-investering-stoedjer-finansiell-inkludering-genom-accion-digital-transformation-fund
+          source_quote: "en investering på upp till 15 MUSD i Accion Digital Transformation Fund"
+        - tranche: equity
+          provider: IDB Invest (incl. administered funds)
+          provider_slug: idb-invest
+          size_usd_m: 10.0
+          source_url: https://idbinvest.org/en/projects/accion-digital-transformation-fund
+          source_quote: "IDB Invest is considering an equity investment up to US$10 million (including resources from IDB Invest's administered funds) in the Accion Digital Transformation Fund"
+      parallel_ta_facility: null
+      vehicle_legal_form: Delaware limited partnership ("Accion Digital Transformation Fund L.P." per IFC project 48456 disclosure); managed by Accion Impact Management LLC, an SEC-registered investment advisor 100% owned by Accion International (US 501(c)(3)).
+      instruments_offered:
+        - equity
+        - quasi_equity
+      structure_notes: >
+        $152.5m single-vehicle Delaware LP, announced and first close
+        2024-05-15. Capital stack is uniformly LP equity from a DFI-heavy
+        roster (BII, FMO, IFC, IDB Invest, OeEB, Swedfund) plus
+        corporate LP Mastercard — no junior/senior tranching, no
+        first-loss layer, no concessional sleeve disclosed in any DFI
+        project page or the Accion launch release. Four sized DFI
+        commitments are in the public record: IFC $25m, FMO $21.5m,
+        Swedfund up to $15m, IDB Invest up to $10m (= $71.5m, ~47% of
+        the $152.5m headline). Three additional LPs are named without
+        disclosed sizes: BII has a dedicated "Investment 01" page for
+        ADTx confirming participation but the page returned HTTP 403 to
+        automated fetch; OeEB does not maintain per-project public
+        disclosure; and Mastercard is a corporate strategic LP with no
+        per-LP commitment disclosure. The FMO commitment instrument
+        label (equity vs. mezzanine vs. senior) is not specified on the
+        FMO project portal, but the Accion launch release describes the
+        vehicle as "equity and quasi-equity," which is the basis for
+        classifying FMO as equity here. No parallel TA facility is named
+        in the public record; Accion describes "hands-on strategic
+        support" delivered alongside capital but not as a separately
+        funded TA vehicle. Downstream tickets are quoted as ~$12-15m
+        equity per portfolio company across ~10-12 incumbent FI
+        investees (initial deployments: Annapurna Finance and IKF
+        Finance, both India).
+      structure_source_urls:
+        - https://www.accion.org/news/accion-launches-152-5m-fund-investing-in-digital-transformation-of-financial-institutions-serving-small-businesses-globally/
+        - https://disclosures.ifc.org/project-detail/SII/48456/adtx-equity
+        - https://www.fmo.nl/project-detail/60708
+        - https://idbinvest.org/en/projects/accion-digital-transformation-fund
+        - https://www.swedfund.se/sv/om-swedfund/nyheter/svensk-investering-stoedjer-finansiell-inkludering-genom-accion-digital-transformation-fund
+        - https://www.bii.co.uk/en/our-impact/fund/accion-digital-transformation-fund-investment-01/
     status: deployed
     public_source_url: https://www.accion.org/news/accion-launches-152-5m-fund-investing-in-digital-transformation-of-financial-institutions-serving-small-businesses-globally/
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-06
     notes: >
       Launched 2024-05-15 at $152.5m. Named LPs: BII, FMO, IDB Invest,
       IFC, Mastercard, OeEB, Swedfund. Initial deployments: Annapurna
@@ -944,9 +1513,23 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack: []
+      parallel_ta_facility: null
+      vehicle_legal_form: outcomes fund (development-stage)
+      instruments_offered:
+        - outcomes_payments
+      structure_notes: >
+        Pay-for-success outcomes fund still under co-development. Named
+        outcome funders / partners: FCDO, USAID, ADB, World Bank,
+        Bridges Outcomes Partnerships, UBS Optimus Foundation. Per-LP
+        commitment sizes not yet disclosed in public record. The $100m
+        in the name is the announced target, not closed capitalization.
+      structure_source_urls:
+        - https://www.britishasiantrust.org/our-work/social-finance/100m-outcomes-fund/
     status: raising
-    public_source_url: null
-    last_seen_at: 2026-04-25
+    public_source_url: https://www.britishasiantrust.org/our-work/social-finance/100m-outcomes-fund/
+    last_seen_at: 2026-05-06
     validation_status: unverified
     # validation_status: unverified — exact close date and current
     # capitalization not stated in public materials; British Asian
@@ -1139,6 +1722,41 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: senior_debt
+          provider: Green Climate Fund (anchor) + IFC, Shinhan Bank, British International Investment, Nordic Development Fund (named investor coalition; per-LP allocations not disclosed)
+          provider_slug: green-climate-fund
+          size_usd_m: null
+          source_url: https://acumen.org/news/acumens-hardest-to-reach-initiative-reaches-target-raise-of-250-million-as-amplify-completes-final-close/
+          source_quote: "Amplify's investors include the Green Climate Fund, International Finance Corporation, Shinhan Bank, British International Investment, Soros Economic Development Fund, Nordic Development Fund, Signify Foundation, and ImpactAssets"
+        - tranche: junior_debt
+          provider: Soros Economic Development Fund ($15m per SEDF investments page)
+          size_usd_m: 15
+          source_url: https://acumen.org/news/acumens-hardest-to-reach-initiative-reaches-target-raise-of-250-million-as-amplify-completes-final-close/
+        - tranche: junior_debt
+          provider: Swiss Agency for Development and Cooperation (SDC)
+          size_usd_m: 8
+          source_url: https://acumen.org/news/acumens-hardest-to-reach-initiative-reaches-target-raise-of-250-million-as-amplify-completes-final-close/
+          source_quote: "The Swiss Agency for Development and Cooperation contributed nearly $8 million"
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: 18
+        funder: H2R grant component (impact-based rewards to borrowers)
+        source_url: https://acumen.org/news/acumens-hardest-to-reach-initiative-reaches-target-raise-of-250-million-as-amplify-completes-final-close/
+      vehicle_legal_form: closed-end debt fund
+      instruments_offered:
+        - senior_debt
+      structure_notes: >
+        H2R Initiative ($250M total): $180M Amplify debt + $52M Catalyze
+        patient-capital facility + $18M grant for impact-based rewards
+        to borrowers. Catalyze (separate from Amplify) is a parallel
+        market-building facility supported by GCF, Norad, GEAPP, Osprey
+        Foundation, UK FCDO via TEA, Cazenove Capital, Good Energies
+        Foundation. 17 sub-Saharan African countries; ~70M beneficiary
+        target.
+      structure_source_urls:
+        - https://acumen.org/news/acumens-hardest-to-reach-initiative-reaches-target-raise-of-250-million-as-amplify-completes-final-close/
     status: deployed
     public_source_url: https://acumen.org/news/acumens-hardest-to-reach-initiative-reaches-target-raise-of-250-million-as-amplify-completes-final-close/
     last_seen_at: 2026-05-06
@@ -1498,9 +2116,43 @@ peer_funds:
     investment_period_years: null
     sub_advisor: Innpact (structuring)
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: guarantee
+          provider: USAID (second-loss guarantee, up to $250m)
+          size_usd_m: 250
+          source_url: https://www.idhsustainabletrade.com/farmfit-fund/
+          source_quote: "USAID (up to USD 250 million) which provides a significant element of reassurance for investors"
+        - tranche: first_loss_equity
+          provider: IDH Farmfit Fund (Dutch Ministry of Foreign Affairs anchor + corporate LPs Mondelez, Jacobs Douwe Egberts, Unilever; Rabobank in coalition)
+          size_usd_m: 110
+          source_url: https://www.idhsustainabletrade.com/farmfit-fund/
+          source_quote: "The EUR 100 million IDH Farmfit Fund takes the highest risk positions in an investment"
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: null
+        funder: IDH Farmfit Business Support (separately funded)
+        source_url: https://www.idhsustainabletrade.com/farmfit-fund/
+      vehicle_legal_form: blended-finance fund (Innpact-structured)
+      instruments_offered:
+        - guarantee
+        - junior_debt
+        - mezzanine
+        - equity
+      structure_notes: >
+        Two-layer blended structure. Bottom: EUR 100M (~$110M) IDH
+        Farmfit Fund taking highest-risk positions, anchored by Dutch
+        Ministry plus corporate LPs. Top: USAID up to $250M second-loss
+        guarantee that crowds in commercial co-investors per deal. Two
+        parallel programmes — IDH Farmfit Business Support (TA on
+        sustainable business models) and IDH Farmfit Intelligence (data).
+        Downstream the fund deploys "guarantees, subordinated loans,
+        equity or mezzanine financing".
+      structure_source_urls:
+        - https://www.idhsustainabletrade.com/farmfit-fund/
     status: deployed
     public_source_url: https://www.idhsustainabletrade.com/farmfit-fund/
-    last_seen_at: 2026-04-28
+    last_seen_at: 2026-05-06
     notes: >
       First close November 2019, EUR 100m blended fund for smallholder
       farmer finance with USAID second-loss guarantee up to $250m.
@@ -1514,7 +2166,7 @@ peer_funds:
     parent_ingo: IDH (Stichting IDH Sustainable Trade Initiative)
     parent_ingo_country: NL
     vintage: 2017
-    size_usd_m: null
+    size_usd_m: 400
     sector_tags: [agri, climate]
     geo_tags: [global, latam, asia, africa]
     vehicle_type: blended
@@ -1529,9 +2181,63 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: first_loss_equity
+          provider: NICFI / Norwegian government (anchor sponsor)
+          provider_slug: nicfi-norway
+          size_usd_m: 100
+          source_url: https://www.andgreen.fund/about-us/
+          source_quote: "nearly USD 100 million ... anchor Sponsor"
+        - tranche: junior_debt
+          provider: Green Climate Fund
+          provider_slug: green-climate-fund
+          size_usd_m: 180
+          source_url: https://www.andgreen.fund/about-us/
+          source_quote: "USD 180 million investment and a USD 8.6 million grant contribution"
+        - tranche: senior_debt
+          provider: FMO
+          provider_slug: fmo
+          size_usd_m: 25
+          source_url: https://www.andgreen.fund/about-us/
+          source_quote: "USD 25 million"
+        - tranche: senior_debt
+          provider: UK Mobilising Finance for Forests (via FMO partnership)
+          size_usd_m: 33
+          source_url: https://www.andgreen.fund/about-us/
+          source_quote: "USD 33.25 million via FMO partnership with the UK Government's Mobilising Finance for Forests"
+        - tranche: senior_debt
+          provider: CAFI (Central African Forest Initiative)
+          size_usd_m: 51
+          source_url: https://www.andgreen.fund/about-us/
+          source_quote: "USD 51 million Financing Agreement"
+        - tranche: equity
+          provider: Unilever (corporate)
+          size_usd_m: 10
+          source_url: https://www.andgreen.fund/about-us/
+          source_quote: "USD 25 million ... only made USD 10 million available"
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: 8.6
+        funder: Green Climate Fund (grant contribution)
+        source_url: https://www.andgreen.fund/about-us/
+      vehicle_legal_form: Foundation (Stichting), Netherlands
+      instruments_offered:
+        - senior_debt
+        - junior_debt
+        - mezzanine
+        - equity
+      structure_notes: >
+        Established 2017. Total capital committed ~$400M+ across grants,
+        redeemable grants, and loans. Per-tranche LP allocations partly
+        inferred from sequential disclosures on the fund's About page —
+        not explicitly tagged senior vs junior in the public record.
+        SAIL Ventures is the manager; IDH and NICFI co-founded.
+      structure_source_urls:
+        - https://www.andgreen.fund/about-us/
     status: deployed
     public_source_url: https://www.andgreen.fund/about-us/
-    last_seen_at: 2026-04-28
+    last_seen_at: 2026-05-06
     notes: >
       Set up in 2017 by IDH and Norway's NICFI. Blended-finance debt fund
       providing $5m-$30m tickets in tropical-forest-protecting agriculture
@@ -2112,9 +2818,39 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: equity
+          provider: Green Climate Fund (GCF FP005)
+          provider_slug: green-climate-fund
+          size_usd_m: 20
+          source_url: https://www.greenclimate.fund/project/fp005
+          source_quote: "Equity USD 20,000,000"
+        - tranche: equity
+          provider: Co-financing equity (Acumen, Norfund, Finnfund and other LPs per GCF disclosure)
+          size_usd_m: 80
+          source_url: https://www.greenclimate.fund/project/fp005
+          source_quote: "Equity USD 75,000,000 ... Equity USD 5,000,000"
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: 5
+        funder: Green Climate Fund (grant component)
+        source_url: https://www.greenclimate.fund/project/fp005
+      vehicle_legal_form: null
+      instruments_offered:
+        - equity
+      structure_notes: >
+        GCF approved $25M total at B.11 (2015-11-05): $20M equity into
+        the fund + $5M grant to a separate Technical Assistance Facility.
+        Co-financing total $85M reported as $75M equity + $5M grant +
+        $5M equity. Specific co-financing LP allocations not disclosed
+        at the GCF level beyond total tranches. Implementing entity:
+        Acumen Fund, Inc.
+      structure_source_urls:
+        - https://www.greenclimate.fund/project/fp005
     status: deployed
     public_source_url: https://www.greenclimate.fund/project/fp005
-    last_seen_at: 2026-04-25
+    last_seen_at: 2026-05-06
     notes: >
       East-Africa off-grid solar fund. GCF FP005 approved 2015-11-05
       ($25m total: $20m equity + $5m grant) at B.11; one of GCF's first
@@ -2143,9 +2879,41 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: equity
+          provider: Green Climate Fund (GCF FP078)
+          provider_slug: green-climate-fund
+          size_usd_m: 23
+          source_url: https://www.greenclimate.fund/project/fp078
+          source_quote: "Equity USD 23,000,000"
+        - tranche: equity
+          provider: Co-financing equity (FMO, Soros Economic Development Fund, Proparco, CIFF, IKEA Foundation, Global Social Impact)
+          size_usd_m: 27
+          source_url: https://www.greenclimate.fund/project/fp078
+          source_quote: "Equity USD 25,000,000 ... Equity USD 2,000,000"
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: 6
+        funder: Green Climate Fund + co-financing grant
+        source_url: https://www.greenclimate.fund/project/fp078
+      vehicle_legal_form: null
+      instruments_offered:
+        - equity
+      structure_notes: >
+        GCF approved $26M total at B.19 (2018-03-01): $23M equity +
+        $3M grant. Co-financing $30M total: $25M equity + $3M grant +
+        $2M equity. Final close 2021-06-30 at $58M vs $50M target.
+        Named LPs disclosed in Acumen materials: GCF, FMO, Soros
+        Economic Development Fund, Proparco, Children's Investment
+        Fund Foundation, IKEA Foundation, Global Social Impact.
+        Sequel ARAF II (FP252) approved subsequently.
+      structure_source_urls:
+        - https://www.greenclimate.fund/project/fp078
+        - https://acumen.org/news/acumen-resilient-agriculture-fund/
     status: deployed
     public_source_url: https://acumen.org/news/acumen-resilient-agriculture-fund/
-    last_seen_at: 2026-04-25
+    last_seen_at: 2026-05-06
     notes: >
       GCF FP078 approved 2018-03-01 at B.19 ($26m total: $23m equity +
       $3m grant). Final close 2021-06-30 at $58m (vs $50m target).

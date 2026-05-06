@@ -828,6 +828,162 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
 .verified { color: var(--green); font-weight: 500; }
 .sep { color: var(--rule); user-select: none; }
 
+/* Blended-finance structure block — capital stack visualisation. The
+ * stack is rendered top-to-bottom (least risky → most risky) which
+ * matches whiteboard convention. Tranches carry a left border whose
+ * colour reflects risk position. */
+.bf-block {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: var(--bg-1);
+  border-left: 2px solid var(--violet);
+  border-radius: 2px;
+}
+.bf-head {
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--violet);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.bf-stack {
+  list-style: none;
+  margin: 0 0 8px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.bf-tranche {
+  display: grid;
+  grid-template-columns: 130px 80px 1fr;
+  column-gap: 12px;
+  padding: 6px 8px;
+  background: var(--bg-2);
+  border-left: 3px solid var(--rule);
+  font-size: 12px;
+  align-items: baseline;
+}
+.bf-tranche-senior_debt    { border-left-color: var(--green); }
+.bf-tranche-junior_debt    { border-left-color: var(--cyan); }
+.bf-tranche-mezzanine      { border-left-color: var(--cyan-dim); }
+.bf-tranche-equity         { border-left-color: var(--amber); }
+.bf-tranche-first_loss_equity { border-left-color: var(--red); }
+.bf-tranche-guarantee      { border-left-color: var(--magenta); }
+.bf-tranche-grant          { border-left-color: var(--violet); }
+
+.bf-tranche-label {
+  font-weight: 600;
+  color: var(--fg);
+  font-size: 11px;
+  letter-spacing: 0.01em;
+}
+.bf-tranche-size {
+  color: var(--amber);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.bf-tranche-prov { color: var(--fg-2); }
+.bf-tranche-quote {
+  grid-column: 3 / -1;
+  font-size: 11px;
+  color: var(--fg-3);
+  font-style: italic;
+  margin-top: 2px;
+  line-height: 1.5;
+}
+
+.bf-sides {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+.bf-side {
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.bf-side-label {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+  font-weight: 600;
+}
+.bf-side-val { color: var(--fg-2); }
+.bf-instr {
+  display: inline-block;
+  padding: 1px 6px;
+  margin-right: 4px;
+  background: var(--bg-3);
+  color: var(--fg-2);
+  font-size: 10.5px;
+  border-radius: 2px;
+  letter-spacing: 0.01em;
+}
+
+.bf-notes {
+  margin: 6px 0 4px;
+  font-size: 11.5px;
+  color: var(--fg-2);
+  line-height: 1.55;
+}
+.bf-srcs {
+  font-size: 10.5px;
+  margin-top: 6px;
+  letter-spacing: 0;
+}
+.bf-src {
+  color: var(--cyan-dim);
+  margin-right: 8px;
+  white-space: nowrap;
+}
+.bf-src:hover { color: var(--cyan); }
+
+/* Fund economics block — collapsed by default, only renders when ≥1
+ * field disclosed. The summary row is intentionally low-key. */
+.fund-econ {
+  margin: 8px 0;
+  font-size: 11.5px;
+  color: var(--fg-2);
+}
+.fund-econ summary {
+  cursor: pointer;
+  color: var(--fg-3);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 4px 0;
+}
+.fund-econ summary:hover { color: var(--fg-2); }
+.fund-econ-body {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 6px 0 4px;
+}
+.econ {
+  font-variant-numeric: tabular-nums;
+  color: var(--fg-2);
+}
+.econ-label {
+  color: var(--fg-3);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-right: 4px;
+  font-weight: 600;
+}
+.fund-econ-foot {
+  font-size: 10.5px;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
 /* ---------------- DFI cards ---------------- */
 
 .dfi-name {

@@ -218,6 +218,12 @@
     }
     if (rels.length) parts.push('<div class="fund-rels">' + rels.join('<span class="sep">·</span>') + '</div>');
 
+    var bf = renderBlendedFinanceBlock(f.blended_finance_structure);
+    if (bf) parts.push(bf);
+
+    var econ = renderFundEconomicsBlock(f);
+    if (econ) parts.push(econ);
+
     if (f.notes) {
       var notes = String(f.notes).trim().replace(/\s+/g, " ");
       parts.push('<p class="fund-notes">' + esc(notes) + '</p>');
@@ -231,6 +237,139 @@
     var clickCls = f.public_source_url ? " card-clickable" : "";
     var dataAttr = f.public_source_url ? ' data-source-url="' + escAttr(f.public_source_url) + '"' : "";
     return '<article class="card fund-card' + clickCls + '" id="fund-card-' + escAttr(f.slug) + '"' + dataAttr + '>' + parts.join("") + '</article>';
+  }
+
+  // ---- Blended-finance structure block ------------------------------------
+  //
+  // Renders the per-fund capital stack, parallel TA facility, vehicle legal
+  // form, and instruments-offered. Renders nothing when no field is present.
+  //
+  // Capital stack is shown as a vertical stack (top = least risky, paid
+  // first; bottom = most risky, paid last) which mirrors how blended-finance
+  // teams actually describe these structures on whiteboards.
+  var TRANCHE_LABELS = {
+    senior_debt: "Senior debt",
+    junior_debt: "Junior debt",
+    mezzanine: "Mezzanine",
+    equity: "Equity",
+    first_loss_equity: "First-loss equity",
+    guarantee: "Guarantee",
+    grant: "Grant (in stack)",
+  };
+
+  function renderBlendedFinanceBlock(b) {
+    if (!b) return "";
+    var stack = b.capital_stack || [];
+    var hasStack = stack.length > 0;
+    var ta = b.parallel_ta_facility || null;
+    var taExists = ta && ta.exists === true;
+    var hasVehicle = !!b.vehicle_legal_form;
+    var hasInstr = (b.instruments_offered || []).length > 0;
+    var hasNotes = !!b.structure_notes;
+    if (!hasStack && !taExists && !hasVehicle && !hasInstr && !hasNotes) return "";
+
+    var parts = ['<div class="bf-block"><div class="bf-head">Blended-finance structure</div>'];
+
+    if (hasStack) {
+      var rows = stack.map(function (t) {
+        var label = TRANCHE_LABELS[t.tranche] || String(t.tranche).replace(/_/g, " ");
+        var size = t.size_usd_m != null ? fmtUSDm(t.size_usd_m) : "size n/d";
+        var prov = t.provider ? esc(t.provider) : '<span class="muted">provider not disclosed</span>';
+        var src = t.source_url ? ' ' + sourceLink(t.source_url, "src") : "";
+        var quote = t.source_quote
+          ? '<div class="bf-tranche-quote muted">&ldquo;' + esc(t.source_quote) + '&rdquo;</div>'
+          : "";
+        return '<li class="bf-tranche bf-tranche-' + esc(t.tranche) + '">' +
+          '<span class="bf-tranche-label">' + esc(label) + '</span>' +
+          '<span class="bf-tranche-size">' + esc(size) + '</span>' +
+          '<span class="bf-tranche-prov">' + prov + src + '</span>' +
+          quote +
+          '</li>';
+      }).join("");
+      parts.push('<ul class="bf-stack">' + rows + '</ul>');
+    }
+
+    var sideBits = [];
+    if (taExists) {
+      var taSize = ta.size_usd_m != null ? fmtUSDm(ta.size_usd_m) : "size n/d";
+      var taFunder = ta.funder ? esc(ta.funder) : '<span class="muted">funder n/d</span>';
+      var taSrc = ta.source_url ? ' ' + sourceLink(ta.source_url, "src") : "";
+      sideBits.push(
+        '<div class="bf-side bf-ta">' +
+          '<span class="bf-side-label">Parallel TA facility</span>' +
+          '<span class="bf-side-val">' + esc(taSize) + ' · ' + taFunder + taSrc + '</span>' +
+          '</div>'
+      );
+    }
+    if (hasVehicle) {
+      sideBits.push(
+        '<div class="bf-side bf-vehicle">' +
+          '<span class="bf-side-label">Vehicle legal form</span>' +
+          '<span class="bf-side-val">' + esc(b.vehicle_legal_form) + '</span>' +
+          '</div>'
+      );
+    }
+    if (hasInstr) {
+      var chips = b.instruments_offered.map(function (i) {
+        return '<span class="bf-instr">' + esc(String(i).replace(/_/g, " ")) + '</span>';
+      }).join("");
+      sideBits.push(
+        '<div class="bf-side bf-instruments">' +
+          '<span class="bf-side-label">Instruments deployed</span>' +
+          '<span class="bf-side-val">' + chips + '</span>' +
+          '</div>'
+      );
+    }
+    if (sideBits.length) parts.push('<div class="bf-sides">' + sideBits.join("") + '</div>');
+
+    if (hasNotes) {
+      var n = String(b.structure_notes).trim().replace(/\s+/g, " ");
+      parts.push('<p class="bf-notes">' + esc(n) + '</p>');
+    }
+
+    var srcs = b.structure_source_urls || [];
+    if (srcs.length) {
+      var srcLinks = srcs.map(function (u, i) {
+        var host = "";
+        try { host = new URL(u).host.replace(/^www\./, ""); } catch (e) { host = u; }
+        return '<a class="bf-src" href="' + escAttr(u) + '" target="_blank" rel="noopener noreferrer">[' + (i + 1) + '] ' + esc(host) + '</a>';
+      }).join(" ");
+      parts.push('<div class="bf-srcs muted">Structure sources: ' + srcLinks + '</div>');
+    }
+
+    parts.push('</div>');
+    return parts.join("");
+  }
+
+  // ---- Fund economics block (collapsed; only renders if any field set) ----
+  //
+  // Per the 4-fund pilot, mgmt-fee / carry / hurdle / GP-commit / inv-period
+  // disclosure rate for INGO-sponsored funds is effectively 0% in free
+  // public sources — so by default this block hides. When at least one
+  // field is filled (typically only for SEC-RIA-managed funds via Form ADV),
+  // it surfaces with a one-line note about why these are usually private.
+  function renderFundEconomicsBlock(f) {
+    var bits = [];
+    if (f.mgmt_fee_bps != null) {
+      bits.push('<span class="econ"><span class="econ-label">Mgmt fee</span> ' + (f.mgmt_fee_bps / 100).toFixed(2) + '%</span>');
+    }
+    if (f.carry_pct != null) {
+      bits.push('<span class="econ"><span class="econ-label">Carry</span> ' + esc(f.carry_pct) + '%</span>');
+    }
+    if (f.hurdle_pct != null) {
+      bits.push('<span class="econ"><span class="econ-label">Hurdle</span> ' + esc(f.hurdle_pct) + '%</span>');
+    }
+    if (f.gp_commit_pct != null) {
+      bits.push('<span class="econ"><span class="econ-label">GP commit</span> ' + esc(f.gp_commit_pct) + '%</span>');
+    }
+    if (f.investment_period_years != null) {
+      bits.push('<span class="econ"><span class="econ-label">Inv. period</span> ' + esc(f.investment_period_years) + 'y</span>');
+    }
+    if (!bits.length) return "";
+    return '<details class="fund-econ"><summary>Fund economics (' + bits.length + ' field' + (bits.length === 1 ? '' : 's') + ' disclosed)</summary>' +
+      '<div class="fund-econ-body">' + bits.join("") + '</div>' +
+      '<p class="fund-econ-foot muted">Mgmt-fee, carry, hurdle, GP-commit and investment-period terms are typically only public for SEC-registered managers (via Form ADV Part 2A). Most INGO-sponsored funds do not disclose these.</p>' +
+      '</details>';
   }
 
   function renderDfiCard(d, meta) {
