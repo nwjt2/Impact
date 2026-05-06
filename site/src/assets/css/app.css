@@ -1840,6 +1840,13 @@ a.commit-fund:hover { color: var(--amber); }
 .match-990 a:hover {
   color: var(--amber);
 }
+.match-990-numbers {
+  color: var(--fg-2);
+}
+.match-990-source {
+  margin-top: 1px;
+  opacity: 0.85;
+}
 .match-990-src {
   color: var(--fg-4, var(--fg-3));
   opacity: 0.7;
