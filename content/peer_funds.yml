@@ -500,7 +500,7 @@ peer_funds:
     placement_agent: null
     status: deployed
     public_source_url: https://www.brac.net/solutions/investments/brac-osiris-impact-ventures-ltd/
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-06
     notes: >
       Joint venture impact-investment vehicle BRAC + Osiris Group,
       founded 2018. Tech-based startups in education, health, and
@@ -531,7 +531,7 @@ peer_funds:
     placement_agent: null
     status: deployed
     public_source_url: https://rootcapital.org/news/
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-06
     notes: >
       Root Capital is itself a 501(c)(3) lender (not a GP-LP fund).
       Included because most INGO fund teams cite it as proof of concept.
@@ -624,7 +624,7 @@ peer_funds:
     placement_agent: null
     status: wound_down
     public_source_url: https://www.pactworld.org/our-expertise/livelihoods/pact-global-microfinance-fund
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-06
     notes: >
       Pact began Myanmar microfinance 1997 with UNDP support; PGMF
       established 2012 after Myanmar's Microfinance Law passed (2011).
@@ -657,7 +657,12 @@ peer_funds:
     placement_agent: null
     status: deployed
     public_source_url: https://www.womensworldbanking.org/gender-lens-investing/
-    last_seen_at: 2026-04-24
+    last_seen_at: 2026-05-06
+    # 2026-05-06 freshness pass: URL live and on-topic for WWB Asset
+    # Management gender-lens investing. Note: the page now refers to
+    # WAM's first vehicle as "Emerging Markets Fund I" (~$115m deployed
+    # across 22 FIs), not "WWB Capital Partners Fund I" — naming may
+    # have evolved post-launch. Curation flag for next deep pass.
     notes: >
       WWB Asset Management's first $50m gender-lens PE fund — billed as
       the world's first women-managed traditional PE fund focused
@@ -1136,17 +1141,18 @@ peer_funds:
     placement_agent: null
     status: deployed
     public_source_url: https://acumen.org/news/acumens-hardest-to-reach-initiative-reaches-target-raise-of-250-million-as-amplify-completes-final-close/
-    last_seen_at: 2026-04-26
+    last_seen_at: 2026-05-06
     notes: >
       H2R Initiative announced at COP28 (2023); Amplify final close
       2026-01-06 at $180m, bringing the H2R total to the $250m target
       ($180m Amplify debt + $52m Catalyze + $18m grant). Named LPs
       (Amplify): GCF (anchor), IFC, Shinhan Bank, BII, Soros Economic
-      Development Fund, Nordic Development Fund, Signify Foundation,
-      ImpactAssets, Swiss SDC ($7.8m). H2R Catalyze separately backed
-      by GCF, Norad, GEAPP, Osprey Foundation, UK FCDO via TEA, Cazenove
-      Capital, Good Energies Foundation. 17 sub-Saharan African
-      countries; targets 70m beneficiaries.
+      Development Fund ($15m per SEDF investments page), Nordic
+      Development Fund, Signify Foundation, ImpactAssets, Swiss SDC
+      ($7.8m). H2R Catalyze separately backed by GCF, Norad, GEAPP,
+      Osprey Foundation, UK FCDO via TEA, Cazenove Capital, Good
+      Energies Foundation. 17 sub-Saharan African countries; targets
+      70m beneficiaries.
 
   - slug: waterequity-everspring
     name: WaterEquity Everspring Fund

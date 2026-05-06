@@ -28,7 +28,7 @@ family_offices:
     invests_via_direct: null
     invests_via_grants: null
     public_newsroom_url: https://bluehaveninitiative.com/
-    last_seen_at: 2026-04-27
+    last_seen_at: 2026-05-06
 
   - slug: ceniarth
     name: Ceniarth
@@ -46,8 +46,13 @@ family_offices:
     invests_via_fund_lp: null
     invests_via_direct: null
     invests_via_grants: null
-    public_newsroom_url: https://ceniarth.com/news/
-    last_seen_at: 2026-04-27
+    # 2026-05-06 freshness pass: prior URL (ceniarth.com/news/) returned
+    # empty page — wrong domain. Ceniarth's actual site is ceniarthllc.com
+    # (confirmed via WebSearch + WebFetch of homepage describing impact-
+    # first single-family office, $500m+ AUM per Isenberg Family
+    # Charitable Foundation public materials). URL replaced.
+    public_newsroom_url: https://ceniarthllc.com/
+    last_seen_at: 2026-05-06
 
   - slug: porticus
     name: Porticus

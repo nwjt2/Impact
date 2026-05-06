@@ -35,7 +35,7 @@ foundations:
     pri_program: null
     mri_program: null
     public_newsroom_url: https://www.fordfoundation.org/news-and-stories/
-    last_seen_at: 2026-04-27
+    last_seen_at: 2026-05-06
 
   - slug: rockefeller-foundation
     name: Rockefeller Foundation
@@ -53,7 +53,7 @@ foundations:
     pri_program: null
     mri_program: null
     public_newsroom_url: https://www.rockefellerfoundation.org/news/
-    last_seen_at: 2026-04-27
+    last_seen_at: 2026-05-06
 
   - slug: gates-foundation
     name: Bill & Melinda Gates Foundation

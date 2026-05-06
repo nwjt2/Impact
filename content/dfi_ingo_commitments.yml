@@ -243,6 +243,14 @@ commitments:
     # 2026-04-25 freshness pass: prior URL (/emea/about/what-we-do/...)
     # returned 404; replaced with current canonical Habitat path under
     # /our-work/terwilliger-center-innovation-in-shelter/microbuild.
+    # 2026-05-06 freshness pass: URL still live and on-topic (MicroBuild
+    # described as $100m fund, FY2024 stats: 236,870 borrowers reached,
+    # $230m cumulative disbursed across 62 FIs in 33 countries; Triple
+    # Jump as fund manager, Omidyar Network and MetLife Foundation as
+    # partners/co-owners). Curation flag: page no longer names OPIC/DFC
+    # explicitly — the commit_date 2012-11-01 + OPIC anchor status now
+    # rely on historical sources, not the cited URL. Next deep pass
+    # should add an OPIC-press-release URL as secondary provenance.
     sector_tags: [housing, fi]
     geo_tags: [africa, asia, latam]
     public_source_url: https://www.habitat.org/our-work/terwilliger-center-innovation-in-shelter/microbuild
@@ -653,7 +661,7 @@ dfi_profiles:
     known_contacts_public: []
     typical_ticket_usd_m_min: 10
     typical_ticket_usd_m_max: 100
-    last_seen_at: 2026-04-25
+    last_seen_at: 2026-05-06
     emerging_manager_facility:
       exists: true
       program_name: 2X Women's Initiative
