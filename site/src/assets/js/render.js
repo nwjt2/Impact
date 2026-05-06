@@ -221,7 +221,7 @@
     var bf = renderBlendedFinanceBlock(f.blended_finance_structure);
     if (bf) parts.push(bf);
 
-    var kpis = renderFundKpisBlock(f.fund_kpis);
+    var kpis = renderFundKpisBlock(f.fund_kpis, { expanded: true });
     if (kpis) parts.push(kpis);
 
     var econ = renderFundEconomicsBlock(f);
