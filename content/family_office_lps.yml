@@ -298,10 +298,10 @@ family_offices:
     category: family_office
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [climate, agri, generalist]
+    stated_priority_themes: [climate, energy, agri, generalist]
     stated_geo_focus: [global, us]
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_thesis_url: https://buildersvision.com/our-impact/
+    stated_thesis_excerpt: "Builders Initiative invests across four primary impact areas: Food and Agriculture, Climate and Energy, Oceans, and Community. The Climate and Energy program leads global energy grantmaking focused on technology, innovation, and the energy transition."
     typical_check_usd_m_min: 3
     typical_check_usd_m_max: 25
     invests_via_fund_lp: null
@@ -563,10 +563,10 @@ family_offices:
     category: family_office
     aum_usd_m: null
     aum_usd_m_year: null
-    stated_priority_themes: [generalist, climate, gender_lens, fi]
+    stated_priority_themes: [generalist, climate, energy, gender_lens, fi]
     stated_geo_focus: [global, us]
-    stated_thesis_url: null
-    stated_thesis_excerpt: null
+    stated_thesis_url: https://alti-global.com/ideas/a-warming-climate-opportunity-attractive-investment-opportunities-addressing-climate-change
+    stated_thesis_excerpt: "Renewable Energy Infrastructure is named as a primary investment opportunity, covering wind, utility-scale solar, community solar, and energy storage. Targets SDG 7 (affordable clean energy) alongside climate-tech and sustainable forestry."
     typical_check_usd_m_min: 3
     typical_check_usd_m_max: 15
     invests_via_fund_lp: null
