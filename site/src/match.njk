@@ -157,16 +157,23 @@ pageKey: match
     .concat(pull("data-government-donors",  "stated_priority_themes",     "stated_geo_focus",     "category"))
     .concat(pull("data-cooperative-ngos",   "stated_priority_themes",     "stated_geo_focus",     "category"));
 
-  // Keep only LPs that appear in the network as actual LP edges (146 entities).
-  // Registries also include hand-curated entities that haven't shown up as
-  // LPs anywhere yet — those would show as "0 fund commits" rows that are
-  // noise for picker purposes. The /foundations/ /family-offices/ etc.
-  // pages still show them in full; this picker is restricted to entities
-  // that have at least one observed LP commitment.
+  // Corpus = every LP in the registries ∪ every LP that appears in the
+  // network as an edge. A slug can appear in multiple registries
+  // (ImpactAssets is intentionally in both family_office_lps.yml and
+  // asset_manager_lps.yml), so dedupe by slug. Registry-only entries
+  // (no observed edge yet) carry the honest "0 tracked LP commits"
+  // footer; tier-A/tier-B sort still floats well-documented LPs to the top.
   var lpsBySlug = {};
-  lps.forEach(function (lp) { lpsBySlug[lp.slug] = lp; });
-  var corpus = Object.keys(NET_LP).map(function (slug) {
-    var lp = lpsBySlug[slug] || { slug: slug, name: slug, country: "", category: null, themes: [], geos: [], thesis_url: null, thesis_excerpt: null };
+  lps.forEach(function (lp) {
+    if (!lpsBySlug[lp.slug]) lpsBySlug[lp.slug] = lp;
+  });
+  Object.keys(NET_LP).forEach(function (slug) {
+    if (!lpsBySlug[slug]) {
+      lpsBySlug[slug] = { slug: slug, name: slug, country: "", category: null, themes: [], geos: [], thesis_url: null, thesis_excerpt: null };
+    }
+  });
+  var corpus = Object.keys(lpsBySlug).map(function (slug) {
+    var lp = lpsBySlug[slug];
     lp.archetype = archBySlug[slug] || "other";
     lp.networkLpCount = (NET_LP[slug] || []).length;
     lp.networkLpFunds = NET_LP[slug] || [];
