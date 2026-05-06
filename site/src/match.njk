@@ -34,14 +34,13 @@ pageKey: match
     <fieldset class="picker-group">
       <legend class="picker-legend">Track record <span class="picker-hint">— pick none to consider all</span></legend>
       <div class="picker-chips" data-dim="track"></div>
+      <p class="picker-caveat">Track-record counts reflect only LP commitments we've ingested from primary public sources. An LP showing <strong>0 tracked impact-fund LP commitments</strong> may simply not disclose publicly, or we may not have picked the commitment up yet.</p>
     </fieldset>
 
     <div class="picker-actions">
       <button type="button" id="picker-reset" class="picker-reset">Reset all</button>
       <span id="picker-summary" class="picker-summary"></span>
     </div>
-
-    <p class="picker-caveat">Track-record counts reflect only LP commitments we've ingested from primary public sources — fund-close press releases, GP rosters, IRS 990s. An LP showing <strong>0 tracked impact-fund LP commitments</strong> may simply not disclose publicly, or we may not have picked the commitment up yet; it is not evidence of inactivity. Treat the count as a floor, not a verdict.</p>
   </form>
 
   <div id="match-list" class="match-list" aria-live="polite"></div>
