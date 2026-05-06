@@ -12,7 +12,7 @@ pageKey: match
       <span>Decision support · LP shortlist for an INGO-sponsored fund</span>
     </div>
     <h1>Match my fund.</h1>
-    <p class="detail-sub">Filter the {{ slot_meta.slot_counts.foundation_lps + slot_meta.slot_counts.family_office_lps + slot_meta.slot_counts.dfi_ingo_commits + slot_meta.slot_counts.bank_lps + slot_meta.slot_counts.asset_manager_lps + slot_meta.slot_counts.pension_fund_lps + slot_meta.slot_counts.corporate_lps + slot_meta.slot_counts.government_donor_lps + slot_meta.slot_counts.cooperative_ngo_lps }} LPs in the network by your fund's themes, geography, and the archetypes you'd consider. Results are ranked by overlap; generalist-theme and global-geo LPs count as a partial match.</p>
+    <p class="detail-sub">Filter the {{ slot_meta.slot_counts.foundation_lps + slot_meta.slot_counts.family_office_lps + slot_meta.slot_counts.dfi_ingo_commits + slot_meta.slot_counts.bank_lps + slot_meta.slot_counts.asset_manager_lps + slot_meta.slot_counts.pension_fund_lps + slot_meta.slot_counts.corporate_lps + slot_meta.slot_counts.government_donor_lps + slot_meta.slot_counts.cooperative_ngo_lps }} LPs in the network by your fund's themes, geography, and the archetypes you'd consider. Strict <strong>AND</strong> across dimensions — if you pick Energy and MENA, the LP needs to actually list both in its stated thesis. Generalist mandate and global geography don't count as proxies.</p>
   </header>
 
   <form id="picker" class="picker">
@@ -222,8 +222,10 @@ pageKey: match
   // ---- Filtering + scoring -------------------------------------------------
   //
   // AND across dimensions: an LP must satisfy every dimension the user has
-  // selected on. Within a dimension, OR — any one match counts. Generalist
-  // theme and global geo are honoured as partial matches.
+  // selected on. Within a dimension, OR — at least one selected value must
+  // appear in the LP's stated thesis. Strict: generalist theme and global
+  // geo do NOT pass as proxies — if the user picked Energy, the LP needs
+  // to actually list Energy.
 
   function passesFilter(lp) {
     if (state.archetypes.size > 0 && !state.archetypes.has(lp.archetype)) return false;
@@ -232,14 +234,14 @@ pageKey: match
       var lpThemes = new Set(lp.themes || []);
       var anyHit = false;
       state.themes.forEach(function (t) { if (lpThemes.has(t)) anyHit = true; });
-      if (!anyHit && !lpThemes.has("generalist")) return false;
+      if (!anyHit) return false;
     }
 
     if (state.geos.size > 0) {
       var lpGeos = new Set(lp.geos || []);
       var anyHit = false;
       state.geos.forEach(function (g) { if (lpGeos.has(g)) anyHit = true; });
-      if (!anyHit && !lpGeos.has("global")) return false;
+      if (!anyHit) return false;
     }
 
     return true;
