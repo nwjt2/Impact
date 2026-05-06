@@ -131,7 +131,7 @@ pageKey: match
     });
   });
 
-  function pull(elemId, themesField, geoField, categoryField) {
+  function pull(elemId, themesField, geoField, categoryField, registryArchetype) {
     return (I.loadJSON(elemId) || []).map(function (d) {
       return {
         slug: d.slug || d.dfi_slug,
@@ -142,20 +142,21 @@ pageKey: match
         geos: d[geoField] || [],
         thesis_url: d.stated_thesis_url || null,
         thesis_excerpt: d.stated_thesis_excerpt || null,
+        registryArchetype: registryArchetype,
       };
     });
   }
 
   var lps = []
-    .concat(pull("data-foundations",        "stated_priority_themes",     "stated_geo_focus",     "foundation_type"))
-    .concat(pull("data-family-offices",     "stated_priority_themes",     "stated_geo_focus",     "category"))
-    .concat(pull("data-dfis",               "stated_sector_priorities",   "stated_geo_priorities", null))
-    .concat(pull("data-banks",              "stated_priority_themes",     "stated_geo_focus",     "category"))
-    .concat(pull("data-asset-managers",     "stated_priority_themes",     "stated_geo_focus",     "category"))
-    .concat(pull("data-pension-funds",      "stated_priority_themes",     "stated_geo_focus",     "category"))
-    .concat(pull("data-corporates",         "stated_priority_themes",     "stated_geo_focus",     "category"))
-    .concat(pull("data-government-donors",  "stated_priority_themes",     "stated_geo_focus",     "category"))
-    .concat(pull("data-cooperative-ngos",   "stated_priority_themes",     "stated_geo_focus",     "category"));
+    .concat(pull("data-foundations",        "stated_priority_themes",     "stated_geo_focus",     "foundation_type", "foundation"))
+    .concat(pull("data-family-offices",     "stated_priority_themes",     "stated_geo_focus",     "category",        "family-office"))
+    .concat(pull("data-dfis",               "stated_sector_priorities",   "stated_geo_priorities", null,             "dfi"))
+    .concat(pull("data-banks",              "stated_priority_themes",     "stated_geo_focus",     "category",        "bank"))
+    .concat(pull("data-asset-managers",     "stated_priority_themes",     "stated_geo_focus",     "category",        "asset-manager"))
+    .concat(pull("data-pension-funds",      "stated_priority_themes",     "stated_geo_focus",     "category",        "pension-fund"))
+    .concat(pull("data-corporates",         "stated_priority_themes",     "stated_geo_focus",     "category",        "corporate"))
+    .concat(pull("data-government-donors",  "stated_priority_themes",     "stated_geo_focus",     "category",        "bilateral-donor"))
+    .concat(pull("data-cooperative-ngos",   "stated_priority_themes",     "stated_geo_focus",     "category",        "cooperative-ngo"));
 
   // Corpus = every LP in the registries ∪ every LP that appears in the
   // network as an edge. A slug can appear in multiple registries
@@ -174,7 +175,10 @@ pageKey: match
   });
   var corpus = Object.keys(lpsBySlug).map(function (slug) {
     var lp = lpsBySlug[slug];
-    lp.archetype = archBySlug[slug] || "other";
+    // Prefer the network's observed archetype (e.g. "vc" for an investor we
+    // discovered through edges); fall back to the registry archetype for
+    // entries with no edges yet (JIMCO, Olayan, etc).
+    lp.archetype = archBySlug[slug] || lp.registryArchetype || "other";
     lp.networkLpCount = (NET_LP[slug] || []).length;
     lp.networkLpFunds = NET_LP[slug] || [];
     lp.hasThesis = (lp.themes && lp.themes.length > 0) || (lp.geos && lp.geos.length > 0);
