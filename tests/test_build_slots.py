@@ -261,6 +261,7 @@ def _write_fixture_family_office_lps(tmp_path: Path) -> Path:
 def patch_paths(tmp_path, monkeypatch):
     """Rebind build_slots's module-level file paths to a tmp-scoped set."""
     monkeypatch.setattr(build_slots, "PEER_FUNDS_YML", tmp_path / "peer_funds.yml")
+    monkeypatch.setattr(build_slots, "FUND_KPIS_YML", tmp_path / "fund_kpis.yml")
     monkeypatch.setattr(build_slots, "DFI_COMMITS_YML", tmp_path / "dfi_ingo_commitments.yml")
     monkeypatch.setattr(build_slots, "DEADLINES_YML", tmp_path / "deadlines.yml")
     monkeypatch.setattr(build_slots, "FOUNDATION_LPS_YML", tmp_path / "foundation_lps.yml")

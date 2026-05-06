@@ -1,0 +1,1333 @@
+# Curated impact-KPI gallery — exemplar peer-fund disclosures.
+#
+# ~11 INGO-sponsored funds spanning the disclosure spectrum:
+#   comprehensive   — Root Capital, Calvert Note, Hivos-Triodos, Mercy Corps Ventures, &Green, MicroBuild
+#   partial         — WaterEquity GAF III, Accion Venture Lab
+#   scattered       — Acumen KawiSafi, GHIF, IDH Farmfit
+#
+# Why a separate file (not nested in peer_funds.yml):
+#   The KPI gallery is a curated artifact for ~10–15 funds, not a 67-row
+#   refresh. Keeping it on its own file means the future `/add-fund-kpis`
+#   skill never races against `/add-blended-finance-structure` (both
+#   would otherwise atomic-replace peer_funds.yml).
+#
+# Handshake (enforced by pipeline/build_slots.py::load_fund_kpis):
+#   Every `slug` here must resolve to an existing slug in peer_funds.yml.
+#   peer_funds.yml owns fund identity; this file owns KPI data only.
+#
+# Schema (per entry):
+#   slug:                 must match a peer_funds.yml slug (handshake)
+#   scope:                fund | manager_portfolio_proxy | parent_org_proxy
+#   disclosure_quality:   comprehensive | partial | scattered_milestones | placeholder_only
+#   report_year:          int — fiscal year of canonical report
+#   report_url:           URL of the canonical impact-report / page
+#   report_format:        pdf | html | dashboard | annual_report_section | scattered_milestone_disclosure
+#   reporting_framework_tags: [iris_plus | hipso | jii | 2x | tcfd | tnfd | sdg | opim | custom | ...]
+#   metrics:              list of metrics — verbatim, with source quotes
+#     - metric_name:        verbatim as published — never paraphrased
+#       tags:               [informal cross-cut: gender, climate, agri, wash, ...]
+#       value:              number or null (null = narrative-only)
+#       value_text:         optional — for verbatim composites ("46% pre → 8% post")
+#       unit:               free-text — "people", "%", "MT CO2e", "USD m"
+#       cumulative_since:   year (null = single-period)
+#       period_end:         YYYY or YYYY-MM-DD or null
+#       iris_plus_id:       IRIS+ code or null (most funds publish without)
+#       attribution_level:  fund_attributed | pro_rated | manager_portfolio
+#                           | franchise_fi_aggregate | parent_org_aggregate
+#                           # CRITICAL — without it, franchise-aggregate
+#                           # numbers look identical to fund-attributed
+#       metric_type:        realized | target | longitudinal_outcome
+#                           | cohort_outcome | survey_outcome
+#       source_url:         URL where this metric appears
+#       source_quote:       verbatim substring, ≤200 chars
+#       caveat:             optional — methodology gaps, scope notes
+#   structure_notes:        editorial color — what's distinctive about this fund's reporting
+#   structure_source_urls:  [URLs that contributed to this extraction]
+
+fund_kpis:
+
+  # ----------------------------------------------------------------
+  # Mercy Corps Ventures — fund-attributed, comprehensive
+  # ----------------------------------------------------------------
+  - slug: mercy-corps-ventures
+    scope: fund
+    disclosure_quality: comprehensive
+    report_year: 2025
+    report_url: https://www.mercycorps.org/research-resources/ventures-annual-impact-report-2025
+    report_format: pdf
+    reporting_framework_tags: [imp_5_dimensions, opim, 2x_global, un_sdgs]
+    metrics:
+      - metric_name: New investments made
+        tags: [pace, deployment]
+        value: 7
+        unit: companies
+        period_end: "2025"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.mercycorps.org/research-resources/ventures-annual-impact-report-2025
+        source_quote: "7 new investments"
+      - metric_name: Total portfolio companies
+        tags: [pace, deployment]
+        value: 61
+        unit: companies
+        cumulative_since: 2015
+        period_end: "2025"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.mercycorps.org/research-resources/ventures-annual-impact-report-2025
+        source_quote: "61 companies advancing their Resilient Future Thesis"
+      - metric_name: Cumulative capital catalyzed (fund-life follow-on)
+        tags: [follow-on, mobilisation]
+        value: 753000000
+        unit: USD
+        cumulative_since: 2015
+        period_end: "2025"
+        attribution_level: manager_portfolio
+        metric_type: realized
+        source_url: https://www.mercycorps.org/research-resources/ventures-annual-impact-report-2025
+        source_quote: "$753M catalyzed across fund life"
+        caveat: Catalyzed = total raised by portfolio companies, not MCV's check size
+      - metric_name: Cumulative people reached by portfolio
+        tags: [reach, customers]
+        value: 46300000
+        unit: people
+        cumulative_since: 2015
+        period_end: "2025"
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://www.mercycorps.org/research-resources/ventures-annual-impact-report-2025
+        source_quote: "46.3M people across 87 countries, including 22 Least Developed Countries"
+        caveat: Aggregate of portfolio-company customer reach; counting methodology and attribution share not disclosed
+      - metric_name: Countries served (cumulative)
+        tags: [geography, frontier-markets]
+        value: 87
+        unit: countries
+        cumulative_since: 2015
+        period_end: "2025"
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://www.mercycorps.org/research-resources/ventures-annual-impact-report-2025
+        source_quote: "46.3M people across 87 countries, including 22 Least Developed Countries"
+      - metric_name: Portfolio companies with at least one woman co-founder
+        tags: [gender, 2x]
+        value: 46
+        unit: percent
+        period_end: "2025"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.mercycorps.org/research-resources/ventures-annual-impact-report-2025
+        source_quote: "46% of our portfolio companies have at least one woman co-founder"
+      - metric_name: Portfolio companies that have raised follow-on capital
+        tags: [follow-on, graduation-rate]
+        value: 83
+        unit: percent
+        period_end: "2025"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.mercycorps.org/research-resources/ventures-annual-impact-report-2025
+        source_quote: "83% of our portfolio has raised follow on capital"
+      - metric_name: Customers who are women and/or smallholder farmers
+        tags: [gender, agri, customer-demographics]
+        value: 73
+        unit: percent
+        cumulative_since: 2015
+        period_end: "2025"
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://www.mercycorpsventures.com/impact
+        source_quote: "73% of customers are women and/or smallholder farmers"
+        caveat: Composite ratio (women OR smallholder farmers); breakouts not separately disclosed
+      - metric_name: Customers gaining first-time access
+        tags: [financial-inclusion, additionality]
+        value: 66
+        unit: percent
+        cumulative_since: 2015
+        period_end: "2025"
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://www.mercycorpsventures.com/impact
+        source_quote: "66% of customers are gaining first-time access to impactful products and services"
+        caveat: Self-reported by portfolio companies; verification methodology not disclosed
+    structure_notes: >
+      One of the most disciplined annual-cadence impact-disclosure regimes
+      among INGO-sponsored peer funds — eight consecutive years of
+      standalone Annual Impact Reports as PDFs (2018–2025) plus a
+      live-updating /impact landing page. Every headline metric is
+      presented twice — report year and cumulative-since-2015 — letting
+      readers separate pace from accumulated stock without arithmetic.
+      Notable gaps: no jobs-created metric, no quantified climate / CO2e
+      outcomes despite the "Resilient Future Thesis," no fund AUM, and
+      the same $753M figure is reused for both portfolio-raised capital
+      and downstream SME financing without methodological reconciliation.
+    structure_source_urls:
+      - https://www.mercycorpsventures.com/impact
+      - https://www.mercycorps.org/research-resources/ventures-annual-impact-report-2025
+
+  # ----------------------------------------------------------------
+  # WaterEquity GAF III — manager-portfolio proxy, partial
+  # ----------------------------------------------------------------
+  - slug: waterequity-gaf3
+    scope: manager_portfolio_proxy
+    disclosure_quality: partial
+    report_year: 2024
+    report_url: https://waterequity.com/impact-report-2024/
+    report_format: html
+    reporting_framework_tags: [iris_plus, sdg_6, 2x_criteria]
+    metrics:
+      - metric_name: People reached with safe water or sanitation (Fund III)
+        tags: [wash, outreach]
+        value: 942000
+        unit: people
+        cumulative_since: 2021
+        period_end: "2022-09"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.globenewswire.com/news-release/2024/02/28/2836910/0/en/WaterEquity-Celebrates-Five-Million-People-Reached-Globally-With-Access-to-Safe-Water-and-Sanitation.html
+        source_quote: "the Global Access Fund has reached more than 942,000 people and counting with safe water or sanitation"
+      - metric_name: Microloans deployed (Fund III)
+        tags: [wash, fi]
+        value: 175000
+        unit: microloans
+        cumulative_since: 2021
+        period_end: "2022-09"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.globenewswire.com/news-release/2024/02/28/2836910/0/en/WaterEquity-Celebrates-Five-Million-People-Reached-Globally-With-Access-to-Safe-Water-and-Sanitation.html
+        source_quote: "nearly 175,000 microloans have been deployed to low-income consumers to serve their water and sanitation needs"
+      - metric_name: Share of fund-supported individuals who are women (Fund III)
+        tags: [gender, demographic]
+        value: 97
+        unit: percent
+        cumulative_since: 2021
+        period_end: "2022-09"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.globenewswire.com/news-release/2024/02/28/2836910/0/en/WaterEquity-Celebrates-Five-Million-People-Reached-Globally-With-Access-to-Safe-Water-and-Sanitation.html
+        source_quote: "97% of individuals directly supported by the fund's investments are women and 66% earn below a living income"
+      - metric_name: Target — people reached over fund term (Fund III)
+        tags: [wash, outreach]
+        value: 5000000
+        unit: people
+        cumulative_since: 2021
+        period_end: "2028"
+        attribution_level: fund_attributed
+        metric_type: target
+        source_url: https://www.globenewswire.com/en/news-release/2022/03/31/2414126/0/en/WaterEquity-Raises-Over-150-Million-at-Final-Close-of-Global-Access-Fund.html
+        source_quote: "Over its seven-year term, the Fund aims to reach 5 million people with improved access to water and sanitation across Asia, Latin America, and Africa"
+      - metric_name: People reached with safe water or sanitation (total portfolio)
+        tags: [wash, outreach]
+        value: 7100000
+        unit: people
+        cumulative_since: 2016
+        period_end: "2024-09-30"
+        attribution_level: manager_portfolio
+        metric_type: realized
+        source_url: https://waterequity.com/impact-report-2024/
+        source_quote: "7.1M+ people reached with safe water or sanitation"
+        caveat: WaterEquity portfolio total across all four funds; Fund III contribution not disaggregated post-2022
+      - metric_name: Capital deployed through financial institutions (total portfolio)
+        tags: [wash, fi, financial-throughput]
+        value: 440000000
+        unit: USD
+        cumulative_since: 2016
+        period_end: "2024-12-31"
+        attribution_level: manager_portfolio
+        metric_type: realized
+        source_url: https://waterequity.com/impact-report-2024/
+        source_quote: "~$440 million through financial institutions to expand access to safe water and sanitation"
+      - metric_name: Share of household microloan borrowers who are women (total portfolio)
+        tags: [gender, demographic]
+        value: 96
+        unit: percent
+        cumulative_since: 2016
+        period_end: "2024-09-30"
+        attribution_level: manager_portfolio
+        metric_type: realized
+        source_url: https://waterequity.com/impact-report-2024/
+        source_quote: "96% of household microloan borrowers were women"
+      - metric_name: Open defecation reduction (end-client survey)
+        tags: [wash, outcome, behavioral]
+        value_text: "46% pre-loan → 8% post-loan"
+        unit: percent of surveyed end-clients
+        period_end: "2024-09-30"
+        attribution_level: manager_portfolio
+        metric_type: survey_outcome
+        source_url: https://waterequity.com/impact-report-2024/
+        source_quote: "Open defecation 46% before the loan to 8% after the loan"
+        caveat: Composite pre/post — value_text captures both before/after in one row
+    structure_notes: >
+      WaterEquity's public KPI disclosure is portfolio-aggregated, not
+      fund-disaggregated. The 2024 Impact Report reports cumulative
+      numbers across all four funds since 2016 with no Fund-III breakout.
+      The only Fund-III-specific KPIs in the public record come from the
+      March 2022 final-close press release covering ~17 months of
+      deployment (Apr 2021 → Sep 2022). Targets at fund close: 5M people
+      over 7-year term, 60% women. End-client behavioral KPIs (open
+      defecation 46%→8%, 98% women QoL improvement) are a distinguishing
+      feature — most peer funds report only outputs.
+    structure_source_urls:
+      - https://waterequity.com/impact-report-2024/
+      - https://www.globenewswire.com/news-release/2024/02/28/2836910/0/en/WaterEquity-Celebrates-Five-Million-People-Reached-Globally-With-Access-to-Safe-Water-and-Sanitation.html
+      - https://www.globenewswire.com/en/news-release/2022/03/31/2414126/0/en/WaterEquity-Raises-Over-150-Million-at-Final-Close-of-Global-Access-Fund.html
+      - https://iris.thegiin.org/document/iris-use-case-waterequity/
+
+  # ----------------------------------------------------------------
+  # MicroBuild Fund — fund-attributed, comprehensive (housing-MFI archetype)
+  # ----------------------------------------------------------------
+  - slug: microbuild-fund
+    scope: fund
+    disclosure_quality: comprehensive
+    report_year: 2023
+    report_url: https://www.habitat.org/sites/default/files/documents/MicroBuild-FY23-Impact-Report.pdf
+    report_format: pdf
+    reporting_framework_tags: [habitat_microbuild_impact_report]
+    metrics:
+      - metric_name: Borrowers reached (cumulative)
+        tags: [outreach, households]
+        value: 236870
+        unit: borrowers
+        cumulative_since: 2012
+        period_end: "2024"
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://www.habitat.org/our-work/terwilliger-center-innovation-in-shelter/microbuild
+        source_quote: "Habitat's MicroBuild Fund has enabled access to housing microfinance for 236,870 borrowers and their families, approximately 1.18 million individuals."
+      - metric_name: Individuals benefiting from improved housing (cumulative)
+        tags: [outreach, individuals]
+        value: 1180000
+        unit: individuals
+        cumulative_since: 2012
+        period_end: "2024"
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://www.habitat.org/our-work/terwilliger-center-innovation-in-shelter/microbuild
+        source_quote: "236,870 borrowers and their families, approximately 1.18 million individuals"
+        caveat: Implied via household-size multiplier on borrower count
+      - metric_name: Capital disbursed to MFIs (cumulative)
+        tags: [capital-deployed]
+        value: 230
+        unit: USD m
+        cumulative_since: 2012
+        period_end: "2025"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.habitat.org/our-work/terwilliger-center-innovation-in-shelter/microbuild
+        source_quote: "Habitat and our fund partners have disbursed US$230 million through the fund, helping 1.18 million individuals in 33 countries"
+        caveat: Cumulative figure reflects recycled capital across multiple loan rotations on the $100M base
+      - metric_name: MFI investee partners (cumulative)
+        tags: [partners, financial-institutions]
+        value: 62
+        unit: institutions
+        cumulative_since: 2012
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.habitat.org/our-work/terwilliger-center-innovation-in-shelter/microbuild
+        source_quote: "US$230 million across 62 institutions in 33 countries"
+      - metric_name: Countries reached (cumulative)
+        tags: [geography]
+        value: 33
+        unit: countries
+        cumulative_since: 2012
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://world-habitat.org/world-habitat-awards/winners-and-finalists/microbuild-fund/
+        source_quote: "$151.6 million USD to 59 institutions in 33 countries"
+      - metric_name: Female borrowers
+        tags: [gender, demographics]
+        value: 80
+        unit: percent
+        cumulative_since: 2012
+        period_end: "2022"
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://world-habitat.org/world-habitat-awards/winners-and-finalists/microbuild-fund/
+        source_quote: "1,048,720 people - 80% of whom are women"
+      - metric_name: Rural borrowers
+        tags: [geography, demographics]
+        value: 66
+        unit: percent
+        cumulative_since: 2012
+        period_end: "2021"
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://triplejump.eu/fund/microbuild-fund/
+        source_quote: "66% of borrowers were rural"
+      - metric_name: Additional capital unlocked at investee MFIs (catalytic)
+        tags: [mobilization, catalytic]
+        value: 582.9
+        unit: USD m
+        cumulative_since: 2012
+        period_end: "2022"
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://world-habitat.org/world-habitat-awards/winners-and-finalists/microbuild-fund/
+        source_quote: "more than $582.9 million USD in additional capital by investee institutions, positively impacting an additional 3.5 million people"
+        caveat: Catalytic / mobilization metric. FY2024 update reported $1.22B in attracted capital
+      - metric_name: Investee housing portfolio CAGR vs general portfolio
+        tags: [portfolio-growth, mfi-capability]
+        value_text: "25% housing CAGR vs 16.15% general portfolio"
+        unit: percent CAGR
+        cumulative_since: 2012
+        period_end: "2024"
+        attribution_level: franchise_fi_aggregate
+        metric_type: longitudinal_outcome
+        source_url: https://www.habitat.org/our-work/terwilliger-center-innovation-in-shelter/microbuild
+        source_quote: "compounded annual growth rate, or CAGR, of 25% compared with 16.15% for the general portfolio"
+        caveat: Demonstrates housing microfinance product-line outperforming MFI's general loan book
+      - metric_name: Technical assistance committed
+        tags: [technical-assistance]
+        value: 10
+        unit: USD m
+        cumulative_since: 2012
+        period_end: "2024"
+        attribution_level: parent_org_aggregate
+        metric_type: realized
+        source_url: https://www.habitat.org/our-work/terwilliger-center-innovation-in-shelter/microbuild
+        source_quote: "Habitat has committed at least $10 million in technical assistance"
+    structure_notes: >
+      One of the few INGO-sponsored housing-finance funds with mature
+      lifetime reporting. Three distinctive features for housing-impact
+      archetype: (1) two-stage outreach math — borrowers (~237K) plus
+      implied household multiplier (~1.18M individuals), reflecting that
+      a single housing loan benefits the whole co-resident family; (2)
+      franchise-FI mobilization is the headline, not a footnote — $582M
+      (later $1.22B) of additional capital that investee MFIs raised to
+      grow housing books, plus 3.5M downstream-people figure; (3)
+      product-line health metric — 25% housing-portfolio CAGR vs 16.15%
+      general-portfolio CAGR at investee MFIs tests whether housing
+      microfinance was actually adopted as a permanent product line.
+    structure_source_urls:
+      - https://www.habitat.org/our-work/terwilliger-center-innovation-in-shelter/microbuild
+      - https://www.habitat.org/sites/default/files/documents/MicroBuild-FY23-Impact-Report.pdf
+      - https://world-habitat.org/world-habitat-awards/winners-and-finalists/microbuild-fund/
+      - https://triplejump.eu/fund/microbuild-fund/
+
+  # ----------------------------------------------------------------
+  # Root Capital — parent-org proxy, comprehensive (501(c)(3) lender)
+  # ----------------------------------------------------------------
+  - slug: root-capital-sustainable-trade-fund
+    scope: parent_org_proxy
+    disclosure_quality: comprehensive
+    report_year: 2024
+    report_url: https://rootcapital.org/climate-resilience-roadmap-annual-report-2024/
+    report_format: html
+    reporting_framework_tags: []
+    metrics:
+      - metric_name: Cumulative total disbursements
+        tags: [lending, financial-throughput]
+        value: 2060000000
+        unit: USD
+        cumulative_since: 1999
+        period_end: "2024"
+        attribution_level: parent_org_aggregate
+        metric_type: realized
+        source_url: https://rootcapital.org/our-approach/our-impact/
+        source_quote: "$2.06B Cumulative Total Disbursements"
+      - metric_name: Farmers and employees reached (cumulative)
+        tags: [outreach, agri]
+        value: 2300000
+        unit: people
+        cumulative_since: 1999
+        period_end: "2024"
+        attribution_level: parent_org_aggregate
+        metric_type: realized
+        source_url: https://rootcapital.org/our-approach/our-impact/
+        source_quote: "2.3M Farmers and employees reached"
+      - metric_name: Hectares sustainably managed
+        tags: [climate, land-use]
+        value: 2900000
+        unit: hectares
+        cumulative_since: 1999
+        period_end: "2024"
+        attribution_level: parent_org_aggregate
+        metric_type: realized
+        source_url: https://rootcapital.org/our-approach/our-impact/
+        source_quote: "2.9 Million Hectares sustainably managed"
+      - metric_name: Lending clients reached (annual)
+        tags: [lending]
+        value: 843
+        unit: clients
+        period_end: "2024"
+        attribution_level: parent_org_aggregate
+        metric_type: realized
+        source_url: https://rootcapital.org/our-approach/our-impact/
+        source_quote: "843 Lending clients reached"
+      - metric_name: Loans commercial lenders would not have made (additionality)
+        tags: [lending, additionality]
+        value: 88
+        unit: percent
+        period_end: "2024"
+        attribution_level: parent_org_aggregate
+        metric_type: realized
+        source_url: https://rootcapital.org/our-approach/our-impact/
+        source_quote: "88% Root Capital loans commercial lenders would not have made"
+      - metric_name: Climate finance flowing to vulnerable communities (annual)
+        tags: [climate, lending, financial-throughput]
+        value: 58.2
+        unit: USD m
+        period_end: "2024"
+        attribution_level: parent_org_aggregate
+        metric_type: realized
+        source_url: https://rootcapital.org/our-approach/our-impact/
+        source_quote: "$58.2 Million Climate finance flowing to vulnerable communities this year"
+      - metric_name: Women farmers reached (annual)
+        tags: [gender, outreach]
+        value: 634000
+        unit: women
+        period_end: "2024"
+        attribution_level: parent_org_aggregate
+        metric_type: realized
+        source_url: https://rootcapital.org/our-approach/our-impact/
+        source_quote: "634 Thousand Women farmers reached"
+      - metric_name: Disbursements to gender-inclusive or women-led clients (annual)
+        tags: [gender, lending, financial-throughput]
+        value: 67.7
+        unit: USD m
+        period_end: "2024"
+        attribution_level: parent_org_aggregate
+        metric_type: realized
+        source_url: https://rootcapital.org/our-approach/our-impact/
+        source_quote: "$67.7 Million Disbursements to G-I and W-L clients this year"
+      - metric_name: Farmers reporting higher income (60dB survey)
+        tags: [outcome, evaluation]
+        value: 68
+        unit: percent
+        period_end: "2024"
+        attribution_level: parent_org_aggregate
+        metric_type: survey_outcome
+        source_url: https://rootcapital.org/climate-resilience-roadmap-annual-report-2024/
+        source_quote: "68% of farmers affiliated with Root Capital clients reported higher income as a result of that affiliation"
+        caveat: 60 Decibels / IKEA Foundation client farmer evaluation, 2024
+      - metric_name: Lending clients gaining access to commercial finance within three years
+        tags: [outcome, additionality]
+        value: 42
+        unit: percent
+        period_end: "2024"
+        attribution_level: parent_org_aggregate
+        metric_type: longitudinal_outcome
+        source_url: https://rootcapital.org/proven-results/
+        source_quote: "42% of Root Capital's lending clients gained access to commercial finance within three years"
+    structure_notes: >
+      501(c)(3) social-investment fund (not a GP-LP fund), founded 1999.
+      All KPIs are parent-org-aggregate by definition — there is no
+      underlying fund vehicle to disaggregate to. Reports against four
+      impact pathways: Access to Finance, Climate Action, Women's
+      Empowerment, Next Generation Jobs. Mixes annual KPIs with
+      since-1999 cumulatives. Surprising honest null: no IRIS+ codes
+      published alongside metrics despite Root Capital's historical
+      IRIS adoption. 45+ KPIs total in the public record; this entry
+      captures 10 representative metrics.
+    structure_source_urls:
+      - https://rootcapital.org/our-approach/our-impact/
+      - https://rootcapital.org/proven-results/
+      - https://rootcapital.org/climate-resilience-roadmap-annual-report-2024/
+
+  # ----------------------------------------------------------------
+  # Accion Venture Lab — manager-portfolio proxy, partial (venture archetype)
+  # ----------------------------------------------------------------
+  - slug: accion-venture-lab
+    scope: manager_portfolio_proxy
+    disclosure_quality: partial
+    report_year: 2025
+    report_url: https://www.accion.org/how-we-work/investment-strategies/accion-impact-management/accion-ventures/
+    report_format: scattered_milestone_disclosure
+    reporting_framework_tags: [custom]
+    metrics:
+      - metric_name: Portfolio companies invested in (cumulative)
+        tags: [fintech, financial-inclusion]
+        value: 76
+        unit: companies
+        cumulative_since: 2012
+        period_end: "2025"
+        attribution_level: manager_portfolio
+        metric_type: realized
+        source_url: https://www.accion.org/news/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech/
+        source_quote: "$59.4 million has been deployed in 76 companies across more than 30 countries"
+        caveat: Cumulative across both Accion Venture Lab Fund I (2012, $10m) and the rebranded Accion Ventures program — not strictly Fund I attributed
+      - metric_name: Capital deployed (cumulative)
+        tags: [aum, deployed]
+        value: 59.4
+        unit: USD m
+        cumulative_since: 2012
+        period_end: "2025"
+        attribution_level: manager_portfolio
+        metric_type: realized
+        source_url: https://www.accion.org/news/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech/
+        source_quote: "$59.4 million has been deployed in 76 companies across more than 30 countries"
+      - metric_name: Countries of operation (cumulative)
+        tags: [geo-reach]
+        value: 30
+        value_text: "30+"
+        unit: countries
+        cumulative_since: 2012
+        period_end: "2025"
+        attribution_level: manager_portfolio
+        metric_type: realized
+        source_url: https://www.accion.org/how-we-work/investment-strategies/accion-impact-management/accion-ventures/
+        source_quote: "Accion Ventures has deployed capital into 70+ early-stage startups across 30+ countries worldwide"
+      - metric_name: Follow-on capital multiple (portfolio companies)
+        tags: [catalytic, follow-on]
+        value: 13
+        value_text: "$13 raised per $1 invested"
+        unit: USD ratio
+        cumulative_since: 2012
+        period_end: "2024"
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://www.accion.org/news/accion-venture-lab-launches-new-fund-quadruples-capital-for-inclusive-fintech-startups/
+        source_quote: "For every dollar Accion Venture Lab has invested, its portfolio companies have raised an additional $13 in equity capital from later-stage investors."
+        caveat: Aggregate of all subsequent equity rounds raised by portcos — most of that capital is from third-party later-stage investors, not Accion. Catalytic-leverage proxy
+      - metric_name: Full or partial exits (cumulative)
+        tags: [exits]
+        value: 13
+        unit: exits
+        cumulative_since: 2012
+        period_end: "2025"
+        attribution_level: manager_portfolio
+        metric_type: realized
+        source_url: https://www.accion.org/news/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech/
+        source_quote: "13 full or partial exits across all geographies"
+        caveat: No realised IRR, MOIC, or DPI publicly disclosed at fund level
+      - metric_name: End-customers reached by portfolio companies
+        tags: [reach, financial-inclusion]
+        value_text: "millions (qualitative)"
+        unit: people
+        cumulative_since: 2012
+        period_end: "2024"
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://www.accion.org/news/accion-venture-lab-launches-new-fund-quadruples-capital-for-inclusive-fintech-startups/
+        source_quote: "millions of people and small businesses around the world have benefitted from services provided by Venture Lab portfolio companies"
+        caveat: Venture Lab does not publicly quantify aggregate portco end-user reach — only narrative claim of "millions." Honest null on the numeric value
+    structure_notes: >
+      The cleanest example of a venture-style impact reporting archetype
+      — distinct from the microfinance / agri-fund pattern. Headlines
+      are four cumulative-since-2012 numbers: # portcos (76), $ deployed
+      ($59.4M), # countries (30+), follow-on multiple ($13/$1) plus #
+      exits (13). No annual impact report PDF; KPIs are surfaced as
+      scattered milestones on the program landing page and in fund-close
+      press releases. Signature metric is the $13 follow-on multiple — a
+      catalytic-capital proxy microfinance funds never report. Conversely
+      Venture Lab does NOT publish quantified aggregate end-user reach,
+      which is exactly the metric microfinance peers lead with.
+    structure_source_urls:
+      - https://www.accion.org/how-we-work/investment-strategies/accion-impact-management/accion-ventures/
+      - https://www.accion.org/news/accion-announces-close-of-61-6m-second-accion-venture-lab-fund-investing-in-early-stage-inclusive-fintech/
+      - https://www.accion.org/news/accion-venture-lab-launches-new-fund-quadruples-capital-for-inclusive-fintech-startups/
+
+  # ----------------------------------------------------------------
+  # Hivos-Triodos Fund — fund-attributed, comprehensive (foundation-vehicle)
+  # ----------------------------------------------------------------
+  - slug: hivos-triodos-fund
+    scope: fund
+    disclosure_quality: comprehensive
+    report_year: 2024
+    report_url: https://www.triodos-im.com/impact-report/2024/hivos-triodos-fund
+    report_format: html
+    reporting_framework_tags: [triodos_im_impact_framework, blended_finance_disclosure, ifrs_audited_financials, sfdr]
+    metrics:
+      - metric_name: Total portfolio size
+        tags: [aum, fund-scale]
+        value: 63335422
+        unit: EUR
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.triodos-im.com/binaries/content/assets/shared/fund-assets/htf/annual-report-hivos-triodos-fonds-2024.pdf
+        source_quote: "The total portfolio size of Stichting Hivos-Triodos Fonds increased to EUR 63,335,422 as per 31 December 2024 compared to EUR 53,162,542 as per 31 December 2023."
+      - metric_name: Equity (NAV)
+        tags: [nav, fund-scale]
+        value: 20316420
+        unit: EUR
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.triodos-im.com/binaries/content/assets/shared/fund-assets/htf/annual-report-hivos-triodos-fonds-2024.pdf
+        source_quote: "The equity increased to EUR 20,316,420."
+      - metric_name: Number of finance-facility customers
+        tags: [investee-count]
+        value: 41
+        unit: customers
+        period_end: "2024"
+        iris_plus_id: PI4060
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.triodos-im.com/binaries/content/assets/shared/fund-assets/htf/annual-report-hivos-triodos-fonds-2024.pdf
+        source_quote: "In 2024, Stichting Hivos-Triodos Fonds provided finance facilities to a total of 41 customers (2023: 37)."
+      - metric_name: Country count (active investments)
+        tags: [country-count]
+        value: 20
+        unit: countries
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.triodos-im.com/binaries/content/assets/shared/fund-assets/htf/annual-report-hivos-triodos-fonds-2024.pdf
+        source_quote: "At the end of 2024, there is investment in 20 countries."
+      - metric_name: New loans disbursed during year
+        tags: [deployment]
+        value: 15
+        unit: loans
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.triodos-im.com/binaries/content/assets/shared/fund-assets/htf/annual-report-hivos-triodos-fonds-2024.pdf
+        source_quote: "During 2024, Stichting Hivos-Triodos Fonds provided 15 loans, of which five to new companies."
+      - metric_name: Africa & Middle East share of portfolio
+        tags: [regional-allocation]
+        value: 33.8
+        unit: percent
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.triodos-im.com/binaries/content/assets/shared/fund-assets/htf/annual-report-hivos-triodos-fonds-2024.pdf
+        source_quote: "A key focus region is Africa and the Middle East, with a share of 33.8% of the portfolio."
+      - metric_name: Net result (profit) for the year
+        tags: [financial-return]
+        value: 4019524
+        unit: EUR
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.triodos-im.com/binaries/content/assets/shared/fund-assets/htf/annual-report-hivos-triodos-fonds-2024.pdf
+        source_quote: "Net result for the year 4,019,524"
+      - metric_name: Smallholder farmers reached
+        tags: [smallholder-farmers, agri-outreach]
+        value: 158900
+        unit: farmers
+        period_end: "2024"
+        iris_plus_id: PI8941
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://www.triodos-im.com/impact-report/2024/hivos-triodos-fund
+        source_quote: "158,900 smallholder farmers reached"
+        caveat: Reported by investee agri-SMEs and value-chain partners; not pro-rated to fund's equity share. Year-over-year drop from 295,300 (2023) reflects investee-mix shift
+      - metric_name: Households and businesses connected to clean and affordable energy
+        tags: [energy-access]
+        value: 19100
+        unit: households-and-businesses
+        period_end: "2024"
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://www.triodos-im.com/impact-report/2024/hivos-triodos-fund
+        source_quote: "19,100 households and businesses connected to clean and affordable energy"
+        caveat: Sharp drop from 272,700 (2023) reflects exit/repayment of large pay-as-you-go portfolio companies during 2024
+      - metric_name: Total invested cumulatively since inception
+        tags: [cumulative-deployment, lifetime]
+        value: 250000000
+        unit: EUR
+        cumulative_since: 1994
+        period_end: "2023"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://hivos.org/program/hivos-triodos-fund/
+        source_quote: "Since 1994, HTF has invested over EUR 250 million"
+    structure_notes: >
+      Sits at the comprehensive end of the disclosure spectrum among
+      INGO-sponsored peer funds. Three things distinguish its reporting:
+      (1) audited fund-vehicle financials sit alongside outreach KPIs —
+      EUR-denominated portfolio size, NAV/equity, country count, customer
+      count, risk-rating distribution, hedging tables — disclosure depth
+      normally seen only in regulated AIFs, not foundation vehicles.
+      (2) Honest year-on-year volatility, not just headline cumulative
+      figures — smallholder reach dropped from 295,300 (2023) to 158,900
+      (2024) and energy connections from 272,700 to 19,100 without
+      smoothing. (3) The blended-finance capital stack is itself spelled
+      out (Hivos sub-debt, Triodos senior), modelling transparency for
+      INGO co-funders.
+    structure_source_urls:
+      - https://www.triodos-im.com/binaries/content/assets/shared/fund-assets/htf/annual-report-hivos-triodos-fonds-2024.pdf
+      - https://www.triodos-im.com/impact-report/2024/hivos-triodos-fund
+      - https://hivos.org/program/hivos-triodos-fund/
+
+  # ----------------------------------------------------------------
+  # IDH Farmfit Fund — fund-attributed (mixed), scattered milestones
+  # ----------------------------------------------------------------
+  - slug: idh-farmfit-fund
+    scope: fund
+    disclosure_quality: scattered_milestones
+    report_year: 2025
+    report_url: https://idh.org/news/five-years-of-the-idh-farmfit-fund-five-key-trends-from-our-journey-so-far
+    report_format: scattered_milestone_disclosure
+    reporting_framework_tags: [custom, idh-farmfit-playbook]
+    metrics:
+      - metric_name: Investments contracted with investee companies
+        tags: [agri, smb]
+        value: 15
+        unit: investments
+        cumulative_since: 2019
+        period_end: "2025-01"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://idh.org/news/five-years-of-the-idh-farmfit-fund-five-key-trends-from-our-journey-so-far
+        source_quote: "15 investments contracted with 13 investee companies (incl. two follow-on investments)"
+      - metric_name: Investments made (deployed capital)
+        tags: [agri, fi]
+        value: 31.5
+        unit: EUR m
+        cumulative_since: 2019
+        period_end: "2025-01"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://idh.org/news/five-years-of-the-idh-farmfit-fund-five-key-trends-from-our-journey-so-far
+        source_quote: "€31.5m in investments made, with a further €20.5m in contracting"
+        caveat: 5-year retrospective also frames cumulative deployment as "more than EUR 50 million" over six years — versions diverge by reporting date
+      - metric_name: Co-investment mobilised from co-investors
+        tags: [agri, mobilisation]
+        value: 100
+        unit: EUR m
+        cumulative_since: 2019
+        period_end: "2025-01"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://idh.org/news/five-years-of-the-idh-farmfit-fund-five-key-trends-from-our-journey-so-far
+        source_quote: "Over €100m in co-investment mobilised from co-investors"
+        caveat: A January 2026 IDH article restates this as "mobilised over EUR 150 million in co-investment" over six years
+      - metric_name: Farmers expected to be reached by contracted investees
+        tags: [agri, smallholder, reach]
+        value: 4000000
+        unit: farmers
+        period_end: "2025-01"
+        attribution_level: franchise_fi_aggregate
+        metric_type: target
+        source_url: https://idh.org/news/five-years-of-the-idh-farmfit-fund-five-key-trends-from-our-journey-so-far
+        source_quote: "investees expect to reach 4 million farmers through services, credit and off-take"
+        caveat: This is investees' total franchise / business-model reach, not Farmfit-Fund-attributed farmer count. Fund capital co-finances the FI / agribusiness; the 4M is the FI's total farmer book
+      - metric_name: Cocoa share of total portfolio
+        tags: [agri, sector-mix]
+        value: 13
+        unit: percent
+        period_end: "2025-01"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://idh.org/news/five-years-of-the-idh-farmfit-fund-five-key-trends-from-our-journey-so-far
+        source_quote: "cocoa investments represent 13% of our total portfolio"
+      - metric_name: Smallholders targeted via Advans Côte d'Ivoire deal
+        tags: [agri, fi, deal-level, west-africa]
+        value: 500000
+        unit: smallholders
+        period_end: "2024"
+        attribution_level: franchise_fi_aggregate
+        metric_type: target
+        source_url: https://idh.org/annual-report-2024/better-incomes
+        source_quote: "IDH Farmfit Fund invested €2.3 million in Advans Côte d'Ivoire ... targeting to impact up to 500,000 smallholders"
+        caveat: Single-deal target; counts the FI's full smallholder book, not pro-rated to fund's €2.3m share
+      - metric_name: Smallholder farmers directly impacted (Farmfit Africa Programme — TA arm, not the Fund)
+        tags: [agri, smallholder, ta-programme]
+        value: 250000
+        unit: smallholders
+        cumulative_since: 2019
+        period_end: "2024"
+        attribution_level: parent_org_aggregate
+        metric_type: longitudinal_outcome
+        source_url: https://farmfitinsightshub.org/resources/idh-farmfit-africa-impact-evaluation
+        source_quote: "over 250,000 smallholder farmers were directly impacted, with approximately 60% of these farmers experiencing increased incomes"
+        caveat: This figure is from the IDH Farmfit Africa Programme endline evaluation (Nov 2024) — a parallel TA / market-development programme, NOT the Farmfit Fund. Surfaced because public discourse conflates the two — never aggregate with fund-level metrics
+    structure_notes: >
+      The rare INGO-sponsored fund whose disclosure problem is
+      fragmentation, not silence. Capital-deployment numbers (€31.5m
+      invested, €100M+ co-invest mobilised, 15 investments) are crisply
+      fund-attributed and updated regularly — but they live in a 5-year
+      retrospective blog post, the IDH annual report, and a Dutch
+      government mid-term review rather than in a standalone Farmfit
+      Fund impact report. Critical caveat for INGO-fund builders: every
+      farmer-reach number is franchise-FI-aggregate, not fund-attributed.
+      "4 million farmers" is the total smallholder book of investee FIs
+      and agribusinesses that Farmfit co-finances, not a pro-rated count.
+      Second trap: the parallel IDH Farmfit Africa Programme (a TA arm)
+      publishes its own endline evaluation routinely conflated with the
+      Fund — they should never be aggregated.
+    structure_source_urls:
+      - https://idh.org/news/five-years-of-the-idh-farmfit-fund-five-key-trends-from-our-journey-so-far
+      - https://idh.org/annual-report-2024/better-incomes
+      - https://www.idhsustainabletrade.com/farmfit-fund/
+      - https://farmfitinsightshub.org/resources/idh-farmfit-africa-impact-evaluation
+
+  # ----------------------------------------------------------------
+  # &Green Fund — fund-attributed, comprehensive (forest-finance archetype)
+  # ----------------------------------------------------------------
+  - slug: andgreen-fund
+    scope: fund
+    disclosure_quality: comprehensive
+    report_year: 2024
+    report_url: https://annual-report.andgreen.fund/year/2024/
+    report_format: html
+    reporting_framework_tags: [tnfd, tcfd, ndpe, lpp, gender_lens]
+    metrics:
+      - metric_name: Hectares Protected
+        tags: [forest-positive, deforestation, conservation]
+        value: 2500000
+        unit: hectares
+        cumulative_since: 2017
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://annual-report.andgreen.fund/year/2024/
+        source_quote: "> 2,500,000 Hectares Protected of natural tropical forest across &Green transactions"
+        caveat: Portfolio-level cumulative; 2024 total lower than 2023 because Roncador (66,595 ha) was repaid and exited in April 2024
+      - metric_name: Carbon Stored
+        tags: [climate, carbon-stock, forest-positive]
+        value: 800000000
+        unit: tCO2 (carbon stock)
+        cumulative_since: 2017
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://annual-report.andgreen.fund/year/2024/
+        source_quote: "0.8 billion tCO2 Carbon Stored in forests currently covered by Landscape Protection Plans (LPPs), validated by external consultants"
+        caveat: Stock measure (carbon held in standing forest), not a flow / avoided-emissions measure. Validated by external consultants; methodology not published in annual report
+      - metric_name: Climate Benefits (avoided + sequestered)
+        tags: [climate, ghg-avoided, forest-positive]
+        value: 16300000
+        unit: tCO2e
+        cumulative_since: 2017
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://annual-report.andgreen.fund/year/2024/
+        source_quote: "> 16,300,000 tCO2e of Climate Benefits enabled through &Green transactions"
+        caveat: Composite metric — emission reductions from changes in farm management practices plus emission sequestration from regrowth. Cumulative life-of-investment, not annual flow
+      - metric_name: Total Capital Deployed
+        tags: [capital, deployment]
+        value: 151
+        unit: USD m
+        cumulative_since: 2017
+        period_end: "2024-12-31"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://annual-report.andgreen.fund/year/2024/
+        source_quote: "USD 151 Million Total Capital Deployed as of 31 December 2024"
+      - metric_name: Interest Income Received
+        tags: [financial-return, blended-finance]
+        value: 10.3
+        unit: USD m
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://annual-report.andgreen.fund/year/2024/
+        source_quote: "USD 10.3 million interest income received... 18% increase compared to the prior year"
+        caveat: Yield-to-maturity reported at 7.7% — relevant signal for INGO LPs evaluating concessional-debt vehicles
+      - metric_name: Active Investments
+        tags: [portfolio, deployment]
+        value: 7
+        unit: investments
+        period_end: "2024-12-31"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://annual-report.andgreen.fund/year/2024/
+        source_quote: "Seven active investments at year-end"
+      - metric_name: New Capital Received (LP commitments)
+        tags: [capital, blended-finance, mobilization]
+        value: 122
+        unit: USD m
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://annual-report.andgreen.fund/year/2024/
+        source_quote: "USD 122 Million of Additional Capital received by end of 2024 (USD 80 million from Green Climate Fund plus USD 42 million from Central African Forest Initiative)"
+      - metric_name: Smallholders to be supported (target)
+        tags: [social, smallholders, livelihoods]
+        value: 9800
+        unit: smallholders
+        cumulative_since: 2017
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: target
+        source_url: https://public.unpri.org/sail-investments-high-impact-climate-biodiversity-and-natural-capital/12830.article
+        source_quote: "approximately 32 million tCO2e of emissions benefits; 25,000 jobs created; and 9,800 smallholders to be supported"
+        caveat: Aggregate of investee LPP commitments — life-of-investment target, not realized at reporting date
+      - metric_name: Sustainably intensified land
+        tags: [agri, intensification, productivity]
+        value: 247000
+        unit: hectares
+        cumulative_since: 2017
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://public.unpri.org/sail-investments-high-impact-climate-biodiversity-and-natural-capital/12830.article
+        source_quote: "247,000 hectares of 'sustainably intensified land'"
+        caveat: The yield-uplift-on-existing-farmland counterfactual is the engine of &Green's deforestation-avoidance theory of change
+    structure_notes: >
+      Frontier of nature-positive disclosure. Three things stand out for
+      INGO LPs. (1) The unit of aggregation is the Landscape Protection
+      Plan (LPP) — a binding, public, NDPE-anchored land-use plan signed
+      by every investee. Every fund-level KPI rolls up from LPPs, which
+      is why the fund can comfortably claim fund-attribution rather than
+      franchise-aggregate framing. (2) Three distinct climate numbers
+      that most peers conflate — a stock measure (0.8bn tCO2 in standing
+      forest), a flow measure (16.3M tCO2e "climate benefits"), and an
+      investee-target aggregate (~32M tCO2e). Separating stock, flow,
+      and target is methodologically rare. (3) One of the earliest TNFD
+      pilot adopters, moving to a combined TCFD–TNFD disclosure in 2024.
+    structure_source_urls:
+      - https://annual-report.andgreen.fund/year/2024/
+      - https://annual-report.andgreen.fund/year/2023/
+      - https://sail-investments.com/what-we-do/
+      - https://public.unpri.org/sail-investments-high-impact-climate-biodiversity-and-natural-capital/12830.article
+
+  # ----------------------------------------------------------------
+  # Acumen KawiSafi — fund-attributed, scattered (climate-energy archetype)
+  # ----------------------------------------------------------------
+  - slug: acumen-kawisafi
+    scope: fund
+    disclosure_quality: scattered_milestones
+    report_year: 2024
+    report_url: https://acumen.org/news/kawisafi-announces-90-million-in-approved-capital-to-accelerate-climate-solutions-across-africa/
+    report_format: scattered_milestone_disclosure
+    reporting_framework_tags:
+      - lean_data
+      - 60_decibels_community_report
+      - gcf_apr
+      - iris_plus
+      - operating_principles_for_impact_management
+    metrics:
+      - metric_name: Capital invested in renewable energy
+        tags: [capital-deployed, fund-level]
+        value: 21
+        unit: USD m
+        cumulative_since: 2016
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://acumen.org/news/kawisafi-announces-90-million-in-approved-capital-to-accelerate-climate-solutions-across-africa/
+        source_quote: "To date, KawiSafi has invested $21 million in renewable energy, impacting 4.3 million people and averting 360,000 tonnes of CO2 emission"
+      - metric_name: People impacted by clean energy access
+        tags: [reach, energy-access, fund-level]
+        value: 4300000
+        unit: people
+        cumulative_since: 2016
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://acumen.org/news/kawisafi-announces-90-million-in-approved-capital-to-accelerate-climate-solutions-across-africa/
+        source_quote: "impacting 4.3 million people and averting 360,000 tonnes of CO2 emission"
+        caveat: '"People impacted" attribution methodology not disclosed at fund level (typically counts all customers of investees)'
+      - metric_name: CO2 emissions averted
+        tags: [climate, mitigation, fund-level]
+        value: 360000
+        unit: tonnes CO2e
+        cumulative_since: 2016
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://acumen.org/news/kawisafi-announces-90-million-in-approved-capital-to-accelerate-climate-solutions-across-africa/
+        source_quote: "averting 360,000 tonnes of CO2 emission"
+        caveat: Aggregated from portfolio company kerosene-displacement estimates; methodology not detailed in news release
+      - metric_name: Direct beneficiaries (target)
+        tags: [reach, target, gcf]
+        value: 10119000
+        unit: people
+        period_end: "2028"
+        attribution_level: fund_attributed
+        metric_type: target
+        source_url: https://www.greenclimate.fund/project/fp005
+        source_quote: "Target 10,119,000 people"
+        caveat: GCF FP005 logframe target through estimated project completion (Aug 2028)
+      - metric_name: Portfolio investment strategy
+        tags: [portfolio-construction, target]
+        value_text: "10–15 SMEs"
+        unit: companies
+        period_end: "2028"
+        attribution_level: fund_attributed
+        metric_type: target
+        source_url: https://www.greenclimate.fund/project/fp005
+        source_quote: "Investments of USD 2-10 million per company will be made in 10-15 clean energy small- and medium-sized enterprises."
+      - metric_name: GCF financing — equity anchor
+        tags: [capital-stack, gcf]
+        value: 20
+        unit: USD m
+        period_end: "2015"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.greenclimate.fund/project/fp005
+        source_quote: "Equity USD 20,000,000"
+        caveat: GCF FP005 anchor commitment at fund launch
+      - metric_name: GCF financing — grant (TA)
+        tags: [capital-stack, technical-assistance, gcf]
+        value: 5
+        unit: USD m
+        period_end: "2015"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.greenclimate.fund/project/fp005
+        source_quote: "Grant USD 5,000,000"
+      - metric_name: Co-financing mobilized
+        tags: [capital-stack, mobilization]
+        value: 85
+        unit: USD m
+        period_end: "2015"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://www.greenclimate.fund/project/fp005
+        source_quote: "Total co-financing USD 85,000,000"
+      - metric_name: Fund target reach
+        tags: [reach, target, fund-level]
+        value: 10000000
+        unit: people
+        attribution_level: fund_attributed
+        metric_type: target
+        source_url: https://acumen.org/programs/kawisafi/
+        source_quote: "deliver clean, affordable energy to more than 10 million people in East Africa, at least half of whom are low-income"
+      - metric_name: Fund target carbon displacement
+        tags: [climate, mitigation, target, fund-level]
+        value: 1000000
+        unit: tonnes CO2e
+        attribution_level: fund_attributed
+        metric_type: target
+        source_url: https://www.kawisafi.com/origin
+        source_quote: "displace more than a million tons of carbon"
+    structure_notes: >
+      Unusually layered reporting architecture for an emerging-market
+      climate fund, but its public surface is thin. Three streams
+      co-exist (1) GCF FP005 Annual Performance Reports filed each April
+      since 2018 against a board-approved logframe with baseline / target
+      / realized triples — the most rigorous disclosure regime on offer,
+      but the actual numbers sit inside PDFs that aren't surfaced as
+      searchable HTML. (2) 60 Decibels Community Reports (2020 and 2021
+      published) — the Lean Data flagship — carrying customer-voice
+      survey outcomes (% first-time energy access, % reporting QoL
+      improvement, NPS) aggregated across portfolio companies. (3)
+      Milestone press at fund-II launch which restates the cumulative
+      headline ($21M deployed, 4.3M people, 360 ktCO2e averted). The
+      defining methodological contribution is Lean Data itself.
+    structure_source_urls:
+      - https://www.greenclimate.fund/project/fp005
+      - https://www.greenclimate.fund/document/2023-annual-performance-report-fp005-kawisafi-ventures-fund
+      - https://60decibels.com/insights/kawisafi-ventures-community-report/
+      - https://acumen.org/news/kawisafi-announces-90-million-in-approved-capital-to-accelerate-climate-solutions-across-africa/
+
+  # ----------------------------------------------------------------
+  # Calvert Impact Community Note — fund-attributed, comprehensive (gold standard)
+  # ----------------------------------------------------------------
+  - slug: calvert-impact-community-note
+    scope: fund
+    disclosure_quality: comprehensive
+    report_year: 2024
+    report_url: https://assets.ctfassets.net/4oaw9man1yeu/6u85BkxxrlorHhu3M0hIGN/ff4783981e459352ce2dc054d8b1bc41/2024_Impact_Report_-_Community_Investment_Note.pdf
+    report_format: pdf
+    reporting_framework_tags: [iris_plus, sdg, opim, bluemark_verified, giin, 2x_challenge, aeris, cdfi_fund, gogla]
+    metrics:
+      - metric_name: Total amount invested
+        tags: [capital-deployed, lifetime]
+        value: 2800000000
+        value_text: "Over $2.8 bil"
+        unit: USD
+        cumulative_since: 1995
+        period_end: "2024"
+        iris_plus_id: PI5476
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://assets.ctfassets.net/4oaw9man1yeu/2XWqLgelMX909a0ouU2csD/b4033458bedf801fc20a4f033e90b2d0/Commmunity_Investment_Note_Fact_Sheet_q3_2024.pdf
+        source_quote: "Total amount invested Over $2.8 bil"
+      - metric_name: Investor repayment rate
+        tags: [track-record, lifetime]
+        value: 100
+        unit: percent
+        cumulative_since: 1995
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://assets.ctfassets.net/4oaw9man1yeu/2XWqLgelMX909a0ouU2csD/b4033458bedf801fc20a4f033e90b2d0/Commmunity_Investment_Note_Fact_Sheet_q3_2024.pdf
+        source_quote: "100% repayment of principal and interest since 1995"
+      - metric_name: Underlying portfolio loan repayment rate
+        tags: [credit-performance, lifetime]
+        value: 99
+        value_text: "over 99%"
+        unit: percent
+        cumulative_since: 1995
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://assets.ctfassets.net/4oaw9man1yeu/2XWqLgelMX909a0ouU2csD/b4033458bedf801fc20a4f033e90b2d0/Commmunity_Investment_Note_Fact_Sheet_q3_2024.pdf
+        source_quote: "Over our 25+ year history, over 99% of the underlying portfolio loans have been repaid, and no investor has ever lost principal or interest."
+      - metric_name: Number of client individuals
+        tags: [clients, headline]
+        value: 163409819
+        value_text: "163 MILLION"
+        unit: individuals
+        period_end: "2023"
+        iris_plus_id: PI4060
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://assets.ctfassets.net/4oaw9man1yeu/6u85BkxxrlorHhu3M0hIGN/ff4783981e459352ce2dc054d8b1bc41/2024_Impact_Report_-_Community_Investment_Note.pdf
+        source_quote: "Number of client individuals 163,409,819 PI4060"
+        caveat: Calvert explicitly states they do not "take credit" for the full impact reported; aggregate of partner FIs' total clients
+      - metric_name: Affordable units created or preserved
+        tags: [affordable-housing]
+        value: 19154
+        unit: units
+        period_end: "2023"
+        iris_plus_id: PI5965
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://assets.ctfassets.net/4oaw9man1yeu/6u85BkxxrlorHhu3M0hIGN/ff4783981e459352ce2dc054d8b1bc41/2024_Impact_Report_-_Community_Investment_Note.pdf
+        source_quote: "Number of affordable units and homes created and preserved 19,154 PI5965"
+      - metric_name: Jobs created or retained at indirectly financed enterprises
+        tags: [jobs, headline]
+        value: 1312432
+        value_text: "1.3 MILLION"
+        unit: jobs
+        period_end: "2023"
+        iris_plus_id: PI3687
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://assets.ctfassets.net/4oaw9man1yeu/6u85BkxxrlorHhu3M0hIGN/ff4783981e459352ce2dc054d8b1bc41/2024_Impact_Report_-_Community_Investment_Note.pdf
+        source_quote: "Number of jobs created and/or retained at indirectly financed enterprises 1,312,432 PI3687, PI5691"
+      - metric_name: Microfinance clients who are women
+        tags: [microfinance, gender]
+        value: 88
+        unit: percent
+        period_end: "2023"
+        iris_plus_id: PI8330
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://assets.ctfassets.net/4oaw9man1yeu/6u85BkxxrlorHhu3M0hIGN/ff4783981e459352ce2dc054d8b1bc41/2024_Impact_Report_-_Community_Investment_Note.pdf
+        source_quote: "Percent of microfinance clients who are women 88% PI8330"
+      - metric_name: GHGs reduced (CO2e from products sold/replaced)
+        tags: [climate, headline]
+        value: 4020455
+        unit: metric tons CO2e
+        period_end: "2023"
+        iris_plus_id: PI5376
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://assets.ctfassets.net/4oaw9man1yeu/6u85BkxxrlorHhu3M0hIGN/ff4783981e459352ce2dc054d8b1bc41/2024_Impact_Report_-_Community_Investment_Note.pdf
+        source_quote: "GHGs reduced due to products sold and/or replaced (mtCO2e) 4,020,455 PI5376"
+        caveat: Headline 6.4M includes both reduction (4.02M) and avoidance via conservation/agroforestry (2.4M)
+      - metric_name: End users with improved energy access
+        tags: [climate, access, headline]
+        value: 32187145
+        value_text: "32.2 MILLION"
+        unit: people
+        period_end: "2023"
+        iris_plus_id: PI2822
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://assets.ctfassets.net/4oaw9man1yeu/6u85BkxxrlorHhu3M0hIGN/ff4783981e459352ce2dc054d8b1bc41/2024_Impact_Report_-_Community_Investment_Note.pdf
+        source_quote: "Number of end users with improved energy access 32,187,145 PI2822"
+      - metric_name: Smallholder farmers supported
+        tags: [agri]
+        value: 795191
+        unit: farmers
+        period_end: "2023"
+        iris_plus_id: PI6372
+        attribution_level: franchise_fi_aggregate
+        metric_type: realized
+        source_url: https://assets.ctfassets.net/4oaw9man1yeu/6u85BkxxrlorHhu3M0hIGN/ff4783981e459352ce2dc054d8b1bc41/2024_Impact_Report_-_Community_Investment_Note.pdf
+        source_quote: "Number of farmers and smallholder farmers supported 795,191 PI6372, PI4060"
+      - metric_name: BlueMark verification on Operating Principles for Impact Management
+        tags: [governance, impact-practice]
+        value: 8
+        value_text: "Advanced on all 8 principles"
+        unit: principles at advanced
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://assets.ctfassets.net/4oaw9man1yeu/6u85BkxxrlorHhu3M0hIGN/ff4783981e459352ce2dc054d8b1bc41/2024_Impact_Report_-_Community_Investment_Note.pdf
+        source_quote: "The Community Investment Note® portfolio continues to receive Advanced ratings (the highest score possible) across all the Impact Principles"
+    structure_notes: >
+      The gold-standard disclosure exemplar in the INGO-adjacent
+      peer-fund universe. Three things distinguish it. (1) Full IRIS+
+      code-level transparency — the 2024 Impact Report dedicates a 4-page
+      Impact Data appendix tagging every one of ~40+ metrics with both
+      the SDG it serves AND the exact IRIS+ ID (PI5965, PI4940, OI2496).
+      Few impact funds surface IRIS+ codes this granularly. (2) Honest
+      attribution language — Calvert explicitly tells investors "this
+      impact was not financed solely by our capital and we do not 'take
+      credit' for the full impact reported." (3) Independent verification
+      + 30-year track record — BlueMark "Advanced" ratings across all 8
+      Operating Principles for Impact Management, plus 100% investor
+      repayment and <1% portfolio loss rate since 1995, anchor the
+      impact narrative in audited financial credibility.
+    structure_source_urls:
+      - https://assets.ctfassets.net/4oaw9man1yeu/6u85BkxxrlorHhu3M0hIGN/ff4783981e459352ce2dc054d8b1bc41/2024_Impact_Report_-_Community_Investment_Note.pdf
+      - https://assets.ctfassets.net/4oaw9man1yeu/2XWqLgelMX909a0ouU2csD/b4033458bedf801fc20a4f033e90b2d0/Commmunity_Investment_Note_Fact_Sheet_q3_2024.pdf
+
+  # ----------------------------------------------------------------
+  # Global Health Investment Fund — parent-org proxy, scattered (health archetype)
+  # ----------------------------------------------------------------
+  - slug: global-health-investment-fund
+    scope: parent_org_proxy
+    disclosure_quality: scattered_milestones
+    report_year: 2024
+    report_url: https://ghicfunds.org/global-health-investment-fund/
+    report_format: scattered_milestone_disclosure
+    reporting_framework_tags: [headline_metric_only, no_iris]
+    metrics:
+      - metric_name: People reached by commercialized GHIF portfolio products
+        tags: [reach, end-user-count, health-products]
+        value: 500000000
+        value_text: "over 500 million people"
+        unit: people
+        cumulative_since: 2013
+        period_end: "2024"
+        attribution_level: manager_portfolio
+        metric_type: longitudinal_outcome
+        source_url: https://ghicfunds.org/global-health-investment-fund/
+        source_quote: "the Fund's portfolio companies have successfully commercialized more than a dozen products that have been delivered to over 500 million people"
+        caveat: Aggregate manager-attributed reach across all 12 portfolio companies; no breakdown by company, product, or year. No methodology disclosed for how "delivered to" is counted vs units sold
+      - metric_name: Products commercialized by portfolio companies
+        tags: [product-count, regulatory-milestone]
+        value: 12
+        value_text: "more than a dozen products"
+        unit: products
+        cumulative_since: 2013
+        period_end: "2024"
+        attribution_level: manager_portfolio
+        metric_type: realized
+        source_url: https://ghicfunds.org/global-health-investment-fund/
+        source_quote: "portfolio companies have successfully commercialized more than a dozen products"
+      - metric_name: Portfolio companies funded
+        tags: [portfolio-count]
+        value: 12
+        unit: companies
+        cumulative_since: 2013
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://ghicfunds.org/global-health-investment-fund/
+        source_quote: "$108 million social impact fund invested in twelve portfolio companies"
+      - metric_name: EuBiologics oral cholera vaccine — modeled deaths averted (single-portco)
+        tags: [lives-saved-modeled, cholera, vaccine]
+        value: 100000
+        value_text: "100,000 deaths averted"
+        unit: deaths averted (modeled, 2015–2030)
+        cumulative_since: 2015
+        period_end: "2030"
+        attribution_level: manager_portfolio
+        metric_type: longitudinal_outcome
+        source_url: https://health.bmz.de/stories/investing-in-neglected-diseases/
+        source_quote: "100,000 deaths averted between 2015 and 2030"
+        caveat: Forward-looking model attributed to a single portfolio company (EuBiologics / Euvichol cholera vaccine). KfW/BMZ-side disclosure; not in fund-direct reporting
+      - metric_name: Strategic exits achieved (acquisitions)
+        tags: [exit, m-and-a]
+        value: 2
+        value_text: "Themis Bioscience (Merck 2020); IanTech (Carl Zeiss Meditec 2019)"
+        unit: portfolio company acquisitions
+        cumulative_since: 2013
+        period_end: "2024"
+        attribution_level: fund_attributed
+        metric_type: realized
+        source_url: https://ghicfunds.org/global-health-investment-fund/
+        source_quote: "Themis Bioscience ... Acquired by Merck | IanTech ... Acquired by ZEISS"
+    structure_notes: >
+      Instructive cautionary archetype a flagship blended-finance health
+      fund that, despite stellar substantive impact (12 portfolio
+      companies, 12+ products commercialized, 500m+ people reached, two
+      strategic exits to Merck and Zeiss), produced no public fund-direct
+      annual impact report. The manager-side artifact is a single-page
+      narrative on ghicfunds.org with one headline reach number;
+      everything granular flows through LP-side proxy reporting (Gates
+      SIF impact stories, KfW/BMZ Healthy DEvelopments, World Bank case
+      study). Three distinctive features (1) modeled lives-saved framing
+      — most-cited impact figure is a 15-year forward DALY-adjacent
+      projection from a single portco; (2) regulatory-milestone reporting
+      (WHO PQ, FDA approvals) substitutes for IRIS+; (3) LP-as-publisher
+      pattern — when the fund itself goes quiet, philanthropic LPs absorb
+      the impact-narrative burden. INGO sponsors should pre-commit a
+      fund-direct cadence to avoid this.
+    structure_source_urls:
+      - https://health.bmz.de/stories/investing-in-neglected-diseases/
+      - https://sif.gatesfoundation.org/investments/ghif/
+      - https://ghicfunds.org/global-health-investment-fund/

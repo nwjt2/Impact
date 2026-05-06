@@ -203,6 +203,104 @@ class BlendedFinanceStructure(BaseModel):
     structure_source_urls: list[str] = Field(default_factory=list)
 
 
+# ---- Fund-KPIs block (per-fund impact reporting disclosure) ---------------
+#
+# Curated for ~10–15 exemplar INGO-sponsored funds spanning the
+# disclosure-quality spectrum. Renders inline on the peer fund card and
+# powers a separate /kpis/ gallery page.
+#
+# The 3-fund pilot established that fund-LEVEL attribution is the
+# exception, not the rule — most INGO funds publish at manager-portfolio
+# or parent-org level. The `attribution_level` field on each metric
+# captures this, and the block-level `scope` field flags the whole entry.
+
+FundKpiScope = Literal[
+    "fund",                     # KPIs are fund-attributed end to end
+    "manager_portfolio_proxy",  # only manager-portfolio aggregates published; used as proxy
+    "parent_org_proxy",         # only parent-INGO or 501(c)(3) aggregates published
+]
+FundKpiDisclosureQuality = Literal[
+    "comprehensive",        # multi-pathway, current, well-documented (e.g. Root Capital)
+    "partial",              # fund-specific snapshot only at close, plus portfolio aggregates
+    "scattered_milestones", # disclosure across blog posts / case studies / press milestones
+    "placeholder_only",     # public surface shows zeros / no current numbers
+]
+FundKpiReportFormat = Literal[
+    "pdf",
+    "html",
+    "dashboard",
+    "annual_report_section",
+    "scattered_milestone_disclosure",
+]
+FundKpiAttributionLevel = Literal[
+    "fund_attributed",        # this fund's investments produced this number
+    "pro_rated",              # pro-rated share of FI/portco outcomes
+    "manager_portfolio",      # aggregate across manager's funds
+    "franchise_fi_aggregate", # totals at portfolio FIs (clients, AUM at FI level)
+    "parent_org_aggregate",   # parent-INGO or 501(c)(3) aggregate
+]
+FundKpiMetricType = Literal[
+    "realized",            # actual outcome to date
+    "target",              # target set at close / in IPS
+    "longitudinal_outcome",# multi-year cohort follow-up
+    "cohort_outcome",      # one-time cohort study
+    "survey_outcome",      # client survey (e.g. 60 Decibels)
+]
+
+
+class FundKpiMetric(BaseModel):
+    """One KPI as published in a fund's impact report.
+
+    Verbatim source quote is mandatory in practice (the curated process
+    requires it). The schema itself leaves source_quote optional only so
+    that placeholder-only / narrative-only metrics can be captured with
+    value=None and source_quote describing the absence.
+    """
+
+    model_config = ConfigDict(extra="allow")
+
+    metric_name: str                                 # verbatim — never paraphrased
+    tags: list[str] = Field(default_factory=list)   # informal cross-cut: gender, climate, agri, ...
+    value: Optional[float] = None                    # null if narrative-only
+    value_text: Optional[str] = None                 # verbatim composite values ("46% pre → 8% post")
+    unit: Optional[str] = None                       # free-text — "people", "%", "MT CO2e", "USD m"
+    cumulative_since: Optional[int] = None           # year; null = single-period metric
+    period_end: Optional[str] = None                 # YYYY or YYYY-MM-DD or null
+    iris_plus_id: Optional[str] = None
+    attribution_level: FundKpiAttributionLevel
+    metric_type: FundKpiMetricType = "realized"
+    source_url: str
+    source_quote: Optional[str] = None               # verbatim, ≤200 chars
+    caveat: Optional[str] = None                     # ≤2 sentences — methodology gaps, scope notes
+
+
+class FundKpis(BaseModel):
+    """Slot 1 — per-fund impact-KPI disclosure block.
+
+    Curated for exemplar funds only (~10–15 of 67 INGO-sponsored). Funds
+    without this block render normally; funds with it render an additional
+    `Impact KPIs` section on their card and appear on the /kpis/ gallery.
+
+    Honest-null discipline:
+      • iris_plus_id is null on most metrics — even IRIS+-aligned
+        managers rarely print the codes alongside KPIs
+      • attribution_level is the most important field; without it the
+        artifact misleads readers about what a number actually represents
+    """
+
+    model_config = ConfigDict(extra="allow")
+
+    scope: FundKpiScope
+    disclosure_quality: FundKpiDisclosureQuality
+    report_year: Optional[int] = None
+    report_url: Optional[str] = None
+    report_format: Optional[FundKpiReportFormat] = None
+    reporting_framework_tags: list[str] = Field(default_factory=list)
+    metrics: list[FundKpiMetric] = Field(default_factory=list)
+    structure_notes: Optional[str] = None
+    structure_source_urls: list[str] = Field(default_factory=list)
+
+
 class PeerIngoFund(BaseModel):
     """Slot 1: one peer INGO fund card.
 
@@ -240,6 +338,7 @@ class PeerIngoFund(BaseModel):
     sub_advisor: Optional[str] = None
     placement_agent: Optional[str] = None
     blended_finance_structure: Optional[BlendedFinanceStructure] = None
+    fund_kpis: Optional[FundKpis] = None
     public_source_url: Optional[str] = None
     status: FundStatus = "raising"
     notes: Optional[str] = None

@@ -221,6 +221,9 @@
     var bf = renderBlendedFinanceBlock(f.blended_finance_structure);
     if (bf) parts.push(bf);
 
+    var kpis = renderFundKpisBlock(f.fund_kpis);
+    if (kpis) parts.push(kpis);
+
     var econ = renderFundEconomicsBlock(f);
     if (econ) parts.push(econ);
 
@@ -335,6 +338,165 @@
         return '<a class="bf-src" href="' + escAttr(u) + '" target="_blank" rel="noopener noreferrer">[' + (i + 1) + '] ' + esc(host) + '</a>';
       }).join(" ");
       parts.push('<div class="bf-srcs muted">Structure sources: ' + srcLinks + '</div>');
+    }
+
+    parts.push('</div>');
+    return parts.join("");
+  }
+
+  // ---- Fund-KPIs block (curated impact-disclosure; ~10–15 exemplar funds) ---
+  //
+  // Renders inline on the peer-fund card (top metrics + expand) and is reused
+  // by /kpis/ for the full gallery view. The most important rendered field is
+  // attribution_level — without it, franchise-FI-aggregate numbers look
+  // identical to fund-attributed numbers, and the artifact misleads readers.
+  var KPI_SCOPE_LABELS = {
+    fund: "Fund-attributed",
+    manager_portfolio_proxy: "Manager-portfolio proxy",
+    parent_org_proxy: "Parent-org proxy",
+  };
+  var KPI_QUALITY_LABELS = {
+    comprehensive: "Comprehensive disclosure",
+    partial: "Partial disclosure",
+    scattered_milestones: "Scattered milestone disclosure",
+    placeholder_only: "Placeholder only — no current numbers",
+  };
+  var KPI_ATTR_LABELS = {
+    fund_attributed: "Fund-attributed",
+    pro_rated: "Pro-rated",
+    manager_portfolio: "Manager portfolio",
+    franchise_fi_aggregate: "Franchise-FI aggregate",
+    parent_org_aggregate: "Parent-org aggregate",
+  };
+  var KPI_TYPE_LABELS = {
+    realized: "Realized",
+    target: "Target",
+    longitudinal_outcome: "Longitudinal outcome",
+    cohort_outcome: "Cohort outcome",
+    survey_outcome: "Survey outcome",
+  };
+
+  function fmtKpiValue(m) {
+    if (m.value_text) return m.value_text;
+    if (m.value == null) return '<span class="muted">narrative only</span>';
+    var v = m.value;
+    var u = m.unit || "";
+    // Friendly grouping for large absolute numbers; preserve % and ratio raw.
+    if (/percent|%/.test(u)) return v + "%";
+    if (typeof v === "number" && v >= 1e9) return (v / 1e9).toFixed(2) + "B " + u;
+    if (typeof v === "number" && v >= 1e6) return (v / 1e6).toFixed(1) + "M " + u;
+    if (typeof v === "number" && v >= 1e3 && (u || "").length) {
+      return v.toLocaleString() + " " + u;
+    }
+    return (typeof v === "number" ? v.toLocaleString() : esc(v)) + (u ? " " + u : "");
+  }
+
+  function fmtKpiPeriod(m) {
+    var since = m.cumulative_since;
+    var end = m.period_end;
+    if (since && end) return "since " + since + " → " + esc(String(end));
+    if (end) return "as of " + esc(String(end));
+    if (since) return "since " + since;
+    return "";
+  }
+
+  function renderKpiMetricRow(m) {
+    var attr = m.attribution_level || "fund_attributed";
+    var attrLabel = KPI_ATTR_LABELS[attr] || attr;
+    var typeLabel = KPI_TYPE_LABELS[m.metric_type || "realized"] || (m.metric_type || "realized");
+    var period = fmtKpiPeriod(m);
+
+    var meta = [];
+    if (period) meta.push('<span class="kpi-period muted">' + period + '</span>');
+    meta.push('<span class="kpi-attr kpi-attr-' + esc(attr) + '">' + esc(attrLabel) + '</span>');
+    if (m.metric_type && m.metric_type !== "realized") {
+      meta.push('<span class="kpi-type kpi-type-' + esc(m.metric_type) + '">' + esc(typeLabel) + '</span>');
+    }
+
+    var src = "";
+    if (m.source_quote || m.source_url) {
+      var quote = m.source_quote
+        ? '<p class="kpi-quote">&ldquo;' + esc(m.source_quote) + '&rdquo;</p>' : "";
+      var link = m.source_url ? sourceLink(m.source_url, "Source") : "";
+      var caveat = m.caveat
+        ? '<p class="kpi-caveat muted"><strong>Caveat:</strong> ' + esc(m.caveat) + '</p>' : "";
+      src = '<details class="kpi-source"><summary class="muted">' +
+        (m.source_quote ? "Source quote" : "Source") + '</summary>' +
+        quote + caveat + link + '</details>';
+    }
+
+    return '<li class="kpi-row">' +
+      '<div class="kpi-row-main">' +
+        '<span class="kpi-value">' + fmtKpiValue(m) + '</span>' +
+        '<span class="kpi-name">' + esc(m.metric_name) + '</span>' +
+      '</div>' +
+      '<div class="kpi-row-meta">' + meta.join("") + '</div>' +
+      src +
+      '</li>';
+  }
+
+  // expanded=true forces all metrics rendered (used on /kpis/ gallery).
+  // Inline on peer-fund cards: top 5 + expand for the rest.
+  function renderFundKpisBlock(k, opts) {
+    if (!k || !k.scope) return "";
+    var expanded = opts && opts.expanded === true;
+    var metrics = k.metrics || [];
+
+    var parts = ['<div class="kpi-block">'];
+
+    var headBits = ['<span class="kpi-block-title">Impact KPIs</span>'];
+    var scopeLabel = KPI_SCOPE_LABELS[k.scope] || k.scope;
+    headBits.push(badge(scopeLabel, "badge-kpi-scope badge-kpi-scope-" + esc(k.scope)));
+    if (k.disclosure_quality) {
+      var qLabel = KPI_QUALITY_LABELS[k.disclosure_quality] || k.disclosure_quality;
+      headBits.push(badge(qLabel, "badge-kpi-quality badge-kpi-quality-" + esc(k.disclosure_quality)));
+    }
+    if (k.report_year) {
+      var reportLabel = k.report_year + " report";
+      var reportEl = k.report_url
+        ? '<a class="kpi-report-link" href="' + escAttr(k.report_url) +
+          '" target="_blank" rel="noopener noreferrer">' + esc(reportLabel) + ' &#x2197;</a>'
+        : '<span class="kpi-report-label">' + esc(reportLabel) + '</span>';
+      headBits.push(reportEl);
+    }
+    parts.push('<div class="kpi-head">' + headBits.join(" ") + '</div>');
+
+    var fws = k.reporting_framework_tags || [];
+    if (fws.length) {
+      var fwHtml = fws.map(function (f) {
+        return '<span class="kpi-fw">' + esc(String(f).replace(/_/g, " ")) + '</span>';
+      }).join("");
+      parts.push('<div class="kpi-frameworks"><span class="kpi-fw-label muted">Reporting frameworks:</span> ' + fwHtml + '</div>');
+    }
+
+    if (metrics.length) {
+      var INLINE_LIMIT = 5;
+      var primary = expanded ? metrics : metrics.slice(0, INLINE_LIMIT);
+      var rest = expanded ? [] : metrics.slice(INLINE_LIMIT);
+      parts.push('<ul class="kpi-metrics">' +
+        primary.map(renderKpiMetricRow).join("") + '</ul>');
+      if (rest.length) {
+        parts.push('<details class="kpi-more"><summary>Show ' + rest.length +
+          ' more metric' + (rest.length === 1 ? "" : "s") + '</summary>' +
+          '<ul class="kpi-metrics kpi-metrics-rest">' +
+          rest.map(renderKpiMetricRow).join("") + '</ul></details>');
+      }
+    }
+
+    if (k.structure_notes) {
+      var n = String(k.structure_notes).trim().replace(/\s+/g, " ");
+      parts.push('<p class="kpi-notes">' + esc(n) + '</p>');
+    }
+
+    var srcs = k.structure_source_urls || [];
+    if (srcs.length) {
+      var srcLinks = srcs.map(function (u, i) {
+        var host = "";
+        try { host = new URL(u).host.replace(/^www\./, ""); } catch (e) { host = u; }
+        return '<a class="kpi-src" href="' + escAttr(u) +
+          '" target="_blank" rel="noopener noreferrer">[' + (i + 1) + '] ' + esc(host) + '</a>';
+      }).join(" ");
+      parts.push('<div class="kpi-srcs muted">Sources: ' + srcLinks + '</div>');
     }
 
     parts.push('</div>');
@@ -1167,6 +1329,7 @@
     sectorLabel: sectorLabel, geoLabel: geoLabel, deadlineStatus: deadlineStatus,
     countryName: countryName, dateVerb: dateVerb,
     renderFundCard: renderFundCard,
+    renderFundKpisBlock: renderFundKpisBlock,
     renderDfiCard: renderDfiCard,
     renderFoundationCard: renderFoundationCard,
     renderFamilyOfficeCard: renderFamilyOfficeCard,

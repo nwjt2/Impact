@@ -1,0 +1,200 @@
+---
+layout: base.njk
+title: Impact KPIs — exemplar peer-fund disclosures
+permalink: /kpis/index.html
+pageKey: kpis
+---
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
+  <header class="detail-header">
+    <div class="detail-eyebrow">
+      <span>Impact KPIs · curated peer-fund reporting precedents</span>
+    </div>
+    <h1>What KPIs do INGO-sponsored peer funds actually publish?</h1>
+    <p class="detail-sub">A curated gallery of <span id="kpi-fund-count" class="muted">…</span> exemplar funds spanning the disclosure spectrum — from comprehensive (Root Capital, Calvert Note, Hivos-Triodos) to scattered milestones (Acumen KawiSafi, GHIF). Each card shows the metrics they actually report, with verbatim source quotes and an honest read on attribution: did this number come from the fund itself, the manager's whole portfolio, or the franchise FIs they finance?</p>
+    <p class="detail-sub">The most important field on every metric is <strong>attribution level</strong>. "5.8M women clients" looks the same whether it was the fund's pro-rated outcome, the manager's total portfolio, or just the total client books of the FIs they lent to. Without that label, the artifact would mislead. Not every metric resolves cleanly — caveats are surfaced rather than buried.</p>
+    <p class="detail-sub muted">Selection is editorial, not exhaustive. ~67 INGO-sponsored funds are in the registry; 11 are profiled here as exemplar archetypes. Other funds publish at the parent-INGO level, in scattered milestones, or not at all — the absence is part of the finding.</p>
+  </header>
+
+  <form id="kpi-picker" class="picker">
+    <fieldset class="picker-group">
+      <legend class="picker-legend">Scope <span class="picker-hint">— what the metrics actually represent</span></legend>
+      <div class="picker-chips" data-dim="scope"></div>
+    </fieldset>
+    <fieldset class="picker-group">
+      <legend class="picker-legend">Disclosure quality <span class="picker-hint">— how complete the public record is</span></legend>
+      <div class="picker-chips" data-dim="quality"></div>
+    </fieldset>
+    <div class="picker-actions">
+      <button type="button" id="kpi-reset" class="picker-reset">Reset filters</button>
+      <span id="kpi-summary" class="picker-summary"></span>
+    </div>
+  </form>
+
+  <div id="kpi-list" class="kpi-gallery" aria-live="polite"></div>
+  <div id="kpi-empty" class="empty-state" hidden></div>
+</section>
+
+<script type="application/json" id="data-peer-funds">{{ peer_ingo_funds | dump | safe }}</script>
+<script type="application/json" id="data-slot-meta">{{ slot_meta | dump | safe }}</script>
+
+<script src="{{ '/assets/js/render.js' | url }}"></script>
+<script>
+(function () {
+  "use strict";
+  var I = window.IFC;
+
+  var SCOPE_LABELS = {
+    fund: "Fund-attributed",
+    manager_portfolio_proxy: "Manager-portfolio proxy",
+    parent_org_proxy: "Parent-org proxy",
+  };
+  var SCOPE_ORDER = ["fund", "manager_portfolio_proxy", "parent_org_proxy"];
+
+  var QUALITY_LABELS = {
+    comprehensive: "Comprehensive",
+    partial: "Partial",
+    scattered_milestones: "Scattered milestones",
+    placeholder_only: "Placeholder only",
+  };
+  var QUALITY_ORDER = ["comprehensive", "partial", "scattered_milestones", "placeholder_only"];
+
+  var PEER = I.loadJSON("data-peer-funds") || [];
+  var META = I.loadJSON("data-slot-meta") || {};
+
+  // Only funds with fund_kpis populated appear on this page.
+  var POP = PEER.filter(function (f) { return f.fund_kpis && f.fund_kpis.scope; });
+
+  // ---- State + filters ---------------------------------------------------
+  var state = { scope: new Set(), quality: new Set() };
+
+  function passes(f) {
+    var k = f.fund_kpis;
+    if (state.scope.size > 0 && !state.scope.has(k.scope)) return false;
+    if (state.quality.size > 0 && !state.quality.has(k.disclosure_quality)) return false;
+    return true;
+  }
+
+  // ---- Picker chips ------------------------------------------------------
+  var scopeInUse = new Set(), qualityInUse = new Set();
+  POP.forEach(function (f) {
+    scopeInUse.add(f.fund_kpis.scope);
+    if (f.fund_kpis.disclosure_quality) qualityInUse.add(f.fund_kpis.disclosure_quality);
+  });
+  var scopeOrder = SCOPE_ORDER.filter(function (k) { return scopeInUse.has(k); });
+  var qualityOrder = QUALITY_ORDER.filter(function (k) { return qualityInUse.has(k); });
+
+  function buildChips(host, dim, order, labels) {
+    host.innerHTML = order.map(function (k) {
+      var on = state[dim].has(k) ? " is-on" : "";
+      return '<button type="button" class="picker-chip' + on + '" data-key="' + I.escAttr(k) + '">'
+        + I.esc(labels[k] || k) + '</button>';
+    }).join("");
+    host.addEventListener("click", function (evt) {
+      var btn = evt.target.closest(".picker-chip");
+      if (!btn) return;
+      var key = btn.getAttribute("data-key");
+      var s = state[dim];
+      if (s.has(key)) { s.delete(key); btn.classList.remove("is-on"); }
+      else { s.add(key); btn.classList.add("is-on"); }
+      render();
+    });
+  }
+  document.querySelectorAll("#kpi-picker .picker-chips").forEach(function (host) {
+    var dim = host.getAttribute("data-dim");
+    if (dim === "scope") buildChips(host, "scope", scopeOrder, SCOPE_LABELS);
+    else if (dim === "quality") buildChips(host, "quality", qualityOrder, QUALITY_LABELS);
+  });
+  document.getElementById("kpi-reset").addEventListener("click", function () {
+    state.scope.clear(); state.quality.clear();
+    document.querySelectorAll("#kpi-picker .picker-chip").forEach(function (b) { b.classList.remove("is-on"); });
+    render();
+  });
+
+  document.getElementById("kpi-fund-count").textContent = POP.length;
+
+  // ---- Render ------------------------------------------------------------
+  function render() {
+    var working = POP.filter(passes);
+
+    var summaryEl = document.getElementById("kpi-summary");
+    summaryEl.innerHTML = "Showing <strong>" + working.length + "</strong> of " + POP.length;
+
+    var root = document.getElementById("kpi-list");
+    var empty = document.getElementById("kpi-empty");
+
+    if (working.length === 0) {
+      root.innerHTML = "";
+      empty.hidden = false;
+      empty.innerHTML = "<p>No funds match the current filter.</p>";
+      return;
+    }
+    empty.hidden = true;
+    empty.innerHTML = "";
+
+    // Group by archetype: scope + disclosure_quality determine the bucket;
+    // sort within bucket by report_year desc.
+    function bucketKey(k) { return k.scope + "::" + (k.disclosure_quality || ""); }
+    var buckets = {};
+    working.forEach(function (f) {
+      var key = bucketKey(f.fund_kpis);
+      (buckets[key] = buckets[key] || []).push(f);
+    });
+    Object.keys(buckets).forEach(function (key) {
+      buckets[key].sort(function (a, b) {
+        return (b.fund_kpis.report_year || 0) - (a.fund_kpis.report_year || 0);
+      });
+    });
+
+    var BUCKET_ORDER = [];
+    SCOPE_ORDER.forEach(function (s) {
+      QUALITY_ORDER.forEach(function (q) {
+        BUCKET_ORDER.push(s + "::" + q);
+      });
+    });
+
+    var html = "";
+    BUCKET_ORDER.forEach(function (key) {
+      if (!buckets[key]) return;
+      var firstFund = buckets[key][0];
+      var k = firstFund.fund_kpis;
+      var scopeLabel = SCOPE_LABELS[k.scope] || k.scope;
+      var qLabel = QUALITY_LABELS[k.disclosure_quality] || k.disclosure_quality || "—";
+      html += '<h3 class="kpi-bucket-head">' + I.esc(scopeLabel) + ' · ' +
+        I.esc(qLabel) + ' <span class="muted">(' + buckets[key].length + ')</span></h3>';
+      buckets[key].forEach(function (f) {
+        html += renderKpiGalleryCard(f);
+      });
+    });
+
+    root.innerHTML = html;
+  }
+
+  function renderKpiGalleryCard(f) {
+    var headerBits = ['<h3 class="kpi-card-name" id="fund-' + I.escAttr(f.slug) + '">' +
+      I.esc(f.name) + '</h3>'];
+    var sub = [];
+    if (f.parent_ingo) sub.push('<span class="kpi-card-ingo">' + I.esc(f.parent_ingo) + '</span>');
+    if (f.manager && f.manager !== f.parent_ingo) {
+      sub.push('<span class="kpi-card-mgr muted">Manager: ' + I.esc(f.manager) + '</span>');
+    }
+    if (f.vintage) sub.push('<span class="kpi-card-vintage muted">Vintage ' + I.esc(f.vintage) + '</span>');
+    if (f.size_usd_m != null) sub.push('<span class="kpi-card-size muted">' + I.fmtUSDm(f.size_usd_m) + '</span>');
+    if (sub.length) headerBits.push('<div class="kpi-card-sub">' + sub.join(' <span class="sep">·</span> ') + '</div>');
+
+    var peerLink = '<a class="kpi-peer-link muted" href="' +
+      I.escAttr('{{ "/peer-funds/" | url }}#fund-' + f.slug) +
+      '">Peer-fund detail ↗</a>';
+    headerBits.push('<div class="kpi-card-actions">' + peerLink + '</div>');
+
+    var block = I.renderFundKpisBlock(f.fund_kpis, { expanded: true });
+    return '<article class="card kpi-card" id="kpi-card-' + I.escAttr(f.slug) + '">' +
+      '<div class="kpi-card-head">' + headerBits.join("") + '</div>' +
+      block +
+      '</article>';
+  }
+
+  render();
+})();
+</script>

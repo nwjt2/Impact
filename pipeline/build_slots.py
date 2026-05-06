@@ -55,6 +55,7 @@ from .schemas import (
     FamilyOfficeLp,
     FoundationLp,
     FoundationProgram,
+    FundKpis,
     IngoGpCommit,
     PeerIngoFund,
     TicketRange,
@@ -63,6 +64,7 @@ from .schemas import (
 REPO = Path(__file__).resolve().parents[1]
 CONTENT = REPO / "content"
 PEER_FUNDS_YML = CONTENT / "peer_funds.yml"
+FUND_KPIS_YML = CONTENT / "fund_kpis.yml"
 DFI_COMMITS_YML = CONTENT / "dfi_ingo_commitments.yml"
 DEADLINES_YML = CONTENT / "deadlines.yml"
 FOUNDATION_LPS_YML = CONTENT / "foundation_lps.yml"
@@ -185,8 +187,57 @@ def _write_health_warning(kind: str, lines: list[str]) -> None:
 # ------------------------------------------------------------------ loaders
 
 
+def load_fund_kpis(peer_slugs: set[str]) -> dict[str, FundKpis]:
+    """Parse content/fund_kpis.yml. Returns {slug: FundKpis}.
+
+    The file is the single source of truth for the curated KPI gallery
+    (~10–15 exemplar INGO-sponsored peer funds). Storing KPIs here rather
+    than nested in peer_funds.yml keeps the two refresh skills
+    (`/add-blended-finance-structure` and a future `/add-fund-kpis`) on
+    non-overlapping files, so concurrent skill runs don't race on the
+    same atomic-replace target.
+
+    Honest-null discipline: fund_kpis.yml is OPTIONAL. If it doesn't
+    exist, no funds will have fund_kpis populated and the /kpis/ gallery
+    will simply render no entries.
+
+    Handshake: every slug in fund_kpis.yml must resolve to a slug in
+    peer_funds.yml — this enforces single-source-of-truth on identity
+    (peer_funds.yml owns fund identity; fund_kpis.yml owns KPI data).
+    """
+    if not FUND_KPIS_YML.exists():
+        return {}
+    raw = yaml.safe_load(FUND_KPIS_YML.read_text(encoding="utf-8")) or {}
+    rows = raw.get("fund_kpis") or []
+
+    out: dict[str, FundKpis] = {}
+    seen: set[str] = set()
+    for i, row in enumerate(rows):
+        if not isinstance(row, dict):
+            raise HandshakeError(f"fund_kpis.yml row {i} is not a mapping: {row!r}")
+        slug = (row.get("slug") or "").strip()
+        if not slug:
+            raise HandshakeError(f"fund_kpis.yml row {i} missing required `slug`")
+        if slug in seen:
+            raise HandshakeError(f"fund_kpis.yml: duplicate slug `{slug}`")
+        if slug not in peer_slugs:
+            raise HandshakeError(
+                f"fund_kpis.yml slug `{slug}` not found in peer_funds.yml"
+            )
+        seen.add(slug)
+        block = {k: v for k, v in row.items() if k != "slug"}
+        out[slug] = FundKpis(**block)
+    return out
+
+
 def load_peer_funds() -> tuple[list[PeerIngoFund], list[str]]:
-    """Parse peer_funds.yml. Returns (models, slugs_unique_ordered)."""
+    """Parse peer_funds.yml. Returns (models, slugs_unique_ordered).
+
+    After load, merges in fund_kpis from content/fund_kpis.yml (curated
+    exemplar set). If a peer_funds.yml row already carries a fund_kpis
+    field (legacy / hand-edited), the fund_kpis.yml entry takes
+    precedence — single source of truth.
+    """
     raw = yaml.safe_load(PEER_FUNDS_YML.read_text(encoding="utf-8")) or {}
     rows = raw.get("peer_funds") or []
 
@@ -215,6 +266,14 @@ def load_peer_funds() -> tuple[list[PeerIngoFund], list[str]]:
             row["parent_ingo_slug"] = _slug(row["parent_ingo"])
 
         models.append(PeerIngoFund(**row))
+
+    # Merge in fund_kpis from the separate exemplar file. Single source of
+    # truth: fund_kpis.yml overrides any inline blocks left in peer_funds.yml.
+    peer_slug_set = {m.slug for m in models}
+    fund_kpis_map = load_fund_kpis(peer_slug_set)
+    for m in models:
+        if m.slug in fund_kpis_map:
+            m.fund_kpis = fund_kpis_map[m.slug]
 
     return models, [m.slug for m in models]
 
@@ -772,6 +831,10 @@ def build(verbose: bool = True) -> dict[str, int]:
         if (
             getattr(m, "vehicle_type", None) != "programmatic_not_fund"
             or m.slug in PROGRAMMATIC_FORCE_ALLOW
+            # Force-allow programmatic vehicles that have curated KPI gallery
+            # entries — Root Capital is the canonical example (501(c)(3) lender
+            # whose impact reporting sets the upper bound for the /kpis/ page).
+            or getattr(m, "fund_kpis", None) is not None
         )
     ]
     peer_payload = [_dump(m) for m in slot1_models]

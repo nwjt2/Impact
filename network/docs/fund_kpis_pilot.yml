@@ -1,0 +1,473 @@
+# Fund KPIs pilot — review artifact, NOT production
+#
+# Purpose: stress-test a candidate `fund_kpis` schema against 3 INGO-sponsored
+# peer funds spanning the disclosure-quality spectrum:
+#   - root-capital: high-volume, comprehensive (upper bound)
+#   - waterequity-gaf3: rich at portfolio level, sparse at fund level (modal case)
+#   - wwb-capital-partners-fund: end-of-life, scattered milestones (lower bound)
+#
+# This file is a deliverable for operator review. If the schema is accepted,
+# the next step is to (a) move it into `peer_funds.yml` as a nested block
+# (mirroring `blended_finance_structure`), (b) wire a render template, and
+# (c) build the `add-fund-kpis` stateful skill for the remaining 64 funds.
+#
+# ============================================================
+# REVISED SCHEMA (changes from initial draft, in CAPS)
+# ============================================================
+#
+# fund_kpis:
+#   SCOPE:                   fund | manager-portfolio-proxy | parent-org-proxy
+#                            # Whether this block represents the fund itself,
+#                            # or is a proxy because the manager only publishes
+#                            # at the portfolio or parent-org level.
+#   DISCLOSURE_QUALITY:      comprehensive | partial | scattered_milestones | placeholder_only
+#                            # Editorial flag visible to readers. Surfaces the
+#                            # fact that some INGO funds report nothing
+#                            # fund-specific — the absence IS the finding.
+#   report_year:             int — fiscal year of most recent report
+#   report_url:              URL
+#   report_format:           pdf | html | dashboard | annual_report_section | scattered_milestone_disclosure
+#   reporting_framework_tags: [list of frameworks the manager self-declares]
+#                            # Note: framework declarations are typically
+#                            # MANAGER-LEVEL, not metric-level. iris_plus_id
+#                            # at the metric level captures the latter.
+#   metrics:
+#     - metric_name:         verbatim as published — never paraphrased
+#       tags:                [informal cross-cut: gender, climate, agri, ...]
+#       value:               number (null if narrative-only)
+#       unit:                free-text — "people", "%", "MT CO2e", "USD m"
+#       cumulative_since:    YYYY (null = single-period metric)
+#       period_end:          YYYY-MM-DD (null if not stated)
+#       iris_plus_id:        IRIS+ code or null
+#       ATTRIBUTION_LEVEL:   fund-attributed | pro-rated | manager-portfolio
+#                            | franchise-fi-aggregate | parent-org-aggregate
+#                            # CRITICAL field. WWB's "5.8M women" is
+#                            # franchise-fi-aggregate, not fund-attributed.
+#                            # Without this, the artifact misleads readers.
+#       METRIC_TYPE:         realized | target | longitudinal-outcome
+#                            | cohort-outcome | survey-outcome
+#                            # Default: realized. Targets and survey/cohort
+#                            # outcomes are conceptually distinct.
+#       source_url:          URL where this metric appears
+#       source_quote:        verbatim substring, ≤200 chars
+#       caveat:              optional ≤2-sentence note on methodology gaps
+#   structure_notes:         ≤2 sentences — caveats, methodology disclosures
+#   structure_source_urls:   [URLs that contributed to this extraction]
+#
+# ============================================================
+# Honest-null discipline:
+#   Every field can be null. A blank field is infinitely more useful than
+#   a guessed one. iris_plus_id is null across most metrics — most funds
+#   don't print IRIS+ codes alongside their KPIs even when manager-level
+#   IRIS+ alignment is declared.
+# ============================================================
+
+pilot_funds:
+
+  # ----------------------------------------------------------------
+  # Case 1: Root Capital — UPPER BOUND (comprehensive, ~45 KPIs)
+  # ----------------------------------------------------------------
+  - slug: root-capital-sustainable-trade-fund
+    fund_kpis:
+      scope: parent-org-proxy
+      disclosure_quality: comprehensive
+      report_year: 2024
+      report_url: https://rootcapital.org/climate-resilience-roadmap-annual-report-2024/
+      report_format: html
+      reporting_framework_tags: []  # No IRIS+/HIPSO/GRI/JII alignment surfaced on impact pages despite Root Capital's historical IRIS adoption — honest null
+      metrics:
+
+        # ----- Cumulative since inception (1999) -----
+        - metric_name: Cumulative total disbursements
+          tags: [lending, financial-throughput]
+          value: 2.06
+          unit: USD billion
+          cumulative_since: 1999
+          period_end: 2024
+          iris_plus_id: null
+          attribution_level: parent-org-aggregate
+          metric_type: realized
+          source_url: https://rootcapital.org/our-approach/our-impact/
+          source_quote: "$2.06B Cumulative Total Disbursements"
+
+        - metric_name: Farmers and employees reached
+          tags: [outreach, agri]
+          value: 2300000
+          unit: people
+          cumulative_since: 1999
+          period_end: 2024
+          iris_plus_id: null
+          attribution_level: parent-org-aggregate
+          metric_type: realized
+          source_url: https://rootcapital.org/our-approach/our-impact/
+          source_quote: "2.3M Farmers and employees reached"
+
+        - metric_name: Hectares sustainably managed
+          tags: [climate, land-use]
+          value: 2900000
+          unit: hectares
+          cumulative_since: 1999
+          period_end: 2024
+          iris_plus_id: null
+          attribution_level: parent-org-aggregate
+          metric_type: realized
+          source_url: https://rootcapital.org/our-approach/our-impact/
+          source_quote: "2.9 Million Hectares sustainably managed"
+
+        # ----- Annual lending KPIs (2024) -----
+        - metric_name: Lending clients reached
+          tags: [lending]
+          value: 843
+          unit: clients
+          cumulative_since: null
+          period_end: 2024
+          iris_plus_id: null
+          attribution_level: parent-org-aggregate
+          metric_type: realized
+          source_url: https://rootcapital.org/our-approach/our-impact/
+          source_quote: "843 Lending clients reached"
+
+        - metric_name: Loans commercial lenders would not have made (additionality)
+          tags: [lending, additionality]
+          value: 88
+          unit: percent
+          cumulative_since: null
+          period_end: 2024
+          iris_plus_id: null
+          attribution_level: parent-org-aggregate
+          metric_type: realized
+          source_url: https://rootcapital.org/our-approach/our-impact/
+          source_quote: "88% Root Capital loans commercial lenders would not have made"
+
+        # ----- Annual climate KPIs (2024) -----
+        - metric_name: Climate finance flowing to vulnerable communities
+          tags: [climate, lending, financial-throughput]
+          value: 58.2
+          unit: USD million
+          cumulative_since: null
+          period_end: 2024
+          iris_plus_id: null
+          attribution_level: parent-org-aggregate
+          metric_type: realized
+          source_url: https://rootcapital.org/our-approach/our-impact/
+          source_quote: "$58.2 Million Climate finance flowing to vulnerable communities this year"
+
+        - metric_name: Farmers reached by climate finance or advisory
+          tags: [climate, outreach]
+          value: 584000
+          unit: farmers
+          cumulative_since: null
+          period_end: 2024
+          iris_plus_id: null
+          attribution_level: parent-org-aggregate
+          metric_type: realized
+          source_url: https://rootcapital.org/our-approach/our-impact/
+          source_quote: "584 Thousand Farmers and employees reached by Climate Finance or Advisory"
+
+        # ----- Annual gender KPIs (2024) -----
+        - metric_name: Women farmers reached
+          tags: [gender, outreach]
+          value: 634000
+          unit: women
+          cumulative_since: null
+          period_end: 2024
+          iris_plus_id: null
+          attribution_level: parent-org-aggregate
+          metric_type: realized
+          source_url: https://rootcapital.org/our-approach/our-impact/
+          source_quote: "634 Thousand Women farmers reached"
+
+        - metric_name: Disbursements to gender-inclusive or women-led clients
+          tags: [gender, lending, financial-throughput]
+          value: 67.7
+          unit: USD million
+          cumulative_since: null
+          period_end: 2024
+          iris_plus_id: null
+          attribution_level: parent-org-aggregate
+          metric_type: realized
+          source_url: https://rootcapital.org/our-approach/our-impact/
+          source_quote: "$67.7 Million Disbursements to G-I and W-L clients this year"
+
+        # ----- Outcome / longitudinal -----
+        - metric_name: Farmers reporting higher income
+          tags: [outcome, evaluation]
+          value: 68
+          unit: percent
+          cumulative_since: null
+          period_end: 2024
+          iris_plus_id: null
+          attribution_level: parent-org-aggregate
+          metric_type: survey-outcome
+          source_url: https://rootcapital.org/climate-resilience-roadmap-annual-report-2024/
+          source_quote: "68% of farmers affiliated with Root Capital clients reported higher income as a result of that affiliation"
+          caveat: 60 Decibels / IKEA Foundation client farmer evaluation, 2024
+
+        - metric_name: Lending clients gaining access to commercial finance within three years
+          tags: [outcome, additionality]
+          value: 42
+          unit: percent
+          cumulative_since: null
+          period_end: 2024
+          iris_plus_id: null
+          attribution_level: parent-org-aggregate
+          metric_type: longitudinal-outcome
+          source_url: https://rootcapital.org/proven-results/
+          source_quote: "42% of Root Capital's lending clients gained access to commercial finance within three years"
+
+      structure_notes: >
+        Root Capital is a 501(c)(3) social-investment fund (not a GP-LP fund),
+        so all KPIs are parent-org-aggregate by definition — there is no
+        underlying fund vehicle to disaggregate to. Reports against four impact
+        pathways: Access to Finance, Climate Action, Women's Empowerment, Next
+        Generation Jobs. Mixes annual KPIs with since-1999 cumulatives.
+        Surprising honest null: no IRIS+ codes published alongside metrics
+        despite Root Capital's historical IRIS adoption. ~45 KPIs total in
+        the public record; pilot captures 11 representative metrics — full
+        capture in the production skill.
+      structure_source_urls:
+        - https://rootcapital.org/our-approach/our-impact/
+        - https://rootcapital.org/proven-results/
+        - https://rootcapital.org/climate-resilience-roadmap-annual-report-2024/
+
+  # ----------------------------------------------------------------
+  # Case 2: WaterEquity GAF III — MODAL CASE
+  # (rich at portfolio level, fund-specific only at close)
+  # ----------------------------------------------------------------
+  - slug: waterequity-gaf3
+    fund_kpis:
+      scope: manager-portfolio-proxy  # post-2022, only WE-portfolio-level numbers published
+      disclosure_quality: partial
+      report_year: 2024
+      report_url: https://waterequity.com/impact-report-2024/
+      report_format: html
+      reporting_framework_tags:
+        - IRIS+  # per GIIN-published WaterEquity use case Aug 2021; metric IDs not surfaced alongside KPIs
+        - SDG 6
+        - 2X Criteria  # implied via 96% women borrowers framing
+      metrics:
+
+        # ----- Fund-III-specific (only available from 2022 final-close press release) -----
+        - metric_name: People reached with safe water or sanitation (Fund III)
+          tags: [wash, outreach]
+          value: 942000
+          unit: people
+          cumulative_since: 2021
+          period_end: 2022-09
+          iris_plus_id: null
+          attribution_level: fund-attributed
+          metric_type: realized
+          source_url: https://www.globenewswire.com/news-release/2024/02/28/2836910/0/en/WaterEquity-Celebrates-Five-Million-People-Reached-Globally-With-Access-to-Safe-Water-and-Sanitation.html
+          source_quote: "the Global Access Fund has reached more than 942,000 people and counting with safe water or sanitation"
+
+        - metric_name: Microloans deployed (Fund III)
+          tags: [wash, fi]
+          value: 175000
+          unit: microloans
+          cumulative_since: 2021
+          period_end: 2022-09
+          iris_plus_id: null
+          attribution_level: fund-attributed
+          metric_type: realized
+          source_url: https://www.globenewswire.com/news-release/2024/02/28/2836910/0/en/WaterEquity-Celebrates-Five-Million-People-Reached-Globally-With-Access-to-Safe-Water-and-Sanitation.html
+          source_quote: "nearly 175,000 microloans have been deployed to low-income consumers to serve their water and sanitation needs"
+
+        - metric_name: Share of fund-supported individuals who are women (Fund III)
+          tags: [gender, demographic]
+          value: 97
+          unit: percent
+          cumulative_since: 2021
+          period_end: 2022-09
+          iris_plus_id: null
+          attribution_level: fund-attributed
+          metric_type: realized
+          source_url: https://www.globenewswire.com/news-release/2024/02/28/2836910/0/en/WaterEquity-Celebrates-Five-Million-People-Reached-Globally-With-Access-to-Safe-Water-and-Sanitation.html
+          source_quote: "97% of individuals directly supported by the fund's investments are women and 66% earn below a living income"
+
+        - metric_name: Target — people reached over fund term (Fund III)
+          tags: [wash, outreach, target]
+          value: 5000000
+          unit: people
+          cumulative_since: 2021
+          period_end: 2028
+          iris_plus_id: null
+          attribution_level: fund-attributed
+          metric_type: target
+          source_url: https://www.globenewswire.com/en/news-release/2022/03/31/2414126/0/en/WaterEquity-Raises-Over-150-Million-at-Final-Close-of-Global-Access-Fund.html
+          source_quote: "Over its seven-year term, the Fund aims to reach 5 million people with improved access to water and sanitation across Asia, Latin America, and Africa"
+
+        # ----- Total WaterEquity portfolio (NOT Fund-III specific; 2024 Impact Report) -----
+        - metric_name: People reached with safe water or sanitation (total portfolio)
+          tags: [wash, outreach]
+          value: 7100000
+          unit: people
+          cumulative_since: 2016
+          period_end: 2024-09-30
+          iris_plus_id: null
+          attribution_level: manager-portfolio
+          metric_type: realized
+          source_url: https://waterequity.com/impact-report-2024/
+          source_quote: "7.1M+ people reached with safe water or sanitation"
+          caveat: WaterEquity portfolio total across all four funds; Fund III contribution not disaggregated post-2022
+
+        - metric_name: Capital deployed through financial institutions (total portfolio)
+          tags: [wash, fi, financial-throughput]
+          value: 440000000
+          unit: USD
+          cumulative_since: 2016
+          period_end: 2024-12-31
+          iris_plus_id: null
+          attribution_level: manager-portfolio
+          metric_type: realized
+          source_url: https://waterequity.com/impact-report-2024/
+          source_quote: "~$440 million through financial institutions to expand access to safe water and sanitation"
+
+        - metric_name: Share of household microloan borrowers who are women (total portfolio)
+          tags: [gender, demographic]
+          value: 96
+          unit: percent
+          cumulative_since: 2016
+          period_end: 2024-09-30
+          iris_plus_id: null
+          attribution_level: manager-portfolio
+          metric_type: realized
+          source_url: https://waterequity.com/impact-report-2024/
+          source_quote: "96% of household microloan borrowers were women"
+
+        - metric_name: Open defecation reduction (end-client survey)
+          tags: [wash, outcome, behavioral]
+          value: null  # composite "46% pre → 8% post" — narrative
+          unit: percent of surveyed end-clients (46% pre-loan → 8% post-loan)
+          cumulative_since: null
+          period_end: 2024-09-30
+          iris_plus_id: null
+          attribution_level: manager-portfolio
+          metric_type: survey-outcome
+          source_url: https://waterequity.com/impact-report-2024/
+          source_quote: "Open defecation: 46% before the loan → 8% after the loan"
+          caveat: Composite pre/post — schema shows the case where a single metric_name carries two values
+
+      structure_notes: >
+        WaterEquity's public KPI disclosure is portfolio-aggregated, not
+        fund-disaggregated. The 2024 Impact Report reports cumulative numbers
+        across all four funds since 2016 with no Fund-III breakout. The only
+        Fund-III-specific KPIs in the public record come from the March 2022
+        final-close press release covering ~17 months of deployment (Apr 2021
+        through Sep 2022). Targets at fund close: 5M people over 7-year term.
+        IRIS+ alignment claimed at manager level (per GIIN use case) but
+        metric IDs not printed alongside KPIs.
+      structure_source_urls:
+        - https://waterequity.com/impact-report-2024/
+        - https://www.globenewswire.com/news-release/2024/02/28/2836910/0/en/WaterEquity-Celebrates-Five-Million-People-Reached-Globally-With-Access-to-Safe-Water-and-Sanitation.html
+        - https://www.globenewswire.com/en/news-release/2022/03/31/2414126/0/en/WaterEquity-Raises-Over-150-Million-at-Final-Close-of-Global-Access-Fund.html
+        - https://iris.thegiin.org/document/iris-use-case-waterequity/
+
+  # ----------------------------------------------------------------
+  # Case 3: WWB Capital Partners Fund I — LOWER BOUND
+  # (end-of-life, scattered milestones, placeholder zeros on live site)
+  # ----------------------------------------------------------------
+  - slug: wwb-capital-partners-fund
+    fund_kpis:
+      scope: manager-portfolio-proxy
+      disclosure_quality: scattered_milestones
+      report_year: 2021  # most recent year a Fund-I number was published; site shows placeholder zeros now
+      report_url: https://www.convergence.finance/resource/women's-world-banking-capital-partners-ii-(wwbcpii)-case-study/view
+      report_format: scattered_milestone_disclosure
+      reporting_framework_tags:
+        - PRI signatory          # manager-level
+        - 2X-aligned             # manager-level
+        - IRIS+ (referenced)     # per ImpactAssets profile, not metric-level
+        - GIIRS (referenced)
+        - WWB Gender Performance Indicators (proprietary)
+      metrics:
+
+        - metric_name: Women reached with financial products and services
+          tags: [gender, outreach]
+          value: 5800000
+          unit: women
+          cumulative_since: 2012
+          period_end: 2021
+          iris_plus_id: null
+          attribution_level: franchise-fi-aggregate
+          metric_type: realized
+          source_url: https://www.convergence.finance/resource/women's-world-banking-capital-partners-ii-(wwbcpii)-case-study/view
+          source_quote: "WWBCPI has helped more than 5.8 million women gain access to financial products and services to date."
+          caveat: Methodology not disclosed; almost certainly aggregates total women clients at portfolio FIs without pro-rating to Fund I's equity stake
+
+        - metric_name: Assets under management
+          tags: [aum]
+          value: 50000000
+          unit: USD
+          cumulative_since: null
+          period_end: 2016
+          iris_plus_id: null
+          attribution_level: fund-attributed
+          metric_type: realized
+          source_url: https://www.womensworldbanking.org/insights/invest-equality-gender-lens-impact-investing/
+          source_quote: "The Capital Partners Fund currently has US$50 million under management with 8 investments in 7 countries."
+
+        - metric_name: Number of portfolio investments
+          tags: [portfolio-count]
+          value: 8
+          unit: investments
+          cumulative_since: null
+          period_end: 2016
+          iris_plus_id: null
+          attribution_level: fund-attributed
+          metric_type: realized
+          source_url: https://www.womensworldbanking.org/insights/invest-equality-gender-lens-impact-investing/
+          source_quote: "US$50 million under management with 8 investments in 7 countries."
+
+        - metric_name: Female share of portfolio FI clients
+          tags: [gender]
+          value: 81
+          unit: percent
+          cumulative_since: null
+          period_end: 2018
+          iris_plus_id: null
+          attribution_level: franchise-fi-aggregate
+          metric_type: realized
+          source_url: https://www.womensworldbanking.org/asset-management/
+          source_quote: "Fund I's portfolio companies collectively serve 4.3 million clients, 81% of whom are women, and have increased their female client base by 60%."
+          caveat: Quoted via WWB AM page; the page itself currently shows placeholder zeros in its Fund-I-at-a-glance tile
+
+        - metric_name: Ujjivan exit return on invested capital
+          tags: [exit-performance, single-asset]
+          value: 2.4
+          unit: x MOIC
+          cumulative_since: null
+          period_end: 2016
+          iris_plus_id: null
+          attribution_level: fund-attributed
+          metric_type: realized
+          source_url: https://www.womensworldbanking.org/insights/gender-lens-investing-successful-microfinance-ipo-indias-history/
+          source_quote: "First successful exit in 2016: divested from Ujjivan Financial Services at 2.4x return on investment capital."
+          caveat: Single-asset exit, not a fund-level TVPI/DPI
+
+        - metric_name: Cambridge Associates benchmark performance (narrative only)
+          tags: [financial-return, narrative]
+          value: null
+          unit: null
+          cumulative_since: null
+          period_end: 2021
+          iris_plus_id: null
+          attribution_level: fund-attributed
+          metric_type: realized
+          source_url: https://www.convergence.finance/resource/women's-world-banking-capital-partners-ii-(wwbcpii)-case-study/view
+          source_quote: "returns for the Fund are in line with the average according to the Cambridge Associates Benchmark for Impact Investing for the peer group vintage year."
+          caveat: Narrative attestation only; no IRR/TVPI/DPI figure publicly disclosed
+
+      structure_notes: >
+        Fund I (WWBCPI) is a $50M traditional single-class PE fund, vintage
+        2012, substantially exited by ~2019. No Fund-I-issued annual impact
+        report exists. The WWB AM landing page now shows placeholder zeros
+        in its "Fund I at a Glance" tile — a striking signal of inactive
+        reporting. Most public KPIs are franchise-FI-level (women clients
+        served by portfolio FIs) rather than Fund-I-attributed pro-rated
+        outcomes. The headline "5.8M women" cited across WWB materials is
+        franchise-aggregate, not fund-attributed.
+      structure_source_urls:
+        - https://www.convergence.finance/resource/women's-world-banking-capital-partners-ii-(wwbcpii)-case-study/view
+        - https://www.womensworldbanking.org/asset-management/
+        - https://www.womensworldbanking.org/insights/invest-equality-gender-lens-impact-investing/
+        - https://www.womensworldbanking.org/insights/gender-lens-investing-successful-microfinance-ipo-indias-history/
