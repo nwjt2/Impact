@@ -31,10 +31,17 @@ pageKey: match
       <div class="picker-chips" data-dim="archetypes"></div>
     </fieldset>
 
+    <fieldset class="picker-group">
+      <legend class="picker-legend">Track record <span class="picker-hint">— pick none to consider all</span></legend>
+      <div class="picker-chips" data-dim="track"></div>
+    </fieldset>
+
     <div class="picker-actions">
       <button type="button" id="picker-reset" class="picker-reset">Reset all</button>
       <span id="picker-summary" class="picker-summary"></span>
     </div>
+
+    <p class="picker-caveat">Track-record counts reflect only LP commitments we've ingested from primary public sources — fund-close press releases, GP rosters, IRS 990s. An LP showing <strong>0 tracked impact-fund LP commitments</strong> may simply not disclose publicly, or we may not have picked the commitment up yet; it is not evidence of inactivity. Treat the count as a floor, not a verdict.</p>
   </form>
 
   <div id="match-list" class="match-list" aria-live="polite"></div>
@@ -85,6 +92,12 @@ pageKey: match
     "cooperative-ngo": "NGO / cooperative", vc: "VC / private fund",
   };
   var ARCH_ORDER = ["dfi","foundation","family-office","asset-manager","bank","pension-fund","corporate","bilateral-donor","government","cooperative-ngo","vc"];
+
+  var TRACK_LABELS = {
+    has: "Tracked impact-fund LPs",
+    none: "Cold outreach (no edges yet)",
+  };
+  var TRACK_ORDER = ["has", "none"];
 
   // ---- Helpers --------------------------------------------------------------
 
@@ -219,7 +232,7 @@ pageKey: match
 
   // ---- Picker state --------------------------------------------------------
 
-  var state = { themes: new Set(), geos: new Set(), archetypes: new Set() };
+  var state = { themes: new Set(), geos: new Set(), archetypes: new Set(), track: new Set() };
 
   function buildChips(host, dim, order, labels) {
     host.innerHTML = order.map(function (k) {
@@ -241,10 +254,11 @@ pageKey: match
     if (dim === "themes") buildChips(host, "themes", THEME_ORDER, THEME_LABELS);
     else if (dim === "geos") buildChips(host, "geos", GEO_ORDER, GEO_LABELS);
     else if (dim === "archetypes") buildChips(host, "archetypes", ARCH_ORDER, ARCH_LABELS);
+    else if (dim === "track") buildChips(host, "track", TRACK_ORDER, TRACK_LABELS);
   });
 
   document.getElementById("picker-reset").addEventListener("click", function () {
-    state.themes.clear(); state.geos.clear(); state.archetypes.clear();
+    state.themes.clear(); state.geos.clear(); state.archetypes.clear(); state.track.clear();
     document.querySelectorAll(".picker-chip.is-on").forEach(function (b) { b.classList.remove("is-on"); });
     render();
   });
@@ -259,6 +273,11 @@ pageKey: match
 
   function passesFilter(lp) {
     if (state.archetypes.size > 0 && !state.archetypes.has(lp.archetype)) return false;
+
+    if (state.track.size > 0) {
+      var key = (lp.networkLpCount || 0) > 0 ? "has" : "none";
+      if (!state.track.has(key)) return false;
+    }
 
     if (state.themes.size > 0) {
       var lpThemes = new Set(lp.themes || []);
@@ -374,6 +393,14 @@ pageKey: match
     bits.push('</div>');
     bits.push('</div>');
 
+    var n = lp.networkLpCount || 0;
+    if (n > 0) {
+      var label = n + ' tracked impact-fund LP commitment' + (n === 1 ? '' : 's');
+      bits.push('<div class="match-track is-tracked">' + I.esc(label) + '</div>');
+    } else {
+      bits.push('<div class="match-track is-cold">0 tracked impact-fund LP commitments — cold outreach territory</div>');
+    }
+
     if (lp.hasThesis) {
       if (lp.themes && lp.themes.length) {
         var themeSpan = lp.themes.map(function (t) {
@@ -397,13 +424,11 @@ pageKey: match
       bits.push('<blockquote class="match-excerpt">' + I.esc(lp.thesis_excerpt) + '</blockquote>');
     }
 
-    bits.push('<div class="match-foot">');
-    bits.push('<span class="match-edge-count">' + lp.networkLpCount + ' tracked LP commit'
-      + (lp.networkLpCount === 1 ? '' : 's') + '</span>');
     if (lp.thesis_url) {
+      bits.push('<div class="match-foot">');
       bits.push('<a class="match-foot-link" href="' + I.escAttr(lp.thesis_url) + '" target="_blank" rel="noopener">stated thesis ↗</a>');
+      bits.push('</div>');
     }
-    bits.push('</div>');
 
     // ProPublica 990 sizing — only when we have it (US foundations only).
     // Honest-null: omit silently when fields missing. When the foundation has
