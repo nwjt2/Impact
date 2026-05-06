@@ -58,6 +58,8 @@ module.exports = function () {
       annualGrantsPaidUSD: toIntOrNull(r["Annual Grants Paid USD"]),
       totalCharitableExpensesUSD: toIntOrNull(r["Total Charitable Expenses USD"]),
       sourceUrl: r["Source URL"] || null,
+      sisterTrustName: r["Sister Trust"] || null,
+      sisterTrustSourceUrl: r["Sister Trust Source URL"] || null,
     };
   });
   return out;

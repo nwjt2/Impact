@@ -1,0 +1,45 @@
+# Sister-trust 990 filings.
+#
+# Some large private foundations restructure so that the corpus sits in a
+# separate IRS entity (a "Trust") and the named "Foundation" is just an
+# operating shell that receives transfers and pays grants. The 2006 Gates
+# restructure popularised this pattern; W.K. Kellogg has had it since the
+# 1930s.
+#
+# Without this mapping, the match-page card would show the operating
+# shell's totassetsend (e.g. Kellogg Foundation $474M) instead of the
+# real corpus (Kellogg Foundation Trust $7.6B). This file fixes that.
+#
+# `consolidate` field tells the combine script how to merge the trust's
+# numbers into the parent foundation's row:
+#
+#   add     — sum trust.totassetsend into parent.totassetsend.
+#             Use when the parent's 990 reports only the operating shell
+#             and the corpus sits separately in the Trust (e.g. Kellogg).
+#
+#   note    — leave parent.totassetsend unchanged; just record that a
+#             sister trust exists. Use when the parent's 990 already
+#             reflects the consolidated balance sheet (e.g. BMGF: both
+#             entities report ~$76B because they're effectively the same
+#             money viewed from two sides).
+#
+# Adding new entries:
+#   1. Verify the trust's EIN via ProPublica (search.json?q=...).
+#   2. Compare parent.totassetsend vs trust.totassetsend. If they're
+#      similar in magnitude → consolidate: note. If trust >> parent → add.
+#   3. The fetcher writes trust JSONs to individual_lp_trusts/run_N/.
+#   4. Combine reads them automatically.
+
+sister_trusts:
+
+  - parent_slug: kellogg-foundation
+    trust_ein: 366030614
+    trust_name: W K Kellogg Foundation Trust
+    consolidate: add
+    note: Foundation entity is the operating/grantmaking shell ($474M assets); corpus sits in this Trust ($7.6B).
+
+  - parent_slug: gates-foundation
+    trust_ein: 911663695
+    trust_name: Bill & Melinda Gates Foundation Trust
+    consolidate: note
+    note: Foundation 990 already reports the consolidated balance sheet (~$77B); Trust 990 reports approximately the same money (~$75.5B). Summing would double-count.

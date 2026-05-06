@@ -395,7 +395,10 @@ pageKey: match
     bits.push('</div>');
 
     // ProPublica 990 sizing — only when we have it (US foundations only).
-    // Honest-null: omit silently when fields missing.
+    // Honest-null: omit silently when fields missing. When the foundation has
+    // a sister trust (e.g. Kellogg, BMGF), append a "+ Trust ↗" link so the
+    // user can drill into the trust filing — totalAssetsUSD already reflects
+    // any per-trust consolidation method (add / note) configured upstream.
     var sig = LP_990[lp.slug];
     if (sig) {
       var assets = fmtUSDShort(sig.totalAssetsUSD);
@@ -412,7 +415,11 @@ pageKey: match
         } else {
           line = I.esc(line);
         }
-        bits.push('<div class="match-990">' + line + ' <span class="match-990-src">via ProPublica 990</span></div>');
+        var trustTag = '';
+        if (sig.sisterTrustName && sig.sisterTrustSourceUrl) {
+          trustTag = ' <a class="match-990-trust" href="' + I.escAttr(sig.sisterTrustSourceUrl) + '" target="_blank" rel="noopener" title="' + I.escAttr(sig.sisterTrustName) + '">+ Trust ↗</a>';
+        }
+        bits.push('<div class="match-990">' + line + trustTag + ' <span class="match-990-src">via ProPublica 990</span></div>');
       }
     }
 
