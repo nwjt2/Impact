@@ -264,3 +264,32 @@ government_donors:
     last_seen_at: 2026-05-04
     known_ingo_gp_commits: []
     notes: null
+
+  - slug: mohamed-bin-zayed-foundation-for-humanity
+    name: Mohamed bin Zayed Foundation for Humanity
+    aliases: ["Mohamed bin Zayed Foundation for Humanity", "MBZ Foundation for Humanity", "MBZFH"]
+    country: "AE"
+    category: sovereign_lp
+    stated_priority_themes: [health, climate, generalist]
+    stated_geo_focus: [mena, global]
+    stated_thesis_url: https://mohamedbinzayedfoundation.org/en/
+    stated_thesis_excerpt: "An innovative philanthropy dedicated to advancing human potential and opportunity, focused on global health and inclusive development."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    public_newsroom_url: https://www.mohamedbinzayed.ae/en/latest-news-listing
+    last_seen_at: 2026-05-06
+    known_ingo_gp_commits: []
+    notes: |
+      State-decree foundation established by UAE Presidential decree on
+      19 March 2025 (Zayed Humanitarian Day), operating under the Erth
+      Zayed Philanthropies umbrella. Multi-year programmatic targets to
+      reach 500m people in 50+ countries by 2030, with focus on ending
+      polio / malaria / neglected tropical diseases and strengthening
+      health systems in lower-income countries. Classified sovereign_lp
+      because the foundation was established by Presidential decree
+      using state mechanism — distinct from purely private royal-family
+      vehicles like Sheikha Moza's Education Above All. Anchored the
+      Beginnings Fund (maternal / newborn health, Africa) with USD 125m
+      in April 2025; that fund is not currently in this site's tracked
+      impact-fund universe, so the LP edge is not yet rendered as an
+      edge — only the registry entry.
