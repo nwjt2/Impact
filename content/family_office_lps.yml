@@ -804,3 +804,81 @@ family_offices:
     invests_via_grants: null
     public_newsroom_url: null
     last_seen_at: 2026-05-04
+
+  # ---- MENA-active additions (2026-05-06) ----
+
+  - slug: crescent-enterprises
+    name: Crescent Enterprises
+    aliases: ["Crescent Enterprises", "CE-Ventures"]
+    country: "AE"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [generalist]
+    stated_geo_focus: [mena, asia, us, global]
+    stated_thesis_url: https://www.crescententerprises.com/what-we-do/ce-ventures/
+    stated_thesis_excerpt: "CE-Ventures is the corporate venture capital platform of Crescent Enterprises, investing in early- to late-stage high-growth companies and venture funds globally, with its investment scope spanning the US, the MENA, India, and Southeast Asia."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: true
+    invests_via_direct: true
+    invests_via_grants: null
+    public_newsroom_url: https://www.crescententerprises.com/in-the-news/
+    last_seen_at: 2026-05-06
+
+  - slug: community-jameel
+    name: Community Jameel
+    aliases: ["Community Jameel", "Abdul Latif Jameel Community Initiatives", "ALJCI"]
+    country: "SA"
+    category: philanthropy_llc
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [climate, health, edu, agri]
+    stated_geo_focus: [mena, global]
+    stated_thesis_url: https://www.communityjameel.org/
+    stated_thesis_excerpt: null
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: null
+    invests_via_direct: null
+    invests_via_grants: true
+    public_newsroom_url: https://www.communityjameel.org/news
+    last_seen_at: 2026-05-06
+
+  - slug: alfanar-venture-philanthropy
+    name: Alfanar Venture Philanthropy
+    aliases: ["Alfanar", "Alfanar Venture Philanthropy"]
+    country: "GB"
+    category: philanthropy_llc
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu, smb, climate, gender_lens]
+    stated_geo_focus: [mena]
+    stated_thesis_url: https://www.alfanar.org/
+    stated_thesis_excerpt: "We fund social enterprises transforming the Arab World — blending philanthropy and venture capital across learning, earning, climate and heritage."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: null
+    invests_via_direct: true
+    invests_via_grants: true
+    public_newsroom_url: https://www.alfanar.org/news/
+    last_seen_at: 2026-05-06
+
+  - slug: man-capital
+    name: Man Capital (Mansour family office)
+    aliases: ["Man Capital", "Man Capital LLP", "Mansour family office"]
+    country: "GB"
+    category: family_office
+    aum_usd_m: null
+    aum_usd_m_year: null
+    stated_priority_themes: [edu, health, smb]
+    stated_geo_focus: [mena, africa, global]
+    stated_thesis_url: https://www.man-capital.com/our-positive-impact/
+    stated_thesis_excerpt: "We are committed to supporting and developing programmes that empower people in all of the territories in which we operate."
+    typical_check_usd_m_min: null
+    typical_check_usd_m_max: null
+    invests_via_fund_lp: null
+    invests_via_direct: true
+    invests_via_grants: true
+    public_newsroom_url: https://www.man-capital.com/
+    last_seen_at: 2026-05-06
