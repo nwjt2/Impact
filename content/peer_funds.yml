@@ -1900,9 +1900,38 @@ peer_funds:
     investment_period_years: null
     sub_advisor: Triple Jump
     placement_agent: null
+    blended_finance_structure:
+      capital_stack: []
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: null
+        funder: "European Investment Bank Financial Inclusion Fund (sole contributor: Grand Duchy of Luxembourg)"
+        source_url: https://triplejump.eu/triple-jump-oxfam-novib-fund-receive-eib-financial-inclusion-grant-to-support-mfis-climate-resilience-in-sub-saharan-africa/
+      vehicle_legal_form: null
+      instruments_offered:
+        - senior_debt
+        - mezzanine
+        - equity
+        - guarantee
+      structure_notes: >
+        ONF is a single-LP captive mandate established 1998 by Oxfam Novib
+        and managed by Triple Jump B.V. since 2007; Oxfam Novib is the sole
+        disclosed capital provider, so there is no public layer-by-layer
+        tranche breakdown (no junior/senior split has ever been published).
+        Portfolio reported at EUR 270m (2017); recent annual deployment
+        ~EUR 44.3m across 40 MFIs in 23 countries. A parallel EIB Financial
+        Inclusion Fund grant (sole contributor: Luxembourg) supports
+        climate-resilience TA at up to eight ONF investees in Sub-Saharan
+        Africa.
+      structure_source_urls:
+        - https://triplejump.eu/fund/oxfam-novib/
+        - https://triplejump.eu/triple-jump-oxfam-novib-fund-receive-eib-financial-inclusion-grant-to-support-mfis-climate-resilience-in-sub-saharan-africa/
+        - https://www.microcapital.org/know-a-microfinance-fund-oxfam-novib-fund-onf/
+        - https://www.oxfamnovib.nl/en/about-us/donors-and-partners/oxfam-novib-fund-annual-report-2024-2025-building-climate-resilience-empowering-entrepreneurial-communities
+        - https://www.fmo.nl/project-detail/65733
     status: deployed
     public_source_url: https://triplejump.eu/fund/oxfam-novib/
-    last_seen_at: 2026-04-28
+    last_seen_at: 2026-05-06
     notes: >
       Mandate established 1998 by Oxfam Novib to finance high-impact MFIs
       worldwide; managed by Triple Jump since 2007. Portfolio reported at
@@ -1931,9 +1960,44 @@ peer_funds:
     investment_period_years: null
     sub_advisor: Triple Jump
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: equity
+          provider: Retail investors via Euronext Amsterdam (ASN Bank distribution channel)
+          size_usd_m: null
+          source_url: https://beleggingsfondsen.asnbank.nl/overig/downloads/essentiele-informatiedocument-asn-microkredietfonds.html
+          source_quote: "ASN Microkredietfonds R (het 'Fonds'), ISIN NL0014270266, is een subfonds van ASN Beleggingsfondsen AIF N.V."
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: null
+        funder: Oxfam Novib (historical; 25-year sponsor partnership concluded October 2024 with the rename to ASN Microkredietfonds)
+        source_url: https://www.asnbank.nl/bank-voor-de-toekomst/nieuwe-naam-asn-microkredietfonds-bezegelt-succesvolle-samenwerking-asn-impact-investors-en-oxfam-novib.html
+      vehicle_legal_form: Subfonds van ASN Beleggingsfondsen AIF N.V. (Dutch open-end beleggingsmaatschappij met veranderlijk kapitaal, AIFMD-regulated; manager ASN Beleggingsinstellingen Beheer B.V.)
+      instruments_offered:
+        - senior_debt
+        - junior_debt
+        - equity
+      structure_notes: >
+        ANMF (renamed ASN Microkredietfonds in October 2024) is the first
+        Euronext-listed European microfinance retail fund. It is a single-class
+        retail open-end vehicle with no senior/junior waterfall inside the
+        fund — multiple share classes (R/SI/I/Z) differ on cost and
+        minimum-investment terms only, not on subordination. The blended
+        element sat in a parallel sponsor facility: from 1996 to October 2024
+        Oxfam Novib provided loans and guarantees to backstop MFIs that
+        hadn't yet met fund underwriting criteria, plus grant-funded
+        capacity-building TA. The fund deploys senior debt, subordinated
+        debt, and ~10% equity downstream into MFIs via the ASN
+        Microkredietpool, advised by Triple Jump.
+      structure_source_urls:
+        - https://triplejump.eu/fund/asn-novib-microcredit-fund/
+        - https://triplejump.eu/fund/asn-microkredietfonds/
+        - https://beleggingsfondsen.asnbank.nl/overig/downloads/essentiele-informatiedocument-asn-microkredietfonds.html
+        - https://beleggingsfondsen.asnbank.nl/downloads/prospectus-asn-beleggingsfondsen-aif-n.v.-1.html
+        - https://www.asnbank.nl/bank-voor-de-toekomst/nieuwe-naam-asn-microkredietfonds-bezegelt-succesvolle-samenwerking-asn-impact-investors-en-oxfam-novib.html
     status: deployed
     public_source_url: https://triplejump.eu/fund/asn-novib-microcredit-fund/
-    last_seen_at: 2026-04-28
+    last_seen_at: 2026-05-06
     notes: >
       Founded 1999 by ASN Bank and Oxfam Novib as a EUR ~400m retail
       microcredit fund; Euronext-listed October 2015. Managed by Triple
@@ -1962,9 +2026,50 @@ peer_funds:
     investment_period_years: null
     sub_advisor: Hivos Impact Investments
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: equity
+          provider: Hivos Foundation
+          size_usd_m: null
+          source_url: https://hivosimpactinvestments.com/ingo-shareholders/
+          source_quote: "partner with International NGOs, such as our founder, Hivos Foundation, as well as fund shareholders WeltHungerHilfe, Cesvi and Ayuda en Accion."
+        - tranche: equity
+          provider: Welthungerhilfe (Germany)
+          size_usd_m: null
+          source_url: https://hivosimpactinvestments.com/ingo-shareholders/
+          source_quote: "fund shareholders WeltHungerHilfe, Cesvi and Ayuda en Accion."
+        - tranche: equity
+          provider: Cesvi (Italy)
+          size_usd_m: null
+          source_url: https://hivosimpactinvestments.com/ingo-shareholders/
+          source_quote: "fund shareholders WeltHungerHilfe, Cesvi and Ayuda en Accion."
+        - tranche: equity
+          provider: Ayuda en Acción (Spain)
+          size_usd_m: null
+          source_url: https://hivosimpactinvestments.com/ingo-shareholders/
+          source_quote: "fund shareholders WeltHungerHilfe, Cesvi and Ayuda en Accion."
+      parallel_ta_facility: null
+      vehicle_legal_form: Netherlands-domiciled fund managed by Hivos Impact Investments B.V. (Besloten Vennootschap); fund vehicle's own legal form not separately disclosed
+      instruments_offered:
+        - equity
+        - convertible_debt
+      structure_notes: >
+        Single-tier INGO equity vehicle — Hivos Foundation plus three
+        Alliance2015 peers (Welthungerhilfe, Cesvi, Ayuda en Acción) hold
+        shareholder positions, with no senior/junior tranching, no
+        first-loss layer, no DFI co-investor, and no parallel TA facility
+        named in publicly accessible sources. Fund size approximately EUR
+        15m; tickets EUR 50k-500k into Southern African food companies.
+        Fund is now in divestment mode.
+      structure_source_urls:
+        - https://hivosimpactinvestments.com/
+        - https://hivosimpactinvestments.com/ingo-shareholders/
+        - https://hivosimpactinvestments.com/hivos-food-lifestyle-fund/
+        - https://www.hivos.org/news/hivos-and-welthungerhilfe-launch-cooperation-in-food-and-lifestyle-fund/
+        - https://triple-funds.com/tf-entry/hivos-food-lifestyle-fund/
     status: deployed
     public_source_url: https://hivosimpactinvestments.com/
-    last_seen_at: 2026-04-28
+    last_seen_at: 2026-05-06
     notes: >
       Hivos Impact Investments (est. 2015, NL+Zambia) manages this
       Southern Africa food-systems fund. Co-funder INGOs include Hivos
