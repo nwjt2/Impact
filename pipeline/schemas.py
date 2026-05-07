@@ -283,7 +283,8 @@ class FundKpiMetric(BaseModel):
 class FundKpis(BaseModel):
     """Slot 1 — per-fund impact-KPI disclosure block.
 
-    Curated for exemplar funds only (~10–15 of 67 INGO-sponsored). Funds
+    Curated for exemplar funds only (~10–15 of the 51 INGO-sponsored peer
+    funds, plus a small number of non-INGO comparables). Funds
     without this block render normally; funds with it render an additional
     `Impact KPIs` section on their card and appear on the /kpis/ gallery.
 
