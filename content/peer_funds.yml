@@ -277,6 +277,7 @@ peer_funds:
     sub_advisor: null
     placement_agent: null
     blended_finance_structure:
+      scope_label: Resilient Future Fund (Fund II) sub-vehicle
       capital_stack: []
       parallel_ta_facility:
         exists: true

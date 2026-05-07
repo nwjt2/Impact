@@ -271,7 +271,11 @@
     var hasNotes = !!b.structure_notes;
     if (!hasStack && !taExists && !hasVehicle && !hasInstr && !hasNotes) return "";
 
-    var parts = ['<div class="bf-block"><div class="bf-head">Blended-finance structure</div>'];
+    var headParts = ['<div class="bf-head">Blended-finance structure</div>'];
+    if (b.scope_label) {
+      headParts.push('<div class="bf-scope muted">' + esc(b.scope_label) + '</div>');
+    }
+    var parts = ['<div class="bf-block">' + headParts.join("")];
 
     if (hasStack) {
       var rows = stack.map(function (t) {
@@ -460,6 +464,9 @@
       headBits.push(reportEl);
     }
     parts.push('<div class="kpi-head">' + headBits.join(" ") + '</div>');
+    if (k.scope_label) {
+      parts.push('<div class="kpi-scope muted">' + esc(k.scope_label) + '</div>');
+    }
 
     var fws = k.reporting_framework_tags || [];
     if (fws.length) {

@@ -51,6 +51,7 @@ fund_kpis:
   # ----------------------------------------------------------------
   - slug: mercy-corps-ventures
     scope: fund
+    scope_label: MCV platform, 2015–2025 (Fund I + Fund II combined)
     disclosure_quality: comprehensive
     report_year: 2025
     report_url: https://www.mercycorps.org/research-resources/ventures-annual-impact-report-2025
@@ -168,6 +169,7 @@ fund_kpis:
   # ----------------------------------------------------------------
   - slug: waterequity-gaf3
     scope: manager_portfolio_proxy
+    scope_label: Fund III specifics (2021–2022) + WaterEquity portfolio total (4-fund aggregate, 2016–2024)
     disclosure_quality: partial
     report_year: 2024
     report_url: https://waterequity.com/impact-report-2024/
@@ -409,6 +411,7 @@ fund_kpis:
   # ----------------------------------------------------------------
   - slug: root-capital-sustainable-trade-fund
     scope: parent_org_proxy
+    scope_label: Root Capital 501(c)(3) — all lending since 1999 (no fund-level disaggregation)
     disclosure_quality: comprehensive
     report_year: 2024
     report_url: https://rootcapital.org/climate-resilience-roadmap-annual-report-2024/
@@ -529,6 +532,7 @@ fund_kpis:
   # ----------------------------------------------------------------
   - slug: accion-venture-lab
     scope: manager_portfolio_proxy
+    scope_label: Accion Ventures program (Fund I + successor vehicles, 2012–2025)
     disclosure_quality: partial
     report_year: 2025
     report_url: https://www.accion.org/how-we-work/investment-strategies/accion-impact-management/accion-ventures/

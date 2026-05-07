@@ -845,6 +845,11 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
   text-transform: uppercase;
   color: var(--violet);
   font-weight: 600;
+  margin-bottom: 2px;
+}
+.bf-scope {
+  font-size: 11.5px;
+  font-style: italic;
   margin-bottom: 8px;
 }
 .bf-stack {
@@ -968,6 +973,11 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
   text-transform: uppercase;
   color: var(--cyan);
   font-weight: 600;
+}
+.kpi-scope {
+  font-size: 11.5px;
+  font-style: italic;
+  margin: -2px 0 6px;
 }
 .badge-kpi-scope, .badge-kpi-quality {
   font-size: 10px;

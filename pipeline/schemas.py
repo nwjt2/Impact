@@ -201,6 +201,12 @@ class BlendedFinanceStructure(BaseModel):
     instruments_offered: list[str] = Field(default_factory=list)
     structure_notes: Optional[str] = None
     structure_source_urls: list[str] = Field(default_factory=list)
+    # Optional eyebrow label, rendered above the block on the peer-fund card.
+    # Populate only when the structure refers to a sub-vehicle distinct from
+    # the platform name on the card (e.g. MCV's RFF Fund II inside the
+    # platform-level card). Leave null when the BF block describes the same
+    # entity as the card heading.
+    scope_label: Optional[str] = None
 
 
 # ---- Fund-KPIs block (per-fund impact reporting disclosure) ---------------
@@ -299,6 +305,12 @@ class FundKpis(BaseModel):
     metrics: list[FundKpiMetric] = Field(default_factory=list)
     structure_notes: Optional[str] = None
     structure_source_urls: list[str] = Field(default_factory=list)
+    # Optional eyebrow label, rendered above the KPI block on the peer-fund
+    # card. Populate when the KPIs cover a different entity than the card's
+    # blended-finance structure block (e.g. platform-lifetime aggregates next
+    # to a single sub-vehicle's structure). Leave null when both blocks
+    # describe the same entity.
+    scope_label: Optional[str] = None
 
 
 class PeerIngoFund(BaseModel):
