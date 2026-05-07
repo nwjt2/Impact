@@ -845,12 +845,12 @@ a:hover { color: var(--amber); text-decoration: underline; text-underline-offset
   text-transform: uppercase;
   color: var(--violet);
   font-weight: 600;
-  margin-bottom: 2px;
+  margin-bottom: 8px;
 }
 .bf-scope {
   font-size: 11.5px;
   font-style: italic;
-  margin-bottom: 8px;
+  margin: -6px 0 8px;
 }
 .bf-stack {
   list-style: none;
