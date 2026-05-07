@@ -76,6 +76,39 @@
 # vehicle_legal_form and parallel_ta_facility — extrapolating from a 4-fund
 # pilot, ~80% of funds have ≥1 capital_stack layer publicly disclosed.
 #
+# Fund-KPIs block (optional nested block — exemplar funds only):
+#   fund_kpis:
+#     scope:                fund | manager_portfolio_proxy | parent_org_proxy
+#     disclosure_quality:   comprehensive | partial | scattered_milestones | placeholder_only
+#     report_year:          int (most recent year a metric was published)
+#     report_url:           URL of canonical impact report / page
+#     report_format:        pdf | html | dashboard | annual_report_section | scattered_milestone_disclosure
+#     reporting_framework_tags: [list — IRIS+, HIPSO, 2X, GRI, JII, custom, ...]
+#     metrics:
+#       - metric_name:        verbatim as published — never paraphrased
+#         tags:               [informal cross-cut: gender, climate, agri, wash, ...]
+#         value:              number or null (null if narrative-only)
+#         value_text:         optional — for verbatim composites ("46% pre → 8% post")
+#         unit:               free-text — "people", "%", "MT CO2e", "USD m"
+#         cumulative_since:   year (null = single-period)
+#         period_end:         YYYY or YYYY-MM-DD or null
+#         iris_plus_id:       IRIS+ code or null (most funds publish without)
+#         attribution_level:  fund_attributed | pro_rated | manager_portfolio
+#                             | franchise_fi_aggregate | parent_org_aggregate
+#         metric_type:        realized | target | longitudinal_outcome
+#                             | cohort_outcome | survey_outcome
+#         source_url:         URL where this metric appears
+#         source_quote:       verbatim substring, ≤200 chars
+#         caveat:             optional — methodology gaps, scope notes
+#     structure_notes:        ≤2 sentences — caveats, methodology disclosures
+#     structure_source_urls:  [URLs that contributed]
+#
+# fund_kpis is curated for ~10–15 exemplar funds spanning the disclosure
+# spectrum. Most peer-fund entries will have it absent (honest null).
+# The CRITICAL field is `attribution_level` per metric — without it,
+# franchise-FI-aggregate numbers (e.g. "5.8M women clients at portfolio
+# FIs") look indistinguishable from fund-attributed numbers.
+#
 # Honesty requirement:
 #   If a field is not in the public record, it MUST be null. A blank field
 #   is infinitely more valuable than a made-up one. A fabricated 175 bps /
@@ -1387,9 +1420,59 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: senior_debt
+          provider: U.S. International Development Finance Corporation (DFC) — loan portfolio guaranty
+          provider_slug: dfc
+          size_usd_m: 14.75
+          source_url: https://www.dfc.gov/media/press-releases/dfc-financing-advance-economic-growth-west-africa-sahel-region
+          source_quote: "$14.75 million loan portfolio guaranty to Stichting Cordaid and its impact investment firm, Cordaid Investment Management"
+        - tranche: equity
+          provider: Stichting Cordaid / Cordaid Investment Management B.V. (sponsor commitment)
+          size_usd_m: 17.0
+          source_url: https://www.africaglobalfunds.com/news/investors/west-africa-trade-investment-hub-co-invests-with-cordaid/
+          source_quote: "Cordaid itself is investing USD 17 million in the fund, and Cordaid anticipates that other like-minded investors will contribute to eventually double the amount"
+        - tranche: first_loss_equity
+          provider: USAID West Africa Trade & Investment Hub (first-loss grant)
+          size_usd_m: 2.0
+          source_url: https://www.dfc.gov/media/press-releases/dfc-financing-advance-economic-growth-west-africa-sahel-region
+          source_quote: "$2 million in first loss grant capital from the U.S. Agency for International Development's West Africa Trade and Investment Hub"
+        - tranche: first_loss_equity
+          provider: Dutch Postcode Lottery (first-loss grant)
+          size_usd_m: 1.0
+          source_url: https://www.africaglobalfunds.com/news/investors/west-africa-trade-investment-hub-co-invests-with-cordaid/
+          source_quote: "In addition to $1m being provided by Dutch Postcode Lottery, also as a first loss grant"
+      parallel_ta_facility: null
+      vehicle_legal_form: Dutch commanditaire vennootschap (C.V., limited partnership) — operating carve-out 'West Africa Bright Future Fund C.V.'; manager Cordaid Investment Management B.V. is wholly owned by Stichting Cordaid (Dutch foundation)
+      instruments_offered:
+        - senior_debt
+      structure_notes: >-
+        The publicly tranched stack disclosed for the Stability Impact Fund
+        corresponds to its operative Africa carve-out, Stability Impact Fund
+        Africa (SIFA), implemented as the West Africa Bright Future Fund C.V.
+        with a 2021 DFC $14.75M loan portfolio guaranty backed by $2M USAID
+        Trade Hub and $1M Dutch Postcode Lottery first-loss grants and a ~$17M
+        Cordaid sponsor commitment (total project cost ~$32.5M per DFC
+        disclosure). Cordaid lends downstream to SMEs and MFIs in Burkina
+        Faso, Guinea, Mali and Sierra Leone (€250k–€3M tickets) with an
+        expected $37M deployment to ~50 SMEs and 8 MFIs by 2025. The parent
+        SIF vehicle (vintage 2015, broader fragile-state mandate including
+        earlier work in Myanmar/CAR) does not have a tranche-by-tranche
+        capital stack in the public record beyond this SIFA carve-out, and
+        the cordaidinvestment.com primary site was non-functional during
+        extraction (returned a placeholder page). No parallel
+        technical-assistance facility is named in public sources, though
+        Cordaid materials reference TA grants blended into individual SME
+        loans rather than a dedicated sidecar.
+      structure_source_urls:
+        - https://www.dfc.gov/media/press-releases/dfc-financing-advance-economic-growth-west-africa-sahel-region
+        - https://impactalpha.com/dfc-guarantees-cordaid-to-spur-lending-in-africas-sahel/
+        - https://www.africaglobalfunds.com/news/investors/west-africa-trade-investment-hub-co-invests-with-cordaid/
+        - https://ewsdata.rightsindevelopment.org/projects/2023-westafricabri-west-africa-bright-future-fund-cv/
     status: deployed
     public_source_url: https://cordaidinvestment.com/
-    last_seen_at: 2026-04-25
+    last_seen_at: 2026-05-06
     notes: >
       Cordaid IM is Cordaid's AFM-regulated Dutch AIFM (registered
       under Article 2:66a Wft), founded 2015 in The Hague. Stability
@@ -1564,9 +1647,53 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack:
+        - tranche: senior_debt
+          provider: FMO (Dutch entrepreneurial development bank, via MASSIF)
+          provider_slug: fmo
+          size_usd_m: 8
+          source_url: https://www.fmo.nl/project-detail/49501
+          source_quote: "FMO will invest USD 8 mln in 5 and 10 year notes that will catalyze shorter-tenor notes from impact investors."
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: null
+        funder: Global Partnerships (philanthropic contributions, funder breakdown not disclosed)
+        source_url: https://globalpartnerships.org/global-partnerships-announces-maturity-of-6th-impact-investment-fund/
+      vehicle_legal_form: Delaware LLC (Global Partnerships Social Investment Fund 6.0, LLC) — debt fund issuing limited recourse notes
+      instruments_offered:
+        - senior_debt
+      structure_notes: >-
+        SIF 6.0 is a senior-debt-only vehicle that issues limited recourse
+        notes to investors and on-lends senior loans to tier II/III MFIs,
+        agricultural cooperatives, and social enterprises in Latin America
+        and Sub-Saharan Africa (per FMO project page: the fund's purpose is
+        to provide senior loans to tier II/III microfinance institutions).
+        FMO's $8m in 5- and 10-year notes was structured as the longer-tenor
+        catalyst designed to crowd in shorter-tenor notes from other impact
+        investors; Ceniarth LLC separately discloses a $4m commitment
+        (tranche unlabeled in source, so omitted from the stack). Per the
+        Convergence Finance 2017 case study, Global Partnerships targets
+        7.5–15% catalytic / philanthropic capital across each fund; SIF 5.0
+        used a senior + subordinated structure, but for SIF 6.0 no
+        separately-named subordinated or first-loss tranche is publicly
+        disclosed (the predecessor fund's catalytic layer was reduced as
+        proof-of-concept matured). The parallel impact-advisory facility is
+        a philanthropic sidecar funded out of Global Partnerships' donor
+        contributions, with size not publicly disclosed. Fund deployed $280m+
+        across 108 investees over its 10-year life and reached maturity in
+        2025. A DFC Public Information Summary (file 9000103867) exists for
+        SIF 6.0 and likely names a DFC senior-debt commitment, but the PDF
+        was not text-extractable during this pass.
+      structure_source_urls:
+        - https://www.fmo.nl/project-detail/49501
+        - https://globalpartnerships.org/global-partnerships-announces-maturity-of-6th-impact-investment-fund/
+        - https://www.africaglobalfunds.com/news/investors/fmo-invests-8m-in-social-investments-fund-60-/
+        - https://ceniarthllc.com/investee/social-investment-fund-6-0/
+        - https://www.dfc.gov/sites/default/files/media/documents/9000103867.pdf
     status: deployed
     public_source_url: https://globalpartnerships.org/global-partnerships-announces-maturity-of-6th-impact-investment-fund/
-    last_seen_at: 2026-04-25
+    last_seen_at: 2026-05-06
     notes: >
       $75m 10-year impact-first debt fund launched October 2015; matured
       with $280m+ deployed across 108 social enterprises in 27 countries
@@ -1687,9 +1814,39 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack: []
+      parallel_ta_facility: null
+      vehicle_legal_form: null
+      instruments_offered:
+        - equity
+        - convertible_debt
+      structure_notes: >-
+        Airbel Ventures is described on the Airbel Impact Lab site as a
+        first-of-its-kind humanitarian-focused venture fund, wholly owned by
+        the International Rescue Committee — i.e., not a separate GP/LP
+        partnership but an IRC-owned investment vehicle. Public disclosure
+        on the Pilot Fund covers the target ($50M catalytic capital, with
+        an initial $6M tranche reported by ImpactAlpha en route to $55M),
+        an evergreen reinvestment model, and downstream instruments
+        (convertibles and equity), focused on seed–Series A in Africa
+        (opportunistically MENA) across climate, health, economic
+        opportunities, and education. Per-tranche capital stack, named
+        LPs/anchor donors, and formal legal vehicle form (LP/LLC/foundation)
+        are NOT in the public record as of the January 2026 launch press
+        cycle. IRC describes the capital as philanthropic (raised, then
+        reinvested) rather than commercial LP capital, which is consistent
+        with a single-sponsor, donor-funded evergreen vehicle rather than a
+        layered blended-finance stack. No parallel TA facility named in
+        primary sources.
+      structure_source_urls:
+        - https://www.rescue.org/press-release/irc-launches-airbel-ventures-impact-investing-fund-drive-humanitarian-breakthroughs
+        - https://airbel.rescue.org/our-work/airbel-ventures/
+        - https://news.fundsforngos.org/2026/01/21/airbel-ventures-ircs-new-impact-fund-driving-humanitarian-breakthroughs/
+        - https://developingtelecoms.com/telecom-business/humanitarian-communications/19654-nigeria-is-first-port-of-call-for-technology-focused-humanitarian-impact-investing-fund.html
     status: raising
     public_source_url: https://www.rescue.org/press-release/irc-launches-airbel-ventures-impact-investing-fund-drive-humanitarian-breakthroughs
-    last_seen_at: 2026-04-26
+    last_seen_at: 2026-05-06
     validation_status: unverified
     # validation_status: unverified — launch announcement only; no first
     # close, anchor LPs, vehicle structure, or fund economics disclosed.
@@ -1795,9 +1952,45 @@ peer_funds:
     investment_period_years: null
     sub_advisor: null
     placement_agent: null
+    blended_finance_structure:
+      capital_stack: []
+      parallel_ta_facility:
+        exists: true
+        size_usd_m: null
+        funder: Water.org
+        source_url: https://www.prnewswire.com/news-releases/waterequitys-everspring-fund-expands-household-access-to-water-and-sanitation-across-emerging-markets-302718348.html
+      vehicle_legal_form: Limited Partnership
+      instruments_offered:
+        - senior_debt
+      structure_notes: >
+        Open-ended (evergreen) Limited Partnership; WaterEquity's first
+        such vehicle, distinct from the closed-end Global Access Fund III
+        (2022) and IV (2023). Open to Qualified Purchasers only. Ecolab
+        is named anchor LP ("Anchor investor Ecolab catalyzes the first
+        open-ended fund from WaterEquity"); other disclosed subscribers
+        include Reckitt ($10m, Jan 2026), Colgate-Palmolive, and HNW
+        investor Martin Dunn. Clean International and Water.org provided
+        "catalytic support" alongside the fund, but the public record
+        does not specify whether this is a first-loss tranche inside the
+        fund, a guarantee, or a parallel concessional arrangement — and
+        per-tranche allocations for Ecolab, Reckitt, and Colgate are not
+        disclosed. Water.org's technical-assistance program for the fund's
+        downstream financial-institution borrowers operates as a parallel
+        TA facility ("have also benefited from Water.org's technical
+        assistance, which has served as a catalyst in strengthening their
+        water and sanitation lending"). K&L Gates served as legal counsel
+        on the launch. Downstream deployment is senior loans to local
+        financial institutions in Indonesia, Tajikistan, Mexico, and
+        Cambodia.
+      structure_source_urls:
+        - https://waterequity.com/waterequity-everspring-fund/
+        - https://www.globenewswire.com/news-release/2025/09/19/3153153/0/en/WaterEquity-Accepts-First-Subscriptions-of-New-Evergreen-Fund-to-Scale-Water-and-Sanitation-Impact-in-Emerging-Markets.html
+        - https://www.prnewswire.com/news-releases/waterequitys-everspring-fund-expands-household-access-to-water-and-sanitation-across-emerging-markets-302718348.html
+        - https://www.klgates.com/KL-Gates-Advises-on-Launch-of-WaterEquitys-New-Evergreen-Fund-to-Expand-Water-Sanitation-Access-9-22-2025
+        - https://www.reckitt.com/media-landing/press-releases/2026/reckitt-makes-10million-investment-in-waterequity-everspring-fund/
     status: raising
     public_source_url: https://waterequity.com/waterequity-everspring-fund/
-    last_seen_at: 2026-04-26
+    last_seen_at: 2026-05-06
     notes: >
       WaterEquity's first open-ended (evergreen) strategy. Announced
       2025-03-21 (World Water Day); launched July 2025; "accepted new
@@ -1828,9 +2021,48 @@ peer_funds:
     investment_period_years: null
     sub_advisor: Symbiotics
     placement_agent: null
+    blended_finance_structure:
+      capital_stack: []
+      parallel_ta_facility: null
+      vehicle_legal_form: null
+      instruments_offered:
+        - senior_debt
+      structure_notes: >
+        As of the 2025-09-23 partnership announcement, MicroBuild Fund 2
+        has not publicly disclosed any layer-by-layer capital structure.
+        Habitat for Humanity International and Symbiotics jointly
+        announced the fund as "a global private credit fund" targeting
+        "in the range of US$300 million to US$500 million," with stated
+        ambition to "leverage as much as US$5 billion in financing
+        globally" across the broader MicroBuild Initiative and to
+        "directly benefit more than 2.5 million people" in emerging and
+        developing economies. Habitat's Terwilliger Center for Innovation
+        in Shelter sponsors the fund; Symbiotics serves as manager. A
+        "technical assistance and innovation platform" is referenced as
+        part of the broader Initiative but is not described as a parallel
+        TA facility sized or structured alongside the fund vehicle
+        itself, so parallel_ta_facility is left null. No anchor LP, DFI
+        senior-debt commitment, first-loss provider, equity contributor,
+        vehicle legal form (Symbiotics typically uses Luxembourg SICAVs
+        but this is not confirmed for MB2), or first-close date has been
+        disclosed in the primary press release, the Symbiotics
+        partnership landing page, NextBillion's write-up, or FinDev
+        Gateway coverage. The DFC active-projects portal surfaces only
+        MicroBuild I, not a successor commitment, and Habitat's FY2025
+        consolidated financial statements do not appear to itemize MB2
+        capital. By analogy MicroBuild Fund 1 (2012) was capitalized as
+        US$90M OPIC senior debt + US$8M Habitat equity + US$2M Omidyar
+        PRI first-loss plus a US$10M parallel TA facility, and Triple
+        Jump managed it; Fund 2 structure is plausibly similar but is
+        NOT confirmed and should not be inferred. Revisit at first close.
+      structure_source_urls:
+        - https://www.habitat.org/newsroom/2025/habitat-humanity-international-and-symbiotics-join-forces-accelerate-and-scale
+        - https://symbioticsgroup.com/habitat-for-humanity-symbiotics-housing-finance/
+        - https://nextbillion.net/news/habitat-for-humanity-international-and-symbiotics-join-forces-to-accelerate-and-scale-affordable-inclusive-and-sustainable-housing-finance/
+        - https://www.findevgateway.org/news/habitat-for-humanity-international-and-symbiotics-join-forces-to-accelerate-and-scale
     status: raising
     public_source_url: https://www.habitat.org/newsroom/2025/habitat-humanity-international-and-symbiotics-join-forces-accelerate-and-scale
-    last_seen_at: 2026-04-26
+    last_seen_at: 2026-05-06
     validation_status: unverified
     # validation_status: unverified — partnership announced 2025-09-23
     # but no first-close date or anchor LP disclosed in public materials
@@ -1868,9 +2100,47 @@ peer_funds:
     investment_period_years: null
     sub_advisor: Triodos Investment Management
     placement_agent: null
+    blended_finance_structure:
+      capital_stack: []
+      parallel_ta_facility: null
+      vehicle_legal_form: Stichting (Dutch foundation)
+      instruments_offered:
+        - senior_debt
+        - mezzanine
+        - guarantee
+        - equity
+      structure_notes: >
+        Stichting Hivos-Triodos Fonds is a Dutch foundation (Stichting)
+        co-founded in 1994 by Stichting Hivos and Triodos Bank, with
+        Triodos Investment Management (a 100% subsidiary of Triodos
+        Bank) acting as manager and forming the board of directors.
+        Triodos UK confirms the fund is housed within the bank's "Co
+        Financing Business Unit." For its first ~30 years the fund
+        operated as a single-pool foundation funded by Hivos and Triodos
+        Bank / Triodos retail-investor channels, with no publicly
+        disclosed senior/junior share-class split between the two
+        co-founders. In September 2025 FMO and OeEB signed a 10-year
+        funding agreement contributing a combined EUR 30m, described by
+        Hivos as "the first time that development finance institutions
+        invest directly in Hivos-Triodos Fonds" — adding to the
+        pre-existing EUR ~65m AUM and bringing total fund size to
+        ~EUR 95m. FMO's project page lists its share at USD 20m; OeEB's
+        individual size is not separately disclosed. No public source
+        labels any tranche as senior/junior/first-loss, so a layer-by-
+        layer capital stack cannot be constructed honestly. Downstream
+        the fund deploys loans, subordinated loans, guarantees and
+        equity into MFIs, sustainable-agriculture SMEs and renewable-
+        energy SMEs. No standalone TA facility is named in public
+        sources.
+      structure_source_urls:
+        - https://hivos.org/hivos-triodos-fonds-secures-eur-30-million-from-fmo-and-oeeb/
+        - https://www.fmo.nl/news-detail/abf3b2ca-45e9-4302-928d-ff18d48b63e8/10-year-funding-agreement-with-hivos-triodos-fonds-to-support-smes-in-emerging-markets
+        - https://www.fmo.nl/project-detail/64519
+        - https://www.triodos.co.uk/projects/stichting-hivos-triodos-fonds
+        - https://www.triodos-im.com/press-releases/2025/hivos-triodos-fonds-secures-eur-30-million-investment-from-fmo-and-oeeb-to-invest-in-smes-in-emerging-markets
     status: deployed
     public_source_url: https://hivos.org/program/hivos-triodos-fund/
-    last_seen_at: 2026-04-28
+    last_seen_at: 2026-05-06
     notes: >
       Established 1994 as a joint initiative of Stichting Hivos (Dutch
       humanist INGO) and Triodos Bank. AUM EUR 58.2m end-2023 (~$62m).
