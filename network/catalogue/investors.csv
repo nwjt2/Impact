@@ -142,8 +142,8 @@ Esmée Fairbairn Foundation,esmee-fairbairn-foundation,family-office,unknown,htt
 Lankelly Chase,lankelly-chase,family-office,unknown,https://lankellychase.org.uk/blog/,,unknown,active,
 John Ellerman Foundation,john-ellerman-foundation,family-office,unknown,https://ellerman.org.uk/news/,,unknown,active,
 Argidius Foundation,argidius-foundation,family-office,unknown,https://www.argidius.com/en/news,,unknown,active,
-MetLife Foundation,metlife-foundation,other,unknown,https://www.metlife.com/metlife-foundation/,,unknown,active,
-Citi Foundation,citi-foundation,other,unknown,https://www.citigroup.com/global/foundation,,unknown,active,
+MetLife Foundation,metlife-foundation,foundation,unknown,https://www.metlife.com/metlife-foundation/,,unknown,active,Corporate-foundation arm of MetLife; classifier override at investor_classifier.py:141.
+Citi Foundation,citi-foundation,foundation,unknown,https://www.citigroup.com/global/foundation,,unknown,active,Corporate-foundation arm of Citigroup; curated under foundation_lps.yml.
 JPMorgan Chase Foundation,jpmorgan-chase-foundation,other,unknown,https://www.jpmorganchase.com/impact,,unknown,active,
 Bank of America Foundation,bank-of-america-foundation,other,unknown,https://about.bankofamerica.com/en/making-an-impact,,unknown,active,
 Nuveen / TIAA Impact,nuveen-tiaa-impact,other,unknown,https://www.nuveen.com/global/insights,,unknown,active,
