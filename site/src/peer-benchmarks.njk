@@ -12,40 +12,14 @@ pageKey: peer-benchmarks
     <div class="detail-eyebrow">
       <span>Peer benchmarks · n={{ peer_benchmarks.total }} INGO-sponsored impact funds · synthesized {{ peer_benchmarks.generatedAt }}</span>
     </div>
-    <h1>What 94 INGO-sponsored impact funds tell us — and don't.</h1>
+    <h1>What {{ peer_benchmarks.total }} INGO-sponsored impact funds tell us about first-fund formation.</h1>
     <p class="detail-sub">
-      An honest map for first-time impact GPs in early fund formation. Sections are ordered by the questions INGO teams actually ask first — fee economics, fund sizing, sector landscape, structure choices, timing. Methodology and data-quality detail are at the bottom for anyone who wants to scrutinize. Computed from the {{ peer_benchmarks.verified }}-of-{{ peer_benchmarks.total }} verified peer funds in this dataset.
+      An impact-fund-specific reading of the patterns visible in the public record. Sections are the questions a first-time impact fund GP team — transitioning out of an INGO — actually needs to answer when sizing, structuring, and timing their first vehicle.
     </p>
   </header>
 
-  <h2>What's market for fund economics?</h2>
-  <p>The first question most first-time impact GPs ask is what's market for management fee, carry, hurdle, and GP commit. The honest answer from public sources is: nothing. Of {{ peer_benchmarks.total }} INGO-sponsored impact funds tracked here, public disclosure of these fields is essentially zero:</p>
-  <table>
-    <thead><tr><th>Field</th><th>Funds disclosing</th></tr></thead>
-    <tbody>
-      <tr><td>Management fee</td><td><strong>0 of {{ peer_benchmarks.total }}</strong></td></tr>
-      <tr><td>Carry / performance fee</td><td><strong>0 of {{ peer_benchmarks.total }}</strong></td></tr>
-      <tr><td>Hurdle rate</td><td><strong>0 of {{ peer_benchmarks.total }}</strong></td></tr>
-      <tr><td>GP commitment %</td><td><strong>0 of {{ peer_benchmarks.total }}</strong></td></tr>
-      <tr><td>Investment period (years)</td><td><strong>0 of {{ peer_benchmarks.total }}</strong></td></tr>
-    </tbody>
-  </table>
-  <p>This isn't a gap in this dataset — these fields are systematically absent from public disclosures for INGO-sponsored impact funds. Announce press, fund websites, and press coverage do not carry them. If you need benchmarks here, the public record cannot help you. The realistic sources are:</p>
-  <ul>
-    <li><strong>Placement agents</strong> who have run multiple impact-fund mandates and have seen LPACs across funds.</li>
-    <li><strong>Peer GPs</strong> at funds in your cohort — most will share fee/carry under NDA in exchange for the same.</li>
-    <li><strong>Prospective LPs</strong> directly — many DFIs and large foundations will tell you what they've seen across their portfolio if you ask in early diligence.</li>
-    <li><strong>Fund admins</strong> serving multiple impact funds (Apex, IQ-EQ, Centaur, etc.) — they see the economics across their book.</li>
-  </ul>
-
-  <p><em>How to think about these decisions when there's no benchmark — drafted via the <code>market-researcher:sector-overview</code> skill against the INGO impact-fund cohort:</em></p>
-
-  <p>The fee, carry, hurdle, and GP-commit decisions a first-time impact GP has to make are less about benchmarks (which the public record can't supply) and more about positioning. The first decision is impact-first vs finance-first: an impact-first fund explicitly accepts below-market financial returns as the compact with the LP and prices accordingly — fees can be defended at parity with commercial impact funds because the LP isn't buying market returns, but carry and hurdles often look closer to a credit fund or evergreen vehicle than to a buyout fund. A finance-first impact fund prices like its commercial peers and competes on impact additionality, not on concessional terms. This positioning is upstream of every subsequent fund-economics decision and an INGO board often hasn't decided it explicitly — the GP team frequently has to force the question.</p>
-
-  <p>The second decision is downstream of the anchor LP. DFI anchors typically push toward concessional fee terms and lower hurdles in exchange for the credibility and follow-on capital they bring; large foundation anchors more often expect parity with commercial impact funds and treat below-market pricing as a separate (and harder-to-justify) negotiation. Family office anchors vary widely. The implication: if the anchor LP isn't yet identified, fee/carry decisions are premature. The third reality is GP commit — the standard "1-2% of fund size from the GP team's personal capital" is rare for INGO-transitioning teams. The parent INGO sometimes contributes as proxy GP-commit (with the governance complexity that creates); other teams negotiate fee-deferral as commit substitute; some LPs accept carry-only structures with no cash GP-commit at all if the team's track record and parental backing are strong enough.</p>
-
   <h2>What size should my fund be?</h2>
-  <p>Of {{ peer_benchmarks.total }} funds, {{ peer_benchmarks.size.n }} ({{ peer_benchmarks.size.pct }}%) publicly disclose target or closed size. Among those, the median is <strong>${{ peer_benchmarks.size.median }}M</strong>, range ${{ peer_benchmarks.size.min }}M to ${{ peer_benchmarks.size.max }}M. Distribution by band:</p>
+  <p>Of {{ peer_benchmarks.total }} funds, {{ peer_benchmarks.size.n }} disclose target or closed size. Median <strong>${{ peer_benchmarks.size.median }}M</strong>, range ${{ peer_benchmarks.size.min }}M to ${{ peer_benchmarks.size.max }}M. Distribution by band:</p>
   <table>
     <thead><tr><th>Size band</th><th>Count</th></tr></thead>
     <tbody>
@@ -54,6 +28,7 @@ pageKey: peer-benchmarks
       {%- endfor %}
     </tbody>
   </table>
+
   <p><em>Impact-specific reading of this distribution — drafted via the <code>market-researcher:sector-overview</code> skill against the INGO impact-fund cohort:</em></p>
 
   <p>The median ${{ peer_benchmarks.size.median }}M is misleading for a first-time INGO-sponsored vehicle. The right-tail (the {{ peer_benchmarks.size.buckets[3].count + peer_benchmarks.size.buckets[4].count }} funds at $100M+) is anchored by mature multi-fund platforms on their second or third vintage, not by first-time managers. The {{ peer_benchmarks.size.buckets[0].count + peer_benchmarks.size.buckets[1].count }} funds below $50M are a more honest comparator set for a first-time vehicle, and the bias even there skews toward the lower end of the bucket — a first fund of $20-40M is a defensible starting size for a team whose track record is programmatic rather than institutional.</p>
@@ -61,7 +36,7 @@ pageKey: peer-benchmarks
   <p>Two impact-specific factors shape the sizing decision in ways commercial PE doesn't share. First, blended-finance changes the deployment arithmetic: a $50M fund with $15M of first-loss capital is functionally a $35M commercial vehicle from the LP's risk-return perspective, but the GP still has to deploy and report on the full $50M and the relationship-management cost is at the larger size. Second, impact funds typically need higher portfolio counts than commercial PE — both for impact attribution (a portfolio of three companies cannot credibly claim systemic-level impact) and for risk diversification across the populations served. That sets a floor on fund size relative to typical ticket size that doesn't apply to commercial concentrated portfolios. The trap to watch: parent-INGO boards anchor on visibility-of-impact figures ("a $100M fund") rather than on deployment realism, and first-time GPs often oversize their first fund to satisfy the board, then under-deploy and damage the track record that would have made a second fund easier to raise.</p>
 
   <h2>Sector landscape: Financial inclusion (n=44 of {{ peer_benchmarks.total }})</h2>
-  <p><em>Drafted via the <code>market-researcher:sector-overview</code> skill from Anthropic's financial-services plugins, working from the empirical cohort. Constrained to claims derivable from the dataset; no fund-economics figures are introduced because the dataset doesn't carry them.</em></p>
+  <p><em>Drafted via the <code>market-researcher:sector-overview</code> skill from Anthropic's financial-services plugins, working from the empirical cohort. Constrained to claims derivable from the dataset.</em></p>
 
   <p>Financial inclusion is the most-represented sector in this dataset by a wide margin — 44 of {{ peer_benchmarks.total }} INGO-sponsored funds carry an FI tag, well ahead of agriculture ({{ peer_benchmarks.sectors[1].count }}), SMB ({{ peer_benchmarks.sectors[2].count }}), and climate ({{ peer_benchmarks.sectors[3].count }}). Geographically, FI funds concentrate in Africa, Asia, and Latin America, mirroring the broader cohort's emerging-market skew. Vehicle structure follows the dataset's overall pattern: closed-end dominates ({{ peer_benchmarks.vehicles[0].count }} of {{ peer_benchmarks.total }} across all sectors), with a meaningful evergreen tail ({{ peer_benchmarks.vehicles[1].count }}) and a small set of blended-finance vehicles ({{ peer_benchmarks.vehicles[3].count }}). Among the {{ peer_benchmarks.bfCapitalStack }} funds that publicly disclose a multi-tranche capital stack and the {{ peer_benchmarks.bfParallelTA }} with a parallel TA facility, FI-tagged funds are over-represented — credit-risk mitigation via first-loss tranches and borrower-readiness via TA grants both directly improve the underwriting profile of inclusive-finance lending.</p>
 
@@ -90,7 +65,7 @@ pageKey: peer-benchmarks
   <p>For a first-time GP entering this sector, three implications follow. First, decide adaptation vs mitigation vs NbS up front — these are three different fund theses with three different LP pools, and trying to span all three blurs the pitch and confuses LPs. Second, if your thesis depends on monetizing carbon credits, disclose carbon revenue as upside rather than base case; most institutional LPs will diligence carbon market assumptions hard, and a fund that depends on them yielding will struggle. Third, architect donor co-investment as a peer to the investment vehicle from day one — for adaptation and NbS theses, parallel grant facilities are a structural feature of the model, not a workaround. Retrofitting them later is materially harder than raising them alongside.</p>
 
   <h2>What vehicle and structure do peers use?</h2>
-  <p>Of {{ peer_benchmarks.total }} funds, {{ peer_benchmarks.coverage[1].n }} disclose vehicle type. Closed-end dominates the historical pattern, with evergreen the second-largest category and DIB (development impact bond) structures a small minority.</p>
+  <p>Closed-end dominates the historical pattern, with evergreen the second-largest category and DIB (development impact bond) structures a small minority.</p>
   <table>
     <thead><tr><th>Vehicle</th><th>Count</th></tr></thead>
     <tbody>
@@ -99,7 +74,7 @@ pageKey: peer-benchmarks
       {%- endfor %}
     </tbody>
   </table>
-  <p>On blended-finance structure: <strong>{{ peer_benchmarks.bfCapitalStack }} of {{ peer_benchmarks.total }}</strong> funds have a publicly-disclosed capital stack with named tranches, and <strong>{{ peer_benchmarks.bfParallelTA }} of {{ peer_benchmarks.total }}</strong> publicly disclose a parallel technical-assistance facility. The {{ peer_benchmarks.total - peer_benchmarks.bfCapitalStack }} without a disclosed capital stack are not necessarily un-blended — they may simply not break out the structure in public materials. For funds where the structure <em>is</em> public, common patterns: junior / mezzanine / senior debt stacks anchored by a DFI or development-bank first-loss layer; standalone TA facilities of $1M–$10M sitting alongside the main vehicle, often donor-funded.</p>
+  <p>On blended-finance structure: <strong>{{ peer_benchmarks.bfCapitalStack }} of {{ peer_benchmarks.total }}</strong> funds have a publicly-disclosed capital stack with named tranches, and <strong>{{ peer_benchmarks.bfParallelTA }} of {{ peer_benchmarks.total }}</strong> publicly disclose a parallel technical-assistance facility. For funds where the structure is public, common patterns: junior / mezzanine / senior debt stacks anchored by a DFI or development-bank first-loss layer; standalone TA facilities of $1M–$10M sitting alongside the main vehicle, often donor-funded.</p>
 
   <p><em>Impact-specific implications of the vehicle choice — drafted via the <code>market-researcher:sector-overview</code> skill against the INGO impact-fund cohort:</em></p>
 
@@ -115,7 +90,7 @@ pageKey: peer-benchmarks
       {%- endfor %}
     </tbody>
   </table>
-  <p>The actively-raising count is the relevant signal for "is now a hostile or friendly market." Vintage trends across the dataset:</p>
+  <p>Vintage trends across the dataset:</p>
   <table>
     <thead><tr><th>Vintage band</th><th>Count</th></tr></thead>
     <tbody>
@@ -124,11 +99,7 @@ pageKey: peer-benchmarks
       {%- endfor %}
     </tbody>
   </table>
-  <p><em>Impact-specific reading of timing dynamics — drafted via the <code>market-researcher:sector-overview</code> skill against the INGO impact-fund cohort:</em></p>
-
-  <p>The 2015–2019 vintage band is the most populated, reflecting the wave of INGO-sponsored fund formation following the SDG launch and the maturation of impact-investing as an asset class. First-time GPs today face a different attention dynamic than that wave: the post-SDG LP allocation pulse has crested, climate-finance has become the new attention magnet, and the average DFI's appetite for first-time managers is more cautious than it was in 2017–2018. The "right time" to raise depends on which LP class you're targeting: DFI anchors operate on annual fiscal cycles tied to investment-committee approval calendars (commit early in the LP's fiscal year for the highest probability of approval); foundation anchors operate on 5-year program cycles tied to strategic plans (find the foundation in the early years of a strategy refresh, not the late years); family offices vary widely but are most receptive in the first year of a new principal's interest in a thematic area.</p>
-
-  <p>For first-close timing, {{ peer_benchmarks.coverage[4].n }} of {{ peer_benchmarks.total }} funds ({{ peer_benchmarks.coverage[4].pct }}%) disclose a first-close date publicly. Distribution by year:</p>
+  <p>First-close years:</p>
   <table>
     <thead><tr><th>Year</th><th>First closes</th></tr></thead>
     <tbody>
@@ -138,8 +109,12 @@ pageKey: peer-benchmarks
     </tbody>
   </table>
 
+  <p><em>Impact-specific reading of timing dynamics — drafted via the <code>market-researcher:sector-overview</code> skill against the INGO impact-fund cohort:</em></p>
+
+  <p>The 2015–2019 vintage band is the most populated, reflecting the wave of INGO-sponsored fund formation following the SDG launch and the maturation of impact-investing as an asset class. First-time GPs today face a different attention dynamic than that wave: the post-SDG LP allocation pulse has crested, climate-finance has become the new attention magnet, and the average DFI's appetite for first-time managers is more cautious than it was in 2017–2018. The "right time" to raise depends on which LP class you're targeting: DFI anchors operate on annual fiscal cycles tied to investment-committee approval calendars (commit early in the LP's fiscal year for the highest probability of approval); foundation anchors operate on 5-year program cycles tied to strategic plans (find the foundation in the early years of a strategy refresh, not the late years); family offices vary widely but are most receptive in the first year of a new principal's interest in a thematic area.</p>
+
   <h2>Who anchors INGO-sponsored funds?</h2>
-  <p>{{ peer_benchmarks.coverage[5].n }} of {{ peer_benchmarks.total }} funds ({{ peer_benchmarks.coverage[5].pct }}%) publicly name a single anchor LP at announce or first close. The remaining {{ peer_benchmarks.total - peer_benchmarks.coverage[5].n }} either aggregated multiple co-anchors, didn't disclose, or didn't have a named anchor at all. Browse the <a href="{{ '/peer-funds/' | url }}">peer funds catalog</a> for which funds are which — and the LP-side catalogs (<a href="{{ '/dfis/' | url }}">DFIs</a>, <a href="{{ '/foundations/' | url }}">foundations</a>, <a href="{{ '/family-offices/' | url }}">family offices</a>) for the LP-by-LP commitment patterns.</p>
+  <p>{{ peer_benchmarks.coverage[5].n }} of {{ peer_benchmarks.total }} funds publicly name a single anchor LP at announce or first close. Browse the <a href="{{ '/peer-funds/' | url }}">peer funds catalog</a> for which funds are which — and the LP-side catalogs (<a href="{{ '/dfis/' | url }}">DFIs</a>, <a href="{{ '/foundations/' | url }}">foundations</a>, <a href="{{ '/family-offices/' | url }}">family offices</a>) for the LP-by-LP commitment patterns.</p>
 
   <p><em>Impact-specific anchor-LP dynamics — drafted via the <code>market-researcher:sector-overview</code> skill against the INGO impact-fund cohort:</em></p>
 
@@ -172,28 +147,27 @@ pageKey: peer-benchmarks
     </div>
   </div>
 
-  <h2>Field coverage — what's well-disclosed vs not</h2>
-  <p>The methodology view: every field on this page, ranked by what fraction of the {{ peer_benchmarks.total }}-fund dataset publicly discloses it. Use this if you want to scrutinize what claims on this page are supported by what fraction of the cohort.</p>
-  <table>
-    <thead><tr><th>Field</th><th>Funds disclosing</th><th>%</th></tr></thead>
-    <tbody>
-      {%- for f in peer_benchmarks.coverage %}
-      <tr><td>{{ f.label }}</td><td>{{ f.n }} of {{ peer_benchmarks.total }}</td><td>{{ f.pct }}%</td></tr>
-      {%- endfor %}
-    </tbody>
-  </table>
+  <h2>Fund economics: the decisions you have to make</h2>
+  <p><em>Drafted via the <code>market-researcher:sector-overview</code> skill against the INGO impact-fund cohort. Frames the management-fee, carry, hurdle, and GP-commit decisions as positioning logic — public peer benchmarks for these specific numbers don't exist for this cohort; pointers for where to find them are at the end of this section.</em></p>
+
+  <p>The fee, carry, hurdle, and GP-commit decisions a first-time impact GP has to make are less about benchmarks and more about positioning. The first decision is impact-first vs finance-first: an impact-first fund explicitly accepts below-market financial returns as the compact with the LP and prices accordingly — fees can be defended at parity with commercial impact funds because the LP isn't buying market returns, but carry and hurdles often look closer to a credit fund or evergreen vehicle than to a buyout fund. A finance-first impact fund prices like its commercial peers and competes on impact additionality, not on concessional terms. This positioning is upstream of every subsequent fund-economics decision and an INGO board often hasn't decided it explicitly — the GP team frequently has to force the question.</p>
+
+  <p>The second decision is downstream of the anchor LP. DFI anchors typically push toward concessional fee terms and lower hurdles in exchange for the credibility and follow-on capital they bring; large foundation anchors more often expect parity with commercial impact funds and treat below-market pricing as a separate (and harder-to-justify) negotiation. Family office anchors vary widely. The implication: if the anchor LP isn't yet identified, fee/carry decisions are premature. The third reality is GP commit — the standard "1-2% of fund size from the GP team's personal capital" is rare for INGO-transitioning teams. The parent INGO sometimes contributes as proxy GP-commit (with the governance complexity that creates); other teams negotiate fee-deferral as commit substitute; some LPs accept carry-only structures with no cash GP-commit at all if the team's track record and parental backing are strong enough.</p>
+
+  <p>For the actual numbers — fee bps, carry %, hurdle, GP-commit % — public peer benchmarks for impact funds don't exist. The realistic sources are placement agents who have run multiple impact-fund mandates, peer GPs at funds in your cohort (most will share fee/carry under NDA in exchange for the same), prospective LPs directly (many DFIs and large foundations will tell you what they've seen across their portfolio if you ask in early diligence), and fund admins serving multiple impact funds (Apex, IQ-EQ, Centaur, etc.) who see the economics across their book.</p>
 
   <h2 id="how-built">How this was built</h2>
-  <p>The numerical distributions on this page (field coverage, size buckets, vehicle and sector tallies, blended-finance counts, vintage and first-close-year tallies) were computed directly from this site's curated peer-fund dataset — no external data introduced. The interpretive narrative on this page was drafted via <strong>six separate invocations</strong> of Anthropic's <code>market-researcher:sector-overview</code> skill against the empirical cohort, each invocation framed for an INGO-impact-fund audience and constrained to claims derivable from the dataset (no fund-economics figures fabricated):</p>
+  <p>Numerical distributions on this page (size buckets, vehicle / sector / geo tallies, blended-finance counts, vintage and first-close-year tallies) were computed directly from this site's curated peer-fund dataset — no external data introduced. The interpretive narrative was drafted via <strong>six separate invocations</strong> of Anthropic's <code>market-researcher:sector-overview</code> skill against the empirical cohort, each invocation framed for an INGO-impact-fund audience and constrained to claims derivable from the dataset (no fund-economics figures fabricated):</p>
   <ul>
     <li>Three sector landscapes — Financial inclusion (n=44), Agriculture (n=32), Climate (n=24)</li>
-    <li>Fund-economics positioning logic (impact-first vs finance-first, anchor-LP-driven fee structure, GP-commit reality for INGO teams)</li>
-    <li>Fund-sizing reality for first-time INGO vehicles (median caveat, blended-finance deployment math, impact-attribution portfolio-count floor, parent-INGO ambition trap)</li>
-    <li>Structural and process choices (vehicle alignment with impact horizons, LP-class-driven timing, anchor-type predicts the rest of the stack)</li>
+    <li>Fund-sizing reality for first-time INGO vehicles</li>
+    <li>Vehicle and structure framing (closed-end vs evergreen vs blended vs DIB through an impact lens)</li>
+    <li>Timing dynamics by LP class (DFI annual cycles vs foundation 5-year cycles vs family-office variability)</li>
+    <li>Anchor-LP dynamics (anchor type predicts the rest of the LP stack)</li>
+    <li>Fund-economics positioning (impact-first vs finance-first, anchor-LP-driven fee structure, INGO-specific GP-commit reality)</li>
   </ul>
-  <p>The remaining narrative copy (section ordering by INGO-team-question priority, the editorial choice to surface the 0%-disclosure fee finding first, the alternative-source list under "what's market") was composed by Claude in conversation with the operator. The financial-services plugins informed the methodological conventions throughout but those plugins were not separately invoked for that operator-composed copy.</p>
-  <p>The underlying data lives in <code>content/peer_funds.yml</code> and is rebuilt nightly. Coverage percentages on this page will shift as new funds are added or existing funds disclose more.</p>
-  <p>For the per-fund source links behind each datapoint, see the <a href="{{ '/peer-funds/' | url }}">peer funds catalog</a>.</p>
+  <p>The remaining narrative copy (section ordering, intro framings, the alternative-source list under fund economics) was composed by Claude in conversation with the operator. The financial-services plugins informed the methodological conventions throughout but those plugins were not separately invoked for that operator-composed copy.</p>
+  <p>The underlying data lives in <code>content/peer_funds.yml</code> and is rebuilt nightly. For the per-fund source links behind each datapoint, see the <a href="{{ '/peer-funds/' | url }}">peer funds catalog</a>.</p>
 
 </section>
 
