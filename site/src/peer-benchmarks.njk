@@ -12,11 +12,23 @@ pageKey: peer-benchmarks
     <div class="detail-eyebrow">
       <span>Peer benchmarks · n={{ peer_benchmarks.total }} INGO-sponsored impact funds · synthesized {{ peer_benchmarks.generatedAt }}</span>
     </div>
-    <h1>What {{ peer_benchmarks.total }} INGO-sponsored impact funds tell us about first-fund formation.</h1>
+    <h1>Raising your first impact fund? Here's what {{ peer_benchmarks.total }} INGO peers tell you.</h1>
     <p class="detail-sub">
-      An impact-fund-specific reading of the patterns visible in the public record. Sections are the questions a first-time impact fund GP team — transitioning out of an INGO — actually needs to answer when sizing, structuring, and timing their first vehicle.
+      Direct answers from {{ peer_benchmarks.total }} INGO-sponsored peer funds on sizing, structure, timing, and anchor LP patterns — for first-time impact GPs transitioning out of an INGO.
     </p>
   </header>
+
+  <aside class="tldr">
+    <h2 class="tldr-heading">The 30-second read</h2>
+    <ul>
+      <li><strong>Size:</strong> the median peer is ${{ peer_benchmarks.size.median }}M, but it's anchored by mature multi-fund platforms. The defensible starting band for a first-time INGO vehicle is <strong>$20–40M</strong>.</li>
+      <li><strong>Vehicle:</strong> closed-end dominates ({{ peer_benchmarks.vehicles[0].count }} of {{ peer_benchmarks.total }}), but evergreen ({{ peer_benchmarks.vehicles[1].count }}) is the meaningful alternative when impact horizons exceed typical fund timelines.</li>
+      <li><strong>Blended finance:</strong> {{ peer_benchmarks.bfCapitalStack }} of {{ peer_benchmarks.total }} funds publicly disclose a multi-tranche capital stack; {{ peer_benchmarks.bfParallelTA }} disclose a parallel TA facility.</li>
+      <li><strong>Anchor type predicts your LP roster:</strong> DFI anchor → more DFIs; foundation anchor → more foundations + family offices. Pick the anchor type before the named LP.</li>
+      <li><strong>Fund economics aren't publicly benchmarkable</strong> for impact funds. For fee, carry, hurdle, and GP-commit numbers, the realistic sources are placement agents, peer GPs, prospective LPs, or fund admins — not the public record.</li>
+    </ul>
+    <p class="tldr-footnote">Detail and reasoning behind each point in the sections below.</p>
+  </aside>
 
   <h2>What size should my fund be?</h2>
   <p>Of {{ peer_benchmarks.total }} funds, {{ peer_benchmarks.size.n }} disclose target or closed size. Median <strong>${{ peer_benchmarks.size.median }}M</strong>, range ${{ peer_benchmarks.size.min }}M to ${{ peer_benchmarks.size.max }}M. Distribution by band:</p>
@@ -180,5 +192,31 @@ pageKey: peer-benchmarks
 }
 @media (max-width: 720px) {
   .benchmark-two-col { grid-template-columns: 1fr; }
+}
+.tldr {
+  border-left: 3px solid currentColor;
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0 2.5rem;
+  background: rgba(0, 0, 0, 0.03);
+}
+.tldr-heading {
+  margin-top: 0;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+.tldr ul {
+  margin: 0.5rem 0 0.75rem;
+  padding-left: 1.25rem;
+}
+.tldr li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+.tldr-footnote {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+  opacity: 0.7;
 }
 </style>
