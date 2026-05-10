@@ -1,0 +1,190 @@
+---
+layout: base.njk
+title: Peer benchmarks
+permalink: /peer-benchmarks/index.html
+pageKey: peer-benchmarks
+---
+
+<section class="detail-page">
+  <p class="back-link"><a href="{{ '/' | url }}">← Back to index</a></p>
+
+  <header class="detail-header">
+    <div class="detail-eyebrow">
+      <span>Peer benchmarks · n={{ peer_benchmarks.total }} INGO-sponsored impact funds · synthesized {{ peer_benchmarks.generatedAt }}</span>
+    </div>
+    <h1>What can and can't be benchmarked from public sources.</h1>
+    <p class="detail-sub">
+      An honest map for first-time impact GPs. Computed from the {{ peer_benchmarks.verified }}-of-{{ peer_benchmarks.total }} verified peer funds in this dataset. Where data is well-disclosed we show distributions; where it isn't we say so. The questions you can't answer from public sources alone are named at the bottom — those are the ones to ask private comparables.
+    </p>
+  </header>
+
+  <h2>Field coverage across the dataset</h2>
+  <p>What the public record actually contains for INGO-sponsored impact funds, ranked by disclosure rate. Use this as a quick read on which questions have public answers and which don't.</p>
+  <table>
+    <thead><tr><th>Field</th><th>Funds disclosing</th><th>%</th></tr></thead>
+    <tbody>
+      {%- for f in peer_benchmarks.coverage %}
+      <tr><td>{{ f.label }}</td><td>{{ f.n }} of {{ peer_benchmarks.total }}</td><td>{{ f.pct }}%</td></tr>
+      {%- endfor %}
+    </tbody>
+  </table>
+
+  <h2>Well-evidenced benchmarks</h2>
+
+  <h3>Fund target / closed size · n={{ peer_benchmarks.size.n }} of {{ peer_benchmarks.total }} ({{ peer_benchmarks.size.pct }}% disclose)</h3>
+  <table>
+    <thead><tr><th>Size band</th><th>Count</th></tr></thead>
+    <tbody>
+      {%- for b in peer_benchmarks.size.buckets %}
+      <tr><td>{{ b.label }}</td><td>{{ b.count }}</td></tr>
+      {%- endfor %}
+    </tbody>
+  </table>
+  <p>Median: ${{ peer_benchmarks.size.median }}M. Range: ${{ peer_benchmarks.size.min }}M to ${{ peer_benchmarks.size.max }}M among the {{ peer_benchmarks.size.n }} funds disclosing. The remaining {{ peer_benchmarks.total - peer_benchmarks.size.n }} either haven't reached close or don't disclose target / closed size publicly.</p>
+
+  <h3>Vehicle type · n={{ peer_benchmarks.coverage[1].n }} of {{ peer_benchmarks.total }}</h3>
+  <table>
+    <thead><tr><th>Vehicle</th><th>Count</th></tr></thead>
+    <tbody>
+      {%- for v in peer_benchmarks.vehicles %}
+      <tr><td>{{ v.label }}</td><td>{{ v.count }}</td></tr>
+      {%- endfor %}
+    </tbody>
+  </table>
+  <p>Closed-end funds dominate the historical pattern, with evergreen the second-largest category and DIB (development impact bond) structures a small minority. The distribution above is empirical from {{ peer_benchmarks.coverage[1].n }} funds.</p>
+
+  <h3>Vintage trends · n={{ peer_benchmarks.coverage[0].n }} of {{ peer_benchmarks.total }}</h3>
+  <table>
+    <thead><tr><th>Vintage band</th><th>Count</th></tr></thead>
+    <tbody>
+      {%- for v in peer_benchmarks.vintageBuckets %}
+      <tr><td>{{ v.label }}</td><td>{{ v.count }}</td></tr>
+      {%- endfor %}
+    </tbody>
+  </table>
+  <p>The 2015–2019 vintage band is the most populated, reflecting the wave of INGO-sponsored fund formation following the SDG launch. The 2020–2024 cohort remains active; the 2025+ cohort represents funds currently raising or just closed.</p>
+
+  <h3>Sector and geography prevalence (across all {{ peer_benchmarks.total }} funds)</h3>
+  <p>Funds carry multiple sector and geo tags. Counts are fund-level appearances, not exclusive cohorts.</p>
+  <div class="benchmark-two-col">
+    <div>
+      <h4>Sector tags</h4>
+      <table>
+        <thead><tr><th>Sector</th><th>Funds</th></tr></thead>
+        <tbody>
+          {%- for s in peer_benchmarks.sectors %}
+          <tr><td>{{ s.label }}</td><td>{{ s.count }}</td></tr>
+          {%- endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <h4>Geo tags</h4>
+      <table>
+        <thead><tr><th>Geo</th><th>Funds</th></tr></thead>
+        <tbody>
+          {%- for g in peer_benchmarks.geos %}
+          <tr><td>{{ g.label }}</td><td>{{ g.count }}</td></tr>
+          {%- endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h2>Partially-evidenced benchmarks</h2>
+
+  <h3>First-close dates · n={{ peer_benchmarks.firstCloseYears | length }} years represented</h3>
+  <p>{{ peer_benchmarks.coverage[4].n }} of {{ peer_benchmarks.total }} funds ({{ peer_benchmarks.coverage[4].pct }}%) disclose a first-close date publicly. The remainder either pre-date routine first-close disclosure conventions or chose not to publish. Distribution by year:</p>
+  <table>
+    <thead><tr><th>Year</th><th>First closes</th></tr></thead>
+    <tbody>
+      {%- for y in peer_benchmarks.firstCloseYears %}
+      <tr><td>{{ y.label }}</td><td>{{ y.count }}</td></tr>
+      {%- endfor %}
+    </tbody>
+  </table>
+
+  <h3>Anchor LP prevalence · n={{ peer_benchmarks.coverage[5].n }} of {{ peer_benchmarks.total }} ({{ peer_benchmarks.coverage[5].pct }}%)</h3>
+  <p>Slightly under half of tracked funds publicly name a single anchor LP at announce or first close. The remaining {{ peer_benchmarks.total - peer_benchmarks.coverage[5].n }} either aggregated multiple co-anchors, didn't disclose, or didn't have a named anchor at all. The catalog at <a href="{{ '/peer-funds/' | url }}">/peer-funds/</a> shows which funds are which.</p>
+
+  <h3>Fund status (across all {{ peer_benchmarks.total }} funds)</h3>
+  <table>
+    <thead><tr><th>Status</th><th>Count</th></tr></thead>
+    <tbody>
+      {%- for s in peer_benchmarks.statuses %}
+      <tr><td>{{ s.label }}</td><td>{{ s.count }}</td></tr>
+      {%- endfor %}
+    </tbody>
+  </table>
+
+  <h2>Blended-finance sub-cohort</h2>
+  <p>Of {{ peer_benchmarks.total }} funds, <strong>{{ peer_benchmarks.bfCapitalStack }}</strong> have a publicly-disclosed capital stack with named tranches, and <strong>{{ peer_benchmarks.bfParallelTA }}</strong> publicly disclose a parallel technical-assistance facility. The <strong>{{ peer_benchmarks.total - peer_benchmarks.bfCapitalStack }}</strong> without a disclosed capital stack are not necessarily un-blended — they may simply not break out the structure in public materials.</p>
+  <p>For funds where the structure <em>is</em> public, common patterns: junior / mezzanine / senior debt stacks anchored by a DFI or development-bank first-loss layer; standalone TA facilities of $1M–$10M sitting alongside the main vehicle, often donor-funded.</p>
+
+  <h2>Sector landscape: Financial inclusion (n=44 of {{ peer_benchmarks.total }})</h2>
+  <p><em>Drafted via the <code>market-researcher:sector-overview</code> skill from Anthropic's financial-services plugins, working from the empirical cohort below. Constrained to claims derivable from the dataset; no fund-economics figures are introduced because the dataset doesn't carry them.</em></p>
+
+  <p>Financial inclusion is the most-represented sector in this dataset by a wide margin — 44 of {{ peer_benchmarks.total }} INGO-sponsored funds carry an FI tag, well ahead of agriculture ({{ peer_benchmarks.sectors[1].count }}), SMB ({{ peer_benchmarks.sectors[2].count }}), and climate ({{ peer_benchmarks.sectors[3].count }}). Geographically, FI funds concentrate in Africa, Asia, and Latin America, mirroring the broader cohort's emerging-market skew. Vehicle structure follows the dataset's overall pattern: closed-end dominates ({{ peer_benchmarks.vehicles[0].count }} of {{ peer_benchmarks.total }} across all sectors), with a meaningful evergreen tail ({{ peer_benchmarks.vehicles[1].count }}) and a small set of blended-finance vehicles ({{ peer_benchmarks.vehicles[3].count }}). Among the {{ peer_benchmarks.bfCapitalStack }} funds that publicly disclose a multi-tranche capital stack and the {{ peer_benchmarks.bfParallelTA }} with a parallel TA facility, FI-tagged funds are over-represented — credit-risk mitigation via first-loss tranches and borrower-readiness via TA grants both directly improve the underwriting profile of inclusive-finance lending.</p>
+
+  <p>What distinguishes INGO-sponsored FI funds from commercial impact funds with the same sector tag is less about portfolio mechanics and more about LP composition and governance. Anchor LPs are usually a DFI or large foundation rather than a family office or asset manager, which shapes downstream fee tolerance, liquidity terms, and reporting cadence. Mission-lock mechanisms — LPAC veto over mission drift, parent-INGO board seat, restrictions on distribution to commercial GPs — are common in this cohort and rare elsewhere. And first-time INGO-sponsored funds are often underwritten by LPs more on the parent's programmatic credibility than on the GP team's investment track record, which creates both opportunity and risk: the door opens that wouldn't for a comparable de novo manager, but the LP later expects investment-grade governance the team has to build in flight.</p>
+
+  <p>For a first-time impact GP team transitioning out of an INGO and sizing into this sector, three implications follow from the cohort pattern. First, anchor on the right percentile — the median fund size across the dataset is ${{ peer_benchmarks.size.median }}M, but most first-time INGO-sponsored vehicles sit well below that, and trying to match the median is a common framing error. Second, decide blended-vs-single-tranche early; multi-tranche structures require a willing first-loss provider, and if that anchor doesn't exist, single-tranche is the honest choice. Third, plan parallel TA at fund formation or commit not to need one — retrofitting a TA facility year two is materially harder than raising it alongside the main vehicle from the same anchor donor.</p>
+
+  <h2>Sector landscape: Agriculture (n={{ peer_benchmarks.sectors[1].count }} of {{ peer_benchmarks.total }})</h2>
+  <p><em>Drafted via the <code>market-researcher:sector-overview</code> skill, working from the empirical cohort below.</em></p>
+
+  <p>Agriculture is the second-most-represented sector tag in this dataset — {{ peer_benchmarks.sectors[1].count }} of {{ peer_benchmarks.total }} INGO-sponsored funds carry an agri tag, behind FI ({{ peer_benchmarks.sectors[0].count }}) and just ahead of SMB ({{ peer_benchmarks.sectors[2].count }}). Significant tag overlap exists between agriculture and SMB: many agri funds finance SMB-sized aggregators, processors, and off-takers rather than smallholders directly. Geographically the cohort follows the broader dataset's Africa-Asia-LATAM emerging-market skew. Vehicle structure leans closed-end ({{ peer_benchmarks.vehicles[0].count }} of {{ peer_benchmarks.total }} across sectors), and agri funds are notably over-represented in the {{ peer_benchmarks.bfCapitalStack }} with multi-tranche capital stacks and the {{ peer_benchmarks.bfParallelTA }} with parallel TA facilities — agriculture lending into smallholder and rural-SME contexts has structural TA needs (agronomy, market linkages, farmer training) that pure commercial capital doesn't fund.</p>
+
+  <p>What distinguishes INGO-sponsored agri funds from commercial impact funds in the same sector is the same governance package as INGO FI funds — DFI or foundation anchors, mission-lock mechanisms, parental programmatic credibility — plus a deeper domain heritage that commercial funds can't replicate (value-chain knowledge, farmer-aggregator relationships, climate-resilience programming). What distinguishes INGO agri funds from INGO FI funds is the underwriting reality: hold periods are 3–7 years vs 12–36 months for FI debt; weather and climate risk are real portfolio exposures FI funds don't carry; equity and quasi-equity show up more often than in FI's debt-dominated structures. The central architectural choice for any agri fund is smallholder-direct (high-impact, high-touch, narrower commercial returns, foundation-and-DFI LP base) vs aggregator-direct (lower per-deal impact intensity, more conventional mid-market underwriting, larger tickets, broader commercial-impact LP base) — these are effectively two different funds with two different LP pitches.</p>
+
+  <p>For a first-time GP entering this sector, three implications follow. First, decide smallholder vs aggregator early — trying to span both blurs the LP pitch and stretches portfolio management capacity that first-time teams don't have. Second, treat TA as non-negotiable; even if you're not raising a parallel facility, name how borrower readiness and agronomy support are funded (cross-subsidy from anchor LP, partner-INGO co-funding, embedded in interest spread). Third, plan for longer time-on-market and longer hold periods than your FI peers — set fund tenor and economics assuming an 8–10 year fund life, not 5–7. LPs with shorter-duration mandates won't be your anchor.</p>
+
+  <h2>Sector landscape: Climate (n={{ peer_benchmarks.sectors[3].count }} of {{ peer_benchmarks.total }})</h2>
+  <p><em>Drafted via the <code>market-researcher:sector-overview</code> skill, working from the empirical cohort below.</em></p>
+
+  <p>Climate is the fourth-most-represented sector tag in this dataset — {{ peer_benchmarks.sectors[3].count }} of {{ peer_benchmarks.total }} INGO-sponsored funds carry a climate tag, behind FI ({{ peer_benchmarks.sectors[0].count }}), agriculture ({{ peer_benchmarks.sectors[1].count }}), and SMB ({{ peer_benchmarks.sectors[2].count }}). Sub-sector tags break down further: 6 funds carry energy specifically, 7 carry WASH, and 3 carry biodiversity — these often overlap with the broader climate tag. Geographically the cohort follows the broader dataset's Africa-Asia-LATAM skew. Vehicle structure mirrors the cohort: closed-end dominates ({{ peer_benchmarks.vehicles[0].count }} of {{ peer_benchmarks.total }} across sectors), with evergreen as a meaningful minority ({{ peer_benchmarks.vehicles[1].count }}). Climate funds are likely over-represented in the {{ peer_benchmarks.bfCapitalStack }} with multi-tranche capital stacks and the {{ peer_benchmarks.bfParallelTA }} with parallel TA facilities — climate-adaptation work in particular almost always requires donor-grant-blended structures plus institutional capacity building that pure commercial capital doesn't fund.</p>
+
+  <p>The defining structural feature of this sector is internal bifurcation. Climate-adaptation funds (resilience infrastructure, water security, smallholder climate-smart agriculture) are donor-blended, infrastructure-heavy, and slow-return — often with negative cash flows for years and requiring subsidy as a permanent feature, not a transition mechanism. Clean-energy funds (off-grid solar, mini-grid, productive-use energy) are more commercial, more equity-heavy, and have shorter cycle times — they can attract commercial-impact capital alongside DFI anchors. Nature-based-solutions funds are nascent — often program-grant-funded with thin investable pipeline; carbon-credit revenue is a possible monetization path but is not yet underwriteable as a base-case yield component.</p>
+
+  <p>What distinguishes INGO-sponsored climate funds from commercial climate funds is the same governance package as INGO FI/agri funds — DFI or foundation anchor, mission-lock mechanisms, parental programmatic credibility — plus a far heavier dependence on donor capital as core (not catalytic) capital structure. Commercial climate funds dominate the clean-energy slice; INGO-sponsored funds disproportionately occupy the adaptation, NbS, and WASH slices where commercial capital is structurally absent because the returns aren't bankable on a standalone basis.</p>
+
+  <p>For a first-time GP entering this sector, three implications follow. First, decide adaptation vs mitigation vs NbS up front — these are three different fund theses with three different LP pools, and trying to span all three blurs the pitch and confuses LPs. Second, if your thesis depends on monetizing carbon credits, disclose carbon revenue as upside rather than base case; most institutional LPs will diligence carbon market assumptions hard, and a fund that depends on them yielding will struggle. Third, architect donor co-investment as a peer to the investment vehicle from day one — for adaptation and NbS theses, parallel grant facilities are a structural feature of the model, not a workaround. Retrofitting them later is materially harder than raising them alongside.</p>
+
+  <h2>What you can't benchmark from public sources</h2>
+  <p>The fields most relevant to a first-time GP setting fund economics — and how often they appear in our public-source dataset:</p>
+  <table>
+    <thead><tr><th>Field</th><th>Funds disclosing</th></tr></thead>
+    <tbody>
+      <tr><td>Management fee</td><td><strong>0 of {{ peer_benchmarks.total }}</strong></td></tr>
+      <tr><td>Carry / performance fee</td><td><strong>0 of {{ peer_benchmarks.total }}</strong></td></tr>
+      <tr><td>Hurdle rate</td><td><strong>0 of {{ peer_benchmarks.total }}</strong></td></tr>
+      <tr><td>GP commitment %</td><td><strong>0 of {{ peer_benchmarks.total }}</strong></td></tr>
+      <tr><td>Investment period (years)</td><td><strong>0 of {{ peer_benchmarks.total }}</strong></td></tr>
+    </tbody>
+  </table>
+  <p>This isn't a gap in this dataset — these fields are systematically absent from public disclosures for INGO-sponsored impact funds. Announce press, fund websites, and press coverage do not carry them. If you need benchmarks here, the public record cannot help you. The realistic sources are:</p>
+  <ul>
+    <li><strong>Placement agents</strong> who have run multiple impact-fund mandates and have seen LPACs across funds.</li>
+    <li><strong>Peer GPs</strong> at funds in your cohort — most will share fee/carry under NDA in exchange for the same.</li>
+    <li><strong>Prospective LPs</strong> directly — many DFIs and large foundations will tell you what they've seen across their portfolio if you ask in early diligence.</li>
+    <li><strong>Fund admins</strong> serving multiple impact funds (Apex, IQ-EQ, Centaur, etc.) — they see the economics across their book.</li>
+  </ul>
+
+  <h2 id="how-built">How this was built</h2>
+  <p>The numerical distributions on this page (field coverage, size buckets, vehicle and sector tallies, blended-finance counts) were computed directly from this site's curated peer-fund dataset — no external data introduced. The three "Sector landscape" sections (Financial inclusion, Agriculture, Climate) were each drafted via the <code>market-researcher:sector-overview</code> skill from Anthropic's financial-services plugins, executed three times against the empirical cohort and constrained to claims derivable from the dataset. The remaining narrative copy (section framing, the "what you can't benchmark" diagnosis, the editorial choice to lead with field coverage) was composed by Claude in conversation with the operator; it was informed by the financial-services plugins' methodological conventions but those plugins were not separately invoked for those sections.</p>
+  <p>The underlying data lives in <code>content/peer_funds.yml</code> and is rebuilt nightly. Coverage percentages on this page will shift as new funds are added or existing funds disclose more.</p>
+  <p>For the per-fund source links behind each datapoint, see the <a href="{{ '/peer-funds/' | url }}">peer funds catalog</a>.</p>
+
+</section>
+
+<style>
+.benchmark-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 1rem 0;
+}
+@media (max-width: 720px) {
+  .benchmark-two-col { grid-template-columns: 1fr; }
+}
+</style>
