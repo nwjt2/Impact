@@ -12,20 +12,20 @@ pageKey: peer-benchmarks
     <div class="detail-eyebrow">
       <span>Peer benchmarks · n={{ peer_benchmarks.total }} INGO-sponsored impact funds · synthesized {{ peer_benchmarks.generatedAt }}</span>
     </div>
-    <h1>Raising your first impact fund? Here's what {{ peer_benchmarks.total }} INGO peers tell you.</h1>
+    <h1>INGOs have raised {{ peer_benchmarks.total }} impact funds. What peers teach you about raising yours.</h1>
     <p class="detail-sub">
-      Direct answers from {{ peer_benchmarks.total }} INGO-sponsored peer funds on sizing, structure, timing, and anchor LP patterns — for first-time impact GPs transitioning out of an INGO.
+      Patterns from {{ peer_benchmarks.total }} INGO-sponsored peer funds — for teams considering or actively raising their first impact fund.
     </p>
   </header>
 
   <aside class="tldr">
     <h2 class="tldr-heading">The 30-second read</h2>
     <ul>
-      <li><strong>Size:</strong> the median peer is ${{ peer_benchmarks.size.median }}M, but it's anchored by mature multi-fund platforms. The defensible starting band for a first-time INGO vehicle is <strong>$20–40M</strong>.</li>
-      <li><strong>Vehicle:</strong> closed-end dominates ({{ peer_benchmarks.vehicles[0].count }} of {{ peer_benchmarks.total }}), but evergreen ({{ peer_benchmarks.vehicles[1].count }}) is the meaningful alternative when impact horizons exceed typical fund timelines.</li>
-      <li><strong>Blended finance:</strong> {{ peer_benchmarks.bfCapitalStack }} of {{ peer_benchmarks.total }} funds publicly disclose a multi-tranche capital stack; {{ peer_benchmarks.bfParallelTA }} disclose a parallel TA facility.</li>
-      <li><strong>Anchor type predicts your LP roster:</strong> DFI anchor → more DFIs; foundation anchor → more foundations + family offices. Pick the anchor type before the named LP.</li>
-      <li><strong>Sector matters more than fund size:</strong> financial inclusion (44 of 94) is debt-and-DFI dominant; agriculture (32) requires choosing smallholder-direct vs aggregator-direct early; climate (24) splits hard into adaptation vs clean-energy with distinct LP pools.</li>
+      <li><strong>Yes, INGOs raise impact funds.</strong> {{ peer_benchmarks.statuses[0].count }} of {{ peer_benchmarks.total }} INGO-sponsored funds in this dataset have closed and deployed; {{ peer_benchmarks.statuses[1].count }} are currently raising. The path exists.</li>
+      <li><strong>Sector lanes are well-trafficked:</strong> financial inclusion ({{ peer_benchmarks.sectors[0].count }} funds), agriculture ({{ peer_benchmarks.sectors[1].count }}), SMB ({{ peer_benchmarks.sectors[2].count }}), climate ({{ peer_benchmarks.sectors[3].count }}). Whatever your INGO does, peers have been there — sector landscapes below show what each path actually looks like.</li>
+      <li><strong>Anchor strategy matters more than fund size:</strong> {{ peer_benchmarks.coverage[5].n }} of {{ peer_benchmarks.total }} funds publicly named a single anchor LP at announce or first close. Anchor type predicts the rest of the roster — pick the type (DFI vs foundation vs family office) before the named LP.</li>
+      <li><strong>Your parent INGO's programmatic credibility can substitute</strong> for a traditional GP track record at first close — the door opens that wouldn't for a comparable de novo manager. The catch: the LP will then expect you to build investment-grade governance during deployment.</li>
+      <li><strong>Smaller funds are common:</strong> {{ peer_benchmarks.size.buckets[0].count + peer_benchmarks.size.buckets[1].count + peer_benchmarks.size.buckets[2].count }} of {{ peer_benchmarks.size.n }} disclosing size are under $100M. You don't need to raise huge to be in good company.</li>
     </ul>
     <p class="tldr-footnote">Detail and reasoning behind each point in the sections below.</p>
   </aside>
